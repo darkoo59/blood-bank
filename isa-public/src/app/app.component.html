@@ -1,0 +1,26 @@
+<div class="main-container" *ngLet="(darkTheme$ | async) as darkTheme">
+  <mat-toolbar color="primary" class="header">
+    <div class="left">
+      <button class="btn-menu" mat-button (click)="snav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <h1 class="app-title">ISA application</h1>
+    </div>
+    <div class="right button-group">
+      <button mat-icon-button (click)="toggleTheme(!darkTheme)">
+        <mat-icon *ngIf="darkTheme">dark_mode</mat-icon>
+        <mat-icon *ngIf="!darkTheme">light_mode</mat-icon>
+      </button>
+      <button mat-stroked-button>Log Out</button>
+    </div>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #snav mode="side" class="sidenav" opened>
+      <!-- add navigtion-->
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
