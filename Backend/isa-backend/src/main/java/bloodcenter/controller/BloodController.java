@@ -15,12 +15,8 @@ import java.util.List;
 @RequestMapping("api/blood")
 public class BloodController {
 
-    private final BloodService bloodService;
-
     @Autowired
-    public BloodController(BloodService bloodService) {
-        this.bloodService = bloodService;
-    }
+    private BloodService bloodService;
 
     @GetMapping
     public List<Blood> getBlood() {

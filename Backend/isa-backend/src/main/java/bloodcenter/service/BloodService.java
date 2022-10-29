@@ -12,12 +12,8 @@ import java.util.Optional;
 @Service
 public class BloodService {
 
-    private final BloodRepository bloodRepository;
-
     @Autowired
-    public BloodService(BloodRepository bloodRepository) {
-        this.bloodRepository = bloodRepository;
-    }
+    private BloodRepository bloodRepository;
 
     public List<Blood> getBlood() {
         return bloodRepository.findAll();
