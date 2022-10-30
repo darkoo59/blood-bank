@@ -1,5 +1,12 @@
 package bloodcenter.enums;
 
 public enum BloodType {
-    Opos, Oneg, Apos, Aneg, Bpos, Bneg, ABpos, ABneg
+    APositive,
+    ANegative,
+    BPositive,
+    BNegative,
+    OPositive,
+    ONegative,
+    ABPositive,
+    ABNegative
 }
