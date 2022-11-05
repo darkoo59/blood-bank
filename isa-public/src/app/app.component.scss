@@ -1,40 +1,5 @@
-.main-container {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-.sidenav-container {
-  flex: 1;
-}
-
-h1.app-title {
-  margin-left: 12px;
-}
-
-.sidenav{
-  min-width: 250px;
-}
-
-.header{
-  display: flex;
-  padding-left: 0px;
-  .left{
-    flex:1;
-    display: flex;
-    align-items: center;
-  }
-  .btn-menu{
-    height: 64px;
-  }
-}
-
-.button-group{
-  display: flex;
-  & > button:not(:first-child){
-    margin-left: 20px;
-  }
+.root{
+  position: relative;
+  overflow-x: hidden;
+  height: 100%; 
 }
