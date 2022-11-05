@@ -1,12 +1,85 @@
+/*
+  File for all colors used in the application. 
+  See predefined material palettes on: https://material.angularjs.org/1.1.0/demo/colors
+  Custom palettes can be built using: http://mcg.mbitson.com/
+*/
+
+
 @use '@angular/material' as mat;
 
-$primary: mat.define-palette(mat.$indigo-palette);
-$accent: mat.define-palette(mat.$pink-palette);
-$warn: mat.define-palette(mat.$red-palette);
+$md-deepred: (
+  50 : #f8e2e2,
+  100 : #ecb6b6,
+  200 : #e08585,
+  300 : #d45454,
+  400 : #ca2f2f,
+  500 : #c10a0a,
+  600 : #bb0909,
+  700 : #b30707,
+  800 : #ab0505,
+  900 : #9e0303,
+  A100 : #ffc9c9,
+  A200 : #ff9696,
+  A400 : #ff6363,
+  A700 : #ff4949,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #ffffff,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #ffffff,
+  )
+);
 
-$primary-dark: mat.define-palette(mat.$teal-palette);
-$accent-dark: mat.define-palette(mat.$red-palette);
-$warn-dark: mat.define-palette(mat.$red-palette);
+$md-lightred: (
+  50 : #fde8e8,
+  100 : #f9c5c5,
+  200 : #f69e9e,
+  300 : #f27777,
+  400 : #ef5a5a,
+  500 : #ec3d3d,
+  600 : #ea3737,
+  700 : #e72f2f,
+  800 : #e42727,
+  900 : #df1a1a,
+  A100 : #ffffff,
+  A200 : #ffdfdf,
+  A400 : #ffacac,
+  A700 : #ff9292,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+
+$primary: mat.define-palette($md-lightred);
+$accent: mat.define-palette(mat.$yellow-palette);
+$warn: mat.define-palette(mat.$pink-palette);
+
+$primary-dark: mat.define-palette($md-deepred);
+$accent-dark: mat.define-palette(mat.$amber-palette);
+$warn-dark: mat.define-palette(mat.$pink-palette);
 
 $light-theme: mat.define-light-theme((
   color: (
@@ -36,12 +109,6 @@ $foreground-dark: mat.$dark-theme-foreground-palette;
 }
 
 :root{
-
-  --header-height: 65px;
-  --main-sidebar-width: 340px;
-
-  /* colors */
-  
   --primary:      #{map-get($primary,           500)};
   --primary-2:    #{map-get($primary,           400)};
   --secondary:    #{map-get($accent,            500)};
