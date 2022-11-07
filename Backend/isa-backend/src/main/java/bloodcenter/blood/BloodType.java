@@ -1,4 +1,4 @@
-package bloodcenter.enums;
+package bloodcenter.blood;
 
 public enum BloodType {
     APositive,

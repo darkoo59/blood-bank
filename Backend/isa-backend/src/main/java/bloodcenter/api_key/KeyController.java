@@ -1,6 +1,5 @@
-package bloodcenter.controller;
+package bloodcenter.api_key;
 
-import bloodcenter.service.KeyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

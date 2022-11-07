@@ -1,8 +1,5 @@
-package bloodcenter.service;
+package bloodcenter.blood;
 
-import bloodcenter.enums.BloodType;
-import bloodcenter.model.Blood;
-import bloodcenter.repository.BloodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

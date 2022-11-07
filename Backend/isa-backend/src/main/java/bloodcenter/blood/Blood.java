@@ -1,6 +1,5 @@
-package bloodcenter.model;
+package bloodcenter.blood;
 
-import bloodcenter.enums.BloodType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

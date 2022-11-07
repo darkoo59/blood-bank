@@ -1,7 +1,5 @@
-package bloodcenter.repository;
+package bloodcenter.blood;
 
-import bloodcenter.enums.BloodType;
-import bloodcenter.model.Blood;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

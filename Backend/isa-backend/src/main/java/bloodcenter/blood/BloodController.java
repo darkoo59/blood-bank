@@ -1,8 +1,5 @@
-package bloodcenter.controller;
+package bloodcenter.blood;
 
-import bloodcenter.enums.BloodType;
-import bloodcenter.model.Blood;
-import bloodcenter.service.BloodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

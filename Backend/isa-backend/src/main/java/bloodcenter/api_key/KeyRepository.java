@@ -1,7 +1,5 @@
-package bloodcenter.repository;
+package bloodcenter.api_key;
 
-import bloodcenter.model.Blood;
-import bloodcenter.model.Key;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
