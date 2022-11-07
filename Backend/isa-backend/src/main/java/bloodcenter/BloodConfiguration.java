@@ -1,0 +1,91 @@
+package bloodcenter;
+
+import bloodcenter.blood.BloodType;
+import bloodcenter.blood.Blood;
+import bloodcenter.api_key.Key;
+import bloodcenter.branch_center.BranchCenter;
+import bloodcenter.branch_center.BranchCenterRepository;
+import bloodcenter.user.model.BCAdmin;
+import bloodcenter.blood.BloodRepository;
+import bloodcenter.api_key.KeyRepository;
+import bloodcenter.user.repository.BCAdminRepository;
+import ch.qos.logback.core.net.SyslogOutputStream;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.util.List;
+
+@Configuration
+public class BloodConfiguration {
+    @Bean
+    CommandLineRunner BloodCLR(BloodRepository repository) {
+        return args -> {
+            Blood blood1 = new Blood(
+                    BloodType.ABPositive,
+                    32.5f
+            );
+
+            Blood blood2 = new Blood(
+                    BloodType.ANegative,
+                    5.0f
+            );
+
+            Blood blood3 = new Blood(
+                    BloodType.ONegative,
+                    50.2f
+            );
+
+            Blood blood4 = new Blood(
+                    BloodType.BPositive,
+                    17.3f
+            );
+
+            repository.saveAll(List.of(blood1, blood2, blood3, blood4));
+        };
+    }
+
+    @Bean
+    CommandLineRunner keyCLR(KeyRepository repository) {
+        return args -> {
+            Key key1 = new Key(
+                    "mail_1",
+                    "kljuc_1"
+            );
+
+            Key key2 = new Key(
+                    "mail_2",
+                    "kljuc_2"
+            );
+
+            repository.saveAll(List.of(key1, key2));
+        };
+    }
+
+    @Bean
+    CommandLineRunner BranchCenterCLR(BranchCenterRepository repository) {
+        return args -> {
+            BranchCenter c1 = new BranchCenter("Centar 1", "lorem ipsum 1");
+            BranchCenter c2 = new BranchCenter("Centar 2", "lorem ipsum 2");
+            BranchCenter c3 = new BranchCenter("Centar 3", "lorem ipsum 3");
+
+            repository.saveAll(List.of(c1, c2, c3));
+        };
+    }
+
+    @Bean
+    CommandLineRunner BCAdminCLR(BCAdminRepository repository, BranchCenterRepository bc_repo) {
+        return args -> {
+            BCAdmin a1 = new BCAdmin("Rade", "Stojanovic", "stojanovicrade614@gmail.com");
+            BCAdmin a2 = new BCAdmin("Darko", "Selakovic", "darko123@gmail.com");
+            BCAdmin a3 = new BCAdmin("Vojin", "Bjelica", "vojin123@gmail.com");
+            BCAdmin a4 = new BCAdmin("Marko", "Uljarevic", "marko123@gmail.com");
+
+            a1.setBranchCenter(bc_repo.findById(1L).get());
+            a2.setBranchCenter(bc_repo.findById(1L).get());
+            a3.setBranchCenter(bc_repo.findById(2L).get());
+
+            repository.saveAll(List.of(a1, a2, a3, a4));
+        };
+    }
+}

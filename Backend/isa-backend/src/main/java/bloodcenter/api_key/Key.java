@@ -1,4 +1,4 @@
-package bloodcenter.model;
+package bloodcenter.api_key;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

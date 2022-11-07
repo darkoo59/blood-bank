@@ -1,6 +1,5 @@
-package bloodcenter.service;
+package bloodcenter.api_key;
 
-import bloodcenter.repository.KeyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
