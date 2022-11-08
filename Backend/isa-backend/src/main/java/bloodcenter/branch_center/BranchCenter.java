@@ -32,6 +32,11 @@ public class BranchCenter {
         this.description = description;
     }
 
+    public static class BCNotFoundException extends Exception{
+        public BCNotFoundException(String message){
+            super(message);
+        }
+    }
 
     public Long getId() {
         return id;
@@ -61,4 +66,11 @@ public class BranchCenter {
         this.admins = admins;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 }

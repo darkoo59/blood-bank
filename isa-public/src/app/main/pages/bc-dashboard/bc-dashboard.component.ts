@@ -1,8 +1,8 @@
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { tap } from "rxjs";
+import { exhaustMap, Subject, tap } from "rxjs";
 import { BranchCenter } from "src/app/model/branch-center.model";
-import { BCDashboardService } from "./bc-dashboard.service";
+import { BCDashboardService, BCUpdateDTO } from "./bc-dashboard.service";
 
 @Component({
   selector: "app-bc-dashboard",
@@ -15,6 +15,12 @@ export class BCDashboardComponent {
       this.formInstance = data;
     })
   );
+
+  m_Update$: Subject<BCUpdateDTO> = new Subject<BCUpdateDTO>().pipe(
+    exhaustMap((dto: BCUpdateDTO) => {
+      return this.m_BCDashboardService.patchBCData(dto);
+    })
+  ) as Subject<BCUpdateDTO>;
 
   m_Form: FormGroup | null = null;
 
@@ -31,6 +37,9 @@ export class BCDashboardComponent {
   }
 
   onSubmit(): void {
-    console.log(this.m_Form?.getRawValue());
+    const dto: BCUpdateDTO = this.m_Form?.getRawValue();
+    console.log(dto);
+
+    this.m_Update$.next(dto);
   }
 }
