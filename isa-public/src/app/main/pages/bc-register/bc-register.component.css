@@ -16,11 +16,12 @@
 .address-input {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     
 }
 
 .address-input-field {
-    max-width: 200px;
+    min-width: 235px;
 }
 
 .button-group{
