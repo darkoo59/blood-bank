@@ -1,5 +1,6 @@
 package bloodcenter.branch_center;
 
+import bloodcenter.core.Address;
 import bloodcenter.user.model.BCAdmin;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,9 @@ public class BranchCenter {
     private String name;
     private String description;
 
+    @OneToOne
+    private Address address;
+
     @OneToMany(mappedBy = "branchCenter")
     @JsonIgnore
     private List<BCAdmin> admins;
@@ -28,6 +32,11 @@ public class BranchCenter {
         this.description = description;
     }
 
+    public static class BCNotFoundException extends Exception{
+        public BCNotFoundException(String message){
+            super(message);
+        }
+    }
 
     public Long getId() {
         return id;
@@ -55,5 +64,13 @@ public class BranchCenter {
 
     public void setAdmins(List<BCAdmin> admins) {
         this.admins = admins;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

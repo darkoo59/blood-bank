@@ -13,10 +13,10 @@ public class BCAdminService {
         this._repository = repository;
     }
 
-    public BCAdmin getByMail(String email){
+    public BCAdmin getByMail(String email) throws BCAdmin.BCAdminNotFoundException {
         BCAdmin admin = this._repository.findByEmail(email);
         if(admin == null){
-            System.out.println("bc admin not found");
+            throw new BCAdmin.BCAdminNotFoundException("Branch center admin not found.");
         }
         return admin;
     }
