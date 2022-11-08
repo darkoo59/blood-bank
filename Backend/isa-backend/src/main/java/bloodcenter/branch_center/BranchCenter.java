@@ -1,5 +1,6 @@
 package bloodcenter.branch_center;
 
+import bloodcenter.core.Address;
 import bloodcenter.user.model.BCAdmin;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,9 @@ public class BranchCenter {
     private Long id;
     private String name;
     private String description;
+
+    @OneToOne
+    private Address address;
 
     @OneToMany(mappedBy = "branchCenter")
     @JsonIgnore
@@ -56,4 +60,5 @@ public class BranchCenter {
     public void setAdmins(List<BCAdmin> admins) {
         this.admins = admins;
     }
+
 }
