@@ -1,3 +1,29 @@
-<section *ngLet="(m_BCData$ | async) as bc_data">
-  {{bc_data?.id}}
+<section *ngLet="{ data: m_BCData$ | async, u: m_Update$ | async } as vm">
+  <form *ngIf="m_Form" [formGroup]="m_Form" (ngSubmit)="onSubmit()">
+    <h3>Change branch center data</h3>
+    <div class="grid">
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>id</mat-label>
+        <input type="text" matInput formControlName="id">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Name</mat-label>
+        <input type="name" matInput formControlName="name" placeholder="Ex. blood bank">
+        <mat-error *ngIf="m_Form.controls['name'].hasError('required')">
+          Name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="form-field" class="grid-double">
+        <mat-label>Description</mat-label>
+        <textarea type="description" matInput formControlName="description"></textarea>
+      </mat-form-field>
+
+    </div>
+    <div class="button-group">
+      <button type="button" mat-button>cancel</button>
+      <button mat-flat-button color="primary">submit</button>
+    </div>
+  </form>
 </section>

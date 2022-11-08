@@ -8,6 +8,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+
 @NgModule({
   imports: [
     MatButtonModule,
@@ -15,7 +16,8 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
     MatIconModule,
     MatSidenavModule,
     MatListModule,
-    MatDividerModule
+    MatDividerModule,
+    MatInputModule
   ],
   exports: [
     MatButtonModule,
