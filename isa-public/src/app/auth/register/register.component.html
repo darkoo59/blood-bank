@@ -93,7 +93,7 @@
       <mat-error *ngIf="m_Form.controls['id'].hasError('pattern') && !m_Form.controls['id'].hasError('required')">
         ID can only contain digits 
       </mat-error>
-      <mat-error *ngIf="m_Form.controls['id'].hasError('minlength') || m_Form.controls['id'].hasError('maxlength') && 
+      <mat-error *ngIf="(m_Form.controls['id'].hasError('minlength') || m_Form.controls['id'].hasError('maxlength')) && 
       !m_Form.controls['id'].hasError('required') && !m_Form.controls['id'].hasError('pattern')">
         ID must be exactly 13 digits long 
       </mat-error>
