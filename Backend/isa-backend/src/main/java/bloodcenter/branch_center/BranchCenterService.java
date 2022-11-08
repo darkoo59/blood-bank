@@ -30,7 +30,13 @@ public class BranchCenterService {
             throw new BranchCenter.BCNotFoundException("Branch center not found");
         }
         BranchCenter bc = o_bc.get();
-        bc.setAddress(dto.address);
+        bc.getAddress().setCity(dto.address.city);
+        bc.getAddress().setStreet(dto.address.street);
+        bc.getAddress().setNumber(dto.address.number);
+        bc.getAddress().setCountry(dto.address.country);
+        //Address a = new Address(dto.address.street, dto.address.number, dto.address.city, dto.address.country);
+        //bc.setAddress(a);
+
         bc.setName(dto.name);
         bc.setDescription(dto.description);
 
