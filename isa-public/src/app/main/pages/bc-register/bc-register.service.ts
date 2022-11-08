@@ -1,14 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 export interface BCRegisterDTO {
   name: string
+  description: string
   country: string
   city: string
   street: string
   number: string
-  description: string
+  
 }
 
 
@@ -20,9 +22,7 @@ export class BCRegisterService {
   constructor(private http: HttpClient) { }
 
   registerCenter(dto: BCRegisterDTO) : Observable<any> {
-    console.log(">>>> " + dto.name + " " + dto.country + " " + dto.city + " " + dto.street 
-                + " " + dto.number + " " + dto.description + " <<<<") 
-    return this.http.post(`blabla`, dto);
+    return this.http.post(`${environment.apiUrl}/center`, dto);
   }
 
 }

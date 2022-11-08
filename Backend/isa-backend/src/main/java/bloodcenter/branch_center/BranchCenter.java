@@ -32,6 +32,12 @@ public class BranchCenter {
         this.description = description;
     }
 
+    public BranchCenter(String name, String description, Address address) {
+        this.name = name;
+        this.description = description;
+        this.address = address;
+    }
+
 
     public Long getId() {
         return id;
@@ -61,4 +67,11 @@ public class BranchCenter {
         this.admins = admins;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 }
