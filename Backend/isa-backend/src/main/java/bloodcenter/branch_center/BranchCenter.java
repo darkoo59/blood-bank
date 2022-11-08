@@ -3,6 +3,7 @@ package bloodcenter.branch_center;
 import bloodcenter.address.Address;
 import bloodcenter.user.model.BCAdmin;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.List;
 @Entity
 @Table
 @NoArgsConstructor
+@Data
 public class BranchCenter {
     @Id
     @GeneratedValue(
