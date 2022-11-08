@@ -1,13 +1,13 @@
 package bloodcenter.branch_center.dto;
 
 import bloodcenter.branch_center.BranchCenter;
-import bloodcenter.core.Address;
+import bloodcenter.address.AddressDTO;
 
 public class BranchCenterDTO {
     public Long id;
     public String name;
     public String description;
-    public Address address;
+    public AddressDTO address;
 
     public BranchCenterDTO(){}
     public BranchCenterDTO(BranchCenter bc){
@@ -15,6 +15,6 @@ public class BranchCenterDTO {
         this.id = bc.getId();
         this.name = bc.getName();
         this.description = bc.getDescription();
-        this.address = bc.getAddress();
+        this.address = new AddressDTO(bc.getAddress());
     }
 }

@@ -1,6 +1,6 @@
 package bloodcenter.branch_center;
 
-import bloodcenter.core.Address;
+import bloodcenter.address.Address;
 import bloodcenter.user.model.BCAdmin;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.NoArgsConstructor;
