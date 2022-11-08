@@ -2,7 +2,6 @@ package bloodcenter.branch_center.dto;
 
 import bloodcenter.branch_center.BranchCenter;
 import bloodcenter.address.AddressDTO;
-import bloodcenter.core.Address;
 import lombok.Data;
 
 @Data
