@@ -2,7 +2,9 @@ package bloodcenter.branch_center.dto;
 
 import bloodcenter.branch_center.BranchCenter;
 import bloodcenter.core.Address;
+import lombok.Data;
 
+@Data
 public class BranchCenterDTO {
     public Long id;
     public String name;
