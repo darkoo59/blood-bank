@@ -1,4 +1,4 @@
-package bloodcenter.core;
+package bloodcenter.address;
 
 import lombok.NoArgsConstructor;
 
