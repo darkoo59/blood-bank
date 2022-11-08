@@ -22,7 +22,7 @@ export class BCRegisterService {
   constructor(private http: HttpClient) { }
 
   registerCenter(dto: BCRegisterDTO) : Observable<any> {
-    return this.http.post(`${environment.apiUrl}/center`, dto);
+    return this.http.post(`${environment.apiUrl}/branch-center`, dto);
   }
 
 }

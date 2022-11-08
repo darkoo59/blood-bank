@@ -1,7 +1,8 @@
 package bloodcenter.branch_center;
 
+import bloodcenter.address.Address;
+import bloodcenter.address.AddressService;
 import bloodcenter.branch_center.dto.RegisterBranchCenterDTO;
-import bloodcenter.core.Address;
 import bloodcenter.branch_center.dto.BranchCenterDTO;
 import bloodcenter.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +15,17 @@ import java.util.Optional;
 public class BranchCenterService {
     @Autowired
     private final BranchCenterRepository branchCenterRepository;
+    @Autowired
+    private final AddressService _service;
 
-    public BranchCenterService(BranchCenterRepository branchCenterRepository) {
+    public BranchCenterService(BranchCenterRepository branchCenterRepository, AddressService service) {
         this.branchCenterRepository = branchCenterRepository;
+        this._service = service;
     }
 
     public void registerBranchCenter(RegisterBranchCenterDTO bcDTO) {
         Address address = new Address(bcDTO.street, bcDTO.number, bcDTO.city, bcDTO.country);
+        _service.saveAdress(address);
         BranchCenter bc = new BranchCenter(bcDTO.name, bcDTO.description, address);
         branchCenterRepository.save(bc);
         //TODO: U repository-ju adrese prvo pozovi da se sacuva adresa, i onda tu adresu ovdje sacuvaj
@@ -28,7 +33,7 @@ public class BranchCenterService {
 
     public ArrayList<BranchCenterDTO> findAll(){
         ArrayList<BranchCenterDTO> centersToReturn = new ArrayList<BranchCenterDTO>();
-        for (BranchCenter center: _repository.findAll()) {
+        for (BranchCenter center: branchCenterRepository.findAll()) {
             centersToReturn.add(ObjectsMapper.convertBranchCenterToDTO(center));
         }
         return centersToReturn;

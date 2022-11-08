@@ -1,5 +1,8 @@
 package bloodcenter.address;
 
+import lombok.Data;
+
+@Data
 public class AddressDTO {
     public Long id;
     public String street;

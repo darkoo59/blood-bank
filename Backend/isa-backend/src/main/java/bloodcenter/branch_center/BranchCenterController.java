@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 @RestController
@@ -31,7 +32,7 @@ public class BranchCenterController {
 
 
     @GetMapping(path="/all")
-    public @ResponseBody ArrayList<BranchCenterDTO> getAll(){ return _service.findAll(); }
+    public @ResponseBody ArrayList<BranchCenterDTO> getAll(){ return branchCenterService.findAll(); }
 
     @PatchMapping
     public ResponseEntity<Object> patchBranchCenter(@RequestBody BranchCenterDTO dto) throws BranchCenter.BCNotFoundException {
