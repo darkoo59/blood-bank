@@ -34,6 +34,12 @@ public class BranchCenter {
         this.description = description;
     }
 
+    public BranchCenter(String name, String description, Address address) {
+        this.name = name;
+        this.description = description;
+        this.address = address;
+    }
+
     public static class BCNotFoundException extends Exception{
         public BCNotFoundException(String message){
             super(message);
@@ -75,4 +81,5 @@ public class BranchCenter {
     public void setAddress(Address address) {
         this.address = address;
     }
+
 }

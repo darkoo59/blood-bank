@@ -22,6 +22,10 @@ export class NavComponent {
     {
       path: 'bc-dashboard',
       title: 'My Branch Center'
+    },
+    {
+      path: 'bc-register',
+      title: 'Register Branch Center'
     }
   ];
 
