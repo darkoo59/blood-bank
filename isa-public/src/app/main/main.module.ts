@@ -6,11 +6,13 @@ import { MainComponent } from './main.component';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from 'src/app/core/material.module';
 import { NavComponent } from './nav/nav.component';
+import { BCDashboardComponent } from './pages/bc-dashboard/bc-dashboard.component';
 
 @NgModule({
   declarations: [
     MainComponent,
-    NavComponent
+    NavComponent,
+    BCDashboardComponent
   ],
   imports: [
     CommonModule,

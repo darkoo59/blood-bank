@@ -1,10 +1,10 @@
 package bloodcenter.branch_center;
 
 import bloodcenter.user.model.BCAdmin;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,6 +20,7 @@ public class BranchCenter {
     private String description;
 
     @OneToMany(mappedBy = "branchCenter")
+    @JsonIgnore
     private List<BCAdmin> admins;
 
     public BranchCenter(String name, String description) {
@@ -28,6 +29,9 @@ public class BranchCenter {
     }
 
 
+    public Long getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
