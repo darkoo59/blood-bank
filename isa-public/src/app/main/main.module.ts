@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from 'src/app/core/material.module';
 import { NavComponent } from './nav/nav.component';
 import { BCDashboardComponent } from './pages/bc-dashboard/bc-dashboard.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { BCDashboardComponent } from './pages/bc-dashboard/bc-dashboard.componen
     CommonModule,
     MainRoutingModule,
     NgLetModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ],
   providers: []
 })
