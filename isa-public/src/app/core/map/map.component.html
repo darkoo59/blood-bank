@@ -1,0 +1,8 @@
+<div class="map"
+    leaflet 
+    [leafletOptions]="m_Options"
+    (leafletClick)="handleEvent($event)"
+    [(leafletCenter)]="m_Center"
+    [leafletLayers]="[m_Marker]"
+    style="height: 400px;">
+</div>

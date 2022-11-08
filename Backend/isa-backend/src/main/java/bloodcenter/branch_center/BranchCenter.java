@@ -48,40 +48,4 @@ public class BranchCenter {
         }
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public List<BCAdmin> getAdmins() {
-        return admins;
-    }
-
-    public void setAdmins(List<BCAdmin> admins) {
-        this.admins = admins;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
 }

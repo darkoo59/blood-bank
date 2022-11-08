@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { exhaustMap, Subject, tap } from "rxjs";
+import { Address } from "src/app/model/address.model";
 import { BranchCenter } from "src/app/model/branch-center.model";
 import { BCDashboardService, BCUpdateDTO } from "./bc-dashboard.service";
 
@@ -23,6 +24,7 @@ export class BCDashboardComponent {
   ) as Subject<BCUpdateDTO>;
 
   m_Form: FormGroup | null = null;
+  m_Address: Address | null = null;
 
   constructor(private m_BCDashboardService: BCDashboardService) { }
 
