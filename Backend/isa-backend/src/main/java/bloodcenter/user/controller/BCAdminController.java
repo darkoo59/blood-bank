@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("api/bc-admin")
 public class BCAdminController {
-    private final BCAdminService _service;
+    private final BCAdminService service;
 
     public BCAdminController(@Autowired BCAdminService service){
-        this._service = service;
+        this.service = service;
     }
 
     @GetMapping("bc")
@@ -26,7 +26,7 @@ public class BCAdminController {
         //TODO: get email from token...
         String email = "stojanovicrade614@gmail.com";
 
-        BCAdmin admin = this._service.getByMail(email);
+        BCAdmin admin = this.service.getByMail(email);
 
         if (admin.getBranchCenter() == null){
             return new ResponseEntity<>(null, HttpStatus.OK);

@@ -10,22 +10,22 @@ import java.util.Optional;
 
 @Service
 public class BranchCenterService {
-    private final BranchCenterRepository _repository;
+    private final BranchCenterRepository repository;
 
     public BranchCenterService(@Autowired BranchCenterRepository repo){
-        this._repository = repo;
+        this.repository = repo;
     }
 
     public ArrayList<BranchCenterDTO> findAll(){
         ArrayList<BranchCenterDTO> centersToReturn = new ArrayList<BranchCenterDTO>();
-        for (BranchCenter center: _repository.findAll()) {
+        for (BranchCenter center: repository.findAll()) {
             centersToReturn.add(ObjectsMapper.convertBranchCenterToDTO(center));
         }
         return centersToReturn;
     }
 
     public void updateData(BranchCenterDTO dto) throws BranchCenter.BCNotFoundException {
-        Optional<BranchCenter> o_bc = _repository.findById(dto.id);
+        Optional<BranchCenter> o_bc = repository.findById(dto.id);
         if(o_bc.isEmpty()){
             throw new BranchCenter.BCNotFoundException("Branch center not found");
         }
@@ -34,12 +34,10 @@ public class BranchCenterService {
         bc.getAddress().setStreet(dto.address.street);
         bc.getAddress().setNumber(dto.address.number);
         bc.getAddress().setCountry(dto.address.country);
-        //Address a = new Address(dto.address.street, dto.address.number, dto.address.city, dto.address.country);
-        //bc.setAddress(a);
 
         bc.setName(dto.name);
         bc.setDescription(dto.description);
 
-        _repository.save(bc);
+        repository.save(bc);
     }
 }

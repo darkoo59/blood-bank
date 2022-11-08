@@ -12,20 +12,20 @@ import java.util.ArrayList;
 @RestController
 @RequestMapping("api/branch-center")
 public class BranchCenterController {
-    private final BranchCenterService _service;
+    private final BranchCenterService service;
 
     public BranchCenterController(@Autowired BranchCenterService service){
-        this._service = service;
+        this.service = service;
     }
 
     @GetMapping(path="/all")
-    public @ResponseBody ArrayList<BranchCenterDTO> getAll(){ return _service.findAll(); }
+    public @ResponseBody ArrayList<BranchCenterDTO> getAll(){ return service.findAll(); }
 
     @PatchMapping
     public ResponseEntity<Object> patchBranchCenter(@RequestBody BranchCenterDTO dto) throws BranchCenter.BCNotFoundException {
         //TODO: authorization
 
-        _service.updateData(dto);
+        service.updateData(dto);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
