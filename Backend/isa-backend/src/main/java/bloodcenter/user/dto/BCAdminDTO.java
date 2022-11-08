@@ -11,6 +11,8 @@ public class BCAdminDTO {
     public String email;
     public BranchCenter branchCenter;
 
+    public BCAdminDTO() { }
+
     public BCAdminDTO(BCAdmin a){
         if (a == null) return;
 

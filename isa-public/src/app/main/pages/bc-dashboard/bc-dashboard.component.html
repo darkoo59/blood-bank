@@ -1,4 +1,4 @@
-<section *ngLet="(m_BCData$ | async) as bc_data">
+<section *ngLet="{ data: m_BCData$ | async, u: m_Update$ | async } as vm">
   <form *ngIf="m_Form" [formGroup]="m_Form" (ngSubmit)="onSubmit()">
     <h3>Change branch center data</h3>
     <div class="grid">
