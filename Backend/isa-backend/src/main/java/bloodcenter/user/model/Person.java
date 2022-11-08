@@ -24,6 +24,10 @@ public abstract class Person {
         this.email = email;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getFirstname() {
         return firstname;
     }

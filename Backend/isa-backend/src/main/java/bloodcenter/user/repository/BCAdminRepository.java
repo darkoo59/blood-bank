@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BCAdminRepository extends JpaRepository<BCAdmin, Long> {
+    BCAdmin findByEmail(String email);
 }
