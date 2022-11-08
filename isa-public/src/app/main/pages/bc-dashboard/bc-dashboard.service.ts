@@ -1,8 +1,14 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, catchError, EMPTY, Observable, take, tap } from "rxjs";
+import { BehaviorSubject, catchError, EMPTY, exhaustMap, Observable, take, tap } from "rxjs";
 import { BranchCenter } from "src/app/model/branch-center.model";
 import { environment } from "src/environments/environment";
+
+export interface BCUpdateDTO {
+  id: number;
+  name: string;
+  description: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -22,21 +28,32 @@ export class BCDashboardService {
     this.m_ErrorSubject.next(error);
   }
 
-  constructor(private m_Http: HttpClient) { 
+  constructor(private m_Http: HttpClient) {
     //temp
     this.fetchBCData().subscribe();
   }
 
   fetchBCData(): Observable<any> {
-    return this.m_Http.get(`${environment.apiUrl}/bc-admin/bc`).pipe(
+    return this.addErrorHandler(this.m_Http.get(`${environment.apiUrl}/bc-admin/bc`).pipe(
       take(1),
       tap((res: any) => {
         this.setBCData = res;
-      }),
+      })
+    ));
+  }
+
+  patchBCData(dto: BCUpdateDTO): Observable<any> {
+    return this.addErrorHandler(this.m_Http.patch(`${environment.apiUrl}/branch-center`, dto).pipe(
+      exhaustMap(_ => this.fetchBCData())
+    ));
+  }
+
+  private addErrorHandler(obs: Observable<any>): Observable<any> {
+    return obs.pipe(
       catchError(res => {
         console.log(res);
         const error = res.error;
-        if(error && error.message){
+        if (error && error.message) {
           this.setErrors = error.message;
         }
         return EMPTY;

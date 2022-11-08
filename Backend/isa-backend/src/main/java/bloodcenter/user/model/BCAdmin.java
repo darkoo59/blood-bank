@@ -24,4 +24,10 @@ public class BCAdmin extends Person {
     public void setBranchCenter(BranchCenter branchCenter) {
         this.branchCenter = branchCenter;
     }
+
+    public static class BCAdminNotFoundException extends Exception {
+        public BCAdminNotFoundException(String message){
+            super(message);
+        }
+    }
 }
