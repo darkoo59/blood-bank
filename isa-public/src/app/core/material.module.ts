@@ -31,7 +31,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
     MatDividerModule,
     MatInputModule,
     MatCardModule,
-    MatPaginatorModule
+    MatPaginatorModule,
     MatSelectModule,
     MatSnackBarModule
   ]
