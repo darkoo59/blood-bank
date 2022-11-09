@@ -1,0 +1,45 @@
+<section>
+  <form class="example-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h1 class="heading">Register a new branch center</h1>
+
+    <div>
+      <mat-form-field class="input-field" appearance="fill">
+        <mat-label>Branch center name</mat-label>
+        <input matInput required formControlName="bc-name">
+      </mat-form-field>
+
+      <div class="address-input">
+        <mat-form-field class="address-input-field" appearance="fill">
+          <mat-label>Country</mat-label>
+          <input matInput required formControlName="bc-country">
+        </mat-form-field>
+
+        <mat-form-field class="address-input-field" appearance="fill">
+          <mat-label>City</mat-label>
+          <input matInput required formControlName="bc-city">
+        </mat-form-field>
+      </div>
+      <div class="address-input">
+        <mat-form-field class="address-input-field" appearance="fill">
+          <mat-label>Street</mat-label>
+          <input matInput required formControlName="bc-street">
+        </mat-form-field>
+
+        <mat-form-field class="address-input-field" appearance="fill">
+          <mat-label>Number</mat-label>
+          <input matInput required formControlName="bc-number">
+        </mat-form-field>
+      </div>
+
+      <mat-form-field class="input-field" appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea matInput placeholder="Ex. It makes me feel..." formControlName="bc-description"></textarea>
+      </mat-form-field>
+
+      <div class="button-group">
+        <button type="button" mat-button>Cancel</button>
+        <button mat-flat-button color="primary">Submit</button>
+      </div>
+    </div>
+  </form>
+</section>
