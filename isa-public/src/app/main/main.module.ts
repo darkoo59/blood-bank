@@ -10,7 +10,6 @@ import { BCRegisterComponent } from './pages/bc-register/bc-register.component';
 
 import { BCDashboardComponent } from './pages/bc-dashboard/bc-dashboard.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MapModule } from '../core/map/map.module';
 
 @NgModule({
   declarations: [
@@ -24,8 +23,7 @@ import { MapModule } from '../core/map/map.module';
     MainRoutingModule,
     NgLetModule,
     MaterialModule,
-    ReactiveFormsModule,
-    MapModule
+    ReactiveFormsModule
   ],
   providers: []
 })

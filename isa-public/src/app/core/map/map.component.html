@@ -1,8 +1,9 @@
 <div class="map"
+    *ngLet="m_Data$ | async"
     leaflet 
     [leafletOptions]="m_Options"
     (leafletClick)="handleEvent($event)"
     [(leafletCenter)]="m_Center"
-    [leafletLayers]="[m_Marker]"
-    style="height: 400px;">
+    style="height: 500px;">
+    <div *ngIf="m_Marker" [leafletLayer]="m_Marker"></div>
 </div>

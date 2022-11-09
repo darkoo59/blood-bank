@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, catchError, EMPTY, exhaustMap, Observable, take, tap } from "rxjs";
+import { Address } from "src/app/model/address.model";
 import { BranchCenter } from "src/app/model/branch-center.model";
 import { environment } from "src/environments/environment";
 
@@ -8,7 +9,7 @@ export interface BCUpdateDTO {
   id: number;
   name: string;
   description: string;
-  address: string;
+  address: Address;
 }
 
 @Injectable({

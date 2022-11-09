@@ -66,9 +66,9 @@ public class BloodConfiguration {
     @Bean
     CommandLineRunner AddressCLR(AddressRepository repository) {
         return args -> {
-            Address ad1 = new Address("ulica", "broj", "grad", "drzava");
-            Address ad2 = new Address("ulica2", "broj2", "grad2", "drzava2");
-            Address ad3 = new Address("ulica3", "broj3", "grad3", "drzava3");
+            Address ad1 = new Address(10, 10, "ulica", "broj", "grad", "drzava");
+            Address ad2 = new Address(10, 20, "ulica2", "broj2", "grad2", "drzava2");
+            Address ad3 = new Address(20, 30, "ulica3", "broj3", "grad3", "drzava3");
 
             repository.saveAll(List.of(ad1, ad2, ad3));
         };

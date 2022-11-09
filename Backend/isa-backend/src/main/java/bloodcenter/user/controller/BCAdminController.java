@@ -4,6 +4,7 @@ import bloodcenter.branch_center.dto.BranchCenterDTO;
 import bloodcenter.core.ErrorResponse;
 import bloodcenter.user.model.BCAdmin;
 import bloodcenter.user.service.BCAdminService;
+import bloodcenter.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,9 @@ public class BCAdminController {
         if (admin.getBranchCenter() == null){
             return new ResponseEntity<>(null, HttpStatus.OK);
         }
-        return new ResponseEntity<>(new BranchCenterDTO(admin.getBranchCenter()), HttpStatus.OK);
+        BranchCenterDTO dto = ObjectsMapper.convertBranchCenterToDTO(admin.getBranchCenter());
+        dto.address = ObjectsMapper.convertAddressToDTO(admin.getBranchCenter().getAddress());
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
 

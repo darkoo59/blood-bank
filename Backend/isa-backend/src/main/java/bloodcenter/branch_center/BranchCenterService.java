@@ -24,7 +24,7 @@ public class BranchCenterService {
     }
 
     public void registerBranchCenter(RegisterBranchCenterDTO bcDTO) {
-        Address address = new Address(bcDTO.street, bcDTO.number, bcDTO.city, bcDTO.country);
+        Address address = new Address(0, 0, bcDTO.street, bcDTO.number, bcDTO.city, bcDTO.country);
         service.saveAdress(address);
         BranchCenter bc = new BranchCenter(bcDTO.name, bcDTO.description, address);
         repository.save(bc);
@@ -45,10 +45,13 @@ public class BranchCenterService {
             throw new BranchCenter.BCNotFoundException("Branch center not found");
         }
         BranchCenter bc = o_bc.get();
-        bc.getAddress().setCity(dto.address.city);
-        bc.getAddress().setStreet(dto.address.street);
-        bc.getAddress().setNumber(dto.address.number);
-        bc.getAddress().setCountry(dto.address.country);
+        Address a = bc.getAddress();
+        a.setCity(dto.address.getCity());
+        a.setStreet(dto.address.getStreet());
+        a.setNumber(dto.address.getNumber());
+        a.setCountry(dto.address.getCountry());
+        a.setLat(dto.address.getLat());
+        a.setLng(dto.address.getLng());
 
         bc.setName(dto.name);
         bc.setDescription(dto.description);

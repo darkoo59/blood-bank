@@ -1,14 +1,20 @@
-import { Component, EventEmitter, Output } from "@angular/core";
-import { Icon, icon, latLng, LatLng, marker, Marker, tileLayer } from "leaflet";
+import { Component, EventEmitter, Output, SimpleChanges, OnChanges, Input, NgZone } from "@angular/core";
+import { Icon, icon, LatLng, marker, Marker, tileLayer } from "leaflet";
+import { Subject, switchMap, tap } from "rxjs";
+import { MapService } from "./map.service";
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html'
 })
-export class MapComponent {
-  @Output() locationChanged: EventEmitter<LatLng> = new EventEmitter();
+export class MapComponent implements OnChanges {
+  @Output() locationLatLng: EventEmitter<LatLng> = new EventEmitter();
+  @Output() locationData: EventEmitter<LatLng> = new EventEmitter();
 
-  m_Center: LatLng = new LatLng(0, 0);
+  @Input() m_Location: LatLng = new LatLng(0, 0);
+  @Input() m_Editable: boolean = false;
+
+  m_Center: LatLng = this.m_Location;
   m_Icon: Icon = icon({
     iconSize: [25, 41],
     iconAnchor: [13, 41],
@@ -17,19 +23,36 @@ export class MapComponent {
     shadowUrl: 'assets/marker-shadow.png'
   });
 
-  m_Marker: Marker = new Marker(new LatLng(0, 0), { icon: this.m_Icon });
+  m_Marker: Marker | null = null;
 
   m_Options = {
     layers: [
       tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' })
     ],
     zoom: 5,
-    center: latLng(46.879966, -121.726909)
+    center: this.m_Center
   };
 
+  m_Data$: Subject<any> = new Subject<any>().pipe(
+    switchMap(latlng => this.m_MapService.fetchData(latlng)),
+    tap(data => this.locationData.emit(data))
+  ) as Subject<any>;
+
+  constructor(private m_MapService: MapService) { }
+  
+  ngOnChanges(changes: SimpleChanges) {
+    if(changes['m_Location']){
+      this.m_Center.lat = this.m_Location.lat;
+      this.m_Center.lng = this.m_Location.lng;
+      this.m_Marker = marker(this.m_Location, { icon: this.m_Icon });
+    } 
+  }
+
   handleEvent(event: any): void {
+    if (!this.m_Editable) return;
     this.m_Center = event.latlng;
     this.m_Marker = marker(this.m_Center, { icon: this.m_Icon });
-    this.locationChanged.emit(event.latlng);
+    this.locationLatLng.emit(event.latlng);
+    this.m_Data$.next(event.latlng);
   }
 }

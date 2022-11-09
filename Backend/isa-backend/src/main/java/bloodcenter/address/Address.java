@@ -17,12 +17,16 @@ public class Address {
             strategy = GenerationType.IDENTITY
     )
     private Long id;
+    private double lat;
+    private double lng;
     private String street;
     private String number;
     private String city;
     private String country;
 
-    public Address(String street, String number, String city, String country) {
+    public Address(double lat, double lng, String street, String number, String city, String country) {
+        this.lat = lat;
+        this.lng = lng;
         this.street = street;
         this.number = number;
         this.city = city;
