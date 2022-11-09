@@ -2,15 +2,14 @@ package bloodcenter.user.controller;
 
 import bloodcenter.branch_center.dto.BranchCenterDTO;
 import bloodcenter.core.ErrorResponse;
+import bloodcenter.user.dto.RegisterBCAdminDTO;
 import bloodcenter.user.model.BCAdmin;
 import bloodcenter.user.service.BCAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("api/bc-admin")
@@ -32,6 +31,12 @@ public class BCAdminController {
             return new ResponseEntity<>(null, HttpStatus.OK);
         }
         return new ResponseEntity<>(new BranchCenterDTO(admin.getBranchCenter()), HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Object> registerBCAdmin(@RequestBody RegisterBCAdminDTO bcaDTO) {
+        _service.registerBCAdmin(bcaDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

@@ -13,10 +13,12 @@ public class BCAdmin extends Person {
     @ManyToOne
     private BranchCenter branchCenter;
 
+
     public BCAdmin(String firstname, String lastname, String email) {
         super(firstname, lastname, email);
     }
 
+    public BCAdmin(String firstname, String lastname, String email, String password) { super(firstname, lastname, email, password); }
     public BranchCenter getBranchCenter() {
         return branchCenter;
     }
@@ -30,4 +32,5 @@ public class BCAdmin extends Person {
             super(message);
         }
     }
+
 }

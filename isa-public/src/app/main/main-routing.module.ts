@@ -5,6 +5,7 @@ import { MainComponent } from './main.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { BCDashboardComponent } from './pages/bc-dashboard/bc-dashboard.component';
 import { BCRegisterComponent } from './pages/bc-register/bc-register.component';
+import { BCAdminRegisterComponent } from './pages/bc-admin-register/bc-admin-register.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,7 @@ const routes: Routes = [
       { path: 'home', component: HomeComponent },
       { path: 'bc-dashboard', component: BCDashboardComponent },
       { path: 'bc-register', component: BCRegisterComponent},
+      { path: 'bc-admin-register', component: BCAdminRegisterComponent},
       { path: '', pathMatch: 'full', redirectTo: 'home' },
       { path: '**', component: PageNotFoundComponent }
       

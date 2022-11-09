@@ -10,13 +10,15 @@ import { BCRegisterComponent } from './pages/bc-register/bc-register.component';
 
 import { BCDashboardComponent } from './pages/bc-dashboard/bc-dashboard.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BCAdminRegisterComponent } from './pages/bc-admin-register/bc-admin-register.component';
 
 @NgModule({
   declarations: [
     MainComponent,
     NavComponent,
     BCRegisterComponent,
-    BCDashboardComponent
+    BCDashboardComponent,
+    BCAdminRegisterComponent
   ],
   imports: [
     CommonModule,

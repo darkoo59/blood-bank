@@ -18,10 +18,19 @@ public abstract class Person {
     protected String lastname;
     protected String email;
 
+    protected String password;
+
     public Person(String firstname, String lastname, String email) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
+    }
+
+    public Person(String firstname, String lastname, String email, String password) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
     }
 
     public Long getId() {
@@ -51,4 +60,8 @@ public abstract class Person {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getPassword() { return password; }
+
+    public void setPassword(String password) { this.password = password; }
 }

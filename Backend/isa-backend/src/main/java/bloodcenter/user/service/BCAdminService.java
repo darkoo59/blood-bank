@@ -1,5 +1,6 @@
 package bloodcenter.user.service;
 
+import bloodcenter.user.dto.RegisterBCAdminDTO;
 import bloodcenter.user.model.BCAdmin;
 import bloodcenter.user.repository.BCAdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +20,10 @@ public class BCAdminService {
             throw new BCAdmin.BCAdminNotFoundException("Branch center admin not found.");
         }
         return admin;
+    }
+
+    public void registerBCAdmin(RegisterBCAdminDTO bcaDTO) {
+        BCAdmin admin = new BCAdmin(bcaDTO.name, bcaDTO.surname, bcaDTO.email, bcaDTO.password);
+        _repository.save(admin);
     }
 }
