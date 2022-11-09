@@ -19,26 +19,26 @@ import java.util.ArrayList;
 @RequestMapping("api/branch-center")
 public class BranchCenterController {
 
-    private final BranchCenterService branchCenterService;
+    private final BranchCenterService service;
 
     @Autowired
-    public BranchCenterController(BranchCenterService branchCenterService) {
-        this.branchCenterService = branchCenterService;
+    public BranchCenterController(BranchCenterService service) {
+        this.service = service;
     }
     @PostMapping
     public void registerBranchCenter(@RequestBody RegisterBranchCenterDTO bcDTO) {
-        branchCenterService.registerBranchCenter(bcDTO);
+        service.registerBranchCenter(bcDTO);
     }
 
 
     @GetMapping(path="/all")
-    public @ResponseBody ArrayList<BranchCenterDTO> getAll(){ return branchCenterService.findAll(); }
+    public @ResponseBody ArrayList<BranchCenterDTO> getAll(){ return service.findAll(); }
 
     @PatchMapping
     public ResponseEntity<Object> patchBranchCenter(@RequestBody BranchCenterDTO dto) throws BranchCenter.BCNotFoundException {
         //TODO: authorization
 
-        branchCenterService.updateData(dto);
+        service.updateData(dto);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

@@ -10,7 +10,10 @@ const routes: Routes = [
   {
     path: '', component: MainComponent, children: [
       { path: 'home', component: HomeComponent },
-      { path: 'bc-dashboard', component: BCDashboardComponent },
+      {
+        path: 'bc-dashboard',
+        loadChildren: () => import('./pages/bc-dashboard/bc-dashboard.module').then(m => m.BCDashboardModule),
+      },
       { path: 'bc-register', component: BCRegisterComponent},
       { path: '', pathMatch: 'full', redirectTo: 'home' },
       { path: '**', component: PageNotFoundComponent }
