@@ -1,10 +1,12 @@
+import { ObserversModule } from "@angular/cdk/observers";
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { LatLng } from "leaflet";
-import { exhaustMap, Subject, tap } from "rxjs";
+import { exhaustMap, Observable, Subject, tap } from "rxjs";
 import { Address } from "src/app/model/address.model";
 import { BranchCenter } from "src/app/model/branch-center.model";
+import { LoadingService } from "src/app/services/loading.service";
 import { BCDashboardService, BCUpdateDTO } from "../bc-dashboard.service";
 
 @Component({
@@ -18,21 +20,26 @@ export class BCEditComponent {
       this.setData(data);
     })
   );
-
   m_Update$: Subject<BCUpdateDTO> = new Subject<BCUpdateDTO>().pipe(
     exhaustMap((dto: BCUpdateDTO) => {
       return this.m_BCDashboardService.patchBCData(dto).pipe(
-        tap(_ => this.m_Router.navigate(['/bc-dashboard']))
+        tap(_ => {
+          this.m_LoadingService.setLoading = false;
+          this.m_Router.navigate(['/bc-dashboard'])
+        })
       );
     })
   ) as Subject<BCUpdateDTO>;
+  m_Error$: Observable<string | null> = this.m_BCDashboardService.m_Error$;
 
   m_Form: FormGroup | null = null;
   m_Address: Address | null = null;
   m_MapInput: LatLng | null = null;
   m_LocationEditActive: boolean = false;
 
-  constructor(private m_BCDashboardService: BCDashboardService, private m_Router: Router) { }
+  constructor(private m_BCDashboardService: BCDashboardService, 
+              private m_Router: Router, 
+              private m_LoadingService: LoadingService) { }
 
   setData(data: BranchCenter | null): void {
     if (data == null) return;
@@ -46,16 +53,18 @@ export class BCEditComponent {
       this.m_MapInput = new LatLng(data.address.lat, data.address.lng);
     }
     this.m_Address = data.address;
-    console.log(data.address);
   }
 
   onSubmit(): void {
-    if (!this.m_Address) return;
+    this.m_BCDashboardService.clearError();
+    if (!this.m_Address) {
+      this.m_BCDashboardService.setError = "Location is not valid";
+      return;
+    };
+    this.m_LoadingService.setLoading = true;
+
     const dto: BCUpdateDTO = this.m_Form?.getRawValue();
     dto.address = this.m_Address;
-    
-    console.log(dto);
-
     this.m_Update$.next(dto);
   }
 

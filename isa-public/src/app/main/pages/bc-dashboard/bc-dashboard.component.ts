@@ -5,6 +5,4 @@ import { Component } from "@angular/core";
   templateUrl: "./bc-dashboard.component.html",
   styleUrls: ["./bc-dashboard.component.scss"]
 })
-export class BCDashboardComponent {
-  
-}
+export class BCDashboardComponent {}

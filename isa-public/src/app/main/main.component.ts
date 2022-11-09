@@ -8,7 +8,7 @@ import { GlobalService } from 'src/app/services/global.service';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent {
-  m_DarkTheme$ = this.m_GlobalService.m_darkTheme$;
+  m_DarkTheme$ = this.m_GlobalService.m_DarkTheme$;
   
   constructor(private m_GlobalService: GlobalService) { }
 

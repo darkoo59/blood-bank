@@ -10,3 +10,8 @@ section{
   margin:auto;
   max-width: 1000px;
 }
+
+.errors{
+  color:var(--error);
+  font-style: italic;
+}
