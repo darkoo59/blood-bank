@@ -11,8 +11,9 @@ export class MapComponent implements OnChanges {
   @Output() locationLatLng: EventEmitter<LatLng> = new EventEmitter();
   @Output() locationData: EventEmitter<LatLng> = new EventEmitter();
 
-  @Input() m_Location: LatLng = new LatLng(0, 0);
+  @Input() m_Location: LatLng = new LatLng(45.25636, 19.84731);
   @Input() m_Editable: boolean = false;
+  @Input() m_Height: number = 500;
 
   m_Center: LatLng = this.m_Location;
   m_Icon: Icon = icon({
@@ -29,7 +30,7 @@ export class MapComponent implements OnChanges {
     layers: [
       tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' })
     ],
-    zoom: 5,
+    zoom: 13,
     center: this.m_Center
   };
 

@@ -120,6 +120,8 @@ $foreground-dark: mat.$dark-theme-foreground-palette;
   --background-2: #{map-get($background-light,  'app-bar')};
   --background-3: #{map-get($background-light,  'dialog')};
   --background-4: #{map-get($background-light,  'tooltip')};
+
+  --loader-bg: #eee;
 }
 
 .dark-theme{
@@ -134,4 +136,6 @@ $foreground-dark: mat.$dark-theme-foreground-palette;
   --background-2: #{map-get($background-dark,   'app-bar')};
   --background-3: #{map-get($background-dark,   'dialog')};
   --background-4: #{map-get($background-dark,   'tooltip')};
+
+  --loader-bg: #e68a8a;
 }
