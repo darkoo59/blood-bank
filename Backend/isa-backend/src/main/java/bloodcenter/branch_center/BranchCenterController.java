@@ -41,7 +41,7 @@ public class BranchCenterController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size
     ) {
-        return new ResponseEntity<>(_service.findAllPagesByName(name,page,size), HttpStatus.OK);
+        return new ResponseEntity<>(service.findAllPagesByName(name,page,size), HttpStatus.OK);
     }
     @PatchMapping
     public ResponseEntity<Object> patchBranchCenter(@RequestBody BranchCenterDTO dto) throws BranchCenter.BCNotFoundException {

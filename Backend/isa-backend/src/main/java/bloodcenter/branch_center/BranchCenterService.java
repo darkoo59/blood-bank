@@ -48,9 +48,9 @@ public class BranchCenterService {
         Page<BranchCenter> pageCenter;
         ArrayList<BranchCenterDTO> centersToReturn = new ArrayList<>();
         if (name == null)
-            pageCenter = _repository.findAll(paging);
+            pageCenter = repository.findAll(paging);
         else
-            pageCenter = _repository.findByNameContaining(name, paging);
+            pageCenter = repository.findByNameContaining(name, paging);
 
         for (BranchCenter center:pageCenter.getContent()) {
             centers.add(ObjectsMapper.convertBranchCenterToDTO(center));
