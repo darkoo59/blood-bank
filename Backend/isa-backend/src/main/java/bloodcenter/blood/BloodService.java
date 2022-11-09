@@ -8,7 +8,6 @@ import java.util.Optional;
 
 @Service
 public class BloodService {
-
     @Autowired
     private BloodRepository bloodRepository;
 

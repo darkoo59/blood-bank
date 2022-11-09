@@ -16,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
     MatListModule,
     MatDividerModule,
     MatInputModule
+    
   ],
   exports: [
     MatButtonModule,
@@ -25,6 +26,7 @@ import { MatInputModule } from '@angular/material/input';
     MatListModule,
     MatDividerModule,
     MatInputModule
+    
   ]
 })
 export class MaterialModule { }
