@@ -6,7 +6,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
-
+import { MatCardModule } from '@angular/material/card';
+import {MatPaginatorModule} from '@angular/material/paginator';
 @NgModule({
   imports: [
     MatButtonModule,
@@ -15,8 +16,9 @@ import { MatInputModule } from '@angular/material/input';
     MatSidenavModule,
     MatListModule,
     MatDividerModule,
-    MatInputModule
-    
+    MatInputModule,
+    MatCardModule,
+    MatPaginatorModule
   ],
   exports: [
     MatButtonModule,
@@ -25,8 +27,10 @@ import { MatInputModule } from '@angular/material/input';
     MatSidenavModule,
     MatListModule,
     MatDividerModule,
-    MatInputModule
-    
+    MatInputModule,
+    MatCardModule,
+    MatPaginatorModule
+
   ]
 })
 export class MaterialModule { }

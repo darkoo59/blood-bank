@@ -1,0 +1,12 @@
+<section>
+  <mat-card class="card" *ngFor="let center of centersPageInfo.branchCenters">
+    <mat-card-title>{{center.name}}</mat-card-title>
+    <mat-card-content>
+      <p><b>Description: </b>{{center.description}}</p>
+      <p><b>Country: </b>{{center.address.country}}</p>
+      <p><b>City: </b>{{center.address.city}}</p>
+      <p><b>Address: </b>{{center.address.street}} {{center.address.number}}</p>
+    </mat-card-content>
+  </mat-card>
+  <mat-paginator class="paginator" [pageSize]="1" [pageSizeOptions]="[1,3,5,10]" [length]="centersPageInfo.totalItems" (page) = "nextPage($event)"></mat-paginator>
+</section>
