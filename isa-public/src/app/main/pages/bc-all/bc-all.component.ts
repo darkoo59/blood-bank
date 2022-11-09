@@ -25,8 +25,8 @@ export class BCAllComponent implements OnInit{
     });
   }
 
-  async getCenters(request:any) {
-    await this.centersService.findAllByPages(request).pipe(take(1)).subscribe( data => {
+  getCenters(request:any) {
+    this.centersService.findAllByPages(request).pipe(take(1)).subscribe( data => {
       this.centersPageInfo = data;
     })
   }

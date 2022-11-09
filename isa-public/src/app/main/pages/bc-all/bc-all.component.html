@@ -1,4 +1,4 @@
-<section>
+<section *ngIf="centersPageInfo">
   <mat-card class="card" *ngFor="let center of centersPageInfo.branchCenters">
     <mat-card-title>{{center.name}}</mat-card-title>
     <mat-card-content>
