@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/branch-center")
@@ -21,6 +22,14 @@ public class BranchCenterController {
     @GetMapping(path="/all")
     public @ResponseBody ArrayList<BranchCenterDTO> getAll(){ return _service.findAll(); }
 
+    @GetMapping(path="/all-centers-pagination")
+    public @ResponseBody ResponseEntity<Map<String,Object>> getAllPages(
+            @RequestParam(required = false) String name,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size
+    ) {
+        return new ResponseEntity<>(_service.findAllPagesByName(name,page,size), HttpStatus.OK);
+    }
     @PatchMapping
     public ResponseEntity<Object> patchBranchCenter(@RequestBody BranchCenterDTO dto) throws BranchCenter.BCNotFoundException {
         //TODO: authorization

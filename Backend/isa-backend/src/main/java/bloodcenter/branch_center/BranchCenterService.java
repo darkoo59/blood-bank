@@ -3,10 +3,12 @@ package bloodcenter.branch_center;
 import bloodcenter.branch_center.dto.BranchCenterDTO;
 import bloodcenter.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class BranchCenterService {
@@ -22,6 +24,30 @@ public class BranchCenterService {
             centersToReturn.add(ObjectsMapper.convertBranchCenterToDTO(center));
         }
         return centersToReturn;
+    }
+
+    public Map<String, Object> findAllPagesByName(String name, int page, int size) {
+        List<BranchCenterDTO> centers = new ArrayList<>();
+        Pageable paging = PageRequest.of(page, size);
+
+        Page<BranchCenter> pageCenter;
+        ArrayList<BranchCenterDTO> centersToReturn = new ArrayList<>();
+        if (name == null)
+            pageCenter = _repository.findAll(paging);
+        else
+            pageCenter = _repository.findByNameContaining(name, paging);
+
+        for (BranchCenter center:pageCenter.getContent()) {
+            centers.add(ObjectsMapper.convertBranchCenterToDTO(center));
+        }
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("branchCenters", centers);
+        response.put("currentPage", pageCenter.getNumber());
+        response.put("totalItems", pageCenter.getTotalElements());
+        response.put("totalPages", pageCenter.getTotalPages());
+
+        return response;
     }
 
     public void updateData(BranchCenterDTO dto) throws BranchCenter.BCNotFoundException {
