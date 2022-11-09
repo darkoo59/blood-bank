@@ -1,5 +1,6 @@
 package bloodcenter.user.dto;
 
+import bloodcenter.address.AddressDTO;
 import bloodcenter.user.enums.Sex;
 
 public class RegisterDTO {
@@ -8,10 +9,12 @@ public class RegisterDTO {
     public String email;
     public String password;
     public String confirmPassword;
-//    public Address address;
+    public AddressDTO address;
     public String phone;
-    public String personalId;
+    public String nationalId;
     public Sex sex;
+    public String occupation;
+    public String information;
 
     public RegisterDTO() {
     }
@@ -24,8 +27,11 @@ public class RegisterDTO {
         this.email = copy.email;
         this.password = copy.password;
         this.confirmPassword = copy.confirmPassword;
+        this.address = copy.address;
         this.phone = copy.phone;
-        this.personalId = copy.personalId;
+        this.nationalId = copy.nationalId;
         this.sex = copy.sex;
+        this.occupation = copy.occupation;
+        this.information = copy.information;
     }
 }

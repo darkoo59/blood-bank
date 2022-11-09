@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgLetModule } from "ng-let";
 import { MaterialModule } from "src/app/core/material.module";
 import { AuthRoutingModule } from "./auth-routing.module";
@@ -20,7 +20,9 @@ import { RegisterComponent } from "./register/register.component";
     AuthRoutingModule,
     MaterialModule,
     NgLetModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CommonModule,
+    FormsModule
   ]
 })
 export class AuthModule {}
