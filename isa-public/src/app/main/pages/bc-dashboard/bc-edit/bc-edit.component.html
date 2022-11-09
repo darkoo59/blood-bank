@@ -1,4 +1,8 @@
 <section *ngLet="{ data: m_BCData$ | async, u: m_Update$ | async } as vm">
+  <button mat-button [routerLink]="['..']">
+    <mat-icon>keyboard_backspace</mat-icon>
+    <span style="margin-left:12px;font-size: 15px;">dashboard</span>
+  </button>
   <form *ngIf="m_Form" [formGroup]="m_Form" (ngSubmit)="onSubmit()">
     <h3>Change branch center data</h3>
     <div class="grid">
@@ -23,6 +27,10 @@
 
     <div class="location">
       <app-map [m_Location]="m_MapInput!" [m_Editable]="true" (locationData)="locationHandler($event)"></app-map>
+    </div>
+
+    <div class="errors">
+      <p *ngIf="(m_Error$ | async) as err">{{err}}</p>
     </div>
     
     <div class="button-group">

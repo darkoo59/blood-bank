@@ -4,6 +4,6 @@
     [leafletOptions]="m_Options"
     (leafletClick)="handleEvent($event)"
     [(leafletCenter)]="m_Center"
-    style="height: 500px;">
+    [ngStyle]="{'height': m_Height + 'px'}">
     <div *ngIf="m_Marker" [leafletLayer]="m_Marker"></div>
 </div>
