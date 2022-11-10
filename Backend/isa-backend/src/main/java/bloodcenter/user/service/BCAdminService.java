@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BCAdminService {
-    private final BCAdminRepository _repository;
+    private final BCAdminRepository repository;
 
     public BCAdminService(@Autowired BCAdminRepository repository){
-        this._repository = repository;
+        this.repository = repository;
     }
 
     public BCAdmin getByMail(String email) throws BCAdmin.BCAdminNotFoundException {
-        BCAdmin admin = this._repository.findByEmail(email);
+        BCAdmin admin = this.repository.findByEmail(email);
         if(admin == null){
             throw new BCAdmin.BCAdminNotFoundException("Branch center admin not found.");
         }

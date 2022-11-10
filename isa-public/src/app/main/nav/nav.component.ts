@@ -15,6 +15,10 @@ export class NavComponent {
     {
       path: 'home',
       title: 'Home'
+    },
+    {
+      path: 'bc-all',
+      title: 'All Branch Centers'
     }
   ];
 

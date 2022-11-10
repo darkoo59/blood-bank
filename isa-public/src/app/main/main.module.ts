@@ -11,6 +11,8 @@ import { BCRegisterComponent } from './pages/bc-register/bc-register.component';
 import { BCDashboardComponent } from './pages/bc-dashboard/bc-dashboard.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BCAdminRegisterComponent } from './pages/bc-admin-register/bc-admin-register.component';
+import { BCAllComponent } from './pages/bc-all/bc-all.component';
+import { BcAllService } from './pages/bc-all/bc-all.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { BCAdminRegisterComponent } from './pages/bc-admin-register/bc-admin-reg
     NavComponent,
     BCRegisterComponent,
     BCDashboardComponent,
-    BCAdminRegisterComponent
+    BCAdminRegisterComponent,
+    BCAllComponent
   ],
   imports: [
     CommonModule,
@@ -27,6 +30,6 @@ import { BCAdminRegisterComponent } from './pages/bc-admin-register/bc-admin-reg
     MaterialModule,
     ReactiveFormsModule
   ],
-  providers: []
+  providers: [BcAllService]
 })
 export class MainModule { }

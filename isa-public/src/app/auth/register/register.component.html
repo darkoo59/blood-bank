@@ -1,3 +1,166 @@
-<form>
-  <h3>registar</h3>
+<form [formGroup]="m_Form" (ngSubmit)="onSubmit()">
+  <h3>Register</h3>
+
+  <form [formGroup]="m_Form1" class="grid-container" *ngIf='m_State === false' (ngSubmit)="onForm1Submit()">
+
+    <mat-form-field *ngLet="{name: 'Name'} as vm" appearance="standard">
+      <mat-label>{{vm.name}}</mat-label>
+      <input type="text" matInput formControlName="name">
+      <mat-error *ngIf="m_Form1.controls['name'].hasError('required')">
+        {{vm.name}} is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field *ngLet="{name: 'Surname'} as vm" appearance="standard">
+      <mat-label>{{vm.name}}</mat-label>
+      <input type="text" matInput formControlName="surname">
+      <mat-error *ngIf="m_Form1.controls['surname'].hasError('required')">
+        {{vm.name}} is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field *ngLet="{name: 'Email'} as vm" appearance="standard">
+      <mat-label>{{vm.name}}</mat-label>
+      <input type="email" matInput formControlName="email"
+              placeholder="Ex. example@domain.com">
+      <mat-error *ngIf="m_Form1.controls['email'].hasError('email') && !m_Form1.controls['email'].hasError('required')">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="m_Form1.controls['email'].hasError('required')">
+        {{vm.name}} is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field *ngLet="{name: 'Password'} as vm" appearance="standard">
+      <mat-label>{{vm.name}}</mat-label>
+      <input type="password" matInput formControlName="password">
+      <mat-error *ngIf="m_Form1.controls['password'].hasError('minlength') && !m_Form1.controls['password'].hasError('required')">
+        Password must be at least 8 characters long
+      </mat-error>
+      <mat-error *ngIf="m_Form1.controls['password'].hasError('required')">
+        {{vm.name}} is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field *ngLet="{name: 'Confirm password'} as vm" appearance="standard">
+      <mat-label>{{vm.name}}</mat-label>
+      <input type="password" matInput formControlName="confirmPassword">
+      <mat-error *ngIf="m_Form1.controls['confirmPassword'].value != m_Form1.controls['password'].value && 
+      !m_Form1.controls['confirmPassword'].hasError('required')">
+        Password confirmation does not match
+      </mat-error>
+      <mat-error *ngIf="m_Form1.controls['confirmPassword'].hasError('required')">
+        {{vm.name}} is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    
+  <div class="button-group">
+    <button mat-flat-button color="primary">Next</button>
+  </div>
+    
+  </form>
+
+  <form id="form2" [formGroup]="m_Form2" class="grid-container-double" *ngIf='m_State === true'>
+    
+    <mat-form-field *ngLet="{name: 'Street'} as vm" appearance="standard">
+      <mat-label>{{vm.name}}</mat-label>
+      <input type="text" matInput formControlName="street">
+      <mat-error *ngIf="m_Form2.controls['street'].hasError('required')">
+        {{vm.name}} is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field *ngLet="{name: 'Number'} as vm" appearance="standard">
+      <mat-label>{{vm.name}}</mat-label>
+      <input type="text" matInput formControlName="number">
+      <mat-error *ngIf="m_Form2.controls['number'].hasError('required')">
+        {{vm.name}} is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field *ngLet="{name: 'City'} as vm" appearance="standard">
+      <mat-label>{{vm.name}}</mat-label>
+      <input type="text" matInput formControlName="city">
+      <mat-error *ngIf="m_Form2.controls['city'].hasError('required')">
+        {{vm.name}} is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field *ngLet="{name: 'Country'} as vm" appearance="standard">
+      <mat-label>{{vm.name}}</mat-label>
+      <input type="text" matInput formControlName="country">
+      <mat-error *ngIf="m_Form2.controls['country'].hasError('required')">
+        {{vm.name}} is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  
+
+    <mat-form-field *ngLet="{name: 'Phone'} as vm" appearance="standard">
+      <mat-label>{{vm.name}}</mat-label>
+      <input type="text" matInput formControlName="phone">
+      <mat-error *ngIf="m_Form2.controls['phone'].hasError('pattern') && !m_Form2.controls['phone'].hasError('required')">
+        Incorrect phone number format
+      </mat-error>
+      <mat-error *ngIf="m_Form2.controls['phone'].hasError('required')">
+        {{vm.name}} is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field *ngLet="{name: 'National ID'} as vm" appearance="standard">
+      <mat-label>{{vm.name}}</mat-label>
+      <input type="text" matInput formControlName="nationalId">
+      <mat-error *ngIf="m_Form2.controls['nationalId'].hasError('pattern') && !m_Form2.controls['nationalId'].hasError('required')">
+        {{vm.name}} can only contain digits 
+      </mat-error>
+      <mat-error *ngIf="(m_Form2.controls['nationalId'].hasError('minlength') || m_Form2.controls['nationalId'].hasError('maxlength')) && 
+      !m_Form2.controls['nationalId'].hasError('required') && !m_Form2.controls['nationalId'].hasError('pattern')">
+        {{vm.name}} must be exactly 13 digits long 
+      </mat-error>
+      <mat-error *ngIf="m_Form2.controls['nationalId'].hasError('required')">
+        {{vm.name}} is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    
+    <mat-form-field *ngLet="{name: 'Sex'} as vm" appearance="standard">
+      <mat-label>{{vm.name}}</mat-label>
+      <mat-select matInput formControlName="sex">
+        <mat-option value="male">Male</mat-option>
+        <mat-option value="female">Female</mat-option>
+      </mat-select> 
+      <mat-error *ngIf="m_Form2.controls['sex'].hasError('required')">
+        {{vm.name}} is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field *ngLet="{name: 'Occupation'} as vm" appearance="standard">
+      <mat-label>{{vm.name}}</mat-label>
+      <input type="text" matInput formControlName="occupation">
+      <mat-error *ngIf="m_Form2.controls['occupation'].hasError('required')">
+        {{vm.name}} is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="single" *ngLet="{name: 'Information about the company/college/school'} as vm" appearance="standard">
+      <mat-label>{{vm.name}}</mat-label>
+      <textarea class="textarea scroll" matInput formControlName="information"></textarea>
+      <mat-error *ngIf="m_Form2.controls['information'].hasError('required')">
+        {{vm.name}} is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+  </form>
+
+  <div *ngIf='m_State === true' class="flex-block">
+
+    <div class="left">
+      <button class="button" mat-flat-button color="secondary" (click)="onBack()">Back</button>
+    </div>
+
+    <div>
+      <button class="button" mat-flat-button color="primary">Submit</button>
+    </div>
+
+  </div>
+
 </form>

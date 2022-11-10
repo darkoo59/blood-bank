@@ -1,0 +1,19 @@
+.button-group {
+  display: flex;
+  margin-bottom: 12px;
+
+  &>button:not(:first-child) {
+    margin-left: 15px;
+  }
+}
+
+.flex-block {
+  display: flex;
+  margin-top: 25px;
+  .left{
+    flex: 1;
+  }
+  .right{
+    width: 500px;
+  }
+}

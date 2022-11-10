@@ -6,17 +6,22 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { BCDashboardComponent } from './pages/bc-dashboard/bc-dashboard.component';
 import { BCRegisterComponent } from './pages/bc-register/bc-register.component';
 import { BCAdminRegisterComponent } from './pages/bc-admin-register/bc-admin-register.component';
+import { BCAllComponent } from './pages/bc-all/bc-all.component';
 
 const routes: Routes = [
   {
     path: '', component: MainComponent, children: [
       { path: 'home', component: HomeComponent },
-      { path: 'bc-dashboard', component: BCDashboardComponent },
+      {
+        path: 'bc-dashboard',
+        loadChildren: () => import('./pages/bc-dashboard/bc-dashboard.module').then(m => m.BCDashboardModule),
+      },
       { path: 'bc-register', component: BCRegisterComponent},
       { path: 'bc-admin-register', component: BCAdminRegisterComponent},
       { path: '', pathMatch: 'full', redirectTo: 'home' },
-      { path: '**', component: PageNotFoundComponent }
-      
+      { path: 'bc-all', component: BCAllComponent},
+      { path: '**', component: PageNotFoundComponent },
+
     ]
   }
 ];
