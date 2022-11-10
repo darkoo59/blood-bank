@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BranchCenterRepository  extends JpaRepository<BranchCenter, Long> {
-    @Query(value="SELECT * FROM BRANCH_CENTER WHERE name LIKE CONCAT(:name,'%')",
-            nativeQuery = true)
-    Page<BranchCenter> findByNameContaining(String name, Pageable paging);
+    @Query(value="SELECT b FROM BranchCenter b WHERE b.name LIKE %?1% OR b.address.country LIKE %?1% OR " +
+            "b.address.city LIKE %?1% OR b.address.street LIKE %?1% OR b.address.number LIKE %?1%")
+    Page<BranchCenter> findFiltered(String name, Pageable paging);
 }

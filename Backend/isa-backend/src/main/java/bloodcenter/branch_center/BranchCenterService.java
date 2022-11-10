@@ -50,7 +50,7 @@ public class BranchCenterService {
         if (name == null)
             pageCenter = repository.findAll(paging);
         else
-            pageCenter = repository.findByNameContaining(name, paging);
+            pageCenter = repository.findFiltered(name, paging);
 
         for (BranchCenter center:pageCenter.getContent()) {
             centers.add(ObjectsMapper.convertBranchCenterToDTO(center));
