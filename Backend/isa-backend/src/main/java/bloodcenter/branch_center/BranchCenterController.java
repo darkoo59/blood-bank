@@ -31,7 +31,6 @@ public class BranchCenterController {
         service.registerBranchCenter(bcDTO);
     }
 
-
     @GetMapping(path="/all")
     public @ResponseBody ArrayList<BranchCenterDTO> getAll(){ return service.findAll(); }
 

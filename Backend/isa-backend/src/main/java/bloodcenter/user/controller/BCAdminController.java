@@ -2,6 +2,7 @@ package bloodcenter.user.controller;
 
 import bloodcenter.branch_center.dto.BranchCenterDTO;
 import bloodcenter.core.ErrorResponse;
+import bloodcenter.user.dto.BCAdminDTO;
 import bloodcenter.user.dto.RegisterBCAdminDTO;
 import bloodcenter.user.model.BCAdmin;
 import bloodcenter.user.service.BCAdminService;
@@ -11,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping("api/bc-admin")
@@ -37,9 +40,16 @@ public class BCAdminController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> registerBCAdmin(@RequestBody RegisterBCAdminDTO bcaDTO) {
-        _service.registerBCAdmin(bcaDTO);
+    public ResponseEntity<Object> registerBCAdmin(@RequestBody RegisterBCAdminDTO bcaDTO) throws BCAdmin.BCAdminEmailTakenException {
+         service.registerBCAdmin(bcaDTO);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("unassigned")
+    public ResponseEntity<ArrayList<BCAdminDTO>> getUnassignedAdmins() {
+        ArrayList<BCAdminDTO> retList = service.getUnassignedAdmins();
+        System.out.println("!!!!!!!!!!!!!!!!!!" + retList.get(0).firstname);
+        return new ResponseEntity<>(retList, HttpStatus.OK);
     }
 
 

@@ -1,6 +1,6 @@
 import { EmptyExpr } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { catchError, EMPTY } from 'rxjs';
 import { BCAdminRegisterService, BCARegisterDTO } from './bc-admin-register.service';
 
@@ -12,7 +12,9 @@ import { BCAdminRegisterService, BCARegisterDTO } from './bc-admin-register.serv
 export class BCAdminRegisterComponent implements OnInit {
   hide = true;
   hide2 = true;
-  constructor(private m_BCAdminRegisterService: BCAdminRegisterService) { }
+  matchFlag = false;
+  constructor(private m_BCAdminRegisterService: BCAdminRegisterService) {
+   }
 
   ngOnInit() {
   }
@@ -24,6 +26,7 @@ export class BCAdminRegisterComponent implements OnInit {
     'bca-repeat': new FormControl(null, Validators.required),
     'bca-email': new FormControl(null, [Validators.required, Validators.email])
   })
+
 
   m_Errors: string[] = [];
 

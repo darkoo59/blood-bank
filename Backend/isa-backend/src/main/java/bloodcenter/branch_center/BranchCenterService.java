@@ -30,8 +30,8 @@ public class BranchCenterService {
         service.saveAdress(address);
         BranchCenter bc = new BranchCenter(bcDTO.name, bcDTO.description, address);
         repository.save(bc);
-        //TODO: U repository-ju adrese prvo pozovi da se sacuva adresa, i onda tu adresu ovdje sacuvaj
     }
+
 
     public ArrayList<BranchCenterDTO> findAll(){
         ArrayList<BranchCenterDTO> centersToReturn = new ArrayList<BranchCenterDTO>();
