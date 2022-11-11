@@ -38,6 +38,10 @@ export class NavComponent {
     {
       path: 'bc-admin-assign',
       title: 'Assign Admin To Branch Center'
+    },
+    {
+      path: 'all-users',
+      title: 'All users'
     }
   ];
 

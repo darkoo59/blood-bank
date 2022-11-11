@@ -8,7 +8,6 @@ import { MaterialModule } from 'src/app/core/material.module';
 import { NavComponent } from './nav/nav.component';
 import { BCRegisterComponent } from './pages/bc-register/bc-register.component';
 
-import { BCDashboardComponent } from './pages/bc-dashboard/bc-dashboard.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BCAdminRegisterComponent } from './pages/bc-admin-register/bc-admin-register.component';
 import { BCAllComponent } from './pages/bc-all/bc-all.component';
@@ -20,7 +19,6 @@ import { BCAdminAssignComponent } from './pages/bc-admin-assign/bc-admin-assign.
     MainComponent,
     NavComponent,
     BCRegisterComponent,
-    BCDashboardComponent,
     BCAdminRegisterComponent,
     BCAllComponent,
     BCAdminAssignComponent
