@@ -32,6 +32,14 @@ export class NavComponent {
       title: 'Register Branch Center'
     },
     {
+      path: 'bc-admin-register',
+      title: 'Register Branch Center Admin'
+    },
+    {
+      path: 'bc-admin-assign',
+      title: 'Assign Admin To Branch Center'
+    },
+    {
       path: 'all-users',
       title: 'All users'
     }

@@ -4,7 +4,9 @@ import { HomeComponent } from './pages/home/home.component';
 import { MainComponent } from './main.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { BCRegisterComponent } from './pages/bc-register/bc-register.component';
+import { BCAdminRegisterComponent } from './pages/bc-admin-register/bc-admin-register.component';
 import { BCAllComponent } from './pages/bc-all/bc-all.component';
+import { BCAdminAssignComponent } from './pages/bc-admin-assign/bc-admin-assign.component';
 
 const routes: Routes = [
   {
@@ -15,7 +17,9 @@ const routes: Routes = [
         loadChildren: () => import('./pages/bc-dashboard/bc-dashboard.module').then(m => m.BCDashboardModule),
       },
       { path: 'bc-register', component: BCRegisterComponent},
+      { path: 'bc-admin-register', component: BCAdminRegisterComponent},
       { path: '', pathMatch: 'full', redirectTo: 'home' },
+      { path: 'bc-admin-assign', component: BCAdminAssignComponent },
       { path: 'bc-all', component: BCAllComponent},
       {
         path: 'all-users',

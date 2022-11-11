@@ -2,6 +2,8 @@ package bloodcenter.user.controller;
 
 import bloodcenter.branch_center.dto.BranchCenterDTO;
 import bloodcenter.core.ErrorResponse;
+import bloodcenter.user.dto.BCAdminDTO;
+import bloodcenter.user.dto.RegisterBCAdminDTO;
 import bloodcenter.user.model.BCAdmin;
 import bloodcenter.user.service.BCAdminService;
 import bloodcenter.utils.ObjectsMapper;
@@ -9,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping("api/bc-admin")
@@ -35,6 +37,19 @@ public class BCAdminController {
         BranchCenterDTO dto = ObjectsMapper.convertBranchCenterToDTO(admin.getBranchCenter());
         dto.address = ObjectsMapper.convertAddressToDTO(admin.getBranchCenter().getAddress());
         return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Object> registerBCAdmin(@RequestBody RegisterBCAdminDTO bcaDTO) throws BCAdmin.BCAdminEmailTakenException {
+         service.registerBCAdmin(bcaDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("unassigned")
+    public ResponseEntity<ArrayList<BCAdminDTO>> getUnassignedAdmins() {
+        ArrayList<BCAdminDTO> retList = service.getUnassignedAdmins();
+        System.out.println("!!!!!!!!!!!!!!!!!!" + retList.get(0).firstname);
+        return new ResponseEntity<>(retList, HttpStatus.OK);
     }
 
 

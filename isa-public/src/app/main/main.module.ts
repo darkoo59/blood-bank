@@ -9,15 +9,19 @@ import { NavComponent } from './nav/nav.component';
 import { BCRegisterComponent } from './pages/bc-register/bc-register.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { BCAdminRegisterComponent } from './pages/bc-admin-register/bc-admin-register.component';
 import { BCAllComponent } from './pages/bc-all/bc-all.component';
 import { BcAllService } from './pages/bc-all/bc-all.service';
+import { BCAdminAssignComponent } from './pages/bc-admin-assign/bc-admin-assign.component';
 
 @NgModule({
   declarations: [
     MainComponent,
     NavComponent,
     BCRegisterComponent,
-    BCAllComponent
+    BCAdminRegisterComponent,
+    BCAllComponent,
+    BCAdminAssignComponent
   ],
   imports: [
     CommonModule,

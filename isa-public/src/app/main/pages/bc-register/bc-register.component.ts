@@ -17,9 +17,9 @@ export class BCRegisterComponent implements OnInit {
 
   form: UntypedFormGroup = new UntypedFormGroup({
     'bc-name': new FormControl(null, Validators.required),
-    'bc-country': new FormControl(null, Validators.required),
-    'bc-city': new FormControl(null, Validators.required),
-    'bc-street': new FormControl(null, Validators.required),
+    'bc-country': new FormControl(null, [Validators.required, Validators.pattern("^[a-zA-Z ]+$")]),
+    'bc-city': new FormControl(null, [Validators.required, Validators.pattern("^[a-zA-Z ]+$")]),
+    'bc-street': new FormControl(null, [Validators.required, Validators.pattern("^[a-zA-Z ]+$")]),
     'bc-number': new FormControl(null, Validators.required),
     'bc-description': new FormControl(null)
   })
@@ -36,8 +36,9 @@ export class BCRegisterComponent implements OnInit {
       street: this.form.get('bc-street')?.value,
       number: this.form.get('bc-number')?.value,
       description: this.form.get('bc-description')?.value
-     }
+    }
 
+    
     this.form.updateValueAndValidity(); 
     if (!this.form.valid) return;
 

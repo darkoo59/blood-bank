@@ -2,7 +2,9 @@ package bloodcenter.user.dto;
 
 import bloodcenter.branch_center.BranchCenter;
 import bloodcenter.user.model.BCAdmin;
+import lombok.Setter;
 
+@Setter
 public class BCAdminDTO {
     public Long id;
 

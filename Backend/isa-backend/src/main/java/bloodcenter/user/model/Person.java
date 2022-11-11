@@ -38,9 +38,30 @@ public abstract class Person {
         Person person = (Person) o;
         return id != null && Objects.equals(id, person.id);
     }
+    
+    public Person(String firstname, String lastname, String email) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+    }
+
+    public Person(String firstname, String lastname, String email, String password) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+    }
+
+    public Long getId() {
+        return id;
+    }
 
     @Override
     public int hashCode() {
         return getClass().hashCode();
     }
+
+    public String getPassword() { return password; }
+
+    public void setPassword(String password) { this.password = password; }
 }

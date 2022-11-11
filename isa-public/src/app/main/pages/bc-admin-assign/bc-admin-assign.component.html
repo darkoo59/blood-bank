@@ -1,0 +1,37 @@
+<section>
+  <form [formGroup]="form" class="example-form">
+    <h1 class="heading">Assign admin to a center</h1>
+    
+    <div class="dropdown-container">
+      <mat-form-field appearance="fill" class="select-item">
+        <mat-label>Select a center</mat-label>
+        <mat-select formControlName="bca-center" >
+          <mat-option *ngFor="let center of centerList" [value]="center">
+            {{center.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.controls['bca-center'].hasError('required')">
+          You must select a center
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="select-item">
+        <mat-label>Select an admin</mat-label>
+        <mat-select formControlName="bca-admin" >
+          <mat-option *ngFor="let admin of adminList" [value]="admin">
+            {{admin.firstname}} {{admin.lastname}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.controls['bca-center'].hasError('required')">
+          You must select an admin
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="button-group">
+      <button type="button" mat-button>Cancel</button>
+      <button mat-flat-button color="primary">Submit</button>
+    </div>
+
+  </form>
+</section>
