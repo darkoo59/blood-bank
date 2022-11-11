@@ -19,7 +19,7 @@ public class BCAdmin extends Person {
     private BranchCenter branchCenter;
 
     public BCAdmin(String firstname, String lastname, String email, String password) {
-        super(firstname, lastname, email, password, "ROLE_ADMIN");
+        super(firstname, lastname, email, password);
     }
 
     public static class BCAdminNotFoundException extends Exception {

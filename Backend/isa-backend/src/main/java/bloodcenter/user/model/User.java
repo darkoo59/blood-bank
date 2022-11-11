@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 public class User extends Person
 {
-    public User(String firstname, String lastname, String email) {
-        super(firstname, lastname, email);
+    public User(String firstname, String lastname, String email, String password) {
+        super(firstname, lastname, email, password);
     }
 }

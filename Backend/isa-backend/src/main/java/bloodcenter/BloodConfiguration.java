@@ -122,10 +122,10 @@ public class BloodConfiguration {
     @Bean
     CommandLineRunner UserCLR(UserRepository repository) {
         return args -> {
-            User u1 = new User("Rade", "Stojanovic", "stojanovicrade614@gmail.com");
-            User u2 = new User("Darko", "Selakovic", "darko123@gmail.com");
-            User u3 = new User("Vojin", "Bjelica", "vojin123@gmail.com");
-            User u4 = new User("Marko", "Uljarevic", "marko123@gmail.com");
+            User u1 = new User("Rade", "Stojanovic", "stojanovicrade614@gmail.com", "pass1");
+            User u2 = new User("Darko", "Selakovic", "darko123@gmail.com", "pass2");
+            User u3 = new User("Vojin", "Bjelica", "vojin123@gmail.com", "pass3");
+            User u4 = new User("Marko", "Uljarevic", "marko123@gmail.com", "pass4");
 
             repository.saveAll(List.of(u1, u2, u3, u4));
         };
