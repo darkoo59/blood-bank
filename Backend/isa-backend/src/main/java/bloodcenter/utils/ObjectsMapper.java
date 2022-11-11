@@ -5,7 +5,9 @@ import bloodcenter.address.AddressDTO;
 import bloodcenter.branch_center.BranchCenter;
 import bloodcenter.branch_center.dto.BranchCenterDTO;
 import bloodcenter.user.dto.BCAdminDTO;
+import bloodcenter.user.dto.RegisterDTO;
 import bloodcenter.user.model.BCAdmin;
+import bloodcenter.user.model.User;
 import org.modelmapper.ModelMapper;
 
 public class ObjectsMapper {
@@ -25,5 +27,9 @@ public class ObjectsMapper {
         BCAdminDTO bcAdminDTO = modelMapper.map(admin, BCAdminDTO.class);
         bcAdminDTO.setBranchCenter(admin.getBranchCenter());
         return bcAdminDTO;
+    }
+
+    public static User convertRegisterDTOToUser(RegisterDTO registerDTO) {
+        return modelMapper.map(registerDTO, User.class);
     }
 }

@@ -5,6 +5,7 @@ import bloodcenter.role.RoleRepository;
 import bloodcenter.user.dto.RegisterDTO;
 import bloodcenter.user.model.User;
 import bloodcenter.user.repository.UserRepository;
+import bloodcenter.utils.ObjectsMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -63,6 +64,9 @@ public class UserService implements UserDetailsService {
 
     public List<User> getAll() { return this.userRepository.findAll(); }
     public boolean registerUser(RegisterDTO registerDTO) {
+        User user = ObjectsMapper.convertRegisterDTOToUser(registerDTO);
+        if (user == null) return false;
+        userRepository.save(user);
         return true;
     }
 }

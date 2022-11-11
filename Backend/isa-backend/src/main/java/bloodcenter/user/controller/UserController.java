@@ -46,8 +46,9 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<?> Register(@RequestBody RegisterDTO registerDTO) {
-        userService.registerUser(registerDTO);
-        return new ResponseEntity<>(HttpStatus.OK);
+        if (userService.registerUser(registerDTO)) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping("/login")

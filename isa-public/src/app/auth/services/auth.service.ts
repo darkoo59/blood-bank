@@ -4,18 +4,20 @@ import { map, Observable, switchMap } from "rxjs";
 import { environment } from "src/environments/environment";
 
 export interface RegisterDTO {
-  name: string
-  surname: string
-  email: string
-  password: string
-  confirm_password: string
+  name: string,
+  surname: string,
+  email: string,
+  password: string,
+  confirm_password: string,
   address: {
     city: string
     country: string
     phone: string
-  }
-  id: string
-  sex: string
+  },
+  id: string,
+  sex: string,
+  occupation: string,
+  information: string
 }
 
 @Injectable({
