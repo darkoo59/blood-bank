@@ -1,0 +1,14 @@
+<section *ngLet="{users: m_Users$ | async, error: m_Error$ | async} as vm">
+  <div class="content" *ngIf="!m_Loading">
+    <h3>All Users</h3>
+    <mat-divider></mat-divider>
+    <div *ngIf="!vm.error && vm.users" class="list">
+      <user-list [m_Users]="vm.users"></user-list>
+    </div>
+    <div *ngIf="vm.error" class="errors">
+      <p>{{vm.error}}</p>
+    </div>
+  </div>
+
+  <page-loader *ngIf="m_Loading"></page-loader>
+</section>

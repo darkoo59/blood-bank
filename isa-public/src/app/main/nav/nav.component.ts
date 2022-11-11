@@ -30,6 +30,10 @@ export class NavComponent {
     {
       path: 'bc-register',
       title: 'Register Branch Center'
+    },
+    {
+      path: 'all-users',
+      title: 'All users'
     }
   ];
 
