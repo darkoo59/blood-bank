@@ -7,6 +7,8 @@ import bloodcenter.api_key.Key;
 import bloodcenter.branch_center.BranchCenter;
 import bloodcenter.branch_center.BranchCenterRepository;
 import bloodcenter.address.Address;
+import bloodcenter.role.Role;
+import bloodcenter.role.RoleRepository;
 import bloodcenter.user.model.BCAdmin;
 import bloodcenter.blood.BloodRepository;
 import bloodcenter.api_key.KeyRepository;
@@ -92,16 +94,26 @@ public class BloodConfiguration {
     @Bean
     CommandLineRunner BCAdminCLR(BCAdminRepository repository, BranchCenterRepository bc_repo) {
         return args -> {
-            BCAdmin a1 = new BCAdmin("Rade", "Stojanovic", "stojanovicrade614@gmail.com");
-            BCAdmin a2 = new BCAdmin("Darko", "Selakovic", "darko123@gmail.com");
-            BCAdmin a3 = new BCAdmin("Vojin", "Bjelica", "vojin123@gmail.com");
-            BCAdmin a4 = new BCAdmin("Marko", "Uljarevic", "marko123@gmail.com");
+            BCAdmin a1 = new BCAdmin("Rade", "Stojanovic", "stojanovicrade614@gmail.com", "pass1");
+            BCAdmin a2 = new BCAdmin("Darko", "Selakovic", "darko123@gmail.com", "pass2");
+            BCAdmin a3 = new BCAdmin("Vojin", "Bjelica", "vojin123@gmail.com", "pass3");
+            BCAdmin a4 = new BCAdmin("Marko", "Uljarevic", "marko123@gmail.com", "pass4");
 
             a1.setBranchCenter(bc_repo.findById(1L).get());
             a2.setBranchCenter(bc_repo.findById(1L).get());
             a3.setBranchCenter(bc_repo.findById(2L).get());
 
             repository.saveAll(List.of(a1, a2, a3, a4));
+        };
+    }
+
+    @Bean
+    CommandLineRunner RoleCLR(RoleRepository repository) {
+        return args -> {
+            Role role1 = new Role(0, "ROLE_ADMIN");
+            Role role2 = new Role(1, "ROLE_BCADMIN");
+            Role role3 = new Role(2, "ROLE_USER");
+            repository.saveAll(List.of(role1, role2, role3));
         };
     }
 }

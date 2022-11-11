@@ -1,10 +1,18 @@
 package bloodcenter.user.model;
 
-import lombok.NoArgsConstructor;
+import bloodcenter.role.Role;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Objects;
 
 @Entity
+@Getter
+@Setter
+@ToString
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @NoArgsConstructor
 public abstract class Person {
@@ -13,42 +21,26 @@ public abstract class Person {
             strategy = GenerationType.AUTO
     )
     protected Long id;
-
     protected String firstname;
     protected String lastname;
     protected String email;
+    protected String password;
+    @ManyToMany(fetch = FetchType.EAGER)
+    protected Collection<Role> roles = new ArrayList<>();
 
-    public Person(String firstname, String lastname, String email) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
+    public Person(String firstname, String lastname, String email, String password, String roleName) {
     }
 
-    public Long getId() {
-        return id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Person person = (Person) o;
+        return id != null && Objects.equals(id, person.id);
     }
 
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }
