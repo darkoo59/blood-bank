@@ -61,6 +61,7 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll(Pageable.ofSize(number)).toList();
     }
 
+    public List<User> getAll() { return this.userRepository.findAll(); }
     public boolean registerUser(RegisterDTO registerDTO) {
         return true;
     }

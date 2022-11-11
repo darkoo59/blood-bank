@@ -35,6 +35,15 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 public class UserController {
     private final UserService userService;
 
+    public UserController(@Autowired UserService userService) {
+        this.userService = userService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<User>> getAll(){
+        return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
+    }
+
     @PostMapping("/register")
     public ResponseEntity<?> Register(@RequestBody RegisterDTO registerDTO) {
         userService.registerUser(registerDTO);

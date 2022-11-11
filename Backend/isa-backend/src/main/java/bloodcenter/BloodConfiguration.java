@@ -12,7 +12,9 @@ import bloodcenter.role.RoleRepository;
 import bloodcenter.user.model.BCAdmin;
 import bloodcenter.blood.BloodRepository;
 import bloodcenter.api_key.KeyRepository;
+import bloodcenter.user.model.User;
 import bloodcenter.user.repository.BCAdminRepository;
+import bloodcenter.user.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -114,6 +116,18 @@ public class BloodConfiguration {
             Role role2 = new Role(1, "ROLE_BCADMIN");
             Role role3 = new Role(2, "ROLE_USER");
             repository.saveAll(List.of(role1, role2, role3));
+        };
+    }
+
+    @Bean
+    CommandLineRunner UserCLR(UserRepository repository) {
+        return args -> {
+            User u1 = new User("Rade", "Stojanovic", "stojanovicrade614@gmail.com");
+            User u2 = new User("Darko", "Selakovic", "darko123@gmail.com");
+            User u3 = new User("Vojin", "Bjelica", "vojin123@gmail.com");
+            User u4 = new User("Marko", "Uljarevic", "marko123@gmail.com");
+
+            repository.saveAll(List.of(u1, u2, u3, u4));
         };
     }
 }

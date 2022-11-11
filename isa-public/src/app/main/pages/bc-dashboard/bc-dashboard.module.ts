@@ -8,11 +8,14 @@ import { BCEditComponent } from './bc-edit/bc-edit.component';
 import { BCViewComponent } from './bc-view/bc-view.component';
 import { BCDashboardRoutingModule } from './bc-dashboard-routing.module';
 import { MapModule } from 'src/app/core/map/map.module';
+import { PageLoaderModule } from 'src/app/core/page-loader/page-loader.module';
+import { BCDashboardComponent } from './bc-dashboard.component';
 
 @NgModule({
   declarations: [
     BCViewComponent,
-    BCEditComponent
+    BCEditComponent,
+    BCDashboardComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +23,8 @@ import { MapModule } from 'src/app/core/map/map.module';
     NgLetModule,
     MaterialModule,
     ReactiveFormsModule,
-    MapModule
+    MapModule,
+    PageLoaderModule
   ],
   providers: []
 })

@@ -1,4 +1,4 @@
-<section *ngLet="{ data: m_BCData$ | async, u: m_Update$ | async } as vm">
+<div *ngLet="{ data: m_BCData$ | async, u: m_Update$ | async } as vm">
   <button mat-button [routerLink]="['..']">
     <mat-icon>keyboard_backspace</mat-icon>
     <span style="margin-left:12px;font-size: 15px;">dashboard</span>
@@ -38,4 +38,4 @@
       <button mat-flat-button color="primary">Submit</button>
     </div>
   </form>
-</section>
+</div>

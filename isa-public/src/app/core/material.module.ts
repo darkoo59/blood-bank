@@ -7,9 +7,11 @@ import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatTableModule } from '@angular/material/table';
+
 @NgModule({
   imports: [
     MatButtonModule,
@@ -20,7 +22,8 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
     MatDividerModule,
     MatInputModule,
     MatCardModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTableModule
   ],
   exports: [
     MatButtonModule,
@@ -33,7 +36,8 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
     MatCardModule,
     MatPaginatorModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTableModule
   ]
 })
 export class MaterialModule { }

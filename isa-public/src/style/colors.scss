@@ -122,6 +122,7 @@ $foreground-dark: mat.$dark-theme-foreground-palette;
   --background-4: #{map-get($background-light,  'tooltip')};
 
   --loader-bg: #eee;
+  --page-loader-grad: #f9f9f9;
 }
 
 .dark-theme{
@@ -138,4 +139,5 @@ $foreground-dark: mat.$dark-theme-foreground-palette;
   --background-4: #{map-get($background-dark,   'tooltip')};
 
   --loader-bg: #e68a8a;
+  --page-loader-grad: #4A4A4A;
 }

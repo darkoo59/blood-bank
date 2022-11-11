@@ -1,4 +1,4 @@
-<section *ngLet="(m_BCData$ | async) as bc_data">
+<div *ngLet="(m_BCData$ | async) as bc_data">
   <div class="button-group">
     <button mat-flat-button color="primary" [routerLink]="['bc-edit']">Edit</button>
   </div>
@@ -13,4 +13,4 @@
       <app-map [m_Height]="350" [m_Location]="m_Location!"></app-map>
     </div>
   </div>
-</section>
+</div>

@@ -1,0 +1,108 @@
+// .loader {
+//   width: 100%;
+//   height: 150px;
+//   display: block;
+//   position: relative;
+//   background: var(--background);
+//   box-sizing: border-box;
+// }
+
+// .loader::after {
+//   content: '';
+//   width: calc(100% - 30px);
+//   height: calc(100% - 30px);
+//   top: 15px;
+//   left: 15px;
+//   position: absolute;
+//   background-image: linear-gradient(100deg, transparent, var(--page-loader-grad) 50%, transparent 80%), linear-gradient(var(--background-3) 56px, transparent 0), linear-gradient(var(--background-3) 24px, transparent 0), linear-gradient(var(--background-3) 18px, transparent 0), linear-gradient(var(--background-3) 66px, transparent 0);
+//   background-repeat: no-repeat;
+//   background-size: 75px 130px, 55px 56px, 55% 30px, 100% 20px, 100% 56px;
+//   background-position: 0% 0, 0 0, 70px 5px, 70px 38px, 0px 66px;
+//   box-sizing: border-box;
+//   animation: animloader 1s linear infinite;
+// }
+
+// @keyframes animloader {
+//   0% {
+//     background-position: 0% 0, 0 0, 70px 5px, 70px 38px, 0px 66px;
+//   }
+
+//   100% {
+//     background-position: 150% 0, 0 0, 70px 5px, 70px 38px, 0px 66px;
+//   }
+// }
+
+// .grid {
+//   display: grid;
+//   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+//   grid-gap: 10px 25px;
+//   padding:20px;
+// }
+
+
+.loading-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 350px;
+  z-index: 8000;
+  &::before{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    inset: 0px;
+    background-color: var(--background);
+    opacity: 0.7;
+  }
+}
+
+.loader {
+  width: 80px;
+  height: 80px;
+  background-color: var(--primary);
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.5) inset,
+    0 5px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  position: absolute;
+  margin:0px auto;
+  inset: 0px;
+  top:80px;
+}
+.loader:before,
+.loader:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 45%;
+  top: -40%;
+  background-color: var(--loader-bg);
+  animation: wave 5s linear infinite;
+}
+.loader:before {
+  border-radius: 30%;
+  background: rgba(255, 255, 255, 0.25);
+  animation: wave 5s linear infinite;
+}
+@keyframes wave {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader-text{
+  position: absolute;
+  inset:0px;
+  margin:auto;
+  top:35px;
+  width: 83px;
+  height: 22px;
+  font-size: 14px;
+  left: 6px;
+}
