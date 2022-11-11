@@ -8,7 +8,6 @@ import { MaterialModule } from 'src/app/core/material.module';
 import { NavComponent } from './nav/nav.component';
 import { BCRegisterComponent } from './pages/bc-register/bc-register.component';
 
-import { BCDashboardComponent } from './pages/bc-dashboard/bc-dashboard.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BCAllComponent } from './pages/bc-all/bc-all.component';
 import { BcAllService } from './pages/bc-all/bc-all.service';
@@ -18,7 +17,6 @@ import { BcAllService } from './pages/bc-all/bc-all.service';
     MainComponent,
     NavComponent,
     BCRegisterComponent,
-    BCDashboardComponent,
     BCAllComponent
   ],
   imports: [
