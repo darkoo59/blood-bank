@@ -28,9 +28,6 @@ public abstract class Person {
     @ManyToMany(fetch = FetchType.EAGER)
     protected Collection<Role> roles = new ArrayList<>();
 
-    public Person(String firstname, String lastname, String email, String password) {
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

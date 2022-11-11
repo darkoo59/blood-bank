@@ -15,6 +15,7 @@ import bloodcenter.api_key.KeyRepository;
 import bloodcenter.user.model.User;
 import bloodcenter.user.repository.BCAdminRepository;
 import bloodcenter.user.repository.UserRepository;
+import bloodcenter.user.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -128,6 +129,14 @@ public class BloodConfiguration {
             User u4 = new User("Marko", "Uljarevic", "marko123@gmail.com", "pass4");
 
             repository.saveAll(List.of(u1, u2, u3, u4));
+        };
+    }
+
+    @Bean
+    CommandLineRunner PersonRolesCLR(UserService userService) {
+        return args -> {
+            userService.addRoleToUser("stojanovicrade614@gmail.com", "ROLE_ADMIN");
+            userService.addRoleToUser("darko123@gmail.com", "ROLE_USER");
         };
     }
 }

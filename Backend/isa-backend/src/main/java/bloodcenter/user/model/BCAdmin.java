@@ -21,10 +21,6 @@ public class BCAdmin extends Person {
     @ManyToOne
     private BranchCenter branchCenter;
 
-    public BCAdmin(String firstname, String lastname, String email, String password) {
-        super(firstname, lastname, email, password);
-    }
-
     public BCAdmin(String firstname, String lastname, String email, String password) { super(firstname, lastname, email, password); }
     public BranchCenter getBranchCenter() {
         return branchCenter;
