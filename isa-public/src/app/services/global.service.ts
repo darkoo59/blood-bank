@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
-import { BCDashboardService } from "../main/pages/bc-dashboard/bc-dashboard.service";
 import { LoadingService } from "./loading.service";
 
 @Injectable({
@@ -11,7 +10,7 @@ export class GlobalService {
 
   public m_DarkTheme$: Observable<boolean> = this.m_DarkThemeSubject.asObservable();
   
-  constructor(private m_LoadingService: LoadingService, private m_BCDashboardService: BCDashboardService){
+  constructor(private m_LoadingService: LoadingService){
     const darkTheme = localStorage.getItem('darkTheme');
     if(darkTheme == undefined || darkTheme == 'true') {
       this.setDarkTheme = true;
@@ -20,13 +19,7 @@ export class GlobalService {
 
   initApp(): void {
     //TODO: send initial requests...
-
-    //temp
-    this.m_LoadingService.setLoading = true;
-    this.m_BCDashboardService.fetchBCData().subscribe(_ => {
-      this.m_LoadingService.setLoading = false;
-    });
-    //temp end
+    this.m_LoadingService.setLoading = false;
   }
 
   set setDarkTheme(value: boolean) {

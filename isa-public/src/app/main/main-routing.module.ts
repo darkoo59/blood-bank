@@ -14,7 +14,7 @@ const routes: Routes = [
       { path: 'home', component: HomeComponent },
       {
         path: 'bc-dashboard',
-        loadChildren: () => import('./pages/bc-dashboard/bc-dashboard.module').then(m => m.BCDashboardModule),
+        loadChildren: () => import('./modules/bc-dashboard/bc-dashboard.module').then(m => m.BCDashboardModule),
       },
       { path: 'bc-register', component: BCRegisterComponent},
       { path: 'bc-admin-register', component: BCAdminRegisterComponent},
@@ -23,7 +23,7 @@ const routes: Routes = [
       { path: 'bc-all', component: BCAllComponent},
       {
         path: 'all-users',
-        loadChildren: () => import('./pages/all-users/all-users.module').then(m => m.AllUsersModule),
+        loadChildren: () => import('./modules/all-users/all-users.module').then(m => m.AllUsersModule),
       },
       { path: '**', component: PageNotFoundComponent },
 

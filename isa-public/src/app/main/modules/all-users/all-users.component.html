@@ -1,4 +1,4 @@
-<section *ngLet="{users: m_Users$ | async, error: m_Error$ | async} as vm">
+<section *ngLet="{fetchData: m_FetchAllUsers$ | async, users: m_Users$ | async, error: m_Error$ | async} as vm">
   <div class="content" *ngIf="!m_Loading">
     <h3>All Users</h3>
     <mat-divider></mat-divider>

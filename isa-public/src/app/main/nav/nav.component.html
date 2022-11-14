@@ -4,16 +4,9 @@
       routerLinkActive="nav-active">{{route.title}}</a>
   </mat-nav-list>
 
-
-  <!-- TODO: hide this upcoming section from unauthorized users -->
-  <div class="protected-nav">
-    <div class="divider-wrapper">
-      <h5 class="nav-title">Branch Centre Admin</h5>
-      <mat-divider></mat-divider>
-    </div>
-    <mat-nav-list>
-      <a mat-list-item *ngFor="let route of m_ProtectedRoutes" [routerLink]="route.path"
-        routerLinkActive="nav-active">{{route.title}}</a>
-    </mat-nav-list>
-  </div>
+  <!-- TODO: hide these upcoming sections based on user roles -->
+  <nav-section [m_Routes]="m_UserRoutes" m_Title="User"></nav-section>
+  <nav-section [m_Routes]="m_BCAdminRoutes" m_Title="Branch Centre Admin"></nav-section>
+  <nav-section [m_Routes]="m_AdminRoutes" m_Title="System Admin"></nav-section>
+  <nav-section [m_Routes]="m_StaffRoutes" m_Title="Staff"></nav-section>
 </nav>

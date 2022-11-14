@@ -1,4 +1,3 @@
-import { ObserversModule } from "@angular/cdk/observers";
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
@@ -7,7 +6,7 @@ import { exhaustMap, Observable, Subject, tap } from "rxjs";
 import { Address } from "src/app/model/address.model";
 import { BranchCenter } from "src/app/model/branch-center.model";
 import { LoadingService } from "src/app/services/loading.service";
-import { BCDashboardService, BCUpdateDTO } from "../bc-dashboard.service";
+import { BCUpdateDTO, BCDashboardService } from "../../services/bc-dashboard.service";
 
 @Component({
   selector: "app-bc-edit",
@@ -15,7 +14,7 @@ import { BCDashboardService, BCUpdateDTO } from "../bc-dashboard.service";
   styleUrls: ["./bc-edit.component.scss"]
 })
 export class BCEditComponent {
-  m_BCData$ = this.m_BCDashboardService.m_BCData$.pipe(
+  m_BCData$ = this.m_BCDashboardService.m_Data$.pipe(
     tap((data: BranchCenter | null) => {
       this.setData(data);
     })
