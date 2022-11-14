@@ -6,8 +6,10 @@ import { PageLoaderModule } from "src/app/core/page-loader/page-loader.module";
 import { UserListModule } from "src/app/core/user-list/user-list.module";
 import { AllUsersRoutingModule } from "./all-users-routing.module";
 import { AllUsersComponent } from "./all-users.component";
+import { UserService } from "./services/user.service";
 
 @NgModule({
+  providers: [UserService],
   declarations: [AllUsersComponent],
   imports: [
     CommonModule,
@@ -16,7 +18,6 @@ import { AllUsersComponent } from "./all-users.component";
     PageLoaderModule,
     MaterialModule,
     NgLetModule
-  ],
-  exports: [AllUsersComponent]
+  ]
 })
 export class AllUsersModule {}

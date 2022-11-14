@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-interface NavRoute {
+export interface NavRoute {
   path: string;
   title: string;
 }
@@ -15,17 +15,22 @@ export class NavComponent {
     {
       path: 'home',
       title: 'Home'
-    },
-    {
-      path: 'bc-all',
-      title: 'All Branch Centers'
     }
   ];
 
-  m_ProtectedRoutes: NavRoute[] = [
+  m_UserRoutes: NavRoute[] = [];
+
+  m_BCAdminRoutes: NavRoute[] = [
     {
       path: 'bc-dashboard',
       title: 'My Branch Center'
+    }
+  ];
+
+  m_AdminRoutes: NavRoute[] = [
+    {
+      path: 'bc-all',
+      title: 'All Branch Centers'
     },
     {
       path: 'bc-register',
@@ -44,6 +49,8 @@ export class NavComponent {
       title: 'All users'
     }
   ];
+
+  m_StaffRoutes: NavRoute[] = [];
 
   constructor() { }
 }

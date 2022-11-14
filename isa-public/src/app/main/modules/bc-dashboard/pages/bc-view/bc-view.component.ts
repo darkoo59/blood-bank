@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { LatLng } from "leaflet";
 import { tap } from "rxjs";
-import { BCDashboardService } from "../bc-dashboard.service";
+import { BCDashboardService } from "../../services/bc-dashboard.service";
 
 @Component({
   selector: "app-bc-view",
@@ -9,7 +9,7 @@ import { BCDashboardService } from "../bc-dashboard.service";
   styleUrls: ["./bc-view.component.scss"]
 })
 export class BCViewComponent {
-  m_BCData$ = this.m_BCDashboardService.m_BCData$.pipe(tap(d => {
+  m_BCData$ = this.m_BCDashboardService.m_Data$.pipe(tap(d => {
     if(d?.address.lat && d?.address.lng){
       this.m_Location = new LatLng(d?.address.lat, d?.address.lng)
     }

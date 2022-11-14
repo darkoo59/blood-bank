@@ -1,8 +1,8 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { BCDashboardComponent } from "./bc-dashboard.component";
-import { BCEditComponent } from "./bc-edit/bc-edit.component";
-import { BCViewComponent } from "./bc-view/bc-view.component";
+import { BCEditComponent } from "./pages/bc-edit/bc-edit.component";
+import { BCViewComponent } from "./pages/bc-view/bc-view.component";
 
 const routes: Routes = [
   {

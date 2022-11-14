@@ -1,8 +1,7 @@
-.card {
-  max-width: 400px;
-  margin-bottom: 8px;
-}
-
-.paginator{
-  max-width: 432px;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-gap: 25px;
+  margin-bottom: 25px;
+  margin-top: 10px;
 }

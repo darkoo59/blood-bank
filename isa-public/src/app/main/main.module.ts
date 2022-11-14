@@ -13,11 +13,11 @@ import { BCAdminRegisterComponent } from './pages/bc-admin-register/bc-admin-reg
 import { BCAllComponent } from './pages/bc-all/bc-all.component';
 import { BcAllService } from './pages/bc-all/bc-all.service';
 import { BCAdminAssignComponent } from './pages/bc-admin-assign/bc-admin-assign.component';
+import { NavModule } from './nav/nav.module';
 
 @NgModule({
   declarations: [
     MainComponent,
-    NavComponent,
     BCRegisterComponent,
     BCAdminRegisterComponent,
     BCAllComponent,
@@ -28,7 +28,8 @@ import { BCAdminAssignComponent } from './pages/bc-admin-assign/bc-admin-assign.
     MainRoutingModule,
     NgLetModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NavModule
   ],
   providers: [BcAllService]
 })
