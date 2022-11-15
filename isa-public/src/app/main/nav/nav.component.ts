@@ -18,6 +18,13 @@ export class NavComponent {
     }
   ];
 
+  m_CommonRoutes: NavRoute[] = [
+    {
+      path: 'profile',
+      title: 'My Profile'
+    }
+  ];
+
   m_UserRoutes: NavRoute[] = [];
 
   m_BCAdminRoutes: NavRoute[] = [

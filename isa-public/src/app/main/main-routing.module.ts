@@ -12,21 +12,24 @@ const routes: Routes = [
   {
     path: '', component: MainComponent, children: [
       { path: 'home', component: HomeComponent },
+      { path: 'bc-register', component: BCRegisterComponent },
+      { path: 'bc-admin-register', component: BCAdminRegisterComponent },
+      { path: 'bc-admin-assign', component: BCAdminAssignComponent },
+      { path: 'bc-all', component: BCAllComponent },
       {
         path: 'bc-dashboard',
-        loadChildren: () => import('./modules/bc-dashboard/bc-dashboard.module').then(m => m.BCDashboardModule),
+        loadChildren: () => import('./modules/bc-dashboard/bc-dashboard.module').then(m => m.BCDashboardModule)
       },
-      { path: 'bc-register', component: BCRegisterComponent},
-      { path: 'bc-admin-register', component: BCAdminRegisterComponent},
-      { path: '', pathMatch: 'full', redirectTo: 'home' },
-      { path: 'bc-admin-assign', component: BCAdminAssignComponent },
-      { path: 'bc-all', component: BCAllComponent},
       {
         path: 'all-users',
-        loadChildren: () => import('./modules/all-users/all-users.module').then(m => m.AllUsersModule),
+        loadChildren: () => import('./modules/all-users/all-users.module').then(m => m.AllUsersModule)
       },
-      { path: '**', component: PageNotFoundComponent },
-
+      {
+        path: 'profile',
+        loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfileModule)
+      },
+      { path: '', pathMatch: 'full', redirectTo: 'home' },
+      { path: '**', component: PageNotFoundComponent }
     ]
   }
 ];
