@@ -2,10 +2,14 @@ package bloodcenter.user.dto;
 
 import bloodcenter.address.AddressDTO;
 import bloodcenter.user.enums.Sex;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 public class RegisterDTO {
-    public String name;
-    public String surname;
+    public String firstname;
+    public String lastname;
     public String email;
     public String password;
     public String confirmPassword;
@@ -16,14 +20,11 @@ public class RegisterDTO {
     public String occupation;
     public String information;
 
-    public RegisterDTO() {
-    }
-
     public RegisterDTO(RegisterDTO copy) {
         if (copy == null) return;
 
-        this.name = copy.name;
-        this.surname = copy.surname;
+        this.firstname = copy.firstname;
+        this.lastname = copy.lastname;
         this.email = copy.email;
         this.password = copy.password;
         this.confirmPassword = copy.confirmPassword;

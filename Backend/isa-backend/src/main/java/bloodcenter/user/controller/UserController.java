@@ -51,12 +51,6 @@ public class UserController {
         } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> Login() {
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
     @GetMapping("/token/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String authorizationHeader = request.getHeader(AUTHORIZATION);

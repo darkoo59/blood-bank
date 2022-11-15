@@ -39,9 +39,9 @@ public class UserService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
     }
 
-    public User saveUser(User user) {
+    public void saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+        userRepository.save(user);
     }
 
     public Role saveRole(Role role) {
@@ -66,7 +66,7 @@ public class UserService implements UserDetailsService {
     public boolean registerUser(RegisterDTO registerDTO) {
         User user = ObjectsMapper.convertRegisterDTOToUser(registerDTO);
         if (user == null) return false;
-        userRepository.save(user);
+        saveUser(user);
         return true;
     }
 }

@@ -12,8 +12,8 @@ import { catchError, of } from "rxjs"
 })
 export class RegisterComponent{
   m_Form1: UntypedFormGroup = new UntypedFormGroup({
-    'name': new UntypedFormControl(null, [Validators.required]),
-    'surname': new UntypedFormControl(null, [Validators.required]),
+    'firstname': new UntypedFormControl(null, [Validators.required]),
+    'lastname': new UntypedFormControl(null, [Validators.required]),
     'email': new UntypedFormControl(null, [Validators.required, Validators.email]),
     'password': new UntypedFormControl(null, [Validators.required, Validators.minLength(8)]),
     'confirmPassword': new UntypedFormControl(null, [Validators.required, Validators.minLength(8)])
@@ -47,9 +47,30 @@ export class RegisterComponent{
       control?.markAsTouched({ onlySelf: true });
     })
 
-    const dto: RegisterDTO = this.m_Form.getRawValue()
     if (!this.m_Form.valid) return;
 
+    const data = {...this.m_Form1.getRawValue(), ...this.m_Form2.getRawValue()}
+    data.address = {
+      lat: 123,
+      lng: 132241,
+      street: data.street,
+      number: data.number,
+      city: data.city,
+      country: data.country
+    }
+    const dto: RegisterDTO = {
+      firstname: data.firstname,
+      lastname: data.lastname,
+      email: data.email,
+      password: data.password,
+      confirmPassword: data.confirmPassword,
+      address: data.address,
+      phone: data.phone,
+      nationalId: data.nationalId,
+      sex: data.sex,
+      occupation: data.occupation,
+      information: data.information
+    }
 
     this.m_AuthService.register(dto)
       .pipe(catchError(res => {
