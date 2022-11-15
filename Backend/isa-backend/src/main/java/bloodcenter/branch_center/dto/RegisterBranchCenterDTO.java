@@ -1,5 +1,7 @@
 package bloodcenter.branch_center.dto;
 
+import bloodcenter.address.Address;
+import bloodcenter.address.AddressDTO;
 import bloodcenter.branch_center.BranchCenter;
 import lombok.Data;
 
@@ -8,9 +10,7 @@ public class RegisterBranchCenterDTO {
 
     public String name;
     public String description;
-    public String country;
-    public String city;
-    public String street;
-    public String number;
+
+    public AddressDTO address;
 
 }

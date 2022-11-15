@@ -35,7 +35,8 @@ public class BranchCenterService {
     }
 
     public void registerBranchCenter(RegisterBranchCenterDTO bcDTO) {
-        Address address = new Address(0, 0, bcDTO.street, bcDTO.number, bcDTO.city, bcDTO.country);
+        Address address = new Address(bcDTO.address.lat, bcDTO.address.lng, bcDTO.address.street,
+                bcDTO.address.number, bcDTO.address.city, bcDTO.address.country);
         service.saveAdress(address);
         BranchCenter bc = new BranchCenter(bcDTO.name, bcDTO.description, address);
         repository.save(bc);
