@@ -1,10 +1,10 @@
-package bloodcenter.user.service;
+package bloodcenter.person.service;
 
 import bloodcenter.role.Role;
 import bloodcenter.role.RoleRepository;
-import bloodcenter.user.dto.RegisterDTO;
-import bloodcenter.user.model.User;
-import bloodcenter.user.repository.UserRepository;
+import bloodcenter.person.dto.RegisterDTO;
+import bloodcenter.person.model.User;
+import bloodcenter.person.repository.UserRepository;
 import bloodcenter.utils.ObjectsMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;

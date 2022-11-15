@@ -1,15 +1,14 @@
-package bloodcenter.user.controller;
+package bloodcenter.person.controller;
 
 import bloodcenter.role.Role;
-import bloodcenter.user.dto.RegisterDTO;
-import bloodcenter.user.model.User;
-import bloodcenter.user.service.UserService;
+import bloodcenter.person.dto.RegisterDTO;
+import bloodcenter.person.model.User;
+import bloodcenter.person.service.UserService;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

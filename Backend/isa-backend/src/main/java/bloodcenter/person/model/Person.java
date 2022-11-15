@@ -1,4 +1,4 @@
-package bloodcenter.user.model;
+package bloodcenter.person.model;
 
 import bloodcenter.role.Role;
 import lombok.*;
@@ -61,4 +61,10 @@ public abstract class Person {
     public String getPassword() { return password; }
 
     public void setPassword(String password) { this.password = password; }
+
+    public static class PersonNotFoundException extends Exception {
+        public PersonNotFoundException(String message){
+            super(message);
+        }
+    }
 }

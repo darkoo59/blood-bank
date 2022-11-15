@@ -1,4 +1,4 @@
-<div class="root" *ngLet="(m_DarkTheme$ | async) as darkTheme">
+<div class="root" *ngLet="{darkTheme: m_DarkTheme$ | async, init: m_AppInit$ | async} as vm">
   <router-outlet></router-outlet>
 </div>
 

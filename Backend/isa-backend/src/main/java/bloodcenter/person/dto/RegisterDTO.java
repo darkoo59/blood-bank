@@ -1,9 +1,9 @@
-package bloodcenter.user.dto;
+package bloodcenter.person.dto;
 
 import bloodcenter.address.AddressDTO;
-import bloodcenter.user.enums.Sex;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import bloodcenter.person.enums.Sex;
 
 @Data
 @NoArgsConstructor

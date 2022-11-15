@@ -1,6 +1,6 @@
-package bloodcenter.user.repository;
+package bloodcenter.person.repository;
 
-import bloodcenter.user.model.BCAdmin;
+import bloodcenter.person.model.BCAdmin;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

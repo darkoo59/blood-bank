@@ -1,11 +1,11 @@
-package bloodcenter.user.controller;
+package bloodcenter.person.controller;
 
 import bloodcenter.branch_center.dto.BranchCenterDTO;
 import bloodcenter.core.ErrorResponse;
-import bloodcenter.user.dto.BCAdminDTO;
-import bloodcenter.user.dto.RegisterBCAdminDTO;
-import bloodcenter.user.model.BCAdmin;
-import bloodcenter.user.service.BCAdminService;
+import bloodcenter.person.dto.BCAdminDTO;
+import bloodcenter.person.dto.RegisterBCAdminDTO;
+import bloodcenter.person.model.BCAdmin;
+import bloodcenter.person.service.BCAdminService;
 import bloodcenter.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

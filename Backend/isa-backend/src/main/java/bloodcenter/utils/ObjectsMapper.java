@@ -4,10 +4,12 @@ import bloodcenter.address.Address;
 import bloodcenter.address.AddressDTO;
 import bloodcenter.branch_center.BranchCenter;
 import bloodcenter.branch_center.dto.BranchCenterDTO;
-import bloodcenter.user.dto.BCAdminDTO;
-import bloodcenter.user.dto.RegisterDTO;
-import bloodcenter.user.model.BCAdmin;
-import bloodcenter.user.model.User;
+import bloodcenter.person.dto.BCAdminDTO;
+import bloodcenter.person.dto.PersonDTO;
+import bloodcenter.person.dto.RegisterDTO;
+import bloodcenter.person.model.BCAdmin;
+import bloodcenter.person.model.Person;
+import bloodcenter.person.model.User;
 import org.modelmapper.ModelMapper;
 
 public class ObjectsMapper {
@@ -19,6 +21,7 @@ public class ObjectsMapper {
         return branchCenterDTO;
     }
 
+    public static PersonDTO convertPersonToDTO(Person person) { return modelMapper.map(person,PersonDTO.class); }
     public static AddressDTO convertAddressToDTO(Address address){
         return modelMapper.map(address, AddressDTO.class);
     }
