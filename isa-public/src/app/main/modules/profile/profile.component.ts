@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { NavRoute } from "../../nav/nav.component";
 import { UserService } from "../../../services/user.service";
-import { Observable, tap } from "rxjs";
+import { Observable, filter, tap } from "rxjs";
 
 @Component({
   selector: 'app-profile',
@@ -27,15 +27,21 @@ export class ProfileComponent  implements OnInit {
     }
   ];
 
-  activeLink: string = this.m_Routes[0].path;
+  m_ActiveLink: string = this.m_Routes[0].path;
 
-  constructor(private m_Route: ActivatedRoute, private m_UserService: UserService) { }
+  constructor(private m_Router: Router, private m_UserService: UserService) { }
 
-  ngOnInit() {
-    this.activeLink = this.m_Route.snapshot.firstChild?.url[0].path!;
-  }
+  m_ActiveLink$ = this.m_Router.events.pipe(
+    filter((event: any) => event instanceof NavigationEnd),
+    tap((route: any) => {
+      const arr = route.url.split('/');
+      this.m_ActiveLink = arr[arr.length - 1];
+    })
+  );
+
+  ngOnInit() {}
 
   changeTab(path: string): void {
-    this.activeLink = path
+    this.m_ActiveLink = path
   }
 }

@@ -7,6 +7,7 @@ import bloodcenter.person.repository.PersonRepository;
 import bloodcenter.role.RoleRepository;
 import bloodcenter.utils.ObjectsMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,10 @@ import java.util.Optional;
 public class PersonService {
     private final PersonRepository personRepository;
 
+    @Autowired
+    public PersonService(PersonRepository personRepository){
+        this.personRepository = personRepository;
+    }
     public PersonDTO findById(Long id) throws Person.PersonNotFoundException {
         Optional<Person> person = personRepository.findById(id);
         if(person.isEmpty())

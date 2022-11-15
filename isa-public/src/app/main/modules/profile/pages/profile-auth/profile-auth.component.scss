@@ -1,0 +1,22 @@
+.form-field{
+  width: 100%;
+  margin-bottom: 6px;
+}
+
+.heading{
+  margin-bottom: 40px;
+}
+
+form{
+  max-width: 350px;
+}
+
+.button-group{
+  display: flex;
+  justify-content: right;
+  margin-top: 20px;
+  margin-bottom: 100px;
+  & > button:not(:first-child){
+    margin-left: 15px;
+  }
+}
