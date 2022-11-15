@@ -25,6 +25,15 @@ public class BranchCenterService {
         this.service = service;
     }
 
+    public BranchCenter getById(Long id) throws BranchCenter.BCNotFoundException {
+        Optional<BranchCenter> center = this.repository.findById(id);
+        if (center.isEmpty()) {
+            throw new BranchCenter.BCNotFoundException("Branch center not found.");
+        }
+        BranchCenter ret = center.get();
+        return ret;
+    }
+
     public void registerBranchCenter(RegisterBranchCenterDTO bcDTO) {
         Address address = new Address(0, 0, bcDTO.street, bcDTO.number, bcDTO.city, bcDTO.country);
         service.saveAdress(address);
