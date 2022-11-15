@@ -30,14 +30,11 @@ public class BCAdminController {
     public ResponseEntity<BranchCenterDTO> getBCData() throws BCAdmin.BCAdminNotFoundException {
         //TODO: get email from token...
         String email = "stojanovicrade614@gmail.com";
-
         BCAdmin admin = this.service.getByMail(email);
 
-        if (admin.getBranchCenter() == null){
+        if (admin.getBranchCenter() == null)
             return new ResponseEntity<>(null, HttpStatus.OK);
-        }
         BranchCenterDTO dto = ObjectsMapper.convertBranchCenterToDTO(admin.getBranchCenter());
-        dto.address = ObjectsMapper.convertAddressToDTO(admin.getBranchCenter().getAddress());
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
