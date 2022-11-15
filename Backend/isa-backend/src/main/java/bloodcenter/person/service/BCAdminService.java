@@ -4,6 +4,9 @@ import bloodcenter.person.dto.BCAdminDTO;
 import bloodcenter.person.dto.RegisterBCAdminDTO;
 import bloodcenter.person.model.BCAdmin;
 import bloodcenter.person.repository.BCAdminRepository;
+import bloodcenter.branch_center.BranchCenter;
+import bloodcenter.branch_center.BranchCenterService;
+import bloodcenter.user.dto.AssignAdminToCenterDTO;
 import bloodcenter.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,9 +16,11 @@ import java.util.ArrayList;
 @Service
 public class BCAdminService {
     private final BCAdminRepository repository;
+    private final BranchCenterService bcService;
 
-    public BCAdminService(@Autowired BCAdminRepository repository){
+    public BCAdminService(@Autowired BCAdminRepository repository, @Autowired BranchCenterService bcService){
         this.repository = repository;
+        this.bcService = bcService;
     }
 
     public BCAdmin getByMail(String email) throws BCAdmin.BCAdminNotFoundException {
@@ -34,7 +39,6 @@ public class BCAdminService {
                 ret.add(ObjectsMapper.convertBCAdminToDTO(admin));
             }
         }
-        System.out.println("!?!?!??!?!?!??!" + ret.get(0).firstname);
         return ret;
     }
 
@@ -47,6 +51,14 @@ public class BCAdminService {
         } else {
             throw new BCAdmin.BCAdminEmailTakenException("User with email " + bcaDTO.email + " already exists.");
         }
+    }
+
+    public void assignAdminToCenter(AssignAdminToCenterDTO dto) throws BCAdmin.BCAdminNotFoundException, BranchCenter.BCNotFoundException {
+        BCAdmin admin = this.getByMail(dto.bcAdminEmail);
+        BranchCenter center = bcService.getById(dto.centerId);
+
+        admin.setBranchCenter(center);
+        repository.save(admin);
     }
 
 }

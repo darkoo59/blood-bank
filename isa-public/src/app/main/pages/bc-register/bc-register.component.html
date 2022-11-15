@@ -11,48 +11,8 @@
         </mat-error>
       </mat-form-field>
 
-      <div class="address-input">
-        <mat-form-field class="address-input-field" appearance="fill">
-          <mat-label>Country</mat-label>
-          <input matInput required formControlName="bc-country">
-          <mat-error *ngIf="form.controls['bc-country'].hasError('required')">
-            Country is <strong>required</strong>
-          </mat-error>
-          <mat-error *ngIf="form.controls['bc-country'].hasError('pattern') && !form.controls['bc-country'].hasError('required')">
-            Country must only contain letters
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field class="address-input-field" appearance="fill">
-          <mat-label>City</mat-label>
-          <input matInput required formControlName="bc-city">
-          <mat-error *ngIf="form.controls['bc-city'].hasError('required')">
-            City is <strong>required</strong>
-          </mat-error>
-          <mat-error *ngIf="form.controls['bc-city'].hasError('pattern') && !form.controls['bc-city'].hasError('required')">
-            City must only contain letters
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div class="address-input">
-        <mat-form-field class="address-input-field" appearance="fill">
-          <mat-label>Street</mat-label>
-          <input matInput required formControlName="bc-street">
-          <mat-error *ngIf="form.controls['bc-street'].hasError('required')">
-            Street is <strong>required</strong>
-          </mat-error>
-          <mat-error *ngIf="form.controls['bc-street'].hasError('pattern') && !form.controls['bc-street'].hasError('required')">
-            Street must only contain letters
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field class="address-input-field" appearance="fill">
-          <mat-label>Number</mat-label>
-          <input matInput required formControlName="bc-number">
-          <mat-error *ngIf="form.controls['bc-number'].hasError('required')">
-            Number is <strong>required</strong>
-          </mat-error>
-        </mat-form-field>
+      <div class="location">
+        <app-map [m_Location]="m_MapInput!" [m_Editable]="true" (locationData)="locationHandler($event)"></app-map>
       </div>
 
       <mat-form-field class="input-field" appearance="fill">
