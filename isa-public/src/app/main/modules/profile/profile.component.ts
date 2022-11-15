@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { NavRoute } from "../../nav/nav.component";
+import { UserService } from "../../../services/user.service";
+import { Observable, tap } from "rxjs";
 
 @Component({
   selector: 'app-profile',
@@ -8,6 +10,8 @@ import { NavRoute } from "../../nav/nav.component";
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent  implements OnInit {
+  m_Error$: Observable<string | null> = this.m_UserService.m_Error$;
+
   m_Routes: NavRoute[] = [
     {
       path: 'overview',
@@ -25,7 +29,7 @@ export class ProfileComponent  implements OnInit {
 
   activeLink: string = this.m_Routes[0].path;
 
-  constructor(private m_Route: ActivatedRoute) { }
+  constructor(private m_Route: ActivatedRoute, private m_UserService: UserService) { }
 
   ngOnInit() {
     this.activeLink = this.m_Route.snapshot.firstChild?.url[0].path!;
