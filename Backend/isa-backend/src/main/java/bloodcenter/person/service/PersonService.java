@@ -17,7 +17,6 @@ import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 @Transactional
 public class PersonService {
     private final PersonRepository personRepository;

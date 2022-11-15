@@ -113,9 +113,9 @@ public class BloodConfiguration {
     @Bean
     CommandLineRunner RoleCLR(RoleRepository repository) {
         return args -> {
-            Role role1 = new Role(0, "ROLE_ADMIN");
-            Role role2 = new Role(1, "ROLE_BCADMIN");
-            Role role3 = new Role(2, "ROLE_USER");
+            Role role1 = new Role("ROLE_ADMIN");
+            Role role2 = new Role("ROLE_BCADMIN");
+            Role role3 = new Role("ROLE_USER");
             repository.saveAll(List.of(role1, role2, role3));
         };
     }

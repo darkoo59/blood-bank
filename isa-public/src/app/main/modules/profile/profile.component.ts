@@ -29,7 +29,7 @@ export class ProfileComponent  implements OnInit {
 
   m_ActiveLink: string = this.m_Routes[0].path;
 
-  constructor(private m_Router: Router, private m_UserService: UserService) { }
+  constructor(private m_Router: Router, private m_UserService: UserService, private m_Route: ActivatedRoute) { }
 
   m_ActiveLink$ = this.m_Router.events.pipe(
     filter((event: any) => event instanceof NavigationEnd),
@@ -39,7 +39,9 @@ export class ProfileComponent  implements OnInit {
     })
   );
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.m_ActiveLink = this.m_Route.snapshot.firstChild?.url[0].path!;
+  }
 
   changeTab(path: string): void {
     this.m_ActiveLink = path
