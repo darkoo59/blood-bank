@@ -1,12 +1,14 @@
 package bloodcenter.person.dto;
 
 import bloodcenter.address.AddressDTO;
+import bloodcenter.person.enums.Sex;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import bloodcenter.person.enums.Sex;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class RegisterDTO {
     public String firstname;
     public String lastname;
@@ -19,20 +21,4 @@ public class RegisterDTO {
     public Sex sex;
     public String occupation;
     public String information;
-
-    public RegisterDTO(RegisterDTO copy) {
-        if (copy == null) return;
-
-        this.firstname = copy.firstname;
-        this.lastname = copy.lastname;
-        this.email = copy.email;
-        this.password = copy.password;
-        this.confirmPassword = copy.confirmPassword;
-        this.address = copy.address;
-        this.phone = copy.phone;
-        this.nationalId = copy.nationalId;
-        this.sex = copy.sex;
-        this.occupation = copy.occupation;
-        this.information = copy.information;
-    }
 }

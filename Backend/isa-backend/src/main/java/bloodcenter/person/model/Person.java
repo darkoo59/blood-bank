@@ -1,5 +1,7 @@
 package bloodcenter.person.model;
 
+import bloodcenter.address.Address;
+import bloodcenter.person.enums.Sex;
 import bloodcenter.role.Role;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -27,6 +29,14 @@ public abstract class Person {
     protected String password;
     @ManyToMany(fetch = FetchType.EAGER)
     protected Collection<Role> roles = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name="address_id", referencedColumnName = "id")
+    protected Address address;
+    protected String phone;
+    protected String nationalId;
+    protected Sex sex;
+    protected String occupation;
+    protected String information;
 
     @Override
     public boolean equals(Object o) {
@@ -35,7 +45,7 @@ public abstract class Person {
         Person person = (Person) o;
         return id != null && Objects.equals(id, person.id);
     }
-    
+
     public Person(String firstname, String lastname, String email) {
         this.firstname = firstname;
         this.lastname = lastname;

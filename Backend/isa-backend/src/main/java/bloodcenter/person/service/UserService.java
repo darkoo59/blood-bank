@@ -1,5 +1,6 @@
 package bloodcenter.person.service;
 
+import bloodcenter.address.AddressRepository;
 import bloodcenter.role.Role;
 import bloodcenter.role.RoleRepository;
 import bloodcenter.person.dto.RegisterDTO;
@@ -7,6 +8,7 @@ import bloodcenter.person.model.User;
 import bloodcenter.person.repository.UserRepository;
 import bloodcenter.utils.ObjectsMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,6 +28,7 @@ import java.util.List;
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final AddressRepository addressRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -66,6 +69,7 @@ public class UserService implements UserDetailsService {
     public boolean registerUser(RegisterDTO registerDTO) {
         User user = ObjectsMapper.convertRegisterDTOToUser(registerDTO);
         if (user == null) return false;
+        addressRepository.save(user.getAddress());
         saveUser(user);
         return true;
     }
