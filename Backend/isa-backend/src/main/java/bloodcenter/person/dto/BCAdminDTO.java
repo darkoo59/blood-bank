@@ -1,7 +1,7 @@
-package bloodcenter.user.dto;
+package bloodcenter.person.dto;
 
 import bloodcenter.branch_center.BranchCenter;
-import bloodcenter.user.model.BCAdmin;
+import bloodcenter.person.model.BCAdmin;
 import lombok.Setter;
 
 @Setter

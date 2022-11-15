@@ -1,7 +1,7 @@
-package bloodcenter.user.dto;
+package bloodcenter.person.dto;
 
 import bloodcenter.address.AddressDTO;
-import bloodcenter.user.enums.Sex;
+import bloodcenter.person.enums.Sex;
 
 public class RegisterDTO {
     public String name;
