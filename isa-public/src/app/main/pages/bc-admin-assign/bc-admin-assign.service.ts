@@ -5,6 +5,12 @@ import { BCAdmin } from 'src/app/model/bc-admin.model';
 import { BranchCenter } from 'src/app/model/branch-center.model';
 import { environment } from 'src/environments/environment';
 
+export interface BCAAssignDTO {
+  bcAdminEmail: string;
+  centerId: number;
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,6 +24,10 @@ constructor(private http: HttpClient) { }
 
   public findUnassinged() : Observable<BCAdmin[]> {
     return this.http.get<BCAdmin[]>(`${environment.apiUrl}/bc-admin/unassigned`);
+  }
+
+  assignAdminToCenter(dto: BCAAssignDTO) : Observable<any> {
+    return this.http.patch(`${environment.apiUrl}/bc-admin/assign`, dto);
   }
 
 }

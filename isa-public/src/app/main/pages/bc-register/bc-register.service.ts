@@ -1,16 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Address } from 'src/app/model/address.model';
 import { environment } from 'src/environments/environment';
 
 export interface BCRegisterDTO {
   name: string
   description: string
-  country: string
-  city: string
-  street: string
-  number: string
-  
+  address: Address
 }
 
 
