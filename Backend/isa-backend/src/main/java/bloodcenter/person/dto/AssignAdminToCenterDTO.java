@@ -1,4 +1,4 @@
-package bloodcenter.user.dto;
+package bloodcenter.person.dto;
 
 public class AssignAdminToCenterDTO {
     public String bcAdminEmail;
