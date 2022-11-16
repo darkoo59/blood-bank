@@ -1,4 +1,4 @@
-package bloodcenter.user.model;
+package bloodcenter.person.model;
 
 import javax.persistence.Entity;
 

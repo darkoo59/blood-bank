@@ -1,19 +1,15 @@
-package bloodcenter.user.service;
+package bloodcenter.person.service;
 
 import bloodcenter.branch_center.BranchCenter;
 import bloodcenter.branch_center.BranchCenterService;
-import bloodcenter.core.ErrorResponse;
-import bloodcenter.user.dto.AssignAdminToCenterDTO;
-import bloodcenter.user.dto.BCAdminDTO;
-import bloodcenter.user.dto.RegisterBCAdminDTO;
-import bloodcenter.user.model.BCAdmin;
-import bloodcenter.user.repository.BCAdminRepository;
+import bloodcenter.person.dto.AssignAdminToCenterDTO;
+import bloodcenter.person.dto.BCAdminDTO;
+import bloodcenter.person.dto.RegisterBCAdminDTO;
+import bloodcenter.person.model.BCAdmin;
+import bloodcenter.person.repository.BCAdminRepository;
 import bloodcenter.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.ArrayList;
 

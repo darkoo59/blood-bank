@@ -1,7 +1,7 @@
 package bloodcenter.branch_center;
 
 import bloodcenter.address.Address;
-import bloodcenter.user.model.BCAdmin;
+import bloodcenter.person.model.BCAdmin;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.Data;

@@ -5,16 +5,16 @@
 
     <mat-form-field *ngLet="{name: 'Name'} as vm" appearance="standard">
       <mat-label>{{vm.name}}</mat-label>
-      <input type="text" matInput formControlName="name">
-      <mat-error *ngIf="m_Form1.controls['name'].hasError('required')">
+      <input type="text" matInput formControlName="firstname">
+      <mat-error *ngIf="m_Form1.controls['firstname'].hasError('required')">
         {{vm.name}} is <strong>required</strong>
       </mat-error>
     </mat-form-field>
   
     <mat-form-field *ngLet="{name: 'Surname'} as vm" appearance="standard">
       <mat-label>{{vm.name}}</mat-label>
-      <input type="text" matInput formControlName="surname">
-      <mat-error *ngIf="m_Form1.controls['surname'].hasError('required')">
+      <input type="text" matInput formControlName="lastname">
+      <mat-error *ngIf="m_Form1.controls['lastname'].hasError('required')">
         {{vm.name}} is <strong>required</strong>
       </mat-error>
     </mat-form-field>
@@ -125,8 +125,8 @@
     <mat-form-field *ngLet="{name: 'Sex'} as vm" appearance="standard">
       <mat-label>{{vm.name}}</mat-label>
       <mat-select matInput formControlName="sex">
-        <mat-option value="male">Male</mat-option>
-        <mat-option value="female">Female</mat-option>
+        <mat-option value="MALE">Male</mat-option>
+        <mat-option value="FEMALE">Female</mat-option>
       </mat-select> 
       <mat-error *ngIf="m_Form2.controls['sex'].hasError('required')">
         {{vm.name}} is <strong>required</strong>

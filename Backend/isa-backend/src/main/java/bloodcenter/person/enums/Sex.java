@@ -1,4 +1,4 @@
-package bloodcenter.user.enums;
+package bloodcenter.person.enums;
 
 public enum Sex {
     MALE,
