@@ -1,18 +1,17 @@
 package bloodcenter.person.service;
 
+import bloodcenter.branch_center.BranchCenter;
+import bloodcenter.branch_center.BranchCenterService;
+import bloodcenter.person.dto.AssignAdminToCenterDTO;
 import bloodcenter.person.dto.BCAdminDTO;
 import bloodcenter.person.dto.RegisterBCAdminDTO;
 import bloodcenter.person.model.BCAdmin;
 import bloodcenter.person.repository.BCAdminRepository;
-import bloodcenter.branch_center.BranchCenter;
-import bloodcenter.branch_center.BranchCenterService;
-import bloodcenter.person.dto.AssignAdminToCenterDTO;
 import bloodcenter.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class BCAdminService {
