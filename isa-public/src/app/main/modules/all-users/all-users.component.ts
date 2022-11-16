@@ -1,5 +1,6 @@
 import { Component, OnDestroy } from "@angular/core";
-import { Observable, tap } from "rxjs";
+import { FormControl, UntypedFormGroup } from "@angular/forms";
+import { Observable, take, tap } from "rxjs";
 import { User } from "src/app/model/user.model";
 import { UserService } from "./services/user.service";
 
@@ -15,9 +16,21 @@ export class AllUsersComponent implements OnDestroy {
   m_Users$: Observable<User[] | null> = this.m_UserService.m_Data$;
   m_Loading: boolean = true;
 
+  form: UntypedFormGroup = new UntypedFormGroup({
+    'search-input': new FormControl(null)
+  })
+
   constructor(private m_UserService: UserService) { }
 
   ngOnDestroy(): void {
     this.m_UserService.resetData();
+  }
+
+  searchEntered() {
+    const searchParam = this.form.get('search-input')?.value;
+    this.m_UserService.findSearched(searchParam).pipe().subscribe( data => {
+      //this.m_Users$ = data;
+    }) 
+
   }
 }

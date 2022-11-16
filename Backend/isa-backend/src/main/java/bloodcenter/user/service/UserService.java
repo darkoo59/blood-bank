@@ -69,4 +69,9 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
         return true;
     }
+
+    public List<User> searchUsers(String searchInput) {
+        List<User> ret = userRepository.searchUsers(searchInput);
+        return ret;
+    }
 }

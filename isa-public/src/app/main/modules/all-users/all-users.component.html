@@ -2,6 +2,12 @@
   <div class="content" *ngIf="!m_Loading">
     <h3>All Users</h3>
     <mat-divider></mat-divider>
+    <form class="example-form" [formGroup]="form">
+      <mat-form-field class="search-field" appearance="fill">
+        <mat-label>Search</mat-label>
+        <input matInput formControlName="search-input" (input)="searchEntered()">
+      </mat-form-field>
+    </form>
     <div *ngIf="!vm.error && vm.users" class="list">
       <user-list [m_Users]="vm.users"></user-list>
     </div>
