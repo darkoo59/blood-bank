@@ -7,7 +7,7 @@ import bloodcenter.person.dto.BCAdminDTO;
 import bloodcenter.person.dto.RegisterBCAdminDTO;
 import bloodcenter.person.model.BCAdmin;
 import bloodcenter.person.service.BCAdminService;
-import bloodcenter.user.dto.AssignAdminToCenterDTO;
+import bloodcenter.person.dto.AssignAdminToCenterDTO;
 import bloodcenter.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
