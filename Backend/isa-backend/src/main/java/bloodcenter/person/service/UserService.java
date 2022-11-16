@@ -1,10 +1,12 @@
-package bloodcenter.user.service;
+package bloodcenter.person.service;
 
+import bloodcenter.address.AddressRepository;
+import bloodcenter.person.dto.PersonDTO;
 import bloodcenter.role.Role;
 import bloodcenter.role.RoleRepository;
-import bloodcenter.user.dto.RegisterDTO;
-import bloodcenter.user.model.User;
-import bloodcenter.user.repository.UserRepository;
+import bloodcenter.person.dto.RegisterDTO;
+import bloodcenter.person.model.User;
+import bloodcenter.person.repository.UserRepository;
 import bloodcenter.utils.ObjectsMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -20,12 +22,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static bloodcenter.utils.ObjectsMapper.convertUserToPersonDTO;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final AddressRepository addressRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -39,13 +44,9 @@ public class UserService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
     }
 
-    public User saveUser(User user) {
+    public void saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
-    }
-
-    public Role saveRole(Role role) {
-        return roleRepository.save(role);
+        userRepository.save(user);
     }
 
     public void addRoleToUser(String email, String roleName) {
@@ -63,10 +64,26 @@ public class UserService implements UserDetailsService {
     }
 
     public List<User> getAll() { return this.userRepository.findAll(); }
+
     public boolean registerUser(RegisterDTO registerDTO) {
         User user = ObjectsMapper.convertRegisterDTOToUser(registerDTO);
         if (user == null) return false;
-        userRepository.save(user);
+        Role role = roleRepository.findByName("ROLE_USER");
+        if (role == null) {
+             role = new Role(0, "ROLE_USER");
+             roleRepository.save(role);
+        }
+        addressRepository.save(user.getAddress());
+        saveUser(user);
+        addRoleToUser(user.getEmail(), role.getName());
         return true;
+    }
+
+    public PersonDTO getPersonDTOFromEmail(String email) {
+        User user = getUser(email);
+        if (user != null) {
+            return convertUserToPersonDTO(user);
+        }
+        return  null;
     }
 }

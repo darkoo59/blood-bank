@@ -16,6 +16,7 @@ export class AppComponent implements OnInit{
       else this.m_Renderer.removeClass(document.body, 'dark-theme');
     })
   );
+  m_AppInit$ = this.m_GlobalService.initApp();
 
   m_Loading$ = this.m_LoadingService.m_Loading$;
 

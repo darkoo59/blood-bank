@@ -30,6 +30,7 @@ export abstract class GenericDataService<DataType> {
     this.clearError();
   }
 
+  //method that intercepts errors and fills error buffer with error message, it completes the stream
   protected addErrorHandler(obs: Observable<any>) {
     return obs.pipe(
       catchError(res => {
@@ -41,6 +42,22 @@ export abstract class GenericDataService<DataType> {
           this.setError = res.message;
         }
         return EMPTY;
+      })
+    );
+  }
+
+  //same as regular handler except it doesn't complete the stream
+  protected addErrorReader(obs: Observable<any>) {
+    return obs.pipe(
+      catchError(res => {
+        console.log(res);
+        const error = res.error;
+        if (error && error.message) {
+          this.setError = error.message;
+        }else if(res.message){
+          this.setError = res.message;
+        }
+        throw res;
       })
     );
   }
