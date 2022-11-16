@@ -88,7 +88,7 @@ export class RegisterComponent{
         return of()
       }))
       .subscribe(_ => {
-        this.m_SnackBar.open(`Successfully logged in`, 'Close', { duration: 4000 })
+        this.m_SnackBar.open(`Successfully registered`, 'Close', { duration: 4000 })
         this.m_Router.navigate(['/home'])
       });
   }

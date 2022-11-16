@@ -69,8 +69,14 @@ public class UserService implements UserDetailsService {
     public boolean registerUser(RegisterDTO registerDTO) {
         User user = ObjectsMapper.convertRegisterDTOToUser(registerDTO);
         if (user == null) return false;
+        Role role = roleRepository.findByName("ROLE_USER");
+        if (role == null) {
+             role = new Role(0, "ROLE_USER");
+             roleRepository.save(role);
+        }
         addressRepository.save(user.getAddress());
         saveUser(user);
+        addRoleToUser(user.getEmail(), role.getName());
         return true;
     }
 }

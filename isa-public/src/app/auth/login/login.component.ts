@@ -18,13 +18,19 @@ export class LoginComponent{
 
   onSubmit() {
     this.m_Errors.length = 0;
+    Object.keys(this.m_Form.controls).forEach(field => {
+      const control = this.m_Form.get(field); 
+      control?.markAsTouched({ onlySelf: true });
+    })
+
+    if (!this.m_Form.valid) return;
 
     const dto: LoginDTO = this.m_Form.getRawValue()
 
     this.m_AuthService.login(dto)
       .pipe(catchError(res => {
         console.log(res)
-        const errors = res.error.errors
+        const errors = res.error.errors || null
 
         if (!errors) {
           this.m_Errors.push(res.error)

@@ -13,6 +13,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -43,12 +44,12 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                             FilterChain chain, Authentication authentication)
-            throws IOException, ServletException {
+            throws IOException {
         User user = (User)authentication.getPrincipal();
         Algorithm algorithm = Algorithm.HMAC512("secret".getBytes());
         String accessToken = JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 5 * 60 * 1000))    // 5 minutes
+                .withExpiresAt(new Date(System.currentTimeMillis() + 30 * 1000))    // 30 seconds
                 .withIssuer(request.getRequestURL().toString())
                 .withClaim("roles", user.getAuthorities().stream().
                         map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
@@ -59,8 +60,14 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 .withIssuer(request.getRequestURL().toString())
                 .sign(algorithm);
         Map<String, String> tokens = new HashMap<>();
-        tokens.put("access_token", accessToken);
-        tokens.put("refresh_token", refreshToken);
+        tokens.put("accessToken", accessToken);
+        Cookie jwtCookie = new Cookie("refreshToken", refreshToken);
+        jwtCookie.setMaxAge(14 * 24 * 60 * 60); // 14 days
+//        jwtCookie.setSecure(true);     not using https
+        jwtCookie.setHttpOnly(true);
+        jwtCookie.setDomain("localhost");
+        jwtCookie.setPath("/");
+        response.addCookie(jwtCookie);
         response.setContentType(APPLICATION_JSON_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }
