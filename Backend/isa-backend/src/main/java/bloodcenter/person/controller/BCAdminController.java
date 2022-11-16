@@ -1,11 +1,13 @@
 package bloodcenter.person.controller;
 
+import bloodcenter.branch_center.BranchCenter;
 import bloodcenter.branch_center.dto.BranchCenterDTO;
 import bloodcenter.core.ErrorResponse;
 import bloodcenter.person.dto.BCAdminDTO;
 import bloodcenter.person.dto.RegisterBCAdminDTO;
 import bloodcenter.person.model.BCAdmin;
 import bloodcenter.person.service.BCAdminService;
+import bloodcenter.user.dto.AssignAdminToCenterDTO;
 import bloodcenter.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,10 +48,15 @@ public class BCAdminController {
     }
 
     @GetMapping("unassigned")
-    public ResponseEntity<ArrayList<BCAdminDTO>> getUnassignedAdmins() {
+    public ResponseEntity<ArrayList<BCAdminDTO>> getUnassignedAdmins()  {
         ArrayList<BCAdminDTO> retList = service.getUnassignedAdmins();
-        System.out.println("!!!!!!!!!!!!!!!!!!" + retList.get(0).firstname);
         return new ResponseEntity<>(retList, HttpStatus.OK);
+    }
+
+    @PatchMapping("assign")
+    public ResponseEntity<Object> assignAdminToCenter(@RequestBody AssignAdminToCenterDTO dto) throws BCAdmin.BCAdminNotFoundException, BranchCenter.BCNotFoundException {
+        service.assignAdminToCenter(dto);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

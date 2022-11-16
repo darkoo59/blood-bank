@@ -14,6 +14,7 @@ import { BCAllComponent } from './pages/bc-all/bc-all.component';
 import { BcAllService } from './pages/bc-all/bc-all.service';
 import { BCAdminAssignComponent } from './pages/bc-admin-assign/bc-admin-assign.component';
 import { NavModule } from './nav/nav.module';
+import { MapModule } from '../core/map/map.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { NavModule } from './nav/nav.module';
     NgLetModule,
     MaterialModule,
     ReactiveFormsModule,
-    NavModule
+    NavModule,
+    MapModule
   ],
   providers: [BcAllService]
 })
