@@ -35,4 +35,8 @@ public class ObjectsMapper {
     public static User convertRegisterDTOToUser(RegisterDTO registerDTO) {
         return modelMapper.map(registerDTO, User.class);
     }
+
+    public static PersonDTO convertUserToPersonDTO(User user) {
+        return modelMapper.map(user, PersonDTO.class);
+    }
 }

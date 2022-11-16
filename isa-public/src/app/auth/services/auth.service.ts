@@ -36,8 +36,6 @@ export class AuthService {
   register(registerDTO: RegisterDTO): Observable<any> {
     return this.m_Http.post(`${environment.apiUrl}/user/register`, registerDTO)
   }
-
-
   
   login(loginDTO: LoginDTO): Observable<any> {
 
@@ -58,5 +56,9 @@ export class AuthService {
         Interceptor.accessToken = res.accessToken
       })
     );
+  }
+
+  logout() {
+    this.m_Http.post(`${environment.apiUrl}/user/logout`, '')
   }
 }

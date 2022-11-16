@@ -1,18 +1,14 @@
 package bloodcenter.person.controller;
 
-import bloodcenter.role.Role;
+import bloodcenter.person.dto.PersonDTO;
 import bloodcenter.person.dto.RegisterDTO;
+import bloodcenter.person.model.Person;
 import bloodcenter.person.model.User;
 import bloodcenter.person.service.UserService;
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.interfaces.DecodedJWT;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import bloodcenter.security.filter.AuthUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,9 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
@@ -32,9 +26,11 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 @RequestMapping("/api/user")
 public class UserController {
     private final UserService userService;
+    private final AuthUtility authUtility;
 
     public UserController(@Autowired UserService userService) {
         this.userService = userService;
+        this.authUtility = new AuthUtility(userService);
     }
 
     @GetMapping
@@ -50,56 +46,45 @@ public class UserController {
     }
 
     @PostMapping("/token/refresh")
-    public void refreshToken(HttpServletRequest request, HttpServletResponse response,
-                             @CookieValue(name = "refreshToken") String refreshToken) throws IOException {
+    public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            Algorithm algorithm = Algorithm.HMAC512("secret".getBytes());
-            JWTVerifier verifier = JWT.require(algorithm).build();
-            DecodedJWT decodedJWT = verifier.verify(refreshToken);
-            String username = decodedJWT.getSubject();
-            User user = userService.getUser(username);
-            String accessToken = JWT.create()
-                    .withSubject(user.getEmail())
-                    .withExpiresAt(new Date(System.currentTimeMillis() + 30 * 1000))    // 30 seconds
-                    .withIssuer(request.getRequestURL().toString())
-                    .withClaim("roles", user.getRoles().stream().
-                            map(Role::getName).collect(Collectors.toList()))
-                    .sign(algorithm);
-            Map<String, String> tokens = new HashMap<>();
-            tokens.put("accessToken", accessToken);
-            Cookie jwtCookie = new Cookie("refreshToken", refreshToken);
-            jwtCookie.setMaxAge(14 * 24 * 60 * 60); // 14 days
-//              jwtCookie.setSecure(true);     not using https
-            jwtCookie.setHttpOnly(true);
-            jwtCookie.setDomain("localhost");
-            jwtCookie.setPath("/");
-            response.addCookie(jwtCookie);
-            response.setContentType(APPLICATION_JSON_VALUE);
-            new ObjectMapper().writeValue(response.getOutputStream(), tokens);
+            String accessToken = authUtility.createJWTFromRequest(request);
+            if (accessToken != null) {
+                response.setContentType(APPLICATION_JSON_VALUE);
+                AuthUtility.setResponseMessage(response, "accessToken", accessToken);
+            }
+            else {
+                response.setStatus(FORBIDDEN.value());
+                AuthUtility.setResponseMessage(response, "errorMessage", "Refresh token is missing");
+            }
         } catch (Exception e) {
             response.setStatus(FORBIDDEN.value());
-            Map<String, String> error = new HashMap<>();
-            error.put("errorMessage", e.getMessage());
-            response.setContentType(APPLICATION_JSON_VALUE);
-            new ObjectMapper().writeValue(response.getOutputStream(), error);
+            AuthUtility.setResponseMessage(response, "errorMessage", e.getMessage());
         }
     }
 
-//    SOOOOOON
-//    @GetMapping("/current")
-//    public ResponseEntity<?> getCurrentUser(HttpServletRequest request, HttpServletResponse response) {
-//        String authorizationHeader = request.getHeader(AUTHORIZATION);
-//        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-//            try {
-//                String token = authorizationHeader.substring("Bearer ".length());
-//                Algorithm algorithm = Algorithm.HMAC512("secret".getBytes());
-//                JWTVerifier verifier = JWT.require(algorithm).build();
-//                DecodedJWT decodedJWT = verifier.verify(token);
-//                String username = decodedJWT.getSubject();
-//            } catch (Exception e) {
-//                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-//            }
-//        }
-//        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-//    }
+    @GetMapping("/current")
+    public ResponseEntity<?> getCurrentUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String email = authUtility.getEmailFromRequest(request);
+        if (email == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        } else {
+            PersonDTO personDTO = userService.getPersonDTOFromEmail(email);
+            if (personDTO == null) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            return new ResponseEntity<>(personDTO, HttpStatus.OK);
+        }
+    }
+
+    @PostMapping("/logout")
+    public void logout(HttpServletResponse response) throws IOException {
+        Cookie jwtCookie = new Cookie("refreshToken", "");
+        jwtCookie.setMaxAge(0);
+        jwtCookie.setHttpOnly(true);
+        jwtCookie.setDomain("localhost");
+        jwtCookie.setPath("/");
+        response.addCookie(jwtCookie);
+        AuthUtility.setResponseMessage(response, "Success", "Cookie removed");
+    }
 }
