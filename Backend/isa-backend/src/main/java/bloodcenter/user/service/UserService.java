@@ -71,7 +71,7 @@ public class UserService implements UserDetailsService {
     }
 
     public List<User> searchUsers(String searchInput) {
-        List<User> ret = userRepository.searchUsers(searchInput);
+        List<User> ret = userRepository.searchUsers(searchInput.toLowerCase());
         return ret;
     }
 }

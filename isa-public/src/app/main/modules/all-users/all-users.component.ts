@@ -28,9 +28,7 @@ export class AllUsersComponent implements OnDestroy {
 
   searchEntered() {
     const searchParam = this.form.get('search-input')?.value;
-    this.m_UserService.findSearched(searchParam).pipe().subscribe( data => {
-      //this.m_Users$ = data;
-    }) 
+    this.m_UserService.findSearched(searchParam).pipe().subscribe() 
 
   }
 }
