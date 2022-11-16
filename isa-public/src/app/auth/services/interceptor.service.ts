@@ -18,7 +18,6 @@ export class Interceptor implements HttpInterceptor {
         });
         return next.handle(request).pipe(catchError((err: HttpErrorResponse) => {
             if (err.status === 403 && !this.refresh) {
-                // maybe err.status === 401 in future
                 this.refresh = true
 
                 return this.m_Http.post(`${environment.apiUrl}/user/token/refresh`, {}, {withCredentials: true}).pipe(

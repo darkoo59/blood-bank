@@ -60,5 +60,6 @@ export class AuthService {
 
   logout() {
     this.m_Http.post(`${environment.apiUrl}/user/logout`, '')
+    Interceptor.accessToken = ''
   }
 }
