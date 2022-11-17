@@ -67,4 +67,17 @@ public class UserService {
         addRoleToUser(user.getEmail(), role.getName());
         return true;
     }
+
+    public List<User> searchUsers(String searchInput) {
+        List<User> ret = userRepository.searchUsers(searchInput.toLowerCase());
+        return ret;
+    }
+    
+    public PersonDTO getPersonDTOFromEmail(String email) {
+        User user = getUser(email);
+        if (user != null) {
+            return convertUserToPersonDTO(user);
+        }
+        return  null;
+    }
 }

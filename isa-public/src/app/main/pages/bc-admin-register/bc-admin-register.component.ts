@@ -1,6 +1,7 @@
 import { EmptyExpr } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { catchError, EMPTY } from 'rxjs';
 import { BCAdminRegisterService, BCARegisterDTO } from './bc-admin-register.service';
 
@@ -13,8 +14,8 @@ export class BCAdminRegisterComponent implements OnInit {
   hide = true;
   hide2 = true;
   matchFlag = false;
-  constructor(private m_BCAdminRegisterService: BCAdminRegisterService) {
-   }
+  constructor(private m_BCAdminRegisterService: BCAdminRegisterService, private m_Router: Router) {
+  }
 
   ngOnInit() {
   }
@@ -52,7 +53,8 @@ export class BCAdminRegisterComponent implements OnInit {
         }
         this.m_Errors.push(error);
         return EMPTY;
-      })).subscribe();
+      })).subscribe(data => {
+        this.m_Router.navigate(['/bc-all'])});
 
   }
 

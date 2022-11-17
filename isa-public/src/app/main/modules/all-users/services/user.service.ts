@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, take, tap } from "rxjs";
 import { User } from "src/app/model/user.model";
@@ -18,5 +18,16 @@ export class UserService extends GenericDataService<User[]> {
         this.setData = res;
       })
     ));
+  }
+
+  public findSearched(searchParams: string) : Observable<any> {
+    let params = new HttpParams();
+    params = params.set('searchInput', searchParams);
+    return this.m_Http.get(`${environment.apiUrl}/user/search`, {params: params}).pipe(
+      take(1),
+      tap((res: any) => {
+        this.setData = res;
+      })
+    );
   }
 }
