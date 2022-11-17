@@ -6,7 +6,7 @@ import { AuthService } from "./auth.service";
 
 @Injectable()
 export class Interceptor implements HttpInterceptor {
-    private accessToken = ''
+    static accessToken = ''
     private refresh = false
 
     constructor(private m_Http: HttpClient, private m_AuthService: AuthService) { }
@@ -14,7 +14,7 @@ export class Interceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const request = req.clone({
             setHeaders: {
-                Authorization: `Bearer ${this.accessToken}`
+                Authorization: `Bearer ${Interceptor.accessToken}`
             }
         });
         return next.handle(request).pipe(catchError((err: HttpErrorResponse) => {
@@ -23,12 +23,12 @@ export class Interceptor implements HttpInterceptor {
 
                 return this.m_Http.post(`${environment.apiUrl}/user/token/refresh`, {}, { withCredentials: true }).pipe(
                     switchMap((res: any) => {
-                        this.accessToken = res.accessToken
+                        Interceptor.accessToken = res.accessToken
                         this.m_AuthService.setAccessToken = res.accessToken;
 
                         return next.handle(req.clone({
                             setHeaders: {
-                                Authorization: `Bearer ${this.accessToken}`
+                                Authorization: `Bearer ${Interceptor.accessToken}`
                             }
                         }))
                     })

@@ -66,7 +66,10 @@ export class AuthService {
   logout(): Observable<any> {
     return this.m_Http.post(`${environment.apiUrl}/user/logout`, '').pipe(
       catchError(_ => EMPTY),
-      tap(_ => this.clearAccessToken())
+      tap(_ => {
+        this.clearAccessToken()
+        Interceptor.accessToken = '';
+      })
     );
   }
 }
