@@ -1,4 +1,4 @@
-import { BehaviorSubject, catchError, EMPTY, Observable, switchMap, of } from "rxjs";
+import { BehaviorSubject, catchError, EMPTY, Observable, switchMap, of, throwError } from "rxjs";
 
 export abstract class GenericDataService<DataType> {
   protected m_DataSubject: BehaviorSubject<DataType | null> = new BehaviorSubject<DataType | null>(null);
@@ -57,7 +57,7 @@ export abstract class GenericDataService<DataType> {
         }else if(res.message){
           this.setError = res.message;
         }
-        throw res;
+        return throwError(() => res)
       })
     );
   }
