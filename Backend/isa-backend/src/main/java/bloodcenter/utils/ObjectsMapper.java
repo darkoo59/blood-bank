@@ -11,6 +11,8 @@ import bloodcenter.person.dto.RegisterDTO;
 import bloodcenter.person.model.BCAdmin;
 import bloodcenter.person.model.Person;
 import bloodcenter.person.model.User;
+import bloodcenter.role.Role;
+import bloodcenter.role.RoleDTO;
 import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;
@@ -30,7 +32,9 @@ public class ObjectsMapper {
         return branchCenterDTO;
     }
 
-    public static PersonDTO convertPersonToDTO(Person person) { return modelMapper.map(person,PersonDTO.class); }
+    public static PersonDTO convertPersonToDTO(Person person) {
+        return modelMapper.map(person,PersonDTO.class);
+    }
     public static AddressDTO convertAddressToDTO(Address address){
         return modelMapper.map(address, AddressDTO.class);
     }

@@ -23,7 +23,6 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 public class AuthUtility {
 
     private final UserService userService;
-
     public AuthUtility(UserService userService) {
         this.userService = userService;
     }

@@ -1,21 +1,25 @@
 import { HttpClient, HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { catchError, Observable, switchMap, throwError } from "rxjs";
+import { catchError, Observable, switchMap, take, throwError } from "rxjs";
 import { environment } from "src/environments/environment";
 import { AuthService } from "./auth.service";
 
 @Injectable()
 export class Interceptor implements HttpInterceptor {
-    static accessToken = ''
     private refresh = false
 
     constructor(private m_Http: HttpClient, private m_AuthService: AuthService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        let token: string = ''
+        this.m_AuthService.m_AccessToken$.pipe(take(1)).subscribe(t => {
+            token = t ? t : '';
+        });
         const request = req.clone({
             setHeaders: {
-                Authorization: `Bearer ${Interceptor.accessToken}`
-            }
+                Authorization: `Bearer ${token}`
+            },
+            withCredentials: true
         });
         return next.handle(request).pipe(catchError((err: HttpErrorResponse) => {
             if (err.status === 403 && !this.refresh) {
@@ -23,12 +27,12 @@ export class Interceptor implements HttpInterceptor {
 
                 return this.m_Http.post(`${environment.apiUrl}/user/token/refresh`, {}, { withCredentials: true }).pipe(
                     switchMap((res: any) => {
-                        Interceptor.accessToken = res.accessToken
+                        token = res.accessToken
                         this.m_AuthService.setAccessToken = res.accessToken;
 
                         return next.handle(req.clone({
                             setHeaders: {
-                                Authorization: `Bearer ${Interceptor.accessToken}`
+                                Authorization: `Bearer ${token}`
                             }
                         }))
                     })

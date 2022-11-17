@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, catchError, EMPTY, Observable, tap } from "rxjs";
+import { BehaviorSubject, catchError, EMPTY, Observable, switchMap, tap } from "rxjs";
 import { Address } from "src/app/model/address.model";
+import { UserService } from "src/app/services/user.service";
 import { environment } from "src/environments/environment";
 import { Interceptor } from "./interceptor.service";
 
@@ -38,7 +39,7 @@ export class AuthService {
     this.m_AccessTokenSubject$.next(null);
   }
 
-  constructor(private m_Http: HttpClient) { }
+  constructor(private m_Http: HttpClient, private m_UserService: UserService) { }
 
   register(registerDTO: RegisterDTO): Observable<any> {
     return this.m_Http.post(`${environment.apiUrl}/user/register`, registerDTO)
@@ -59,7 +60,11 @@ export class AuthService {
     }
 
     return this.m_Http.post(`${environment.apiUrl}/user/login`, body, options).pipe(
-      tap((res: any) => this.setAccessToken = res.accessToken)
+      tap((res: any) => this.setAccessToken = res.accessToken),
+      switchMap(_ => {
+        console.log(_);
+        return this.m_UserService.fetchUserData()
+      })
     );
   }
 
@@ -68,7 +73,7 @@ export class AuthService {
       catchError(_ => EMPTY),
       tap(_ => {
         this.clearAccessToken()
-        Interceptor.accessToken = '';
+        this.m_UserService.resetData();
       })
     );
   }

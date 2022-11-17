@@ -139,12 +139,18 @@ public class BloodConfiguration {
     }
 
     @Bean
-    CommandLineRunner UserCLR(UserRepository repository) {
+    CommandLineRunner UserCLR(UserRepository repository, RoleRepository role_repo) {
         return args -> {
             User u1 = new User("Rade", "Stojanovic", "rade@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je");
             User u2 = new User("Darko", "Selakovic", "darko@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je");
             User u3 = new User("Vojin", "Bjelica", "vojin@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je");
             User u4 = new User("Marko", "Uljarevic", "marko@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je");
+
+            Role role = role_repo.findByName("ROLE_USER");
+            u1.getRoles().add(role);
+            u2.getRoles().add(role);
+            u3.getRoles().add(role);
+            u4.getRoles().add(role);
 
             repository.saveAll(List.of(u1, u2, u3, u4));
         };
@@ -153,8 +159,8 @@ public class BloodConfiguration {
     @Bean
     CommandLineRunner PersonRolesCLR(UserService userService) {
         return args -> {
-            userService.addRoleToUser("rade@gmail.com", "ROLE_USER");
-            userService.addRoleToUser("darko@gmail.com", "ROLE_USER");
+//            userService.addRoleToUser("rade@gmail.com", "ROLE_USER");
+//            userService.addRoleToUser("darko@gmail.com", "ROLE_USER");
         };
     }
 }
