@@ -59,5 +59,10 @@ public class ObjectsMapper {
 
     public static PersonDTO convertPersonToPersonDTO(Person person) {
         return modelMapper.map(person, PersonDTO.class);
+
+    }
+    public static Person convertDTOToPerson(PersonDTO personDTO) {
+        Person person = modelMapper.map(personDTO, Person.class);
+        return person;
     }
 }

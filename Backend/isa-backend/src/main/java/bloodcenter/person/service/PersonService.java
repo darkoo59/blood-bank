@@ -78,7 +78,16 @@ public class PersonService implements UserDetailsService {
         if (person != null) {
             return convertPersonToPersonDTO(person);
         }
-        return  null;
+        return null;
+    }
+
+    public void updatePerson(PersonDTO personDTO) throws Person.PersonNotFoundException {
+        Optional<Person> person = personRepository.findById(personDTO.getId());
+        if(person.isEmpty())
+            throw new Person.PersonNotFoundException("Person with id = " + personDTO.getId() + " isn't found in database!");
+        Person personToUpdate = ObjectsMapper.convertDTOToPerson(personDTO);
+        personToUpdate.setPassword(person.get().getPassword());
+        personRepository.save(personToUpdate);
     }
 
     @ExceptionHandler({ Exception.class })
