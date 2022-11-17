@@ -72,12 +72,4 @@ public class UserService {
         List<User> ret = userRepository.searchUsers(searchInput.toLowerCase());
         return ret;
     }
-    
-    public PersonDTO getPersonDTOFromEmail(String email) {
-        User user = getUser(email);
-        if (user != null) {
-            return convertUserToPersonDTO(user);
-        }
-        return  null;
-    }
 }

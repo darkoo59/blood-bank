@@ -16,6 +16,7 @@ export class UserService extends GenericDataService<User[]> {
       take(1),
       tap((res: any) => {
         this.setData = res;
+        this.clearError();
       })
     ));
   }

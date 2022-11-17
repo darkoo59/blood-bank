@@ -1,6 +1,7 @@
 package bloodcenter.person.service;
 
 import bloodcenter.core.ErrorResponse;
+import bloodcenter.person.dto.ChangePasswordDTO;
 import bloodcenter.person.dto.PersonDTO;
 import bloodcenter.person.model.BCAdmin;
 import bloodcenter.person.model.Person;
@@ -13,6 +14,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -30,14 +32,16 @@ public class PersonService implements UserDetailsService {
     private final UserService userService;
     private final BCAdminService bcAdminService;
     private final AdminService adminService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public PersonService(PersonRepository personRepository, UserService userService,
-                         BCAdminService bcAdminService, AdminService adminService) {
+                         BCAdminService bcAdminService, AdminService adminService, PasswordEncoder passwordEncoder) {
         this.personRepository = personRepository;
         this.userService = userService;
         this.bcAdminService = bcAdminService;
         this.adminService = adminService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -81,9 +85,13 @@ public class PersonService implements UserDetailsService {
         return  null;
     }
 
-    @ExceptionHandler({ Exception.class })
-    public ResponseEntity<Object> handleExceptions(Exception ex){
-        ex.printStackTrace();
-        return new ResponseEntity<>(new ErrorResponse(ex.getMessage()), HttpStatus.BAD_REQUEST);
+    public void changePassword(String email, ChangePasswordDTO dto) throws Exception {
+        Person person = this.getPerson(email);
+        if (person == null) throw new Exception("User not found");
+        if (!passwordEncoder.matches(dto.getOldPassword(), person.getPassword()))
+            throw new Exception("Old password does not match");
+
+        person.setPassword(passwordEncoder.encode(dto.getNewPassword()));
+        personRepository.save(person);
     }
 }

@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
 
+import static bloodcenter.utils.ObjectsMapper.convertUserListToDTO;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
@@ -36,8 +37,8 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> getAll(){
-        return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
+    public ResponseEntity<List<PersonDTO>> getAll(){
+        return new ResponseEntity<>(convertUserListToDTO(userService.getAll()), HttpStatus.OK);
     }
 
     @GetMapping("/search")

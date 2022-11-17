@@ -1,5 +1,6 @@
 package bloodcenter.person.controller;
 
+import bloodcenter.core.ErrorResponse;
 import bloodcenter.person.dto.ChangePasswordDTO;
 import bloodcenter.person.dto.PersonDTO;
 import bloodcenter.person.model.Person;
@@ -35,11 +36,9 @@ public class PersonController {
     }
 
     @PatchMapping("password")
-    public ResponseEntity<Object> changePassword(@RequestBody ChangePasswordDTO dto) {
-        System.out.println(SecurityContextHolder.getContext().getAuthentication().isAuthenticated());
-
-        System.out.println(dto.getOldPassword());
-        System.out.println(dto.getNewPassword());
+    public ResponseEntity<Object> changePassword(HttpServletRequest request, @RequestBody ChangePasswordDTO dto) throws Exception {
+        String email = authUtility.getEmailFromRequest(request);
+        personService.changePassword(email, dto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -55,5 +54,11 @@ public class PersonController {
             }
             return new ResponseEntity<>(personDTO, HttpStatus.OK);
         }
+    }
+
+    @ExceptionHandler({ Exception.class })
+    public ResponseEntity<Object> handleExceptions(Exception ex){
+        ex.printStackTrace();
+        return new ResponseEntity<>(new ErrorResponse(ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 }
