@@ -1,4 +1,4 @@
-<div *ngLet="(m_BCData$ | async) as bc_data">
+<div *ngLet="(m_BCData$ | async) as bc_data" class="container">
   <div *ngIf="bc_data">
     <div class="button-group">
       <button mat-flat-button color="primary" [routerLink]="['bc-edit']">Edit</button>
@@ -6,9 +6,24 @@
     <mat-card>
       <div class="flex-block">
         <div class="left">
-          <p><b>id:</b> {{bc_data.id}}</p>
-          <p><b>name:</b> {{bc_data.name}}</p>
-          <p><b>description:</b> {{bc_data.description}}</p>
+          <table>
+            <tr>
+              <td>id:</td>
+              <td>{{bc_data.id}}</td>
+            </tr>
+            <tr>
+              <td>name:</td>
+              <td>{{bc_data.name}}</td>
+            </tr>
+            <tr>
+              <td>description:</td>
+              <td>{{bc_data.description}}</td>
+            </tr>
+            <tr *ngIf="bc_data.feedback && bc_data.feedback.length != 0">
+              <td>grade:</td>
+              <td><grade class="grade" [i_Grade]="calculateAverage(bc_data.feedback)"></grade></td>
+            </tr>
+          </table>
         </div>
         <div class="right">
           <app-map [m_Height]="350" [m_Location]="m_Location!"></app-map>
@@ -18,7 +33,11 @@
     <div class="admin-block">
       <h4>Admins</h4>
       <mat-card *ngIf="!bc_data.admins || bc_data.admins.length == 0">No admins</mat-card>
-      <user-list *ngIf="bc_data.admins && bc_data.admins.length != 0" [m_Users]="bc_data.admins"></user-list>
+      <user-list *ngIf="bc_data.admins && bc_data.admins.length != 0" [i_Users]="bc_data.admins"></user-list>
+    </div>
+    <div class="comment-block" *ngIf="bc_data.feedback && bc_data.feedback.length != 0">
+      <h4>Feedback</h4>
+      <comment-list [i_Comments]="bc_data.feedback"></comment-list>
     </div>
   </div>
 </div>

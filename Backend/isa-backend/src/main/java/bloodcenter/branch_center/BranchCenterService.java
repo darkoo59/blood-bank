@@ -77,9 +77,9 @@ public class BranchCenterService {
 
     public void updateData(BranchCenterDTO dto) throws BranchCenter.BCNotFoundException {
         Optional<BranchCenter> o_bc = repository.findById(dto.id);
-        if(o_bc.isEmpty()){
+        if(o_bc.isEmpty())
             throw new BranchCenter.BCNotFoundException("Branch center not found");
-        }
+
         BranchCenter bc = o_bc.get();
         Address a = bc.getAddress();
         a.setCity(dto.address.getCity());

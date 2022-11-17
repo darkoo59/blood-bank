@@ -12,6 +12,7 @@ import { BCDashboardComponent } from './bc-dashboard.component';
 import { BCEditComponent } from './pages/bc-edit/bc-edit.component';
 import { BCDashboardService } from './services/bc-dashboard.service';
 import { UserListModule } from 'src/app/core/user-list/user-list.module';
+import { CommentListModule } from 'src/app/core/comment-list/comment-list.module';
 
 @NgModule({
   providers: [BCDashboardService],
@@ -28,7 +29,8 @@ import { UserListModule } from 'src/app/core/user-list/user-list.module';
     ReactiveFormsModule,
     MapModule,
     PageLoaderModule,
-    UserListModule
+    UserListModule,
+    CommentListModule
   ]
 })
 export class BCDashboardModule { }

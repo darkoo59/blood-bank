@@ -9,15 +9,34 @@
 
 .flex-block {
   display: flex;
-  .left{
+
+  .left {
     flex: 1;
+    padding: 20px;
   }
-  .right{
+
+  .right {
     width: 500px;
   }
 }
 
-
-.admin-block{
+.admin-block {
   margin-top: 20px;
+}
+
+.container {
+  padding-bottom: 100px;
+}
+
+.comment-block {
+  margin-top: 20px;
+}
+
+table tr td:first-child {
+  font-weight: bold;
+  padding-right: 20px;
+}
+
+.grade{
+  color:var(--secondary);
 }

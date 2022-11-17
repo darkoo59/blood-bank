@@ -44,10 +44,10 @@ public class BranchCenterController {
     ) {
         return new ResponseEntity<>(service.findAllPagesByName(name,page,size), HttpStatus.OK);
     }
+
+    @Secured({"ROLE_BCADMIN"})
     @PatchMapping
     public ResponseEntity<Object> patchBranchCenter(@RequestBody BranchCenterDTO dto) throws BranchCenter.BCNotFoundException {
-        //TODO: authorization
-
         service.updateData(dto);
 
         return new ResponseEntity<>(HttpStatus.OK);
