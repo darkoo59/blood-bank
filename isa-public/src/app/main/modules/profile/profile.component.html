@@ -1,9 +1,9 @@
-<section *ngLet="{error: m_Error$ | async} as vm">
+<section *ngLet="{error: m_Error$ | async, a: m_ActiveLink$ | async} as vm">
   <nav class="tabs" mat-tab-nav-bar [tabPanel]="tabPanel">
     <a mat-tab-link *ngFor="let link of m_Routes"
        [routerLink]="link.path"
        (click)="changeTab(link.path)"
-       [active]="activeLink == link.path"> {{link.title}} </a>
+       [active]="m_ActiveLink == link.path"> {{link.title}} </a>
   </nav>
   <mat-tab-nav-panel #tabPanel>
     <router-outlet *ngIf="!vm.error"></router-outlet>

@@ -1,13 +1,13 @@
-<nav>
+<nav *ngLet="(m_UserRoles$ | async) as roles">
   <mat-nav-list>
     <a mat-list-item *ngFor="let route of m_Routes" [routerLink]="route.path"
       routerLinkActive="nav-active">{{route.title}}</a>
   </mat-nav-list>
 
   <!-- TODO: hide these upcoming sections based on user roles -->
-  <nav-section [m_Routes]="m_CommonRoutes" m_Title="Blood Bank"></nav-section>
-  <nav-section [m_Routes]="m_UserRoutes" m_Title="User"></nav-section>
-  <nav-section [m_Routes]="m_BCAdminRoutes" m_Title="Branch Centre Admin"></nav-section>
-  <nav-section [m_Routes]="m_AdminRoutes" m_Title="System Admin"></nav-section>
-  <nav-section [m_Routes]="m_StaffRoutes" m_Title="Staff"></nav-section>
+  <nav-section [m_Routes]="m_CommonRoutes"  *ngIf="hasRole(roles)" m_Title="Blood Bank"></nav-section>
+  <nav-section [m_Routes]="m_UserRoutes"    *ngIf="hasRole(roles, 'ROLE_USER')" m_Title="User"></nav-section>
+  <nav-section [m_Routes]="m_BCAdminRoutes" *ngIf="hasRole(roles, 'ROLE_BCADMIN')" m_Title="Branch Centre Admin"></nav-section>
+  <nav-section [m_Routes]="m_AdminRoutes"   *ngIf="hasRole(roles, 'ROLE_ADMIN')" m_Title="System Admin"></nav-section>
+  <nav-section [m_Routes]="m_StaffRoutes"   *ngIf="hasRole(roles, 'ROLE_STAFF')" m_Title="Staff"></nav-section>
 </nav>

@@ -1,17 +1,13 @@
 package bloodcenter.person.dto;
 
 import bloodcenter.address.AddressDTO;
-import bloodcenter.branch_center.dto.BranchCenterDTO;
 import bloodcenter.person.enums.Sex;
-import bloodcenter.role.RoleDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Collection;
-
 @Data
 @NoArgsConstructor
-public class BCAdminDTO {
+public class BCAdminShallowDTO {
     private Long id;
 
     private String firstname;
@@ -23,8 +19,5 @@ public class BCAdminDTO {
     private String occupation;
     private String information;
 
-    private BranchCenterDTO branchCenter;
-    private Collection<RoleDTO> roles;
     private AddressDTO address;
-
 }

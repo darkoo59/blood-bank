@@ -2,8 +2,8 @@ package bloodcenter.person.controller;
 
 import bloodcenter.person.dto.PersonDTO;
 import bloodcenter.person.dto.RegisterDTO;
-import bloodcenter.person.model.Person;
 import bloodcenter.person.model.User;
+import bloodcenter.person.service.PersonService;
 import bloodcenter.person.service.UserService;
 import bloodcenter.security.filter.AuthUtility;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.*;
 
 import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
 @Controller
@@ -28,9 +29,10 @@ public class UserController {
     private final UserService userService;
     private final AuthUtility authUtility;
 
-    public UserController(@Autowired UserService userService) {
+    @Autowired
+    public UserController(UserService userService, PersonService personService) {
         this.userService = userService;
-        this.authUtility = new AuthUtility(userService);
+        this.authUtility = new AuthUtility(personService);
     }
 
     @GetMapping
@@ -54,26 +56,12 @@ public class UserController {
                 AuthUtility.setResponseMessage(response, "accessToken", accessToken);
             }
             else {
-                response.setStatus(FORBIDDEN.value());
+                response.setStatus(UNAUTHORIZED.value());
                 AuthUtility.setResponseMessage(response, "errorMessage", "Refresh token is missing");
             }
         } catch (Exception e) {
-            response.setStatus(FORBIDDEN.value());
+            response.setStatus(UNAUTHORIZED.value());
             AuthUtility.setResponseMessage(response, "errorMessage", e.getMessage());
-        }
-    }
-
-    @GetMapping("/current")
-    public ResponseEntity<?> getCurrentUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String email = authUtility.getEmailFromRequest(request);
-        if (email == null) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        } else {
-            PersonDTO personDTO = userService.getPersonDTOFromEmail(email);
-            if (personDTO == null) {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
-            return new ResponseEntity<>(personDTO, HttpStatus.OK);
         }
     }
 

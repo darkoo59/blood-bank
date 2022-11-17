@@ -3,6 +3,7 @@ package bloodcenter.person.dto;
 import bloodcenter.address.AddressDTO;
 import bloodcenter.person.enums.Sex;
 import bloodcenter.role.Role;
+import bloodcenter.role.RoleDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -26,4 +28,6 @@ public class PersonDTO {
     public Sex sex;
     public String occupation;
     public String information;
+
+    public List<RoleDTO> roles;
 }
