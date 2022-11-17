@@ -75,8 +75,8 @@ export class AuthService {
       catchError(_ => EMPTY),
       tap(_ => {
         this.clearAccessToken()
-        this.m_UserService.resetData();
         this.m_Router.navigate(['/home']);
+        this.m_UserService.resetData();
       })
     );
   }
