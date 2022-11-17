@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, tap } from "rxjs";
 import { User } from "src/app/model/user.model";
@@ -28,4 +28,12 @@ export class UserService extends GenericDataService<User> {
   changeUserPassword(dto: ChangeUserPasswordDTO): Observable<any> {
     return this.addErrorHandler(this.m_Http.patch(`${environment.apiUrl}/person/password`, dto));
   }
+
+  update(personToUpdate: User) : Observable<User> {
+    const body = {id: personToUpdate.id,firstname: personToUpdate.firstname, lastname: personToUpdate.lastname, email: personToUpdate.email, address: personToUpdate.address,
+    phone: personToUpdate.phone, nationalId: personToUpdate.nationalId, sex: personToUpdate.sex, occupation: personToUpdate.occupation,
+    information: personToUpdate.information}
+    return this.m_Http.patch<User>(`${environment.apiUrl}/person`, body)
+  }
+
 }

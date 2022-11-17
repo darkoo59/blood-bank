@@ -19,6 +19,10 @@ export class NavComponent {
     {
       path: 'home',
       title: 'Home'
+    },
+    {
+      path: 'bc-all',
+      title: 'All Branch Centers'
     }
   ];
 
@@ -39,10 +43,7 @@ export class NavComponent {
   ];
 
   m_AdminRoutes: NavRoute[] = [
-    {
-      path: 'bc-all',
-      title: 'All Branch Centers'
-    },
+
     {
       path: 'bc-register',
       title: 'Register Branch Center'
@@ -63,8 +64,8 @@ export class NavComponent {
 
   m_StaffRoutes: NavRoute[] = [];
 
-  m_UserRoles$: Observable<Role[] | null> = this.m_UserService.m_Data$.pipe(
-    map((userData: User | null) => { 
+  m_UserRoles$: Observable<Role[] | null | undefined> = this.m_UserService.m_Data$.pipe(
+    map((userData: User | null | undefined) => {
       return userData ? userData.roles : null;
     })
   );

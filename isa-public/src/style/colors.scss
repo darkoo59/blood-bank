@@ -1,5 +1,5 @@
 /*
-  File for all colors used in the application. 
+  File for all colors used in the application.
   See predefined material palettes on: https://material.angularjs.org/1.1.0/demo/colors
   Custom palettes can be built using: http://mcg.mbitson.com/
 */
@@ -123,6 +123,10 @@ $foreground-dark: mat.$dark-theme-foreground-palette;
 
   --loader-bg: #eee;
   --page-loader-grad: #f9f9f9;
+
+  .profile-photo {
+    background-image: url('../assets/ProfileDark.png');
+  }
 }
 
 .dark-theme{
@@ -140,4 +144,9 @@ $foreground-dark: mat.$dark-theme-foreground-palette;
 
   --loader-bg: #e68a8a;
   --page-loader-grad: #4A4A4A;
+
+  .profile-photo {
+    background-image: url('../assets/ProfileLight.png');
+  }
 }
+

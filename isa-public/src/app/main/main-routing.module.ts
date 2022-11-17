@@ -36,9 +36,7 @@ const routes: Routes = [
       },
       {
         path: 'bc-all',
-        component: BCAllComponent,
-        canActivate: [RoleGuard],
-        data: { roles: ["ROLE_ADMIN"] }
+        component: BCAllComponent
       },
       {
         path: 'bc-dashboard',

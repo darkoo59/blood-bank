@@ -13,7 +13,7 @@ export class RoleGuard implements CanActivate {
     return this.m_UserService.m_Data$.pipe(take(1), map(userData => {
       if(userData){
         const routeRoles = route.data['roles'];
-        if(routeRoles?.length > 0){
+        if(userData?.roles && routeRoles?.length > 0){
           for (let r of userData?.roles){
             if(routeRoles?.includes(r.name)){
               return true;
