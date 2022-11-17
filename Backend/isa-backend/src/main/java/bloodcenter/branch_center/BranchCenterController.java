@@ -28,6 +28,7 @@ public class BranchCenterController {
         this.service = service;
     }
     @PostMapping
+    @Secured({"ROLE_ADMIN"})
     public void registerBranchCenter(@RequestBody RegisterBranchCenterDTO bcDTO) {
         service.registerBranchCenter(bcDTO);
     }
