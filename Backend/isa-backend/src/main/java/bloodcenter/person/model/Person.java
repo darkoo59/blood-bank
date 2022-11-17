@@ -77,4 +77,10 @@ public abstract class Person {
             super(message);
         }
     }
+
+    public static class PersonCantBeUpdatedException extends Exception {
+        public PersonCantBeUpdatedException(String message){
+            super(message);
+        }
+    }
 }

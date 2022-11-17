@@ -15,4 +15,6 @@ public class AddressService {
     public void saveAdress(Address address){
         _repository.save(address);
     }
+
+    public Address getAddressByLatLng(double lat, double lng){ return _repository.getAddressByLatLng(lat,lng); }
 }

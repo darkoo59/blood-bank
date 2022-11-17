@@ -1,6 +1,7 @@
 package bloodcenter.person.service;
 
 import bloodcenter.address.AddressRepository;
+import bloodcenter.person.model.Person;
 import bloodcenter.role.Role;
 import bloodcenter.role.RoleRepository;
 import bloodcenter.person.dto.RegisterDTO;
@@ -62,5 +63,20 @@ public class UserService {
     public List<User> searchUsers(String searchInput) {
         List<User> ret = userRepository.searchUsers(searchInput.toLowerCase());
         return ret;
+    }
+
+    public void update(Person personToUpdate) {
+        User userToUpdate = getUser(personToUpdate.getEmail());
+        userToUpdate.setPassword(personToUpdate.getPassword());
+        userToUpdate.setAddress(personToUpdate.getAddress());
+        userToUpdate.setEmail(personToUpdate.getEmail());
+        userToUpdate.setFirstname(personToUpdate.getFirstname());
+        userToUpdate.setInformation(personToUpdate.getInformation());
+        userToUpdate.setLastname(personToUpdate.getLastname());
+        userToUpdate.setNationalId(personToUpdate.getNationalId());
+        userToUpdate.setOccupation(personToUpdate.getOccupation());
+        userToUpdate.setPhone(personToUpdate.getPhone());
+        userToUpdate.setSex(personToUpdate.getSex());
+        userRepository.save(userToUpdate);
     }
 }

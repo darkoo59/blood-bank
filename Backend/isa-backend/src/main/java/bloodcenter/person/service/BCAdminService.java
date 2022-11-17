@@ -6,6 +6,8 @@ import bloodcenter.person.dto.AssignAdminToCenterDTO;
 import bloodcenter.person.dto.BCAdminDTO;
 import bloodcenter.person.dto.RegisterBCAdminDTO;
 import bloodcenter.person.model.BCAdmin;
+import bloodcenter.person.model.Person;
+import bloodcenter.person.model.User;
 import bloodcenter.person.repository.BCAdminRepository;
 import bloodcenter.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,4 +63,18 @@ public class BCAdminService {
         repository.save(admin);
     }
 
+    public void update(Person personToUpdate) throws BCAdmin.BCAdminNotFoundException {
+        BCAdmin adminToUpdate = getByMail(personToUpdate.getEmail());
+        adminToUpdate.setPassword(personToUpdate.getPassword());
+        adminToUpdate.setAddress(personToUpdate.getAddress());
+        adminToUpdate.setEmail(personToUpdate.getEmail());
+        adminToUpdate.setFirstname(personToUpdate.getFirstname());
+        adminToUpdate.setInformation(personToUpdate.getInformation());
+        adminToUpdate.setLastname(personToUpdate.getLastname());
+        adminToUpdate.setNationalId(personToUpdate.getNationalId());
+        adminToUpdate.setOccupation(personToUpdate.getOccupation());
+        adminToUpdate.setPhone(personToUpdate.getPhone());
+        adminToUpdate.setSex(personToUpdate.getSex());
+        repository.save(adminToUpdate);
+    }
 }
