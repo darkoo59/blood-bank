@@ -29,11 +29,11 @@ export class UserService extends GenericDataService<User> {
     return this.addErrorHandler(this.m_Http.patch(`${environment.apiUrl}/person/password`, dto));
   }
 
-  update(personToUpdate: User) : Observable<User> {
+  update(personToUpdate: User) : Observable<Object> {
     const body = {id: personToUpdate.id,firstname: personToUpdate.firstname, lastname: personToUpdate.lastname, email: personToUpdate.email, address: personToUpdate.address,
     phone: personToUpdate.phone, nationalId: personToUpdate.nationalId, sex: personToUpdate.sex, occupation: personToUpdate.occupation,
     information: personToUpdate.information}
-    return this.m_Http.patch<User>(`${environment.apiUrl}/person`, body)
+    return this.m_Http.patch(`${environment.apiUrl}/person`, body);
   }
 
 }

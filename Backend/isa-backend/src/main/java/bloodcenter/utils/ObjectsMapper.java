@@ -11,6 +11,7 @@ import bloodcenter.person.dto.BCAdminDTO;
 import bloodcenter.person.dto.BCAdminShallowDTO;
 import bloodcenter.person.dto.PersonDTO;
 import bloodcenter.person.dto.RegisterDTO;
+import bloodcenter.person.model.Admin;
 import bloodcenter.person.model.BCAdmin;
 import bloodcenter.person.model.Person;
 import bloodcenter.person.model.User;
@@ -55,6 +56,7 @@ public class ObjectsMapper {
         return modelMapper.map(address, AddressDTO.class);
     }
 
+    public static Address convertDTOToAddress(AddressDTO addressDTO) { return modelMapper.map(addressDTO, Address.class); }
     public static BCAdminShallowDTO convertBCAdminToShallowDTO(BCAdmin admin) {
         BCAdminShallowDTO dto = modelMapper.map(admin, BCAdminShallowDTO.class);
         if(admin.getAddress() != null)
@@ -79,9 +81,9 @@ public class ObjectsMapper {
         return modelMapper.map(person, PersonDTO.class);
 
     }
-    public static Person convertDTOToPerson(PersonDTO personDTO) {
-        Person person = modelMapper.map(personDTO, Person.class);
-        return person;
+
+    public static Admin convertPersonToAdmin(Person person) {
+        return modelMapper.map(person,Admin.class);
     }
 
     public static FeedbackDTO convertFeedbackToDTO(Feedback feedback){
