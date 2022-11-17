@@ -1,7 +1,6 @@
 package bloodcenter.person.service;
 
 import bloodcenter.address.AddressRepository;
-import bloodcenter.person.dto.PersonDTO;
 import bloodcenter.person.model.Person;
 import bloodcenter.person.repository.AdminRepository;
 import bloodcenter.person.repository.BCAdminRepository;
@@ -25,35 +24,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static bloodcenter.utils.ObjectsMapper.convertUserToPersonDTO;
-
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class UserService implements UserDetailsService {
+public class UserService {
     private final UserRepository userRepository;
-    private final BCAdminRepository bcAdminRepository;
-    private final AdminRepository adminRepository;
     private final RoleRepository roleRepository;
     private final AddressRepository addressRepository;
     private final PasswordEncoder passwordEncoder;
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Person person = userRepository.findByEmail(username);
-        if (person == null) {
-            person = bcAdminRepository.findByEmail(username);
-        }
-        if (person == null) {
-            person = adminRepository.findByEmail(username);
-        }
-        if (person == null) {
-            throw new UsernameNotFoundException("User not found in the database");
-        }
-        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        person.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getName())));
-        return new org.springframework.security.core.userdetails.User(person.getEmail(), person.getPassword(), authorities);
-    }
 
     public void saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -88,13 +66,5 @@ public class UserService implements UserDetailsService {
         saveUser(user);
         addRoleToUser(user.getEmail(), role.getName());
         return true;
-    }
-
-    public PersonDTO getPersonDTOFromEmail(String email) {
-        User user = getUser(email);
-        if (user != null) {
-            return convertUserToPersonDTO(user);
-        }
-        return  null;
     }
 }
