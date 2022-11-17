@@ -40,6 +40,11 @@ public class UserController {
         return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<User>> searchUsers(@RequestParam String searchInput) {
+        return new ResponseEntity<>(userService.searchUsers(searchInput), HttpStatus.OK);
+    }
+
     @PostMapping("/register")
     public ResponseEntity<?> Register(@RequestBody RegisterDTO registerDTO) {
         if (userService.registerUser(registerDTO)) {
