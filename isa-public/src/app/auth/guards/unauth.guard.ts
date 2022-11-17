@@ -11,7 +11,7 @@ export class UnauthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     return this.m_UserService.m_Data$.pipe(take(1), map(userData => {
-      return userData ? this.m_Router.createUrlTree(['/error']) : true;
+      return userData ? this.m_Router.createUrlTree(['/home']) : true;
     }));
   }
 }

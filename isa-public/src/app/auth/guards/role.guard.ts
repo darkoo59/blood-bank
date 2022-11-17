@@ -19,11 +19,11 @@ export class RoleGuard implements CanActivate {
               return true;
             }
           }
-          return this.m_Router.createUrlTree(['/error']);
+          return this.m_Router.createUrlTree(['/home']);
         }
         return true;
       }
-      return this.m_Router.createUrlTree(['/error']);
+      return this.m_Router.createUrlTree(['/home']);
     }));
   }
 }

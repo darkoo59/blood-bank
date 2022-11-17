@@ -8,13 +8,17 @@ import bloodcenter.person.dto.RegisterBCAdminDTO;
 import bloodcenter.person.model.BCAdmin;
 import bloodcenter.person.service.BCAdminService;
 import bloodcenter.person.dto.AssignAdminToCenterDTO;
+import bloodcenter.person.service.PersonService;
+import bloodcenter.security.filter.AuthUtility;
 import bloodcenter.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 @Controller
@@ -22,14 +26,17 @@ import java.util.ArrayList;
 public class BCAdminController {
     private final BCAdminService service;
 
-    public BCAdminController(@Autowired BCAdminService service){
+    private final AuthUtility authUtility;
+
+    public BCAdminController(@Autowired BCAdminService service, PersonService personService){
         this.service = service;
+        this.authUtility = new AuthUtility(personService);
     }
 
     @GetMapping("bc")
-    public ResponseEntity<BranchCenterDTO> getBCData() throws BCAdmin.BCAdminNotFoundException {
-        //TODO: get email from token...
-        String email = "stojanovicrade614@gmail.com";
+    @Secured({"ROLE_BCADMIN"})
+    public ResponseEntity<BranchCenterDTO> getBCData(HttpServletRequest request) throws BCAdmin.BCAdminNotFoundException {
+        String email = authUtility.getEmailFromRequest(request);
         BCAdmin admin = this.service.getByMail(email);
 
         if (admin.getBranchCenter() == null)

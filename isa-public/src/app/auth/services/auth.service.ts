@@ -5,7 +5,6 @@ import { BehaviorSubject, catchError, EMPTY, Observable, switchMap, tap } from "
 import { Address } from "src/app/model/address.model";
 import { UserService } from "src/app/services/user.service";
 import { environment } from "src/environments/environment";
-import { Interceptor } from "./interceptor.service";
 
 export interface RegisterDTO {
   firstname: string,

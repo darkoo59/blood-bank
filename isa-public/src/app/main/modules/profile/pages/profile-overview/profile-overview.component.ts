@@ -14,7 +14,7 @@ import { LoadingService } from "src/app/services/loading.service";
 })
 export class ProfileOverviewComponent implements OnInit {
   userData!: User;
-  mapInput: LatLng | null = null;
+  mapInput: LatLng | null = new LatLng(45.2549038, 19.8382191);
   userToUpdate!: User;
   errors: string[] = [];
   addressData!: any;

@@ -32,6 +32,14 @@ public class ObjectsMapper {
         return branchCenterDTO;
     }
 
+    public static List<PersonDTO> convertUserListToDTO(List<User> userList){
+        ArrayList<PersonDTO> dtos = new ArrayList<>();
+        for(User user: userList){
+            dtos.add(convertPersonToDTO(user));
+        }
+        return dtos;
+    }
+
     public static PersonDTO convertPersonToDTO(Person person) {
         return modelMapper.map(person,PersonDTO.class);
     }
@@ -48,8 +56,10 @@ public class ObjectsMapper {
 
     public static BCAdminDTO convertBCAdminToDTO(BCAdmin admin){
         BCAdminDTO dto = modelMapper.map(admin, BCAdminDTO.class);
-        dto.setBranchCenter(convertBranchCenterToDTO(admin.getBranchCenter()));
-        dto.setAddress(convertAddressToDTO(admin.getAddress()));
+        if(admin.getBranchCenter() != null)
+            dto.setBranchCenter(convertBranchCenterToDTO(admin.getBranchCenter()));
+        if(admin.getAddress() != null)
+            dto.setAddress(convertAddressToDTO(admin.getAddress()));
         return dto;
     }
 

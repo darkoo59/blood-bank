@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { NavRoute } from "../../nav/nav.component";
 import { UserService } from "../../../services/user.service";
-import { Observable, filter, tap } from "rxjs";
+import { filter, tap } from "rxjs";
 
 @Component({
   selector: 'app-profile',
@@ -10,8 +10,6 @@ import { Observable, filter, tap } from "rxjs";
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent  implements OnInit {
-  m_Error$: Observable<string | null> = this.m_UserService.m_Error$;
-
   m_Routes: NavRoute[] = [
     {
       path: 'overview',
