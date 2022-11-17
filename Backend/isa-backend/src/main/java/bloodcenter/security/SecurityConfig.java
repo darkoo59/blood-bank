@@ -57,7 +57,9 @@ public class SecurityConfig {
                 "/api/user/login",
                 "/api/user/token/refresh",
                 "/api/user/register",
-                "/api/user/logout"
+                "/api/user/logout",
+                "/api/branch-center/all-centers-pagination",
+                "/api/branch-center/all"
         ).permitAll();
         //http.authorizeRequests().antMatchers(GET, "/api/user/**").hasAnyAuthority("ROLE_USER");
         http.authorizeRequests().anyRequest().authenticated();

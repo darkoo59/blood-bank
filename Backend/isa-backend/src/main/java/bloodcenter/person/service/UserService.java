@@ -1,9 +1,6 @@
 package bloodcenter.person.service;
 
 import bloodcenter.address.AddressRepository;
-import bloodcenter.person.model.Person;
-import bloodcenter.person.repository.AdminRepository;
-import bloodcenter.person.repository.BCAdminRepository;
 import bloodcenter.role.Role;
 import bloodcenter.role.RoleRepository;
 import bloodcenter.person.dto.RegisterDTO;
@@ -12,16 +9,10 @@ import bloodcenter.person.repository.UserRepository;
 import bloodcenter.utils.ObjectsMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Service

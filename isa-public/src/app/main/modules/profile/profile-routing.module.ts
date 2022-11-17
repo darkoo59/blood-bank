@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { ProfileAuthComponent } from "./pages/profile-auth/profile-auth.component";
-import { ProfileOverviewComponent } from "./pages/profile-overview.component";
+import { ProfileOverviewComponent } from "./pages/profile-overview/profile-overview.component";
 import { ProfileSettingsComponent } from "./pages/profile-settings.component";
 import { ProfileComponent } from "./profile.component";
 
