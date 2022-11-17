@@ -19,13 +19,13 @@ export class GlobalService {
   }
 
   initApp(): Observable<any> {
-    //TODO: send initial requests...
 
     const userData$ = this.m_UserService.fetchUserData();
-    return forkJoin([userData$], ([userData]) => {
-      console.log(userData);
+    return forkJoin([userData$], (data) => {
+      console.log(data);
       this.m_LoadingService.setLoading = false;
-    }).pipe(catchError((_: any) => {
+    }).pipe(catchError((res: any) => {
+      console.error(res);
       this.m_LoadingService.setLoading = false;
       return EMPTY;
     }));

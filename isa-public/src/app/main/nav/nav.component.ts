@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { map, Observable } from 'rxjs';
+import { Role } from 'src/app/model/role.model';
+import { User } from 'src/app/model/user.model';
+import { UserService } from 'src/app/services/user.service';
 
 export interface NavRoute {
   path: string;
@@ -59,5 +63,20 @@ export class NavComponent {
 
   m_StaffRoutes: NavRoute[] = [];
 
-  constructor() { }
+  m_UserRoles$: Observable<Role[] | null> = this.m_UserService.m_Data$.pipe(
+    map((userData: User | null) => { 
+      return userData ? userData.roles : null;
+    })
+  );
+
+  constructor(private m_UserService: UserService) {}
+
+  hasRole(roles: Role[] | null, role?: string | null): boolean {
+    if(!roles) return false;
+    if(roles && !role) return true;
+    for(let r of roles){
+      if(r.name == role) return true;
+    }
+    return false;
+  }
 }

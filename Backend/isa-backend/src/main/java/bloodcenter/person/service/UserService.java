@@ -1,7 +1,9 @@
 package bloodcenter.person.service;
 
 import bloodcenter.address.AddressRepository;
-import bloodcenter.person.dto.PersonDTO;
+import bloodcenter.person.model.Person;
+import bloodcenter.person.repository.AdminRepository;
+import bloodcenter.person.repository.BCAdminRepository;
 import bloodcenter.role.Role;
 import bloodcenter.role.RoleRepository;
 import bloodcenter.person.dto.RegisterDTO;
@@ -22,27 +24,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static bloodcenter.utils.ObjectsMapper.convertUserToPersonDTO;
-
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class UserService implements UserDetailsService {
+public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final AddressRepository addressRepository;
     private final PasswordEncoder passwordEncoder;
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found in the database");
-        }
-        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        user.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getName())));
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
-    }
 
     public void saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));

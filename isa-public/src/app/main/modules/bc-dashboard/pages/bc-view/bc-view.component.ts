@@ -10,6 +10,7 @@ import { BCDashboardService } from "../../services/bc-dashboard.service";
 })
 export class BCViewComponent {
   m_BCData$ = this.m_BCDashboardService.m_Data$.pipe(tap(d => {
+    console.log(d);
     if(d?.address.lat && d?.address.lng){
       this.m_Location = new LatLng(d?.address.lat, d?.address.lng)
     }

@@ -3,9 +3,7 @@ import { Injectable } from "@angular/core";
 import { LatLng } from "leaflet";
 import { Observable } from "rxjs";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class MapService {
   constructor(private m_Http: HttpClient) { }
 

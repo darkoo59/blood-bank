@@ -15,4 +15,8 @@ public class Role {
     @GeneratedValue(strategy = AUTO)
     private long Id;
     private String name;
+
+    public Role (String name){
+        this.name = name;
+    }
 }

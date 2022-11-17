@@ -1,16 +1,14 @@
 package bloodcenter.blood;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table
+@Setter
+@Getter
 public class Blood {
     @Id
     @GeneratedValue(
