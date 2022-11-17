@@ -46,6 +46,7 @@ public class BCAdminController {
     }
 
     @PostMapping
+    @Secured({"ROLE_ADMIN"})
     public ResponseEntity<Object> registerBCAdmin(@RequestBody RegisterBCAdminDTO bcaDTO) throws BCAdmin.BCAdminEmailTakenException {
          service.registerBCAdmin(bcaDTO);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -58,6 +59,7 @@ public class BCAdminController {
     }
 
     @PatchMapping("assign")
+    @Secured({"ROLE_ADMIN"})
     public ResponseEntity<Object> assignAdminToCenter(@RequestBody AssignAdminToCenterDTO dto) throws BCAdmin.BCAdminNotFoundException, BranchCenter.BCNotFoundException {
         service.assignAdminToCenter(dto);
         return new ResponseEntity<>(HttpStatus.OK);

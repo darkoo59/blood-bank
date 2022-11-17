@@ -11,6 +11,6 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmail(String email);
 
-    @Query(value="SELECT u FROM user_ u WHERE LOWER(u.firstname) LIKE %?1% OR LOWER(u.lastname) LIKE %?1%")
+    @Query(value="SELECT u FROM user_ u WHERE LOWER(CONCAT(u.firstname, ' ', u.lastname)) LIKE %?1% OR LOWER(CONCAT(u.lastname, ' ', u.firstname)) LIKE %?1%")
     List<User> searchUsers(String searchInput);
 }
