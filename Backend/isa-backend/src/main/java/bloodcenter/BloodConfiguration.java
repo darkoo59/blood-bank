@@ -7,6 +7,8 @@ import bloodcenter.api_key.Key;
 import bloodcenter.branch_center.BranchCenter;
 import bloodcenter.branch_center.BranchCenterRepository;
 import bloodcenter.address.Address;
+import bloodcenter.person.model.Admin;
+import bloodcenter.person.repository.AdminRepository;
 import bloodcenter.role.Role;
 import bloodcenter.role.RoleRepository;
 import bloodcenter.person.model.BCAdmin;
@@ -97,16 +99,25 @@ public class BloodConfiguration {
     @Bean
     CommandLineRunner BCAdminCLR(BCAdminRepository repository, BranchCenterRepository bc_repo) {
         return args -> {
-            BCAdmin a1 = new BCAdmin("Rade", "Stojanovic", "stojanovicrade614@gmail.com", "pass1");
-            BCAdmin a2 = new BCAdmin("Darko", "Selakovic", "darko123@gmail.com", "pass2");
-            BCAdmin a3 = new BCAdmin("Vojin", "Bjelica", "vojin123@gmail.com", "pass3");
-            BCAdmin a4 = new BCAdmin("Marko", "Uljarevic", "marko123@gmail.com", "pass4");
+            BCAdmin a1 = new BCAdmin("Rade", "Stojanovic", "stojanovicrade614@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je");
+            BCAdmin a2 = new BCAdmin("Darko", "Selakovic", "darko123@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je");
+            BCAdmin a3 = new BCAdmin("Vojin", "Bjelica", "vojin123@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je");
+            BCAdmin a4 = new BCAdmin("Marko", "Uljarevic", "marko123@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je");
 
             a1.setBranchCenter(bc_repo.findById(1L).get());
             a2.setBranchCenter(bc_repo.findById(1L).get());
             a3.setBranchCenter(bc_repo.findById(2L).get());
 
             repository.saveAll(List.of(a1, a2, a3, a4));
+        };
+    }
+
+    @Bean
+    CommandLineRunner AdminCLR(AdminRepository repository) {
+        return args -> {
+            Admin a1 = new Admin("Elon", "Musk", "elonmusk@tesla.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je");
+
+            repository.saveAll(List.of(a1));
         };
     }
 
@@ -123,10 +134,10 @@ public class BloodConfiguration {
     @Bean
     CommandLineRunner UserCLR(UserRepository repository) {
         return args -> {
-            User u1 = new User("Rade", "Stojanovic", "stojanovicrade614@gmail.com", "pass1");
-            User u2 = new User("Darko", "Selakovic", "darko123@gmail.com", "pass2");
-            User u3 = new User("Vojin", "Bjelica", "vojin123@gmail.com", "pass3");
-            User u4 = new User("Marko", "Uljarevic", "marko123@gmail.com", "pass4");
+            User u1 = new User("Rade", "Stojanovic", "rade@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je");
+            User u2 = new User("Darko", "Selakovic", "darko@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je");
+            User u3 = new User("Vojin", "Bjelica", "vojin@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je");
+            User u4 = new User("Marko", "Uljarevic", "marko@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je");
 
             repository.saveAll(List.of(u1, u2, u3, u4));
         };
@@ -135,8 +146,8 @@ public class BloodConfiguration {
     @Bean
     CommandLineRunner PersonRolesCLR(UserService userService) {
         return args -> {
-            userService.addRoleToUser("stojanovicrade614@gmail.com", "ROLE_ADMIN");
-            userService.addRoleToUser("darko123@gmail.com", "ROLE_USER");
+            userService.addRoleToUser("rade@gmail.com", "ROLE_USER");
+            userService.addRoleToUser("darko@gmail.com", "ROLE_USER");
         };
     }
 }
