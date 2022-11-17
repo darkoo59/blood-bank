@@ -11,6 +11,7 @@ import bloodcenter.person.dto.AssignAdminToCenterDTO;
 import bloodcenter.person.service.PersonService;
 import bloodcenter.security.filter.AuthUtility;
 import bloodcenter.utils.ObjectsMapper;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +43,14 @@ public class BCAdminController {
         if (admin.getBranchCenter() == null)
             return new ResponseEntity<>(null, HttpStatus.OK);
         BranchCenterDTO dto = ObjectsMapper.convertBranchCenterToDTO(admin.getBranchCenter());
+        return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
+
+    @PatchMapping("bc")
+    @Secured({"ROLE_BCADMIN"})
+    public ResponseEntity<Object> patchBranchCenter(HttpServletRequest request, @RequestBody BranchCenterDTO dto) throws Exception {
+        String email = authUtility.getEmailFromRequest(request);
+        service.updateBranchCenter(email, dto);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 

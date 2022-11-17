@@ -28,7 +28,7 @@ export class BCDashboardService extends GenericDataService<BranchCenter> {
   }
 
   patchBCData(dto: BCUpdateDTO): Observable<any> {
-    return this.addErrorHandler(this.m_Http.patch(`${environment.apiUrl}/branch-center`, dto).pipe(
+    return this.addErrorHandler(this.m_Http.patch(`${environment.apiUrl}/bc-admin/bc`, dto).pipe(
       exhaustMap(_ => this.fetchBCData())
     ));
   }

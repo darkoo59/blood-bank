@@ -9,7 +9,7 @@
       </mat-form-field>
     </form>
     <div *ngIf="!vm.error && vm.users" class="list">
-      <user-list [m_Users]="vm.users"></user-list>
+      <user-list [i_Users]="vm.users"></user-list>
     </div>
     <div *ngIf="vm.error" class="errors">
       <p>{{vm.error}}</p>

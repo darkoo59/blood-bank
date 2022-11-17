@@ -7,6 +7,6 @@ import { User } from "src/app/model/user.model";
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent { 
-  @Input() m_Users: User[] = [];
+  @Input() i_Users: User[] = [];
   m_Columns: string[] = ['id', 'firstname', 'lastname', 'email'];
 }

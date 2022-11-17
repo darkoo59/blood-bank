@@ -1,0 +1,49 @@
+.comment {
+  &:not(:first-child) {
+    margin-top: 10px;
+  }
+
+  .custom-header {
+    display: flex;
+    align-items: center;
+  }
+
+  .content {
+    padding-left: 77px;
+
+    .text {
+      padding: 0px 80px 20px 10px;
+    }
+
+    .footer {
+      font-size: 12px;
+      margin-bottom: 20px;
+
+      .date {
+        opacity: 0.75;
+        font-style: italic;
+      }
+
+      .grade {
+        margin-top: 10px;
+        display: block;
+      }
+    }
+  }
+
+  .image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-size: cover;
+  }
+
+  .title {
+    font-size: 18px;
+    margin-bottom: 0px;
+
+    span:first-child {
+      color: var(--secondary);
+    }
+  }
+}

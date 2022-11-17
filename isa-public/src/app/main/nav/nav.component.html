@@ -7,7 +7,7 @@
   <!-- TODO: hide these upcoming sections based on user roles -->
   <nav-section [m_Routes]="m_CommonRoutes"  *ngIf="hasRole(roles)" m_Title="Blood Bank"></nav-section>
   <nav-section [m_Routes]="m_UserRoutes"    *ngIf="hasRole(roles, 'ROLE_USER')" m_Title="User"></nav-section>
-  <nav-section [m_Routes]="m_BCAdminRoutes" *ngIf="hasRole(roles, 'ROLE_BCADMIN')" m_Title="Branch Centre Admin"></nav-section>
+  <nav-section [m_Routes]="m_BCAdminRoutes" *ngIf="hasRole(roles, 'ROLE_BCADMIN')" m_Title="Branch Center Admin"></nav-section>
   <nav-section [m_Routes]="m_AdminRoutes"   *ngIf="hasRole(roles, 'ROLE_ADMIN')" m_Title="System Admin"></nav-section>
   <nav-section [m_Routes]="m_StaffRoutes"   *ngIf="hasRole(roles, 'ROLE_STAFF')" m_Title="Staff"></nav-section>
 </nav>

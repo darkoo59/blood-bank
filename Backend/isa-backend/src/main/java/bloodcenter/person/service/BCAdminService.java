@@ -2,6 +2,7 @@ package bloodcenter.person.service;
 
 import bloodcenter.branch_center.BranchCenter;
 import bloodcenter.branch_center.BranchCenterService;
+import bloodcenter.branch_center.dto.BranchCenterDTO;
 import bloodcenter.person.dto.AssignAdminToCenterDTO;
 import bloodcenter.person.dto.BCAdminDTO;
 import bloodcenter.person.dto.RegisterBCAdminDTO;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 @Service
 public class BCAdminService {
@@ -25,10 +27,17 @@ public class BCAdminService {
 
     public BCAdmin getByMail(String email) throws BCAdmin.BCAdminNotFoundException {
         BCAdmin admin = this.repository.findByEmail(email);
-        if(admin == null){
+        if(admin == null)
             throw new BCAdmin.BCAdminNotFoundException("Branch center admin not found.");
-        }
         return admin;
+    }
+
+    public void updateBranchCenter(String email, BranchCenterDTO dto) throws Exception{
+        BCAdmin admin = this.repository.findByEmail(email);
+        if(admin.getBranchCenter() == null)
+            throw new BranchCenter.BCNotFoundException("Branch center not found");
+        dto.setId(admin.getBranchCenter().getId());
+        bcService.updateData(dto);
     }
 
     public ArrayList<BCAdminDTO> getUnassignedAdmins() {

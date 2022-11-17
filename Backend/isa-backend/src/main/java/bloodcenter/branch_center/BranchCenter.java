@@ -1,10 +1,10 @@
 package bloodcenter.branch_center;
 
 import bloodcenter.address.Address;
+import bloodcenter.feedback.Feedback;
 import bloodcenter.person.model.BCAdmin;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,6 +32,10 @@ public class BranchCenter {
     @OneToMany(mappedBy = "branchCenter")
     @JsonIgnore
     private List<BCAdmin> admins;
+
+    @OneToMany(mappedBy = "branchCenter")
+    @JsonIgnore
+    private List<Feedback> feedback;
 
     public BranchCenter(String name, String description) {
         this.name = name;
