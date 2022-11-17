@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { BehaviorSubject, catchError, EMPTY, Observable, switchMap, tap } from "rxjs";
 import { Address } from "src/app/model/address.model";
 import { UserService } from "src/app/services/user.service";
@@ -39,7 +40,7 @@ export class AuthService {
     this.m_AccessTokenSubject$.next(null);
   }
 
-  constructor(private m_Http: HttpClient, private m_UserService: UserService) { }
+  constructor(private m_Http: HttpClient, private m_UserService: UserService, private m_Router: Router) { }
 
   register(registerDTO: RegisterDTO): Observable<any> {
     return this.m_Http.post(`${environment.apiUrl}/user/register`, registerDTO)
@@ -62,7 +63,6 @@ export class AuthService {
     return this.m_Http.post(`${environment.apiUrl}/user/login`, body, options).pipe(
       tap((res: any) => this.setAccessToken = res.accessToken),
       switchMap(_ => {
-        console.log(_);
         return this.m_UserService.fetchUserData()
       })
     );
@@ -72,11 +72,12 @@ export class AuthService {
     const headers = new HttpHeaders({
       'logoutHeader': ''
     })
-    return this.m_Http.post(`${environment.apiUrl}/user/logout`, '', { headers: headers}).pipe(
+    return this.m_Http.post(`${environment.apiUrl}/user/logout`, '', { headers: headers }).pipe(
       catchError(_ => EMPTY),
       tap(_ => {
         this.clearAccessToken()
         this.m_UserService.resetData();
+        this.m_Router.navigate(['/home']);
       })
     );
   }

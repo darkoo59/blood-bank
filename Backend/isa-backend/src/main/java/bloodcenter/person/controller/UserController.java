@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.*;
 
 import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
 @Controller
@@ -55,11 +56,11 @@ public class UserController {
                 AuthUtility.setResponseMessage(response, "accessToken", accessToken);
             }
             else {
-                response.setStatus(FORBIDDEN.value());
+                response.setStatus(UNAUTHORIZED.value());
                 AuthUtility.setResponseMessage(response, "errorMessage", "Refresh token is missing");
             }
         } catch (Exception e) {
-            response.setStatus(FORBIDDEN.value());
+            response.setStatus(UNAUTHORIZED.value());
             AuthUtility.setResponseMessage(response, "errorMessage", e.getMessage());
         }
     }

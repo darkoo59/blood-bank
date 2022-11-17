@@ -29,11 +29,6 @@ public class PersonController {
         authUtility = new AuthUtility(personService);
     }
 
-//    @GetMapping()
-//    public @ResponseBody PersonDTO getData(HttpServletRequest request, HttpServletResponse response){
-//
-//    }
-
     @GetMapping("/{id}")
     public @ResponseBody PersonDTO getPersonById(@PathVariable("id") Long id) throws Person.PersonNotFoundException {
         return personService.findById(id);

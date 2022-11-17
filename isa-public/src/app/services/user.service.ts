@@ -17,7 +17,7 @@ export class UserService extends GenericDataService<User> {
   constructor(private m_Http: HttpClient) { super() }
 
   fetchUserData(): Observable<any> {
-    return this.addErrorReader(this.m_Http.get(`${environment.apiUrl}/user/current`).pipe(
+    return this.addErrorReader(this.m_Http.get(`${environment.apiUrl}/person/current`).pipe(
       tap((res: any) => {
         this.clearError();
         this.setData = res;
