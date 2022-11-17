@@ -73,8 +73,41 @@ $md-lightred: (
   )
 );
 
+$md-yellow: (
+    50 : #fff7e8,
+    100 : #ffebc6,
+    200 : #ffdea1,
+    300 : #ffd07b,
+    400 : #ffc65e,
+    500 : #ffbc42,
+    600 : #ffb63c,
+    700 : #ffad33,
+    800 : #ffa52b,
+    900 : #ff971d,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #ffe7ce,
+    A700 : #ffdab4,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
 $primary: mat.define-palette($md-lightred);
-$accent: mat.define-palette(mat.$yellow-palette);
+$accent: mat.define-palette($md-yellow);
 $warn: mat.define-palette(mat.$pink-palette);
 
 $primary-dark: mat.define-palette($md-deepred);

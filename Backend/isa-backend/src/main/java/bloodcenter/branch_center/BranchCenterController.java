@@ -2,6 +2,7 @@ package bloodcenter.branch_center;
 
 import bloodcenter.branch_center.dto.RegisterBranchCenterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ public class BranchCenterController {
         this.service = service;
     }
     @PostMapping
+    @Secured({"ROLE_ADMIN"})
     public void registerBranchCenter(@RequestBody RegisterBranchCenterDTO bcDTO) {
         service.registerBranchCenter(bcDTO);
     }
@@ -42,10 +44,10 @@ public class BranchCenterController {
     ) {
         return new ResponseEntity<>(service.findAllPagesByName(name,page,size), HttpStatus.OK);
     }
+
+    @Secured({"ROLE_BCADMIN"})
     @PatchMapping
     public ResponseEntity<Object> patchBranchCenter(@RequestBody BranchCenterDTO dto) throws BranchCenter.BCNotFoundException {
-        //TODO: authorization
-
         service.updateData(dto);
 
         return new ResponseEntity<>(HttpStatus.OK);

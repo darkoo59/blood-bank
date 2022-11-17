@@ -49,6 +49,9 @@
       <mat-error *ngIf="form.controls['bca-repeat'].hasError('required')">
         Password confirmation is <strong>required</strong>
       </mat-error>
+      <mat-error *ngIf="!form.controls['bca-repeat'].hasError('required') && form.hasError('mismatch')">
+        Password and confirm password <strong>do not match</strong>
+      </mat-error>
     </mat-form-field>
 
     <div class="button-group">
