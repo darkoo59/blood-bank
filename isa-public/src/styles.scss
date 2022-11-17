@@ -15,3 +15,7 @@ section{
   color:var(--error);
   font-style: italic;
 }
+
+.leaflet-bottom.leaflet-right .leaflet-control-attribution.leaflet-control{
+  display: none;
+}

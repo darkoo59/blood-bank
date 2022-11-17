@@ -11,6 +11,7 @@ import { PageLoaderModule } from 'src/app/core/page-loader/page-loader.module';
 import { BCDashboardComponent } from './bc-dashboard.component';
 import { BCEditComponent } from './pages/bc-edit/bc-edit.component';
 import { BCDashboardService } from './services/bc-dashboard.service';
+import { UserListModule } from 'src/app/core/user-list/user-list.module';
 
 @NgModule({
   providers: [BCDashboardService],
@@ -26,7 +27,8 @@ import { BCDashboardService } from './services/bc-dashboard.service';
     MaterialModule,
     ReactiveFormsModule,
     MapModule,
-    PageLoaderModule
+    PageLoaderModule,
+    UserListModule
   ]
 })
 export class BCDashboardModule { }
