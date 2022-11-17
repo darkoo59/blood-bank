@@ -37,7 +37,7 @@ export class ProfileOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.fetchUserData();
-   this.userService.m_Data$.subscribe((data: any) => {
+    this.userService.m_Data$.subscribe((data: any) => {
     this.userData = data;
     this.addressData = data.address;
    });
