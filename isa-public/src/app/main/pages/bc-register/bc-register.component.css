@@ -30,4 +30,8 @@
     display: flex;
     justify-content: right;
     margin-top: 20px;
-  }
+}
+
+.description-area {
+    max-height: 400px;
+}

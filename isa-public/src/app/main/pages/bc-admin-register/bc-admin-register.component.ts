@@ -26,7 +26,7 @@ export class BCAdminRegisterComponent implements OnInit {
     'bca-password': new FormControl(null, Validators.required),
     'bca-repeat': new FormControl(null, Validators.required),
     'bca-email': new FormControl(null, [Validators.required, Validators.email])
-  })
+  }, [BCAdminRegisterComponent.MatchValidator('bca-password', 'bca-repeat')])  
 
 
   m_Errors: string[] = [];
@@ -55,7 +55,21 @@ export class BCAdminRegisterComponent implements OnInit {
         return EMPTY;
       })).subscribe(data => {
         this.m_Router.navigate(['/bc-all'])});
+  }
 
+  static MatchValidator(source: string, target: string): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const sourceCtrl = control.get(source);
+      const targetCtrl = control.get(target);
+      if (sourceCtrl && targetCtrl && sourceCtrl.value !== targetCtrl.value) {
+        sourceCtrl?.setErrors({ mismatch: true });
+        targetCtrl?.setErrors({ mismatch: true });
+        return { mismatch: true };
+      }
+      if (sourceCtrl?.hasError('mismatch')) sourceCtrl.updateValueAndValidity();
+      if (targetCtrl?.hasError('mismatch')) targetCtrl.updateValueAndValidity();
+      return null;
+    };
   }
 
 }
