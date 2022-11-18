@@ -6,6 +6,7 @@ import { BranchCenter } from 'src/app/model/branch-center.model';
 import { BranchCenterPage } from 'src/app/model/classes/branch-center-page';
 import { __values } from 'tslib';
 import { BcAllService } from './bc-all.service';
+import { Comment } from 'src/app/model/comment.model';
 
 @Component({
   selector: 'app-bc-all',
@@ -71,6 +72,14 @@ export class BCAllComponent implements OnInit{
       request = { name: this.form.get('search-input')?.value,country: this.selectedCountry,
       city: this.selectedCity }
     this.getCenters(request)
+  }
+
+  calculateAverage(comments: Comment[]): number {
+    let sum = 0.0;
+    for (let com of comments) {
+      sum += com.grade;
+    }
+    return sum / comments.length;
   }
 
   // onFilterChange()
