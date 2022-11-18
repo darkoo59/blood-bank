@@ -8,6 +8,7 @@ import { BCAdminRegisterComponent } from './pages/bc-admin-register/bc-admin-reg
 import { BCAllComponent } from './pages/bc-all/bc-all.component';
 import { BCAdminAssignComponent } from './pages/bc-admin-assign/bc-admin-assign.component';
 import { RoleGuard } from '../auth/guards/role.guard';
+import { QuestionnaireComponent } from './pages/questionnaire/questionnaire.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,12 @@ const routes: Routes = [
       {
         path: 'bc-all',
         component: BCAllComponent
+      },
+      {
+        path: 'questionnaire',
+        component: QuestionnaireComponent,
+        canActivate: [RoleGuard],
+        data: { roles: ["ROLE_USER"] }
       },
       {
         path: 'bc-dashboard',

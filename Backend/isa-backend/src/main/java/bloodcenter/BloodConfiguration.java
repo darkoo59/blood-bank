@@ -20,7 +20,6 @@ import bloodcenter.api_key.KeyRepository;
 import bloodcenter.person.model.User;
 import bloodcenter.person.repository.BCAdminRepository;
 import bloodcenter.person.repository.UserRepository;
-import bloodcenter.person.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -70,7 +69,7 @@ public class BloodConfiguration {
             Address ad2 = new Address(44.818768, 20.459739, "Brace Jugovica", "12", "Beograd", "Serbia");
             Address ad3 = new Address(48.815469, 2.317124, "Avenue Verdier", "44", "Paris", "France");
             Address ad4 = new Address(51.344494, 12.369030, "Jacobstrabe", "13", "Leipzig", "Germany");
-            Address ad5 = new Address(48.203554, 16.350535, "Stuckgasse", "26", "Wien", "Austira");
+            Address ad5 = new Address(48.203554, 16.350535, "Stuckgasse", "26", "Wien", "Austria");
             repository.saveAll(List.of(ad1, ad2, ad3,ad4,ad5));
         };
     }
@@ -97,10 +96,10 @@ public class BloodConfiguration {
     @Bean
     CommandLineRunner BCAdminCLR(BCAdminRepository repository, BranchCenterRepository bc_repo, RoleRepository role_repo) {
         return args -> {
-            BCAdmin a1 = new BCAdmin("Rade", "Stojanovic", "rade@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0641232133","1234567891011", Sex.MALE,"Default occupation","Default information");
-            BCAdmin a2 = new BCAdmin("Darko", "Selakovic", "darko@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","064143421","1234567391011",Sex.MALE,"Default occupation","Default information");
-            BCAdmin a3 = new BCAdmin("Vojin", "Bjelica", "vojin@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0646677732","1264567891221",Sex.MALE,"Default occupation","Default information");
-            BCAdmin a4 = new BCAdmin("Marko", "Uljarevic", "marko@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","064312221","1324567691011",Sex.MALE,"Default occupation","Default information");
+            BCAdmin a1 = new BCAdmin("Rade", "Stojanovic", "rade123@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0641232133","1234567891011", Sex.MALE,"Default occupation","Default information");
+            BCAdmin a2 = new BCAdmin("Darko", "Selakovic", "darko123@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","064143421","1234567391011",Sex.MALE,"Default occupation","Default information");
+            BCAdmin a3 = new BCAdmin("Vojin", "Bjelica", "vojin123@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0646677732","1264567891221",Sex.MALE,"Default occupation","Default information");
+            BCAdmin a4 = new BCAdmin("Marko", "Uljarevic", "marko123@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","064312221","1324567691011",Sex.MALE,"Default occupation","Default information");
 
             a1.setBranchCenter(bc_repo.findById(1L).get());
             a2.setBranchCenter(bc_repo.findById(1L).get());

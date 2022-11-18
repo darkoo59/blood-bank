@@ -1,5 +1,5 @@
 import { Component } from "@angular/core"
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
+import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms'
 import { Router } from "@angular/router"
 import { AuthService, RegisterDTO } from "../services/auth.service"
 import { MatSnackBar } from '@angular/material/snack-bar'
@@ -17,7 +17,7 @@ export class RegisterComponent{
     'email': new UntypedFormControl(null, [Validators.required, Validators.email]),
     'password': new UntypedFormControl(null, [Validators.required, Validators.minLength(8)]),
     'confirmPassword': new UntypedFormControl(null, [Validators.required, Validators.minLength(8)])
-  })
+  }, [RegisterComponent.MatchValidator('password', 'confirmPassword')])
   m_Form2: UntypedFormGroup = new UntypedFormGroup({
     'street': new UntypedFormControl(null, [Validators.required]),
     'number': new UntypedFormControl(null, [Validators.required]),
@@ -104,5 +104,20 @@ export class RegisterComponent{
   onForm1Submit() {
     if (!this.m_Form1.valid) return
     this.onSwitch()
+  }
+
+  static MatchValidator(source: string, target: string): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const sourceCtrl = control.get(source);
+      const targetCtrl = control.get(target);
+      if (sourceCtrl && targetCtrl && sourceCtrl.value !== targetCtrl.value) {
+        sourceCtrl?.setErrors({ mismatch: true });
+        targetCtrl?.setErrors({ mismatch: true });
+        return { mismatch: true };
+      }
+      if (sourceCtrl?.hasError('mismatch')) sourceCtrl.updateValueAndValidity();
+      if (targetCtrl?.hasError('mismatch')) targetCtrl.updateValueAndValidity();
+      return null;
+    };
   }
 }

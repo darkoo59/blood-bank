@@ -33,7 +33,12 @@ export class NavComponent {
     }
   ];
 
-  m_UserRoutes: NavRoute[] = [];
+  m_UserRoutes: NavRoute[] = [
+    {
+      path: 'questionnaire',
+      title: 'Questionnaire'
+    }
+  ];
 
   m_BCAdminRoutes: NavRoute[] = [
     {

@@ -45,12 +45,11 @@
     <mat-form-field *ngLet="{name: 'Confirm password'} as vm" appearance="standard">
       <mat-label>{{vm.name}}</mat-label>
       <input type="password" matInput formControlName="confirmPassword">
-      <mat-error *ngIf="m_Form1.controls['confirmPassword'].value != m_Form1.controls['password'].value && 
-      !m_Form1.controls['confirmPassword'].hasError('required')">
-        Password confirmation does not match
-      </mat-error>
       <mat-error *ngIf="m_Form1.controls['confirmPassword'].hasError('required')">
         {{vm.name}} is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="!m_Form1.controls['confirmPassword'].hasError('required') && m_Form1.hasError('mismatch')">
+        Password and confirm password <strong>do not match</strong>
       </mat-error>
     </mat-form-field>
 

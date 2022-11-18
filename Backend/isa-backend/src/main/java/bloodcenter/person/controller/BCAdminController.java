@@ -11,7 +11,6 @@ import bloodcenter.person.dto.AssignAdminToCenterDTO;
 import bloodcenter.person.service.PersonService;
 import bloodcenter.security.filter.AuthUtility;
 import bloodcenter.utils.ObjectsMapper;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
