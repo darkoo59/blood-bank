@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -40,9 +41,11 @@ public class BranchCenterController {
     public @ResponseBody ResponseEntity<Map<String,Object>> getAllPages(
             @RequestParam(required = false) String name,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size
+            @RequestParam(defaultValue = "3") int size,
+            @RequestParam(value="country", required = false) String country,
+            @RequestParam(value="city", required = false) String city
     ) {
-        return new ResponseEntity<>(service.findAllPagesByName(name,page,size), HttpStatus.OK);
+        return new ResponseEntity<>(service.findAllPagesFiltered(name,page,size,country,city), HttpStatus.OK);
     }
 
     @Secured({"ROLE_BCADMIN"})
@@ -52,6 +55,12 @@ public class BranchCenterController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping(path="/allCountries")
+    public @ResponseBody List<String> getAllCountries(){ return service.getAllCountriesForFiltering(); }
+
+    @GetMapping(path="/allCities")
+    public @ResponseBody List<String> getAllCities(){ return service.getAllCitiesForFiltering(); }
 
     @ExceptionHandler({ Exception.class })
     public ResponseEntity<Object> handleExceptions(Exception ex){
