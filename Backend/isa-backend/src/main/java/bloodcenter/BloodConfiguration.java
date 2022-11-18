@@ -148,12 +148,12 @@ public class BloodConfiguration {
         return args -> {
             Feedback f1 = new Feedback("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", LocalDateTime.now(), 5);
             Feedback f2 = new Feedback("Sit amet commodo nulla facilisi nullam. Bibendum arcu vitae elementum curabitur vitae nunc sed velit dignissim. Amet massa vitae tortor condimentum lacinia quis vel eros donec.", LocalDateTime.now(), 3);
-            Feedback f3 = new Feedback("Adipiscing tristique risus nec feugiat in fermentum posuere urna nec.", LocalDateTime.now(), 4);
+            Feedback f3 = new Feedback("Adipiscing tristique risus nec feugiat in fermentum posuere urna nec.", LocalDateTime.now(), 3);
             Feedback f4 = new Feedback(" Ultrices in iaculis nunc sed. Convallis tellus id interdum velit laoreet id donec ultrices. Egestas sed tempus urna et pharetra pharetra.", LocalDateTime.now(), 3);
 
-            Feedback f5 = new Feedback("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", LocalDateTime.now(), 5);
+            Feedback f5 = new Feedback("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", LocalDateTime.now(), 3);
             Feedback f6 = new Feedback("Sit amet commodo nulla facilisi nullam. Bibendum arcu vitae elementum curabitur vitae nunc sed velit dignissim. Amet massa vitae tortor condimentum lacinia quis vel eros donec.", LocalDateTime.now(), 5);
-            Feedback f7 = new Feedback("Adipiscing tristique risus nec feugiat in fermentum posuere urna nec.", LocalDateTime.now(), 5);
+            Feedback f7 = new Feedback("Adipiscing tristique risus nec feugiat in fermentum posuere urna nec.", LocalDateTime.now(), 4);
             Feedback f8 = new Feedback(" Ultrices in iaculis nunc sed. Convallis tellus id interdum velit laoreet id donec ultrices. Egestas sed tempus urna et pharetra pharetra.", LocalDateTime.now(), 2);
 
             f1.setUser(user_repo.findByEmail("vojin@gmail.com"));

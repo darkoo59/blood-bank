@@ -14,7 +14,7 @@
         {{comment.content}}
       </div>
       <div class="footer">
-        <div class="date">{{comment.postedOn | date}}</div>
+        <div class="date">{{comment.postedOn | date:'medium'}}</div>
         <grade class="grade" [i_Grade]="comment.grade"></grade>
       </div>
     </mat-card-content>
