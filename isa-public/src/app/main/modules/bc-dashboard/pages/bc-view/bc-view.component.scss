@@ -13,6 +13,10 @@
   .left {
     flex: 1;
     padding: 20px;
+
+    h4 {
+      margin-top: 0px;
+    }
   }
 
   .right {
@@ -37,6 +41,6 @@ table tr td:first-child {
   padding-right: 20px;
 }
 
-.grade{
-  color:var(--secondary);
+.grade {
+  color: var(--secondary);
 }

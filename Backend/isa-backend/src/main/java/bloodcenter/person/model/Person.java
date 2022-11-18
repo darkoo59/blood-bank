@@ -59,6 +59,18 @@ public abstract class Person {
         this.password = password;
     }
 
+    public Person(String firstname, String lastname, String email, String password, String phone, String nationalId, Sex sex, String occupation, String information) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.nationalId = nationalId;
+        this.sex = sex;
+        this.occupation = occupation;
+        this.information = information;
+    }
+
     public Long getId() {
         return id;
     }

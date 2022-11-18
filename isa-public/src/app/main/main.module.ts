@@ -15,6 +15,7 @@ import { BCAdminAssignComponent } from './pages/bc-admin-assign/bc-admin-assign.
 import { NavModule } from './nav/nav.module';
 import { MapModule } from '../core/map/map.module';
 import { QuestionnaireComponent } from './pages/questionnaire/questionnaire.component';
+import { CommentListModule } from '../core/comment-list/comment-list.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { QuestionnaireComponent } from './pages/questionnaire/questionnaire.comp
     MaterialModule,
     ReactiveFormsModule,
     NavModule,
-    MapModule
+    MapModule,
+    CommentListModule
   ],
   providers: [BcAllService]
 })

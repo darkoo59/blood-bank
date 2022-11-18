@@ -6,6 +6,7 @@
     <mat-card>
       <div class="flex-block">
         <div class="left">
+          <h4>Blood Bank</h4>
           <table>
             <tr>
               <td>id:</td>
@@ -39,5 +40,8 @@
       <h4>Feedback</h4>
       <comment-list [i_Comments]="bc_data.feedback"></comment-list>
     </div>
+  </div>
+  <div *ngIf="!bc_data">
+    There is no Branch Center assigned to you.
   </div>
 </div>
