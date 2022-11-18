@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
-import { catchError, of } from "rxjs";
+import { catchError, EMPTY, of } from "rxjs";
 import { AuthService, LoginDTO } from "../services/auth.service";
 
 @Component({
@@ -11,13 +11,13 @@ import { AuthService, LoginDTO } from "../services/auth.service";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent{
-  m_Form: UntypedFormGroup = this.formInstance;
-  m_Errors: string[] = [];
+  m_Form: UntypedFormGroup = this.formInstance
+  m_Error: string | null = null
   
   constructor(private m_AuthService : AuthService, private m_SnackBar: MatSnackBar, private m_Router: Router){ }
 
   onSubmit() {
-    this.m_Errors.length = 0;
+    this.m_Error = null;
     Object.keys(this.m_Form.controls).forEach(field => {
       const control = this.m_Form.get(field); 
       control?.markAsTouched({ onlySelf: true });
@@ -29,18 +29,10 @@ export class LoginComponent{
 
     this.m_AuthService.login(dto)
       .pipe(catchError(res => {
-        console.log(res)
-        const errors = res.error.errors || null
-
-        if (!errors) {
-          this.m_Errors.push(res.error)
-          return of()
+        if (res.error) {
+          this.m_Error = res.error.errorMessage
         }
-
-        for (let e in errors) {
-          this.m_Errors.push(errors[e])
-        }
-        return of()
+        return EMPTY
       }))
       .subscribe(_ => {
         this.m_SnackBar.open(`Successfully logged in`, 'Close', { duration: 4000 })
