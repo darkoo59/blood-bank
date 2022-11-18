@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.util.*;
 
 import static bloodcenter.utils.ObjectsMapper.convertUserListToDTO;
-import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 

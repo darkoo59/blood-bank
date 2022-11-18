@@ -1,6 +1,12 @@
-.table {
+table {
+    width: 100%;
+    display: block;
+}
+td {
     width: 100%;
 }
-.checkbox-row {
-    padding-right: 15px;
+.button-block {
+    display: flex; 
+    justify-content: right; 
+    margin-top: 20px;
 }

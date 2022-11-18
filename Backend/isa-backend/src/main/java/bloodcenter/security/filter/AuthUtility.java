@@ -1,10 +1,7 @@
 package bloodcenter.security.filter;
 
 import bloodcenter.person.model.Person;
-import bloodcenter.person.model.User;
-import bloodcenter.person.service.BCAdminService;
 import bloodcenter.person.service.PersonService;
-import bloodcenter.person.service.UserService;
 import bloodcenter.role.Role;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;

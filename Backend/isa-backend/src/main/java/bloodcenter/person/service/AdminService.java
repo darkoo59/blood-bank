@@ -1,7 +1,6 @@
 package bloodcenter.person.service;
 
 import bloodcenter.person.model.Admin;
-import bloodcenter.person.model.BCAdmin;
 import bloodcenter.person.model.Person;
 import bloodcenter.person.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;

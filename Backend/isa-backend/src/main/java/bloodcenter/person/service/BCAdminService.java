@@ -8,7 +8,6 @@ import bloodcenter.person.dto.BCAdminDTO;
 import bloodcenter.person.dto.RegisterBCAdminDTO;
 import bloodcenter.person.model.BCAdmin;
 import bloodcenter.person.model.Person;
-import bloodcenter.person.model.User;
 import bloodcenter.person.repository.BCAdminRepository;
 import bloodcenter.role.Role;
 import bloodcenter.role.RoleRepository;
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Objects;
 
 @Service
 @Transactional

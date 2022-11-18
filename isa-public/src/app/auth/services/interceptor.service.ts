@@ -35,7 +35,7 @@ export class Interceptor implements HttpInterceptor {
                     });
         
                     return next.handle(request).pipe(catchError((err: HttpErrorResponse) => {
-                        if (err.status === 403) {
+                        if (err.status === 403 && !request.url.includes('login')) {
                             return this.m_Http.post(`${environment.apiUrl}/user/token/refresh`, {}, { withCredentials: true }).pipe(
                                 switchMap((res: any) => {
                                     token = res.accessToken

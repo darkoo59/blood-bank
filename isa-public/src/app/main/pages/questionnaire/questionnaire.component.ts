@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core'
+import { take } from 'rxjs'
+import { UserService } from 'src/app/services/user.service'
 
 export interface Questions {
   question: string
@@ -23,9 +25,14 @@ const ELEMENT_DATA: Questions[] = [
 })
 export class QuestionnaireComponent implements OnInit {
 
-  constructor() { }
+  constructor(private m_UserService: UserService) { }
 
   ngOnInit() {
+    this.m_UserService.m_Data$.pipe(take(1)).subscribe(data => {
+      if (data?.sex == 'MALE') {
+        ELEMENT_DATA.splice(5, 1)
+      }
+    })
   }
 
   displayedColumns: string[] = ['question', 'checked']
