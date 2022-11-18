@@ -65,26 +65,31 @@ public class BloodConfiguration {
     @Bean
     CommandLineRunner AddressCLR(AddressRepository repository) {
         return args -> {
-            Address ad1 = new Address(45.267136, 19.333549, "ulica", "broj", "grad", "drzava");
-            Address ad2 = new Address(45.567136, 19.433549, "ulica2", "broj2", "grad2", "drzava2");
-            Address ad3 = new Address(45.867136, 19.833549, "ulica3", "broj3", "grad3", "drzava3");
-
-            repository.saveAll(List.of(ad1, ad2, ad3));
+            Address ad1 = new Address(45.259565, 19.824143, "Pariske komune", "2", "Novi Sad", "Serbia");
+            Address ad2 = new Address(44.818768, 20.459739, "Brace Jugovica", "12", "Beograd", "Serbia");
+            Address ad3 = new Address(48.815469, 2.317124, "Avenue Verdier", "44", "Paris", "France");
+            Address ad4 = new Address(51.344494, 12.369030, "Jacobstrabe", "13", "Leipzig", "Germany");
+            Address ad5 = new Address(48.203554, 16.350535, "Stuckgasse", "26", "Wien", "Austira");
+            repository.saveAll(List.of(ad1, ad2, ad3,ad4,ad5));
         };
     }
 
     @Bean
     CommandLineRunner BranchCenterCLR(BranchCenterRepository repository, AddressRepository address_repo) {
         return args -> {
-            BranchCenter c1 = new BranchCenter("Centar 1", "lorem ipsum 1");
-            BranchCenter c2 = new BranchCenter("Centar 2", "lorem ipsum 2");
-            BranchCenter c3 = new BranchCenter("Centar 3", "lorem ipsum 3");
+            BranchCenter c1 = new BranchCenter("Happy", "Najbolji novosadski centar");
+            BranchCenter c2 = new BranchCenter("Lab", "Dobrovoljno davanje krvi - Beograd");
+            BranchCenter c3 = new BranchCenter("Euro lab", "Don de sang volontaire - Paris");
+            BranchCenter c4 = new BranchCenter("Jacobs lab", "Freiwillige Blutspende Deutschland");
+            BranchCenter c5 = new BranchCenter("Blood - Wien", "Freiwillige Blutspende Österreich");
 
             c1.setAddress(address_repo.findById(1L).get());
             c2.setAddress(address_repo.findById(2L).get());
             c3.setAddress(address_repo.findById(3L).get());
+            c4.setAddress(address_repo.findById(4L).get());
+            c5.setAddress(address_repo.findById(5L).get());
 
-            repository.saveAll(List.of(c1, c2, c3));
+            repository.saveAll(List.of(c1, c2, c3, c4, c5));
         };
     }
 
