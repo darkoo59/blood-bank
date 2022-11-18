@@ -55,7 +55,7 @@ const routes: Routes = [
         path: 'all-users',
         loadChildren: () => import('./modules/all-users/all-users.module').then(m => m.AllUsersModule),
         canActivate: [RoleGuard],
-        data: { roles: ["ROLE_ADMIN"] }
+        data: { roles: ["ROLE_ADMIN", "ROLE_BCADMIN"] }
       },
       {
         path: 'profile',

@@ -59,7 +59,9 @@ public class SecurityConfig {
                 "/api/user/register",
                 "/api/user/logout",
                 "/api/branch-center/all-centers-pagination",
-                "/api/branch-center/all"
+                "/api/branch-center/all",
+                "/api/branch-center/allCountries",
+                "/api/branch-center/allCities"
         ).permitAll();
         //http.authorizeRequests().antMatchers(GET, "/api/user/**").hasAnyAuthority("ROLE_USER");
         http.authorizeRequests().anyRequest().authenticated();

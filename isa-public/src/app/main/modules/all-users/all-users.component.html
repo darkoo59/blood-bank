@@ -5,11 +5,11 @@
     <form class="example-form" [formGroup]="form">
       <mat-form-field class="search-field" appearance="fill">
         <mat-label>Search</mat-label>
-        <input matInput autocomplete="off" formControlName="search-input" (input)="searchEntered()">
+        <input matInput autocomplete="off" formControlName="search-input" (change)="searchEntered()">
       </mat-form-field>
     </form>
     <div *ngIf="!vm.error && vm.users" class="list">
-      <user-list [m_Users]="vm.users"></user-list>
+      <user-list [i_Users]="vm.users"></user-list>
     </div>
     <div *ngIf="vm.error" class="errors">
       <p>{{vm.error}}</p>

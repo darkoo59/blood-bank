@@ -44,6 +44,10 @@ export class NavComponent {
     {
       path: 'bc-dashboard',
       title: 'My Branch Center'
+    },
+    {
+      path: 'all-users',
+      title: 'All users'
     }
   ];
 

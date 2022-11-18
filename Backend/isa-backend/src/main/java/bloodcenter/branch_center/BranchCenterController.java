@@ -2,6 +2,7 @@ package bloodcenter.branch_center;
 
 import bloodcenter.branch_center.dto.RegisterBranchCenterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -27,6 +29,7 @@ public class BranchCenterController {
         this.service = service;
     }
     @PostMapping
+    @Secured({"ROLE_ADMIN"})
     public void registerBranchCenter(@RequestBody RegisterBranchCenterDTO bcDTO) {
         service.registerBranchCenter(bcDTO);
     }
@@ -38,18 +41,26 @@ public class BranchCenterController {
     public @ResponseBody ResponseEntity<Map<String,Object>> getAllPages(
             @RequestParam(required = false) String name,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size
+            @RequestParam(defaultValue = "3") int size,
+            @RequestParam(value="country", required = false) String country,
+            @RequestParam(value="city", required = false) String city
     ) {
-        return new ResponseEntity<>(service.findAllPagesByName(name,page,size), HttpStatus.OK);
+        return new ResponseEntity<>(service.findAllPagesFiltered(name,page,size,country,city), HttpStatus.OK);
     }
+
+    @Secured({"ROLE_BCADMIN"})
     @PatchMapping
     public ResponseEntity<Object> patchBranchCenter(@RequestBody BranchCenterDTO dto) throws BranchCenter.BCNotFoundException {
-        //TODO: authorization
-
         service.updateData(dto);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping(path="/allCountries")
+    public @ResponseBody List<String> getAllCountries(){ return service.getAllCountriesForFiltering(); }
+
+    @GetMapping(path="/allCities")
+    public @ResponseBody List<String> getAllCities(){ return service.getAllCitiesForFiltering(); }
 
     @ExceptionHandler({ Exception.class })
     public ResponseEntity<Object> handleExceptions(Exception ex){

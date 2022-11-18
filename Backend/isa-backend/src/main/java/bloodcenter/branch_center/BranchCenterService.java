@@ -51,16 +51,16 @@ public class BranchCenterService {
         return centersToReturn;
     }
 
-    public Map<String, Object> findAllPagesByName(String name, int page, int size) {
+    public Map<String, Object> findAllPagesFiltered(String name, int page, int size,String country, String city) {
         List<BranchCenterDTO> centers = new ArrayList<>();
         Pageable paging = PageRequest.of(page, size);
 
         Page<BranchCenter> pageCenter;
         ArrayList<BranchCenterDTO> centersToReturn = new ArrayList<>();
-        if (name == null)
+        if (name == null && country == null && city == null)
             pageCenter = repository.findAll(paging);
         else
-            pageCenter = repository.findFiltered(name, paging);
+            pageCenter = repository.findSearched(name,country,city, paging);
 
         for (BranchCenter center:pageCenter.getContent()) {
             centers.add(ObjectsMapper.convertBranchCenterToDTO(center));
@@ -77,9 +77,9 @@ public class BranchCenterService {
 
     public void updateData(BranchCenterDTO dto) throws BranchCenter.BCNotFoundException {
         Optional<BranchCenter> o_bc = repository.findById(dto.id);
-        if(o_bc.isEmpty()){
+        if(o_bc.isEmpty())
             throw new BranchCenter.BCNotFoundException("Branch center not found");
-        }
+
         BranchCenter bc = o_bc.get();
         Address a = bc.getAddress();
         a.setCity(dto.address.getCity());
@@ -94,4 +94,8 @@ public class BranchCenterService {
 
         repository.save(bc);
     }
+
+    public List<String> getAllCountriesForFiltering(){ return service.getAllCountries();}
+
+    public List<String> getAllCitiesForFiltering(){ return service.getAllCities();}
 }

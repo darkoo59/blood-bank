@@ -1,11 +1,13 @@
 package bloodcenter.person.service;
 
+import bloodcenter.address.AddressService;
 import bloodcenter.core.ErrorResponse;
 import bloodcenter.person.dto.ChangePasswordDTO;
 import bloodcenter.person.dto.PersonDTO;
 import bloodcenter.person.model.BCAdmin;
 import bloodcenter.person.model.Person;
 import bloodcenter.person.repository.PersonRepository;
+import bloodcenter.role.Role;
 import bloodcenter.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,25 +25,26 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
-import static bloodcenter.utils.ObjectsMapper.convertPersonToPersonDTO;
+import static bloodcenter.utils.ObjectsMapper.*;
 
 @Service
-@Transactional
 public class PersonService implements UserDetailsService {
     private final PersonRepository personRepository;
     private final UserService userService;
     private final BCAdminService bcAdminService;
     private final AdminService adminService;
     private final PasswordEncoder passwordEncoder;
+    private final AddressService addressService;
 
     @Autowired
     public PersonService(PersonRepository personRepository, UserService userService,
-                         BCAdminService bcAdminService, AdminService adminService, PasswordEncoder passwordEncoder) {
+                         BCAdminService bcAdminService, AdminService adminService, PasswordEncoder passwordEncoder, AddressService addressService) {
         this.personRepository = personRepository;
         this.userService = userService;
         this.bcAdminService = bcAdminService;
         this.adminService = adminService;
         this.passwordEncoder = passwordEncoder;
+        this.addressService = addressService;
     }
 
     @Override
@@ -85,13 +88,41 @@ public class PersonService implements UserDetailsService {
         return null;
     }
 
-    public void updatePerson(PersonDTO personDTO) throws Person.PersonNotFoundException {
+    public void updatePerson(PersonDTO personDTO) throws Person.PersonNotFoundException, Person.PersonCantBeUpdatedException, BCAdmin.BCAdminNotFoundException {
         Optional<Person> person = personRepository.findById(personDTO.getId());
         if(person.isEmpty())
             throw new Person.PersonNotFoundException("Person with id = " + personDTO.getId() + " isn't found in database!");
-        Person personToUpdate = ObjectsMapper.convertDTOToPerson(personDTO);
-        personToUpdate.setPassword(person.get().getPassword());
+        if(personDTO.address.id == null) {
+            addressService.saveAdress(convertDTOToAddress(personDTO.getAddress()));
+        }
+        Person personToUpdate = person.get();
+        personToUpdate.setAddress(addressService.getAddressByLatLng(personDTO.getAddress().getLat(), personDTO.getAddress().getLng()));
+        System.out.println(addressService.getAddressByLatLng(personDTO.getAddress().getLat(), personDTO.getAddress().getLng()).getId());
+        personToUpdate.setFirstname(personDTO.getFirstname());
+        personToUpdate.setInformation(personDTO.getInformation());
+        personToUpdate.setLastname(personDTO.getLastname());
+        personToUpdate.setNationalId(personDTO.getNationalId());
+        personToUpdate.setOccupation(personDTO.getOccupation());
+        personToUpdate.setPhone(personDTO.getPhone());
+        personToUpdate.setSex(personDTO.getSex());
         personRepository.save(personToUpdate);
+//        Collection<Role> personRoles = personToUpdate.getRoles();
+//        for (Role role:personRoles) {
+//            System.out.println(role.getId());
+//            switch(role.getName()){
+//                case "ROLE_ADMIN":
+//                    adminService.update(personToUpdate);
+//                    break;
+//                case "ROLE_BCADMIN":
+//                    bcAdminService.update(personToUpdate);
+//                    break;
+//                case "ROLE_USER":
+//                    userService.update(personToUpdate);
+//                    break;
+//                default:
+//                    throw new Person.PersonCantBeUpdatedException("Person with id = " + personDTO.getId() + " can't be updated!");
+//            }
+//        }
     }
 
     public void changePassword(String email, ChangePasswordDTO dto) throws Exception {

@@ -1,0 +1,22 @@
+<div class="comment-list">
+  <mat-card class="comment" *ngFor="let comment of i_Comments">
+    <div class="custom-header">
+      <div class="image profile-photo"></div>
+      <mat-card-header class="header">
+        <mat-card-title class="title">
+          <span>{{comment.user.firstname}}&nbsp;{{comment.user.lastname}}</span>
+          <span>&nbsp;says:</span>
+        </mat-card-title>
+      </mat-card-header>
+    </div>
+    <mat-card-content class="content">
+      <div class="text">
+        {{comment.content}}
+      </div>
+      <div class="footer">
+        <div class="date">{{comment.postedOn | date}}</div>
+        <grade class="grade" [i_Grade]="comment.grade"></grade>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

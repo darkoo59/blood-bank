@@ -1,23 +1,25 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit} from "@angular/core";
 import { FormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import { LatLng } from "leaflet";
-import { catchError, of, tap } from "rxjs";
+import { catchError, EMPTY, of, Subject, switchMap, tap } from "rxjs";
 import { User } from "src/app/model/user.model";
 import { UserService } from "src/app/services/user.service";
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { ThisReceiver } from "@angular/compiler";
 import { LoadingService } from "src/app/services/loading.service";
+import { Router } from "@angular/router";
 
 @Component({
   templateUrl: './profile-overview.component.html',
   styleUrls: ['./profile-overview.component.css']
 })
-export class ProfileOverviewComponent implements OnInit {
+export class ProfileOverviewComponent implements OnDestroy,OnInit {
   userData!: User;
   mapInput: LatLng | null = new LatLng(45.2549038, 19.8382191);
   userToUpdate!: User;
   errors: string[] = [];
   addressData!: any;
+  m_Error$ = this.userService.m_Error$;
 
   form: UntypedFormGroup = new UntypedFormGroup({
     'firstname': new FormControl(null, Validators.required),
@@ -30,18 +32,6 @@ export class ProfileOverviewComponent implements OnInit {
     'nationalId': new FormControl(null, [Validators.required, Validators.pattern('^[0-9]*$'),
     Validators.minLength(13), Validators.maxLength(13)])
   })
-
-  constructor(private userService: UserService, private m_SnackBar: MatSnackBar, private m_LoadingService: LoadingService){
-
-  }
-
-  ngOnInit(): void {
-    this.userService.fetchUserData();
-    this.userService.m_Data$.subscribe((data: any) => {
-    this.userData = data;
-    this.addressData = data.address;
-   });
-    }
 
     locationHandler(data: any): void {
       if (data.error) {
@@ -61,26 +51,49 @@ export class ProfileOverviewComponent implements OnInit {
       }
     }
 
-    isFormValid(): boolean {
-      if(this.form.valid)
-        return true;
-      return false;
-    }
+  // m_Submit$: Subject<any> = new Subject().pipe(switchMap(_ => {
+  //   this.userService.clearError();
+  //   if (!this.form.valid) return EMPTY;
+  //   const data = {...this.form.getRawValue(), ...this.form.getRawValue()}
+  //   const dto: User = {
+  //     id: this.userData.id,
+  //     firstname: data.firstname,
+  //     lastname: data.lastname,
+  //     email: data.email,
+  //     address: this.addressData,
+  //     phone: data.phoneNumber,
+  //     nationalId: data.nationalId,
+  //     sex: data.sex,
+  //     occupation: data.occupation,
+  //     information: data.information
+  //   }
 
-  refreshUserData(){
+  //   return this.userService.update(dto).pipe(tap(_ => {
+  //     this.m_SnackBar.open(`Profile successfully updated`, 'close', { duration: 4000 });
+  //     this.m_Router.navigate(['/home']);
+  //   }));
+  // })) as Subject<any>;
+
+  constructor(private userService: UserService, private m_SnackBar: MatSnackBar, private m_LoadingService: LoadingService,
+    private m_Router: Router){
+}
+
+  ngOnInit(): void {
     this.userService.fetchUserData();
     this.userService.m_Data$.subscribe((data: any) => {
-     this.userData = data;
-     this.addressData = data.address;
-    });
+    this.userData = data;
+    this.addressData = data.address;
+    if(this.addressData != null){
+      this.mapInput = new LatLng(this.addressData.lat, this.addressData.lng)
+    }
+  })
+}
+
+  ngOnDestroy(): void {
+    this.userService.clearError();
   }
 
-  onSubmit(){
-    this.errors.length = 0
-    Object.keys(this.form.controls).forEach(field => {
-      const control = this.form.get(field);
-      control?.markAsTouched({ onlySelf: true });
-    })
+  onSubmit(): void{
     if (!this.form.valid) return;
     const data = {...this.form.getRawValue(), ...this.form.getRawValue()}
     const dto: User = {
@@ -95,35 +108,11 @@ export class ProfileOverviewComponent implements OnInit {
       occupation: data.occupation,
       information: data.information
     }
-    this.userService.update(dto).pipe(catchError(res => {
-      console.log(res)
-      const Errors = res.error.errors
-
-      if (!Errors) {
-        this.errors.push(res.error)
-        return of()
-      }
-
-      for (let e in Errors) {
-        this.errors.push(Errors[e])
-      }
-      return of()
-    }))
+    this.userService.update(dto).pipe()
     .subscribe((_:any) => {
-      this.m_SnackBar.open(`Successfully updated user informations`, 'Close', { duration: 4000 })
-      this.refreshUserData()
+      this.m_SnackBar.open(`Successfully updated user informations`, 'Close', { duration: 7000 })
+      location.reload()
     })
-    // this.userToUpdate.id = this.userData.id;
-    // this.userToUpdate.address = this.userData.address;
-    // this.userToUpdate.email = this.userData.email;
-    // this.userToUpdate.firstname = this.userData.firstname
-    // this.userToUpdate.information = this.userData.information
-    // this.userToUpdate.lastname = this.userData.lastname
-    // this.userToUpdate.nationalId = this.userData.nationalId;
-    // this.userToUpdate.occupation = this.userData.occupation;
-    // this.userToUpdate.phone = this.userData.phone;
-    // this.userToUpdate.sex = this.userData.sex;
-    // this.userService.update(this.userToUpdate)
   }
 
 }

@@ -5,3 +5,22 @@
   margin-bottom: 25px;
   margin-top: 10px;
 }
+
+.selection-container{
+  display: flex;
+  justify-content: left;
+}
+
+.section{
+  margin-left: 20px;
+}
+
+.button{
+  justify-content: right;
+  margin-left: 20px
+}
+
+.buttons{
+  display: flex;
+  justify-content: right;
+}

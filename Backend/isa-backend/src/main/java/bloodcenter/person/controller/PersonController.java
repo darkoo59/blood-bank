@@ -3,6 +3,7 @@ package bloodcenter.person.controller;
 import bloodcenter.core.ErrorResponse;
 import bloodcenter.person.dto.ChangePasswordDTO;
 import bloodcenter.person.dto.PersonDTO;
+import bloodcenter.person.model.BCAdmin;
 import bloodcenter.person.model.Person;
 import bloodcenter.person.service.PersonService;
 import bloodcenter.security.filter.AuthUtility;
@@ -64,7 +65,8 @@ public class PersonController {
     }
     
     @PatchMapping
-    public void updateUser(@RequestBody PersonDTO personDTO) throws Person.PersonNotFoundException{
+    public ResponseEntity<Object> updateUser(@RequestBody PersonDTO personDTO) throws Person.PersonNotFoundException, Person.PersonCantBeUpdatedException, BCAdmin.BCAdminNotFoundException {
         personService.updatePerson(personDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
