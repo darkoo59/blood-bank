@@ -24,10 +24,24 @@ public findAllByPages(request: any) : Observable<BranchCenterPage>{
   if(request.size != null && request.size != undefined){
     params = params.set('size', request.size);
   }
-  if(request.name != null && request.name != undefined){
+  if(request.name != null && request.name != undefined && request.name != ''){
     params = params.set('name',request.name);
   }
+  if(request.country != null && request.country != undefined && request.country != ''){
+    params = params.set('country',request.country);
+  }
+  if(request.city != null && request.city != undefined && request.city != ''){
+    params = params.set('city',request.city);
+  }
   return this.http.get<BranchCenterPage>(this.branchCentersUrl+'/all-centers-pagination', {params: params});
+}
+
+public findAllCountries() : Observable<String[]>{
+  return this.http.get<String[]>(this.branchCentersUrl+'/allCountries');
+}
+
+public findAllCities() : Observable<String[]>{
+  return this.http.get<String[]>(this.branchCentersUrl+'/allCities');
 }
 
 }

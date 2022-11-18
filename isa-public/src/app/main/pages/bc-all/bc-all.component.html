@@ -2,8 +2,30 @@
   <form class="example-form" [formGroup]="form">
     <mat-form-field class="input-field" appearance="fill">
       <mat-label>Search</mat-label>
-      <input matInput formControlName="search-input" (change)="searchEntered()">
+      <input matInput formControlName="search-input" >
     </mat-form-field>
+    <mat-form-field class="section" appearance="fill">
+    <mat-label>Select country</mat-label>
+      <mat-select [(value)]="selectedCountry" >
+        <mat-option>None</mat-option>
+        <mat-option *ngFor="let country of allCountries" [value]="country">
+          {{country}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="section" appearance="fill">
+      <mat-label>Select city</mat-label>
+        <mat-select [(value)]="selectedCity" >
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let city of allCities" [value]="city">
+            {{city}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    <div class="buttons">
+      <button mat-flat-button color="accent" class="button" (click)= "searchCenters()">Search</button>
+      <button mat-flat-button color="primary" type="reset" class="button" (click)= "resetForm()">Reset</button>
+    </div>
   </form>
   <div class="grid">
     <mat-card class="card" *ngFor="let center of centersPageInfo.branchCenters">
