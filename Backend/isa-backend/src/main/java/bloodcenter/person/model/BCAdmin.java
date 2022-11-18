@@ -1,6 +1,7 @@
 package bloodcenter.person.model;
 
 import bloodcenter.branch_center.BranchCenter;
+import bloodcenter.person.enums.Sex;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +19,10 @@ public class BCAdmin extends Person {
     private BranchCenter branchCenter;
 
     public BCAdmin(String firstname, String lastname, String email, String password) { super(firstname, lastname, email, password); }
+    public BCAdmin(String firstname, String lastname, String email, String password, String phone, String nationalId, Sex sex, String occupation, String information)
+    {
+        super(firstname,lastname,email,password,phone,nationalId,sex,occupation,information);
+    }
     public BranchCenter getBranchCenter() {
         return branchCenter;
     }
