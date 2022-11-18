@@ -5,8 +5,9 @@
     <form class="example-form" [formGroup]="form">
       <mat-form-field class="search-field" appearance="fill">
         <mat-label>Search</mat-label>
-        <input matInput autocomplete="off" formControlName="search-input" (change)="searchEntered()">
+        <input matInput autocomplete="off" formControlName="search-input" >
       </mat-form-field>
+      <button mat-flat-button color="accent" class="search-btn" (click)="searchEntered()">Search</button>
     </form>
     <div *ngIf="!vm.error && vm.users" class="list">
       <user-list [i_Users]="vm.users"></user-list>
