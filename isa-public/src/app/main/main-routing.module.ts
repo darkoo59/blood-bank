@@ -9,6 +9,7 @@ import { BCAllComponent } from './pages/bc-all/bc-all.component';
 import { BCAdminAssignComponent } from './pages/bc-admin-assign/bc-admin-assign.component';
 import { RoleGuard } from '../auth/guards/role.guard';
 import { QuestionnaireComponent } from './pages/questionnaire/questionnaire.component';
+import { SendingNewsComponent } from './pages/sending-news/sending-news.component';
 
 const routes: Routes = [
   {
@@ -61,6 +62,12 @@ const routes: Routes = [
         path: 'profile',
         loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfileModule),
         canActivate: [RoleGuard]
+      },
+      {
+        path: 'send-news',
+        component: SendingNewsComponent,
+        canActivate: [RoleGuard],
+        data: { roles: ["ROLE_ADMIN", "ROLE_BCADMIN"] }
       },
       { path: '', pathMatch: 'full', redirectTo: 'home' },
       { path: '**', component: PageNotFoundComponent }

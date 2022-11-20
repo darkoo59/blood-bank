@@ -48,6 +48,10 @@ export class NavComponent {
     {
       path: 'all-users',
       title: 'All users'
+    },
+    {
+      path: "send-news",
+      title: 'Send news to hospital'
     }
   ];
 
@@ -68,6 +72,10 @@ export class NavComponent {
     {
       path: 'all-users',
       title: 'All users'
+    },
+    {
+      path: "send-news",
+      title: 'Send news to hospital'
     }
   ];
 
