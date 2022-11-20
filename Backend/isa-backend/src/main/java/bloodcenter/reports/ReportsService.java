@@ -11,9 +11,9 @@ import java.time.format.DateTimeFormatter;
 public class ReportsService {
 
     public void saveReport(MultipartFile pdfFile) throws IOException {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy-HH-mm");
         LocalDateTime now = LocalDateTime.now();
-        File file = new File("src/main/resources/reports/bloodReport-" +dtf.format(now) +".pdf");
+        File file = new File("src/main/resources/reports/Report" +dtf.format(now) +".pdf");
         try (OutputStream os = new FileOutputStream((file))) {
             os.write(pdfFile.getBytes());
         }
