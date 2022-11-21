@@ -1,0 +1,23 @@
+<section>
+  <form class="example-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h1 class="heading">Send news to hospital</h1>
+    <div>
+      <mat-form-field class="input-field" appearance="fill">
+        <mat-label>Title</mat-label>
+        <input matInput required formControlName="title">
+        <mat-error *ngIf="form.controls['title'].hasError('required')">
+          Title is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="input-field" appearance="fill">
+        <mat-label>Content</mat-label>
+        <textarea class="description-area" matInput placeholder="Content goes here..." formControlName="content"></textarea>
+      </mat-form-field>
+
+      <div class="button-group">
+        <button mat-flat-button color="primary">Submit</button>
+      </div>
+    </div>
+  </form>
+</section>

@@ -16,6 +16,7 @@ import { NavModule } from './nav/nav.module';
 import { MapModule } from '../core/map/map.module';
 import { QuestionnaireComponent } from './pages/questionnaire/questionnaire.component';
 import { CommentListModule } from '../core/comment-list/comment-list.module';
+import { SendingNewsComponent } from './pages/sending-news/sending-news.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CommentListModule } from '../core/comment-list/comment-list.module';
     BCAdminRegisterComponent,
     BCAllComponent,
     BCAdminAssignComponent,
-    QuestionnaireComponent
+    QuestionnaireComponent,
+    SendingNewsComponent
   ],
   imports: [
     CommonModule,
