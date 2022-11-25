@@ -12,6 +12,11 @@ import bloodcenter.feedback.FeedbackRepository;
 import bloodcenter.person.enums.Sex;
 import bloodcenter.person.model.Admin;
 import bloodcenter.person.repository.AdminRepository;
+import bloodcenter.questionnaire.enums.QuestionType;
+import bloodcenter.questionnaire.model.Question;
+import bloodcenter.questionnaire.model.Questionnaire;
+import bloodcenter.questionnaire.repository.QuestionRepository;
+import bloodcenter.questionnaire.repository.QuestionnaireRepository;
 import bloodcenter.role.Role;
 import bloodcenter.role.RoleRepository;
 import bloodcenter.person.model.BCAdmin;
@@ -175,6 +180,35 @@ public class BloodConfiguration {
             f8.setBranchCenter(bc_repo.findById(1L).get());
 
             repository.saveAll(List.of(f1, f2, f3, f4, f5, f6, f7, f8));
+        };
+    }
+
+    @Bean
+    CommandLineRunner QuestionnaireCLR(QuestionnaireRepository repository, QuestionRepository question_repo) {
+        return args -> {
+            Questionnaire questionnaire = new Questionnaire();
+            questionnaire.setName("basic");
+            repository.saveAll(List.of(questionnaire));
+
+            Question q1 = new Question("Do you weigh less than 50 kg?", QuestionType.FOR_EVERYONE);
+            Question q2 = new Question("Whether you have symptoms of a cold, some illness or simply do not feel well?", QuestionType.FOR_EVERYONE);
+            Question q3 = new Question("Do you have skin changes (infections, rashes, fungal diseases...)?", QuestionType.FOR_EVERYONE);
+            Question q4 = new Question("Whether your blood pressure is too high or too low", QuestionType.FOR_EVERYONE);
+            Question q5 = new Question("Whether you are on therapy or it has not been at least 7 days since antibiotic therapy", QuestionType.FOR_EVERYONE);
+            Question q6 = new Question("Whether you are in the phase of a regular menstrual cycle", QuestionType.FOR_FEMALE);
+            Question q7 = new Question("Has it not been at least 7 days since tooth extraction or minor dental intervention", QuestionType.FOR_EVERYONE);
+            Question q8 = new Question("Has it not been 6 months since body and skin piercing, tattoos or certain surgical interventions and blood transfusions", QuestionType.FOR_EVERYONE);
+
+            q1.setQuestionnaire(questionnaire);
+            q2.setQuestionnaire(questionnaire);
+            q3.setQuestionnaire(questionnaire);
+            q4.setQuestionnaire(questionnaire);
+            q5.setQuestionnaire(questionnaire);
+            q6.setQuestionnaire(questionnaire);
+            q7.setQuestionnaire(questionnaire);
+            q8.setQuestionnaire(questionnaire);
+
+            question_repo.saveAll(List.of(q1, q2, q3, q4, q5, q6, q7, q8));
         };
     }
 }

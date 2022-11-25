@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core'
-import { take } from 'rxjs'
+import { UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms'
+import { MatSnackBar } from '@angular/material/snack-bar'
+import { Router } from '@angular/router'
+import { catchError, EMPTY, take } from 'rxjs'
 import { UserService } from 'src/app/services/user.service'
 
-export interface Questions {
-  question: string
+
+export interface Answer {
+  questionId: number,
   checked: boolean
 }
-
-
 
 @Component({
   selector: 'app-questionnaire',
@@ -16,26 +18,57 @@ export interface Questions {
 })
 export class QuestionnaireComponent implements OnInit {
 
-  ELEMENT_DATA: Questions[] = [
-    {question: 'Do you weigh less than 50 kg?', checked: false},
-    {question: 'Whether you have symptoms of a cold, some illness or simply do not feel well?', checked: false},
-    {question: 'Do you have skin changes (infections, rashes, fungal diseases...)?', checked: false},
-    {question: 'Whether your blood pressure is too high or too low', checked: false},
-    {question: 'Whether you are on therapy or it has not been at least 7 days since antibiotic therapy', checked: false},
-    {question: 'Whether you are in the phase of a regular menstrual cycle', checked: false},
-    {question: 'Has it not been at least 7 days since tooth extraction or minor dental intervention', checked: false},
-    {question: 'Has it not been 6 months since body and skin piercing, tattoos or certain surgical interventions and blood transfusions', checked: false}
-  ]
-  constructor(private m_UserService: UserService) { }
+  constructor(private m_UserService: UserService, private m_SnackBar: MatSnackBar, private m_Router: Router) { }
 
   ngOnInit() {
     this.m_UserService.m_Data$.pipe(take(1)).subscribe(data => {
-      if (data?.sex == 'MALE') {
-        this.ELEMENT_DATA.splice(5, 1)
+      if (data?.sex === 'MALE') {
+        this.m_UserService.getMaleQuestions()
+        .subscribe(questions => {
+          this.dataSource = questions
+          for (let question of questions) {
+            this.form.addControl(question.id, new UntypedFormControl(false))
+          }
+        })
+      } else {
+        this.m_UserService.getFemaleQuestions()
+        .subscribe(questions => {
+          this.dataSource = questions
+        })
       }
     })
   }
 
+  form: UntypedFormGroup = new UntypedFormGroup({
+
+  })
+
+  onSubmit() {
+    const raw = this.form.getRawValue()
+    let obj: any = {
+      answers: []
+    }
+    for (let r in raw) {
+      const answer: Answer = { 
+        questionId: parseInt(r), 
+        checked: raw[r]
+      }
+      obj.answers.push(answer)
+    }
+    this.m_UserService.m_Data$.pipe(take(1)).subscribe(data => {
+      obj['userId'] = data?.id
+    })
+    this.m_UserService.submitAnswers(obj)
+    .pipe(catchError(res => {
+      console.log(res.message)
+      return EMPTY;
+    }))
+    .subscribe(_ => {
+      this.m_SnackBar.open(`Successfully submited`, 'Close', { duration: 3000 })
+      this.m_Router.navigate(['/home'])
+    });
+  }
+
   displayedColumns: string[] = ['question', 'checked']
-  dataSource = this.ELEMENT_DATA
+  dataSource = []
 }
