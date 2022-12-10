@@ -52,12 +52,14 @@ export abstract class GenericDataService<DataType> {
       catchError(res => {
         console.log(res);
         const error = res.error;
+        let msg = "";
         if (error && error.message) {
-          this.setError = error.message;
+          msg = error.message;
         }else if(res.message){
-          this.setError = res.message;
+          msg = res.message;
         }
-        return throwError(() => res)
+        this.setError = msg;
+        return throwError(() => msg)
       })
     );
   }

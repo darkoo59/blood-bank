@@ -49,10 +49,11 @@ public class BloodConfiguration {
     @Bean
     CommandLineRunner keyCLR(KeyRepository repository) {
         return args -> {
-            Key key1 = new Key("mail_1", "kljuc_1");
-            Key key2 = new Key("mail_2", "kljuc_2");
+            Key key1 = new Key("email1@gmail.com", "kljuc_1");
+            Key key2 = new Key("email2@gmail.com", "kljuc_2");
+            Key key3 = new Key("email3@gmail.com", "kljuc_3");
 
-            repository.saveAll(List.of(key1, key2));
+            repository.saveAll(List.of(key1, key2, key3));
         };
     }
 
