@@ -56,10 +56,11 @@ public class UrgentOrderServer extends UrgentOrderServiceGrpc.UrgentOrderService
             case 1: return BloodType.ANegative;
             case 2: return BloodType.BPositive;
             case 3: return BloodType.BNegative;
-            case 4: return BloodType.OPositive;
-            case 5: return BloodType.ONegative;
-            case 6: return BloodType.ABPositive;
-            case 7: return BloodType.ABNegative;
+            case 4: return BloodType.ABPositive;
+            case 5: return BloodType.ABNegative;
+            case 6: return BloodType.OPositive;
+            case 7: return BloodType.ONegative;
+
             default: return null;
         }
     }
