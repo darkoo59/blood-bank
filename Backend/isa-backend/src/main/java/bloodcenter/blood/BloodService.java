@@ -1,5 +1,6 @@
 package bloodcenter.blood;
 
+import bloodcenter.api_key.KeyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,8 +9,12 @@ import java.util.Optional;
 
 @Service
 public class BloodService {
+    private final BloodRepository bloodRepository;
+
     @Autowired
-    private BloodRepository bloodRepository;
+    public BloodService(BloodRepository bloodRepository){
+        this.bloodRepository = bloodRepository;
+    }
 
     public List<Blood> getBlood() {
         return bloodRepository.findAll();
@@ -24,10 +29,16 @@ public class BloodService {
     }
 
     public boolean getBloodTypeQuantity(BloodType bloodType, Float quantity) {
+
+
         Optional<Blood> bloodByType = bloodRepository.findBloodByType(bloodType);
         if (bloodByType.isPresent() && bloodByType.get().getQuantity() >= quantity) {
             return true;
         }
         return false;
+    }
+
+    public void saveBlood(List<Blood> bloodToSave){
+        bloodRepository.saveAll(bloodToSave);
     }
 }

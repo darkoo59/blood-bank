@@ -62,7 +62,14 @@ public class SecurityConfig {
                 "/api/branch-center/all",
                 "/api/branch-center/allCountries",
                 "/api/branch-center/allCities",
-                "/api/blood-use-report"
+                "/api/blood-use-report",
+                "/api/key/create",
+                "/api/blood/type",
+                "/api/blood/type/quantity",
+                "/api/blood/tender/confirm",
+                "/api/subscribed-hospital/subscribe",
+                "/api/subscribed-hospital/unsubscribe",
+                "/api/news/publish"
         ).permitAll();
         //http.authorizeRequests().antMatchers(GET, "/api/user/**").hasAnyAuthority("ROLE_USER");
         http.authorizeRequests().anyRequest().authenticated();
