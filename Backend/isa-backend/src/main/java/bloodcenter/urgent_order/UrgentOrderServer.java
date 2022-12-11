@@ -1,5 +1,7 @@
 package bloodcenter.urgent_order;
 
+import bloodcenter.blood.Blood;
+import bloodcenter.blood.BloodRepository;
 import bloodcenter.blood.BloodService;
 import bloodcenter.blood.BloodType;
 import com.anubhav.grpc.UrgentOrderServiceGrpc;
@@ -9,13 +11,16 @@ import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Optional;
+
 @GRpcService
 public class UrgentOrderServer extends UrgentOrderServiceGrpc.UrgentOrderServiceImplBase {
     private final BloodService _bloodService;
-
+    private BloodRepository _bloodRepository;
     @Autowired
-    public UrgentOrderServer(BloodService bloodService) {
+    public UrgentOrderServer(BloodService bloodService, BloodRepository bloodRepository) {
         this._bloodService = bloodService;
+        this._bloodRepository = bloodRepository;
     }
     @Override
     public void invokeUrgentOrder(UrgentRequest request, StreamObserver<UrgentResponse> responseObserver) {
@@ -24,14 +29,18 @@ public class UrgentOrderServer extends UrgentOrderServiceGrpc.UrgentOrderService
 
         com.anubhav.grpc.UrgentResponse urgentResponse;
 
-        System.out.println("Uslo u pozivanje metode");
-
         if(_bloodService.getBloodTypeQuantity(parseIntToBloodType(bloodType), quantity)) {
-            System.out.println("Ima dovoljno krvi");
+            Optional<Blood> blood = _bloodRepository.findBloodByType(parseIntToBloodType(bloodType));
+
+            if (blood.isPresent()) {
+                blood.get().setQuantity(blood.get().getQuantity() - (Float)quantity);
+                _bloodRepository.save(blood.get());
+            }
+
              urgentResponse = com.anubhav.grpc.UrgentResponse.newBuilder()
                     .setHasEnough(true).build();
+
         } else {
-            System.out.println("Nema dovoljno krvi");
              urgentResponse = com.anubhav.grpc.UrgentResponse.newBuilder()
                     .setHasEnough(false).build();
         }
