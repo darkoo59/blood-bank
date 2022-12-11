@@ -17,6 +17,8 @@ import bloodcenter.person.model.Person;
 import bloodcenter.person.model.User;
 import bloodcenter.role.Role;
 import bloodcenter.role.RoleDTO;
+import bloodcenter.subscribed_hospitals.dto.HospitalDTO;
+import bloodcenter.subscribed_hospitals.model.SubscribedHospital;
 import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;
@@ -95,5 +97,9 @@ public class ObjectsMapper {
 
     public static FeedbackAuthorDTO PersonToFeedbackAuthorDTO(Person person){
         return modelMapper.map(person, FeedbackAuthorDTO.class);
+    }
+
+    public static SubscribedHospital convertHospitalDTOToSubscribedHospital(HospitalDTO hospitalDTO){
+        return modelMapper.map(hospitalDTO, SubscribedHospital.class);
     }
 }
