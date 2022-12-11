@@ -21,7 +21,7 @@ public class SubscribedHospital {
     private Long id;
     @Column(name="hospital_name")
     private String hospitalName;
-    @Column(name="email")
+    @Column(name="email",unique = true)
     private String email;
     @Column(name="server")
     private String server;
@@ -29,4 +29,10 @@ public class SubscribedHospital {
     private BloodType bloodType;
     @Column(name="quantity")
     private Float quantity;
+
+    public static class HospitalNotFoundException extends Exception{
+        public HospitalNotFoundException(String message){
+            super(message);
+        }
+    }
 }

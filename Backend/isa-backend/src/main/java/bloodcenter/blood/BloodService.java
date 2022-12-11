@@ -30,4 +30,8 @@ public class BloodService {
         }
         return false;
     }
+
+    public void saveBlood(List<Blood> bloodToSave){
+        bloodRepository.saveAll(bloodToSave);
+    }
 }

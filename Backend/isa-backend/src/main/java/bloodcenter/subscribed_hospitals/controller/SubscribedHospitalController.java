@@ -3,7 +3,9 @@ package bloodcenter.subscribed_hospitals.controller;
 import bloodcenter.MQConfig;
 import bloodcenter.feedback.FeedbackService;
 import bloodcenter.news.model.NewsContent;
+import bloodcenter.subscribed_hospitals.dto.HopsitalToUnsubscribeDTO;
 import bloodcenter.subscribed_hospitals.dto.HospitalDTO;
+import bloodcenter.subscribed_hospitals.model.SubscribedHospital;
 import bloodcenter.subscribed_hospitals.service.SubscribedHospitalService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,8 +23,13 @@ public class SubscribedHospitalController {
 
     @PostMapping("/subscribe")
     public void publishMessage(@RequestBody HospitalDTO hospitalDTO){
-        System.out.println("uslo");
-        System.out.println(hospitalDTO);
         this.subscribedHospitalService.subscribe(hospitalDTO);
     }
+
+    @PostMapping("/unsubscribe")
+    public void unsubscribe(@RequestBody HopsitalToUnsubscribeDTO hospitalToUnsubscribe) throws SubscribedHospital.HospitalNotFoundException {
+        System.out.println(hospitalToUnsubscribe.getEmail());
+        this.subscribedHospitalService.unsubscribe(hospitalToUnsubscribe.getEmail());
+    }
+
 }
