@@ -28,7 +28,7 @@ public class BloodController {
 
     @GetMapping("/type")
     public ResponseEntity<Boolean> getBloodType(@RequestParam String email,
-                                                @RequestParam BloodType bloodType,
+                                                @RequestParam String bloodType,
                                                 @RequestHeader("Authorization") String auth) throws Exception {
         if(!keyService.isKeyValid(email, auth)) throw new Key.InvalidKeyException("Invalid api key");
         return new ResponseEntity<>(bloodService.getBloodType(bloodType), HttpStatus.OK);
@@ -36,11 +36,11 @@ public class BloodController {
 
     @GetMapping("/type/quantity")
     public ResponseEntity<Boolean> getBloodType(@RequestParam String email,
-                                                @RequestParam BloodType bloodType,
+                                                @RequestParam String bloodType,
                                                 @RequestParam Float quantity,
                                                 @RequestHeader("Authorization") String auth) throws Exception {
         if(!keyService.isKeyValid(email, auth)) throw new Key.InvalidKeyException("Invalid api key");
-        return new ResponseEntity<>(bloodService.getBloodTypeQuantity(bloodType, quantity), HttpStatus.OK);
+        return new ResponseEntity<>(bloodService.checkBloodAvailabilityWithQuantity(bloodType, quantity), HttpStatus.OK);
     }
 
     @PatchMapping("/tender/confirm")

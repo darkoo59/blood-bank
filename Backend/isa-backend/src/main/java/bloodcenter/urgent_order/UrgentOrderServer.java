@@ -4,9 +4,6 @@ import bloodcenter.blood.Blood;
 import bloodcenter.blood.BloodRepository;
 import bloodcenter.blood.BloodService;
 import bloodcenter.blood.BloodType;
-import com.anubhav.grpc.UrgentOrderServiceGrpc;
-import com.anubhav.grpc.UrgentRequest;
-import com.anubhav.grpc.UrgentResponse;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Optional;
 
 @GRpcService
-public class UrgentOrderServer extends UrgentOrderServiceGrpc.UrgentOrderServiceImplBase {
+public class UrgentOrderServer extends com.anubhav.grpc.UrgentOrderServiceGrpc.UrgentOrderServiceImplBase {
     private final BloodService _bloodService;
     private BloodRepository _bloodRepository;
     @Autowired
@@ -23,7 +20,7 @@ public class UrgentOrderServer extends UrgentOrderServiceGrpc.UrgentOrderService
         this._bloodRepository = bloodRepository;
     }
     @Override
-    public void invokeUrgentOrder(UrgentRequest request, StreamObserver<UrgentResponse> responseObserver) {
+    public void invokeUrgentOrder(com.anubhav.grpc.UrgentRequest request, StreamObserver<com.anubhav.grpc.UrgentResponse> responseObserver) {
         int bloodType = request.getBloodType();
         float quantity = request.getQuantity();
 
