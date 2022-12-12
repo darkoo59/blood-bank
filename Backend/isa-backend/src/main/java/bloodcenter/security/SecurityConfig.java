@@ -69,7 +69,8 @@ public class SecurityConfig {
                 "/api/blood/tender/confirm",
                 "/api/subscribed-hospital/subscribe",
                 "/api/subscribed-hospital/unsubscribe",
-                "/api/news/publish"
+                "/api/news/publish",
+                "/api/blood-request"
         ).permitAll();
         //http.authorizeRequests().antMatchers(GET, "/api/user/**").hasAnyAuthority("ROLE_USER");
         http.authorizeRequests().anyRequest().authenticated();
