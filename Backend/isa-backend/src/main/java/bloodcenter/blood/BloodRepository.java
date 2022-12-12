@@ -9,4 +9,6 @@ import java.util.Optional;
 public interface BloodRepository extends JpaRepository<Blood, Long> {
 
     Optional<Blood> findBloodByType(BloodType bloodType);
+
+    
 }
