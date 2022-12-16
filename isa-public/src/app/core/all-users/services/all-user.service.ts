@@ -6,7 +6,7 @@ import { GenericDataService } from "src/app/services/generic-data.service";
 import { environment } from "src/environments/environment";
 
 @Injectable()
-export class UserService extends GenericDataService<User[]> {
+export class AllUserService extends GenericDataService<User[]> {
 
   constructor(private m_Http: HttpClient) { super() }
 

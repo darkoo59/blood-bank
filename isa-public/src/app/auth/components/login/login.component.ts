@@ -3,7 +3,7 @@ import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { catchError, EMPTY, of } from "rxjs";
-import { AuthService, LoginDTO } from "../services/auth.service";
+import { AuthService, LoginDTO } from "../../services/auth.service";
 
 @Component({
   selector: 'app-login',

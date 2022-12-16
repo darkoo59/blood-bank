@@ -1,8 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
-import { NavRoute } from "../../nav/nav.component";
-import { UserService } from "../../../services/user.service";
 import { filter, tap } from "rxjs";
+import { NavRoute } from "src/app/model/nav-route.model";
 
 @Component({
   selector: 'app-profile',
@@ -27,7 +26,7 @@ export class ProfileComponent  implements OnInit {
 
   m_ActiveLink: string = this.m_Routes[0].path;
 
-  constructor(private m_Router: Router, private m_UserService: UserService, private m_Route: ActivatedRoute) { }
+  constructor(private m_Router: Router, private m_Route: ActivatedRoute) { }
 
   m_ActiveLink$ = this.m_Router.events.pipe(
     filter((event: any) => event instanceof NavigationEnd),

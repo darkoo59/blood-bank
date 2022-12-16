@@ -2,6 +2,8 @@ package bloodcenter.utils;
 
 import bloodcenter.address.Address;
 import bloodcenter.address.AddressDTO;
+import bloodcenter.appointment.Appointment;
+import bloodcenter.appointment.dto.AppointmentDTO;
 import bloodcenter.branch_center.BranchCenter;
 import bloodcenter.branch_center.dto.BranchCenterDTO;
 import bloodcenter.feedback.Feedback;
@@ -101,5 +103,12 @@ public class ObjectsMapper {
 
     public static SubscribedHospital convertHospitalDTOToSubscribedHospital(HospitalDTO hospitalDTO){
         return modelMapper.map(hospitalDTO, SubscribedHospital.class);
+    }
+
+    public static AppointmentDTO convertAppointmentToDTO(Appointment appointment){
+        PersonDTO pdto = convertPersonToDTO(appointment.getUser());
+        AppointmentDTO dto = modelMapper.map(appointment, AppointmentDTO.class);
+        dto.setUser(pdto);
+        return dto;
     }
 }

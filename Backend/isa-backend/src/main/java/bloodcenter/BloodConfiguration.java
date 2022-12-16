@@ -1,6 +1,8 @@
 package bloodcenter;
 
 import bloodcenter.address.AddressRepository;
+import bloodcenter.appointment.Appointment;
+import bloodcenter.appointment.AppointmentRepository;
 import bloodcenter.blood.BloodType;
 import bloodcenter.blood.Blood;
 import bloodcenter.api_key.Key;
@@ -146,6 +148,18 @@ public class BloodConfiguration {
             u4.getRoles().add(role);
 
             repository.saveAll(List.of(u1, u2, u3, u4));
+        };
+    }
+
+    @Bean
+    CommandLineRunner AppointmentCLR(AppointmentRepository repository, UserRepository user_repo){
+        return args -> {
+            User u = user_repo.findByEmail("rade@gmail.com");
+            Appointment a1 = new Appointment(u);
+            Appointment a2 = new Appointment(u);
+            Appointment a3 = new Appointment(u);
+
+            repository.saveAll(List.of(a1, a2, a3));
         };
     }
 

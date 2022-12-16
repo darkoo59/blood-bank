@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { NavRoute } from "../nav.component";
+import { NavRoute } from "src/app/model/nav-route.model";
 
 @Component({
   selector: 'nav-section',

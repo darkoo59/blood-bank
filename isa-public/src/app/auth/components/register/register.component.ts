@@ -1,9 +1,9 @@
 import { Component } from "@angular/core"
 import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms'
 import { Router } from "@angular/router"
-import { AuthService, RegisterDTO } from "../services/auth.service"
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { catchError, of } from "rxjs"
+import { AuthService, RegisterDTO } from "../../services/auth.service"
 
 @Component({
   selector: 'app-register',

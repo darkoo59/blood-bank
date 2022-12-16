@@ -2,7 +2,7 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { NgLetModule } from "ng-let";
-import { MaterialModule } from "src/app/core/material.module";
+import { MaterialModule } from "src/app/shared/material.module";
 import { NavSectionComponent } from "./nav-section/nav-section.component";
 import { NavComponent } from "./nav.component";
 

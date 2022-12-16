@@ -48,19 +48,19 @@ const routes: Routes = [
       },
       {
         path: 'bc-dashboard',
-        loadChildren: () => import('./modules/bc-dashboard/bc-dashboard.module').then(m => m.BCDashboardModule),
+        loadChildren: () => import('../core/bc-dashboard/bc-dashboard.module').then(m => m.BCDashboardModule),
         canActivate: [RoleGuard],
         data: { roles: ["ROLE_BCADMIN"] }
       },
       {
         path: 'all-users',
-        loadChildren: () => import('./modules/all-users/all-users.module').then(m => m.AllUsersModule),
+        loadChildren: () => import('../core/all-users/all-users.module').then(m => m.AllUsersModule),
         canActivate: [RoleGuard],
         data: { roles: ["ROLE_ADMIN", "ROLE_BCADMIN"] }
       },
       {
         path: 'profile',
-        loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfileModule),
+        loadChildren: () => import('../core/profile/profile.module').then(m => m.ProfileModule),
         canActivate: [RoleGuard]
       },
       {
@@ -68,6 +68,12 @@ const routes: Routes = [
         component: SendingNewsComponent,
         canActivate: [RoleGuard],
         data: { roles: ["ROLE_ADMIN", "ROLE_BCADMIN"] }
+      },
+      {
+        path: 'appointment',
+        loadChildren: () => import('../core/appointment/appointment.module').then(m => m.AppointmentModule),
+        canActivate: [RoleGuard],
+        data: { roles: ["ROLE_BCADMIN"] }
       },
       { path: '', pathMatch: 'full', redirectTo: 'home' },
       { path: '**', component: PageNotFoundComponent }

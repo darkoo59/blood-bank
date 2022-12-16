@@ -1,13 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { map, Observable } from 'rxjs';
+import { NavRoute } from 'src/app/model/nav-route.model';
 import { Role } from 'src/app/model/role.model';
 import { User } from 'src/app/model/user.model';
 import { UserService } from 'src/app/services/user.service';
-
-export interface NavRoute {
-  path: string;
-  title: string;
-}
 
 @Component({
   selector: 'app-nav',
