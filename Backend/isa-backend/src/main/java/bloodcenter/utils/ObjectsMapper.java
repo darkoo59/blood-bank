@@ -54,6 +54,9 @@ public class ObjectsMapper {
     }
 
     public static PersonDTO convertPersonToDTO(Person person) {
+        PersonDTO dto = modelMapper.map(person, PersonDTO.class);
+        if(person.getAddress() != null)
+            dto.setAddress(convertAddressToDTO(person.getAddress()));
         return modelMapper.map(person,PersonDTO.class);
     }
     public static AddressDTO convertAddressToDTO(Address address){

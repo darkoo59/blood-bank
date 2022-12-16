@@ -1,9 +1,94 @@
-<section *ngLet="{er: m_Error$ | async, fetch: m_FetchData$ | async, data: m_Data$ | async} as vm">
+<section *ngLet="{
+  er: m_Error$ | async, 
+  fetch: m_FetchData$ | async, 
+  data: m_Data$ | async,
+  start: m_Start$ | async
+} as vm">
   <div *ngIf="!m_Loading">
     <div>
-      <div class="button-group">
-        <button mat-flat-button color="primary">Start Appointment</button>
-      </div>
+      <mat-card class="card" *ngIf="vm.data">
+        <h4>Appointment info</h4>
+        <table>
+          <tr>
+            <td>name:</td>
+            <td>{{vm.data.user.firstname}}&nbsp;{{vm.data.user.lastname}}</td>
+            <td>begin:</td>
+            <td>{{vm.data.begin}}</td>
+          </tr>
+          <tr>
+            <td>email:</td>
+            <td>{{vm.data.user.email}}</td>
+            <td>end:</td>
+            <td>{{vm.data.end}}</td>
+          </tr>
+          <tr>
+            <td>country:</td>
+            <td>{{getAddress(vm.data)?.country}}&nbsp;</td>
+            <td>city:</td>
+            <td>{{getAddress(vm.data)?.city}}&nbsp;</td>
+          </tr>
+          <tr>
+            <td>street:</td>
+            <td>{{getAddress(vm.data)?.street}}&nbsp;</td>
+            <td>street number:</td>
+            <td>{{getAddress(vm.data)?.number}}&nbsp;</td>
+          </tr>
+        </table>
+        <div class="button-group">
+          <button mat-button type="button" color="accent">Report User</button>
+          <button mat-flat-button type="button" color="primary" (click)="m_Start$.next(0)">Start Appointment</button>
+        </div>
+      </mat-card>
+      <mat-card class="card" *ngIf="vm.data">
+        <h3>Fill in the report</h3>
+        <h4>Registration and reception of the donor</h4>
+        <div class="grid">
+          <mat-form-field class="form-field" appearance="fill">
+            <mat-label>Select blood type</mat-label>
+            <mat-select>
+              <mat-option>None</mat-option>
+              <mat-option *ngFor="let t of types; let i=index" [value]="i">{{t}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div></div>
+          <mat-form-field class="form-field double" appearance="fill">
+            <mat-label>Doctor's note</mat-label>
+            <textarea matInput></textarea>
+          </mat-form-field>
+        </div>
+        <h4>Determination of hemoglobin/hematocrit</h4>
+        <div class="grid">
+          <mat-form-field class="form-field" appearance="fill">
+            <mat-label>Copper-sulfate</mat-label>
+            <input matInput>
+          </mat-form-field>
+          <mat-form-field class="form-field" appearance="fill">
+            <mat-label>Normal level</mat-label>
+            <input matInput>
+          </mat-form-field>
+          <mat-form-field class="form-field" appearance="fill">
+            <mat-label>Hemoglobin value</mat-label>
+            <input matInput>
+          </mat-form-field>
+          <mat-form-field class="form-field" appearance="fill">
+            <mat-label>Low level</mat-label>
+            <input matInput>
+          </mat-form-field>
+        </div>
+        <h4>Health examination</h4>
+        <div class="grid">
+          <div class="grid mini">
+            <mat-form-field class="form-field" appearance="fill">
+              <mat-label>Lungs</mat-label>
+              <input matInput>
+            </mat-form-field>
+            <mat-form-field class="form-field" appearance="fill">
+              <mat-label>Heart</mat-label>
+              <input matInput>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-card>
     </div>
     <div *ngIf="vm.er" class="errors">{{vm.er}}</div>
   </div>

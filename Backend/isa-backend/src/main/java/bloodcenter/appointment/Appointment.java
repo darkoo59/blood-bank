@@ -22,6 +22,7 @@ public class Appointment {
 
     private LocalDateTime begin;
     private LocalDateTime end;
+    private boolean started;
 
     @ManyToOne
     @NotNull

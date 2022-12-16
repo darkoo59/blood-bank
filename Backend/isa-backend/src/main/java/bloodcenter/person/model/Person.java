@@ -29,8 +29,7 @@ public abstract class Person {
     protected String password;
     @ManyToMany(fetch = FetchType.EAGER)
     protected Collection<Role> roles = new ArrayList<>();
-    @ManyToOne
-    @JoinColumn(name="address_id", referencedColumnName = "id")
+    @OneToOne(fetch = FetchType.EAGER)
     protected Address address;
     protected String phone;
     protected String nationalId;

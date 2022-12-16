@@ -70,7 +70,7 @@ const routes: Routes = [
         data: { roles: ["ROLE_ADMIN", "ROLE_BCADMIN"] }
       },
       {
-        path: 'appointment',
+        path: 'appointment/:id',
         loadChildren: () => import('../core/appointment/appointment.module').then(m => m.AppointmentModule),
         canActivate: [RoleGuard],
         data: { roles: ["ROLE_BCADMIN"] }

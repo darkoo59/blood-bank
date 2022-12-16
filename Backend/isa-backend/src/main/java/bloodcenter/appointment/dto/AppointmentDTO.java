@@ -15,6 +15,7 @@ public class AppointmentDTO {
 
     private LocalDateTime begin;
     private LocalDateTime end;
+    private boolean started;
 
     private PersonDTO user;
 }
