@@ -22,6 +22,7 @@ import bloodcenter.role.RoleDTO;
 import bloodcenter.subscribed_hospitals.dto.HospitalDTO;
 import bloodcenter.subscribed_hospitals.model.SubscribedHospital;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +79,11 @@ public class ObjectsMapper {
     }
 
     public static User convertRegisterDTOToUser(RegisterDTO registerDTO) {
+        modelMapper.addMappings(new PropertyMap<RegisterDTO, User>() {
+            protected void configure() {
+                skip(destination.getId());
+            }
+        });
         return modelMapper.map(registerDTO, User.class);
     }
 

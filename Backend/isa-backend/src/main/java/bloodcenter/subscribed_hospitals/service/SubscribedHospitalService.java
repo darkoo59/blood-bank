@@ -59,7 +59,6 @@ public class SubscribedHospitalService {
     // monthly                  every month
     @Scheduled(cron="0 * * * * *")
     public void sendBloodSupplyToHospital() throws URISyntaxException {
-        System.out.println("SADA CU PROBATI DA SALJEM");
         for(SubscribedHospital hospital:subscribedHospitalRepository.findAll()){
             if(bloodService.getBloodTypeQuantity(hospital.getBloodType(),hospital.getQuantity())) { // salji krv na psw(rabbitmq)
                 BloodToSendDTO bloodToSend = new BloodToSendDTO();

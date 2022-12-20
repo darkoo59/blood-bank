@@ -3,6 +3,7 @@ package bloodcenter.security.filter;
 import com.auth0.jwt.JWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -71,9 +72,16 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     }
 
     @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+    protected void unsuccessfulAuthentication(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            AuthenticationException failed) throws IOException {
         Map<String, String> error = new HashMap<>();
-        error.put("errorMessage", "Incorrect email or password");
+        if (failed instanceof DisabledException) {
+            error.put("errorMessage", "Email address not confirmed");
+        } else {
+            error.put("errorMessage", "Incorrect email or password");
+        }
         response.setContentType(APPLICATION_JSON_VALUE);
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         new ObjectMapper().writeValue(response.getOutputStream(), error);

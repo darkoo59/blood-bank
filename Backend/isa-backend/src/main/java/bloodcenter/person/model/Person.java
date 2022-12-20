@@ -5,6 +5,7 @@ import bloodcenter.person.enums.Sex;
 import bloodcenter.role.Role;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public abstract class Person {
     protected Sex sex;
     protected String occupation;
     protected String information;
+    protected Boolean enabled = false;
 
     @Override
     public boolean equals(Object o) {

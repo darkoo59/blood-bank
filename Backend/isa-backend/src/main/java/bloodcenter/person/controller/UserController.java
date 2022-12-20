@@ -6,13 +6,17 @@ import bloodcenter.person.model.User;
 import bloodcenter.person.service.PersonService;
 import bloodcenter.person.service.UserService;
 import bloodcenter.security.filter.AuthUtility;
+import exceptions.EmailExistsException;
+import exceptions.TokenExpiredException;
+import exceptions.TokenNotFoundException;
+import exceptions.UserConfirmedException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +25,7 @@ import java.io.IOException;
 import java.util.*;
 
 import static bloodcenter.utils.ObjectsMapper.convertUserListToDTO;
-import static org.springframework.http.HttpStatus.UNAUTHORIZED;
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
 @Controller
@@ -38,20 +42,45 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<PersonDTO>> getAll(){
-        return new ResponseEntity<>(convertUserListToDTO(userService.getAll()), HttpStatus.OK);
+        return new ResponseEntity<>(convertUserListToDTO(userService.getAll()), OK);
     }
 
     @GetMapping("/search")
     @Secured({"ROLE_ADMIN", "ROLE_BCADMIN"})
     public ResponseEntity<List<User>> searchUsers(@RequestParam String searchInput) {
-        return new ResponseEntity<>(userService.searchUsers(searchInput), HttpStatus.OK);
+        return new ResponseEntity<>(userService.searchUsers(searchInput), OK);
     }
 
     @PostMapping("/register")
     public ResponseEntity<?> Register(@RequestBody RegisterDTO registerDTO) {
-        if (userService.registerUser(registerDTO)) {
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        try {
+            userService.registerUser(registerDTO);
+            return new ResponseEntity<>(OK);
+        } catch (EmailExistsException e) {
+            return new ResponseEntity<>(e.getMessage(), BAD_REQUEST);
+        } catch (MessagingException e) {
+            return new ResponseEntity<>("Failed to send confirmation email", ACCEPTED);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>("Unknown error", BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/registration/confirm")
+    public ResponseEntity<?> confirm(@RequestParam("token") String token) {
+        try {
+            if (userService.confirmToken(token)) {
+                return new ResponseEntity<>(OK);
+            } else {
+                return new ResponseEntity<>("Unable to confirm user: user not found", BAD_REQUEST);
+            }
+        } catch (TokenNotFoundException e) {
+            return new ResponseEntity<>("Unable to confirm user: bad confirmation token", BAD_REQUEST);
+        } catch (UserConfirmedException e) {
+            return new ResponseEntity<>("Unable to confirm user: user already confirmed", BAD_REQUEST);
+        } catch (TokenExpiredException e) {
+            return new ResponseEntity<>("Unable to confirm user: token expired", BAD_REQUEST);
+        }
     }
 
     @PostMapping("/token/refresh")

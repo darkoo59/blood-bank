@@ -57,6 +57,7 @@ public class SecurityConfig {
                 "/api/user/login",
                 "/api/user/token/refresh",
                 "/api/user/register",
+                "/registration/confirm",
                 "/api/user/logout",
                 "/api/branch-center/all-centers-pagination",
                 "/api/branch-center/all",
@@ -72,7 +73,6 @@ public class SecurityConfig {
                 "/api/news/publish",
                 "/api/blood-request"
         ).permitAll();
-        //http.authorizeRequests().antMatchers(GET, "/api/user/**").hasAnyAuthority("ROLE_USER");
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
