@@ -123,6 +123,11 @@ public class BloodConfiguration {
             a3.getRoles().add(role);
             a4.getRoles().add(role);
 
+            a1.setEnabled(true);
+            a2.setEnabled(true);
+            a3.setEnabled(true);
+            a4.setEnabled(true);
+
             repository.saveAll(List.of(a1, a2, a3, a4));
         };
     }
@@ -133,6 +138,7 @@ public class BloodConfiguration {
             Admin a1 = new Admin("Elon", "Musk", "elonmusk@tesla.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0641233153","7234567891011", Sex.MALE,"Default occupation","Default information");
             Role role = role_repo.findByName("ROLE_ADMIN");
             a1.getRoles().add(role);
+            a1.setEnabled(true);
             repository.saveAll(List.of(a1));
         };
     }
@@ -144,7 +150,10 @@ public class BloodConfiguration {
             User u2 = new User("Darko", "Selakovic", "darko@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","064143421","1234567391011",Sex.MALE,"Default occupation","Default information");
             User u3 = new User("Vojin", "Bjelica", "vojin@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0646677732","1264567891221",Sex.MALE,"Default occupation","Default information");
             User u4 = new User("Marko", "Uljarevic", "marko@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","064312221","1324567691011",Sex.MALE,"Default occupation","Default information");
-
+            u1.setEnabled(true);
+            u2.setEnabled(true);
+            u3.setEnabled(true);
+            u4.setEnabled(true);
             Role role = role_repo.findByName("ROLE_USER");
             u1.getRoles().add(role);
             u2.getRoles().add(role);
