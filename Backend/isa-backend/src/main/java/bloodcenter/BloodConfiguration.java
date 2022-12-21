@@ -3,6 +3,8 @@ package bloodcenter;
 import bloodcenter.address.AddressRepository;
 import bloodcenter.appointment.Appointment;
 import bloodcenter.appointment.AppointmentRepository;
+import bloodcenter.available_appointment.AvailableAppointment;
+import bloodcenter.available_appointment.AvailableAppointmentRepository;
 import bloodcenter.blood.BloodType;
 import bloodcenter.blood.Blood;
 import bloodcenter.api_key.Key;
@@ -32,6 +34,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
 import java.util.List;
 
 @Configuration
@@ -85,11 +89,11 @@ public class BloodConfiguration {
     @Bean
     CommandLineRunner BranchCenterCLR(BranchCenterRepository repository, AddressRepository address_repo) {
         return args -> {
-            BranchCenter c1 = new BranchCenter("Happy", "Najbolji novosadski centar");
-            BranchCenter c2 = new BranchCenter("Lab", "Dobrovoljno davanje krvi - Beograd");
-            BranchCenter c3 = new BranchCenter("Euro lab", "Don de sang volontaire - Paris");
-            BranchCenter c4 = new BranchCenter("Jacobs lab", "Freiwillige Blutspende Deutschland");
-            BranchCenter c5 = new BranchCenter("Blood - Wien", "Freiwillige Blutspende Österreich");
+            BranchCenter c1 = new BranchCenter("Happy", "Najbolji novosadski centar", LocalTime.of(8, 0),LocalTime.of(21,0));
+            BranchCenter c2 = new BranchCenter("Lab", "Dobrovoljno davanje krvi - Beograd", LocalTime.of(8, 0),LocalTime.of(21,0));
+            BranchCenter c3 = new BranchCenter("Euro lab", "Don de sang volontaire - Paris", LocalTime.of(8, 0),LocalTime.of(21,0));
+            BranchCenter c4 = new BranchCenter("Jacobs lab", "Freiwillige Blutspende Deutschland", LocalTime.of(8, 0),LocalTime.of(21,0));
+            BranchCenter c5 = new BranchCenter("Blood - Wien", "Freiwillige Blutspende Österreich", LocalTime.of(8, 0),LocalTime.of(21,0));
 
             c1.setAddress(address_repo.findById(1L).get());
             c2.setAddress(address_repo.findById(2L).get());
@@ -158,6 +162,20 @@ public class BloodConfiguration {
             Appointment a1 = new Appointment(u);
             Appointment a2 = new Appointment(u);
             Appointment a3 = new Appointment(u);
+
+            repository.saveAll(List.of(a1, a2, a3));
+        };
+    }
+
+    @Bean
+    CommandLineRunner AvailableAppointmentCLR(AvailableAppointmentRepository repository){
+        return args -> {
+            AvailableAppointment a1 = new AvailableAppointment(LocalDateTime.of(2022, Month.DECEMBER, 21, 18, 00),
+                    LocalDateTime.of(2022, Month.DECEMBER, 21, 19, 00), 1);
+            AvailableAppointment a2 = new AvailableAppointment(LocalDateTime.of(2022, Month.DECEMBER, 22, 15, 00),
+                    LocalDateTime.of(2022, Month.DECEMBER, 22, 15, 30), 1);
+            AvailableAppointment a3 = new AvailableAppointment(LocalDateTime.of(2022, Month.DECEMBER, 23, 14, 20),
+                    LocalDateTime.of(2022, Month.DECEMBER, 23, 15, 00), 1);
 
             repository.saveAll(List.of(a1, a2, a3));
         };

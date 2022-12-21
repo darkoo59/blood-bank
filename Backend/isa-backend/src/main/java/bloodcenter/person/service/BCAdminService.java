@@ -97,6 +97,10 @@ public class BCAdminService {
         repository.save(admin);
     }
 
+    public BranchCenter getBranchCenterByAdminEmail(String email) throws BCAdmin.BCAdminNotFoundException {
+        return getByMail(email).getBranchCenter();
+    }
+
     public void update(Person personToUpdate) throws BCAdmin.BCAdminNotFoundException {
         BCAdmin adminToUpdate = getByMail(personToUpdate.getEmail());
         adminToUpdate.setPassword(personToUpdate.getPassword());
