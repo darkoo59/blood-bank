@@ -5,6 +5,21 @@ import { Appointment } from "src/app/model/appointment.model";
 import { GenericDataService } from "src/app/services/generic-data.service";
 import { environment } from "src/environments/environment";
 
+export interface CreateDonationDTO {
+  userId: number;
+  bloodtype: number;
+  note: string;
+  copperSulfate: string;
+  hemoglobin: string;
+  normal: number;
+  low: number;
+  lungs: string;
+  heart: string;
+  tt: number;
+  tb: number;
+  bloodammount: number;
+}
+
 @Injectable()
 export class AppointmentService extends GenericDataService<Appointment> {
 
@@ -18,5 +33,9 @@ export class AppointmentService extends GenericDataService<Appointment> {
 
   startAppointment(id: number): Observable<any> {
     return this.addErrorReader(this.m_Http.patch(`${environment.apiUrl}/appointment/start/${id}`, {}));
+  }
+
+  createDonation(dto: CreateDonationDTO): Observable<any> {
+    return this.addErrorReader(this.m_Http.post(`${environment.apiUrl}/donation`, dto));
   }
 }

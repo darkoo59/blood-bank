@@ -59,7 +59,7 @@ export abstract class GenericDataService<DataType> {
           msg = res.message;
         }
         this.setError = msg;
-        return throwError(() => msg)
+        throw msg;
       })
     );
   }

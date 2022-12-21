@@ -1,5 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
+import { ReactiveFormsModule } from "@angular/forms";
 import { NgLetModule } from "ng-let";
 import { MaterialModule } from "src/app/shared/material.module";
 import { PageLoaderModule } from "src/app/shared/page-loader/page-loader.module";
@@ -16,7 +17,8 @@ import { AppointmentService } from "./services/appointment.service";
     NgLetModule,
     AppointmentRoutingModule,
     MaterialModule,
-    PageLoaderModule
+    PageLoaderModule,
+    ReactiveFormsModule
   ],
   exports: []
 })
