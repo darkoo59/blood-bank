@@ -8,6 +8,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 
 import { NgLetModule } from 'ng-let';
 import { Interceptor } from './auth/services/interceptor.service';
+import { ScheduleModule, RecurrenceEditorModule } from '@syncfusion/ej2-angular-schedule';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { Interceptor } from './auth/services/interceptor.service';
     AppRoutingModule,
     BrowserAnimationsModule,
     NgLetModule,
-    HttpClientModule
+    HttpClientModule,
+    ScheduleModule, RecurrenceEditorModule
   ],
   providers: [
     {

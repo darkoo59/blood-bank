@@ -43,7 +43,7 @@ public class AuthUtility {
                 .sign(getAlgorithm());
     }
 
-    public String getEmailFromRequest(HttpServletRequest req) {
+    public static String getEmailFromRequest(HttpServletRequest req) {
         String authorizationHeader = req.getHeader(AUTHORIZATION);
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             try {

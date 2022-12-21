@@ -48,6 +48,14 @@ export class NavComponent {
     {
       path: "send-news",
       title: 'Send news to hospital'
+    },
+    {
+      path: 'blood-donation-appointments',
+      title: 'Blood donation appointments'
+    },
+    {
+      path: "calendar",
+      title: 'Calendar'
     }
   ];
 

@@ -4,6 +4,9 @@ import bloodcenter.address.Address;
 import bloodcenter.address.AddressDTO;
 import bloodcenter.appointment.Appointment;
 import bloodcenter.appointment.dto.AppointmentDTO;
+import bloodcenter.available_appointment.AvailableAppointment;
+import bloodcenter.available_appointment.AvailableAppointmentService;
+import bloodcenter.available_appointment.dto.AvailableAppointmentsDTO;
 import bloodcenter.branch_center.BranchCenter;
 import bloodcenter.branch_center.dto.BranchCenterDTO;
 import bloodcenter.feedback.Feedback;
@@ -53,6 +56,9 @@ public class ObjectsMapper {
         }
         return dtos;
     }
+
+    public static AvailableAppointmentsDTO convertAvailableAppointmentToDTO(AvailableAppointment appointment) {
+        return modelMapper.map(appointment, AvailableAppointmentsDTO.class);}
 
     public static PersonDTO convertPersonToDTO(Person person) {
         return modelMapper.map(person,PersonDTO.class);

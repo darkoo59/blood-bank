@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -24,7 +25,8 @@ public class BranchCenter {
     private Long id;
     private String name;
     private String description;
-
+    private LocalTime startTime;
+    private LocalTime endTime;
     @OneToOne
     @NotNull
     private Address address;
@@ -42,11 +44,19 @@ public class BranchCenter {
         this.description = description;
     }
 
+    public BranchCenter(String name, String description, LocalTime start, LocalTime end) {
+        this.name = name;
+        this.description = description;
+        this.startTime = start;
+        this.endTime = end;
+    }
+
     public BranchCenter(String name, String description, Address address) {
         this.name = name;
         this.description = description;
         this.address = address;
     }
+
 
     public static class BCNotFoundException extends Exception{
         public BCNotFoundException(String message){

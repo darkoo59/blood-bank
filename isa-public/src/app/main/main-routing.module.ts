@@ -10,6 +10,8 @@ import { BCAdminAssignComponent } from './pages/bc-admin-assign/bc-admin-assign.
 import { RoleGuard } from '../auth/guards/role.guard';
 import { QuestionnaireComponent } from './pages/questionnaire/questionnaire.component';
 import { SendingNewsComponent } from './pages/sending-news/sending-news.component';
+import { CalendarComponent } from './pages/calendar/calendar.component';
+import { BloodDonationScheduleComponent } from './pages/blood-donation-schedule/blood-donation-schedule.component';
 
 const routes: Routes = [
   {
@@ -72,6 +74,18 @@ const routes: Routes = [
       {
         path: 'appointment',
         loadChildren: () => import('../core/appointment/appointment.module').then(m => m.AppointmentModule),
+        canActivate: [RoleGuard],
+        data: { roles: ["ROLE_BCADMIN"] }
+      },
+      {
+        path: 'calendar',
+        component: CalendarComponent,
+        canActivate: [RoleGuard],
+        data: { roles: ["ROLE_BCADMIN"] }
+      },
+      {
+        path: 'blood-donation-appointments',
+        component: BloodDonationScheduleComponent,
         canActivate: [RoleGuard],
         data: { roles: ["ROLE_BCADMIN"] }
       },

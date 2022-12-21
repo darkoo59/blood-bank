@@ -21,6 +21,8 @@
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
     "@asymmetrik/ngx-leaflet": "^14.0.1",
+    "@syncfusion/ej2-angular-schedule": "^20.3.61",
+    "@syncfusion/ej2-material-theme": "~20.3.61",
     "leaflet": "^1.9.2",
     "ng-let": "^14.0.1",
     "rxjs": "~7.5.0",
