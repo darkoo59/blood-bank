@@ -1,6 +1,8 @@
 package bloodcenter.branch_center;
 
 import bloodcenter.branch_center.dto.RegisterBranchCenterDTO;
+import bloodcenter.branch_center.dto.WorkingHoursDTO;
+import bloodcenter.person.model.BCAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,8 +55,13 @@ public class BranchCenterController {
     @PatchMapping
     public ResponseEntity<Object> patchBranchCenter(@RequestBody BranchCenterDTO dto) throws BranchCenter.BCNotFoundException {
         service.updateData(dto);
-
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Secured({"ROLE_BCADMIN"})
+    @GetMapping(path="/workingHours")
+    public WorkingHoursDTO getWorkingHours(HttpServletRequest request) throws BCAdmin.BCAdminNotFoundException {
+        return service.getWorkingHours(request);
     }
 
     @GetMapping(path="/allCountries")

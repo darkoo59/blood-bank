@@ -4,14 +4,25 @@ import bloodcenter.address.Address;
 import bloodcenter.address.AddressService;
 import bloodcenter.branch_center.dto.RegisterBranchCenterDTO;
 import bloodcenter.branch_center.dto.BranchCenterDTO;
+import bloodcenter.branch_center.dto.WorkingHoursDTO;
+import bloodcenter.person.model.BCAdmin;
+import bloodcenter.person.service.BCAdminService;
+import bloodcenter.security.filter.AuthUtility;
 import bloodcenter.utils.ObjectsMapper;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
+
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @Service
 public class BranchCenterService {
@@ -19,10 +30,13 @@ public class BranchCenterService {
     private final BranchCenterRepository repository;
     @Autowired
     private final AddressService service;
+    private final BCAdminService bcAdminService;
 
-    public BranchCenterService(BranchCenterRepository branchCenterRepository, AddressService service) {
+    public BranchCenterService(BranchCenterRepository branchCenterRepository, AddressService service, @Lazy BCAdminService
+                               adminService) {
         this.repository = branchCenterRepository;
         this.service = service;
+        this.bcAdminService = adminService;
     }
 
     public BranchCenter getById(Long id) throws BranchCenter.BCNotFoundException {
@@ -98,4 +112,13 @@ public class BranchCenterService {
     public List<String> getAllCountriesForFiltering(){ return service.getAllCountries();}
 
     public List<String> getAllCitiesForFiltering(){ return service.getAllCities();}
+
+    public WorkingHoursDTO getWorkingHours(HttpServletRequest request) throws BCAdmin.BCAdminNotFoundException {
+        String adminEmail = AuthUtility.getEmailFromRequest(request);
+        BranchCenter center = bcAdminService.getBranchCenterByAdminEmail(adminEmail);
+        WorkingHoursDTO workingHours = new WorkingHoursDTO();
+        workingHours.setStartTime(center.getStartTime());
+        workingHours.setEndTime(center.getEndTime());
+        return workingHours;
+    }
 }
