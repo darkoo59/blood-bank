@@ -20,12 +20,13 @@ public class AvailableAppointment {
             strategy = GenerationType.IDENTITY
     )
     private long id;
-
+    private String title;
     private LocalDateTime start;
     private LocalDateTime end;
     private long branchCenterId;
 
-    public AvailableAppointment(LocalDateTime begin, LocalDateTime end, long branchCenterId){
+    public AvailableAppointment(String title,LocalDateTime begin, LocalDateTime end, long branchCenterId){
+        this.title = title;
         this.start = begin;
         this.end = end;
         this.branchCenterId = branchCenterId;

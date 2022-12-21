@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class AvailableAppointmentsDTO {
     private long id;
+    private String title;
     private String start;
     private String end;
 }

@@ -170,11 +170,11 @@ public class BloodConfiguration {
     @Bean
     CommandLineRunner AvailableAppointmentCLR(AvailableAppointmentRepository repository){
         return args -> {
-            AvailableAppointment a1 = new AvailableAppointment(LocalDateTime.of(2022, Month.DECEMBER, 21, 18, 00),
+            AvailableAppointment a1 = new AvailableAppointment("Available appointment",LocalDateTime.of(2022, Month.DECEMBER, 21, 18, 00),
                     LocalDateTime.of(2022, Month.DECEMBER, 21, 19, 00), 1);
-            AvailableAppointment a2 = new AvailableAppointment(LocalDateTime.of(2022, Month.DECEMBER, 22, 15, 00),
+            AvailableAppointment a2 = new AvailableAppointment("Available appointment",LocalDateTime.of(2022, Month.DECEMBER, 22, 15, 00),
                     LocalDateTime.of(2022, Month.DECEMBER, 22, 15, 30), 1);
-            AvailableAppointment a3 = new AvailableAppointment(LocalDateTime.of(2022, Month.DECEMBER, 23, 14, 20),
+            AvailableAppointment a3 = new AvailableAppointment("Available appointment",LocalDateTime.of(2022, Month.DECEMBER, 23, 14, 20),
                     LocalDateTime.of(2022, Month.DECEMBER, 23, 15, 00), 1);
 
             repository.saveAll(List.of(a1, a2, a3));
