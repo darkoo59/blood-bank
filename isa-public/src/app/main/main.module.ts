@@ -17,6 +17,8 @@ import { MapModule } from '../shared/map/map.module';
 import { QuestionnaireComponent } from './pages/questionnaire/questionnaire.component';
 import { CommentListModule } from '../shared/comment-list/comment-list.module';
 import { SendingNewsComponent } from './pages/sending-news/sending-news.component';
+import { ConfirmedComponent } from './pages/email-confirmation/confirmed/confirmed.component';
+import { ErrorComponent } from './pages/email-confirmation/error/error.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { SendingNewsComponent } from './pages/sending-news/sending-news.componen
     BCAllComponent,
     BCAdminAssignComponent,
     QuestionnaireComponent,
-    SendingNewsComponent
+    SendingNewsComponent,
+    ConfirmedComponent,
+    ErrorComponent
   ],
   imports: [
     CommonModule,

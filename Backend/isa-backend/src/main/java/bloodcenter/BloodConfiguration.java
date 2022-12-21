@@ -154,7 +154,7 @@ public class BloodConfiguration {
     @Bean
     CommandLineRunner AppointmentCLR(AppointmentRepository repository, UserRepository user_repo){
         return args -> {
-            User u = user_repo.findByEmail("rade@gmail.com");
+            User u = user_repo.findByEmail("rade@gmail.com").get();
             Appointment a1 = new Appointment(u);
             Appointment a2 = new Appointment(u);
             Appointment a3 = new Appointment(u);
@@ -176,14 +176,14 @@ public class BloodConfiguration {
             Feedback f7 = new Feedback("Adipiscing tristique risus nec feugiat in fermentum posuere urna nec.", LocalDateTime.now(), 4);
             Feedback f8 = new Feedback(" Ultrices in iaculis nunc sed. Convallis tellus id interdum velit laoreet id donec ultrices. Egestas sed tempus urna et pharetra pharetra.", LocalDateTime.now(), 2);
 
-            f1.setUser(user_repo.findByEmail("vojin@gmail.com"));
-            f2.setUser(user_repo.findByEmail("rade@gmail.com"));
-            f3.setUser(user_repo.findByEmail("vojin@gmail.com"));
-            f4.setUser(user_repo.findByEmail("darko@gmail.com"));
-            f5.setUser(user_repo.findByEmail("marko@gmail.com"));
-            f6.setUser(user_repo.findByEmail("rade@gmail.com"));
-            f7.setUser(user_repo.findByEmail("marko@gmail.com"));
-            f8.setUser(user_repo.findByEmail("darko@gmail.com"));
+            f1.setUser(user_repo.findByEmail("vojin@gmail.com").get());
+            f2.setUser(user_repo.findByEmail("rade@gmail.com").get());
+            f3.setUser(user_repo.findByEmail("vojin@gmail.com").get());
+            f4.setUser(user_repo.findByEmail("darko@gmail.com").get());
+            f5.setUser(user_repo.findByEmail("marko@gmail.com").get());
+            f6.setUser(user_repo.findByEmail("rade@gmail.com").get());
+            f7.setUser(user_repo.findByEmail("marko@gmail.com").get());
+            f8.setUser(user_repo.findByEmail("darko@gmail.com").get());
 
             f1.setBranchCenter(bc_repo.findById(1L).get());
             f2.setBranchCenter(bc_repo.findById(1L).get());

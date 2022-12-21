@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Getter
 public class Answer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToOne
     private Question question;

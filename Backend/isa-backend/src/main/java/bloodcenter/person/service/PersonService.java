@@ -49,8 +49,18 @@ public class PersonService implements UserDetailsService {
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         person.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getName())));
-        return new org.springframework.security.core.userdetails.User(person.getEmail(), person.getPassword(), authorities);
+        return new org.springframework.security.core.userdetails.User(
+                person.getEmail(),
+                person.getPassword(),
+                authorities) {
+            @Override
+            public boolean isEnabled() {
+                return person.getEnabled();
+            }
+        };
     }
+
+
 
     public PersonDTO findById(Long id) throws Person.PersonNotFoundException {
         Optional<Person> person = personRepository.findById(id);

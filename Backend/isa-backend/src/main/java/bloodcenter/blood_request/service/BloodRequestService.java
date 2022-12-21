@@ -68,7 +68,6 @@ public class BloodRequestService {
 
     @Scheduled(cron="0 * * * * *")
     public void sendBloodSupplyToHospital() throws URISyntaxException {
-        System.out.println("TESTTTT");
         for(BloodRequest request:bloodRequestRepository.findAll()){
             if(request.getFinalDate().isBefore(LocalDateTime.now())){
                 if(bloodService.getBloodTypeQuantity(request.getBloodType(), request.getQuantity())) { // salji krv na psw(rabbitmq)
