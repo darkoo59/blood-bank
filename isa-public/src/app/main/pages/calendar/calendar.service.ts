@@ -7,6 +7,7 @@ import { WorkingHoursDTO } from './working-hours-dto';
 
 interface AvailableAppointmentDTO {
   id: number;
+  title: String;
   start: String;
   end: String;
 }

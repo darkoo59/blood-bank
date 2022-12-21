@@ -83,12 +83,6 @@ const routes: Routes = [
         canActivate: [RoleGuard],
         data: { roles: ["ROLE_BCADMIN"] }
       },
-      {
-        path: 'blood-donation-appointments',
-        component: BloodDonationScheduleComponent,
-        canActivate: [RoleGuard],
-        data: { roles: ["ROLE_BCADMIN"] }
-      },
       { path: '', pathMatch: 'full', redirectTo: 'home' },
       { path: '**', component: PageNotFoundComponent }
     ]

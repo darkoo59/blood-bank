@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CellClickEventArgs, DataBindingEventArgs, EventSettingsModel, PopupOpenEventArgs } from '@syncfusion/ej2-angular-schedule';
+import { CellClickEventArgs, DataBindingEventArgs, EventSettingsModel, PopupOpenEventArgs, WorkHoursModel } from '@syncfusion/ej2-angular-schedule';
 import { take } from 'rxjs';
 import { AvailableAppointment } from 'src/app/model/available-appointment';
 import { CalendarService } from './calendar.service';
@@ -29,7 +29,7 @@ export class CalendarComponent implements OnInit {
 
   convertAppointmentDTO(dtos:any) {
     for(let appointment of dtos){
-      this.availableAppointments.push({Id: appointment.id, StartTime: new Date(appointment.start), EndTime: new Date(appointment.end), Subject: 'Available appointment'} as AvailableAppointment)
+      this.availableAppointments.push({Id: appointment.id, StartTime: new Date(appointment.start), EndTime: new Date(appointment.end), Subject: appointment.title} as AvailableAppointment)
     }
     this.eventSettings = {
       dataSource: this.availableAppointments,
