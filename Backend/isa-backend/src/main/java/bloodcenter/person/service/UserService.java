@@ -87,7 +87,7 @@ public class UserService {
                 user
         );
         confirmationTokenService.saveConfirmationToken(confirmationToken);
-        String link = "http://localhost:" + port + "/registration/confirm?token=" + token;
+        String link = "http://localhost:" + port + "/api/user/registration/confirm?token=" + token;
 
         SimpleRetryPolicy retryPolicy = new SimpleRetryPolicy(
                 3, Collections.singletonMap(MessagingException.class, true));

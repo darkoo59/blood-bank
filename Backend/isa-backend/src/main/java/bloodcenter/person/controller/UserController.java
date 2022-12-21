@@ -11,10 +11,12 @@ import exceptions.TokenExpiredException;
 import exceptions.TokenNotFoundException;
 import exceptions.UserConfirmedException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.Cookie;
@@ -33,6 +35,9 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 public class UserController {
     private final UserService userService;
     private final AuthUtility authUtility;
+
+    @Value("${frontend.base.url}")
+    private String frontendBaseUrl;
 
     @Autowired
     public UserController(UserService userService, PersonService personService) {
@@ -67,19 +72,19 @@ public class UserController {
     }
 
     @GetMapping("/registration/confirm")
-    public ResponseEntity<?> confirm(@RequestParam("token") String token) {
+    public RedirectView confirm(@RequestParam("token") String token) {
         try {
             if (userService.confirmToken(token)) {
-                return new ResponseEntity<>(OK);
+                return new RedirectView(frontendBaseUrl + "/confirmed");
             } else {
-                return new ResponseEntity<>("Unable to confirm user: user not found", BAD_REQUEST);
+                return new RedirectView(frontendBaseUrl + "/error?message=user+not+found");
             }
         } catch (TokenNotFoundException e) {
-            return new ResponseEntity<>("Unable to confirm user: bad confirmation token", BAD_REQUEST);
+            return new RedirectView(frontendBaseUrl + "/error?message=bad+confirmation+token");
         } catch (UserConfirmedException e) {
-            return new ResponseEntity<>("Unable to confirm user: user already confirmed", BAD_REQUEST);
+            return new RedirectView(frontendBaseUrl + "/error?message=user+already+confirmed");
         } catch (TokenExpiredException e) {
-            return new ResponseEntity<>("Unable to confirm user: token expired", BAD_REQUEST);
+            return new RedirectView(frontendBaseUrl + "/error?message=confirmation+link+expired");
         }
     }
 

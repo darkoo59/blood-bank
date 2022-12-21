@@ -57,7 +57,7 @@ public class SecurityConfig {
                 "/api/user/login",
                 "/api/user/token/refresh",
                 "/api/user/register",
-                "/registration/confirm",
+                "/api/user/registration/confirm",
                 "/api/user/logout",
                 "/api/branch-center/all-centers-pagination",
                 "/api/branch-center/all",

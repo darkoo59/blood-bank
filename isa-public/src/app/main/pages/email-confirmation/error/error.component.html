@@ -1,0 +1,8 @@
+<div class="error">
+  <h4>Unable to confirm user: {{ errorMessage }}</h4>
+  <div *ngIf="isConfirmed">
+    <p>
+      Redirecting to the login page in {{ countDown }} seconds...
+    </p>
+  </div>
+</div>
