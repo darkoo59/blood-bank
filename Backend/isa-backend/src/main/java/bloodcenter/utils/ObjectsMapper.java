@@ -13,10 +13,7 @@ import bloodcenter.donation.dto.DonationSimpleDTO;
 import bloodcenter.feedback.Feedback;
 import bloodcenter.feedback.dto.FeedbackAuthorDTO;
 import bloodcenter.feedback.dto.FeedbackDTO;
-import bloodcenter.person.dto.BCAdminDTO;
-import bloodcenter.person.dto.BCAdminShallowDTO;
-import bloodcenter.person.dto.PersonDTO;
-import bloodcenter.person.dto.RegisterDTO;
+import bloodcenter.person.dto.*;
 import bloodcenter.person.model.Admin;
 import bloodcenter.person.model.BCAdmin;
 import bloodcenter.person.model.Person;
@@ -165,5 +162,9 @@ public class ObjectsMapper {
 
         modelMapper.addMappings(answerMap);
         return modelMapper.map(answer, AnswerDTO.class);
+    }
+
+    public static Admin convertRegisterAdminDTOToAdmin(RegisterAdminDTO registerAdminDTO) {
+        return modelMapper.map(registerAdminDTO, Admin.class);
     }
 }

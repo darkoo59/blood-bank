@@ -74,6 +74,10 @@ export class NavComponent {
       title: 'Assign Admin To Branch Center'
     },
     {
+      path: 'sys-admin-register',
+      title: 'Register System Admin'
+    },
+    {
       path: 'all-users',
       title: 'All users'
     },
