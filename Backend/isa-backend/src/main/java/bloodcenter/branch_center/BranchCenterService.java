@@ -9,6 +9,7 @@ import bloodcenter.person.model.BCAdmin;
 import bloodcenter.person.service.BCAdminService;
 import bloodcenter.security.filter.AuthUtility;
 import bloodcenter.utils.ObjectsMapper;
+import bloodcenter.working_days.WorkingDay;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.interfaces.DecodedJWT;
@@ -120,5 +121,12 @@ public class BranchCenterService {
         workingHours.setStartTime(center.getStartTime());
         workingHours.setEndTime(center.getEndTime());
         return workingHours;
+    }
+
+    public List<Integer> getWorkingDays(HttpServletRequest request) throws BCAdmin.BCAdminNotFoundException {
+        String adminEmail = AuthUtility.getEmailFromRequest(request);
+        BranchCenter center = bcAdminService.getBranchCenterByAdminEmail(adminEmail);
+        WorkingDay days = center.getWorkingDays();
+        return days.generateIntegerList();
     }
 }
