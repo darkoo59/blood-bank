@@ -4,7 +4,7 @@ import { LatLng } from 'leaflet';
 import { tap } from 'rxjs';
 import { BCDashboardService } from 'src/app/core/bc-dashboard/services/bc-dashboard.service';
 import { Comment } from "src/app/model/comment.model";
-import { BcsingleService } from '../services/bcsingle.service';
+import { BcsingleService } from './bc-single-show.service';
 
 @Component({
   selector: 'app-bc-single-show',

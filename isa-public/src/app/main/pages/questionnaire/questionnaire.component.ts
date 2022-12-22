@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { Router } from '@angular/router'
 import { catchError, EMPTY, of, shareReplay, switchMap, take, tap } from 'rxjs'
 import { UserService } from 'src/app/services/user.service'
-import { QuestionnaireService } from '../services/questionnaire.service'
+import { QuestionnaireService } from './questionnaire.service'
 
 
 export interface Answer {
