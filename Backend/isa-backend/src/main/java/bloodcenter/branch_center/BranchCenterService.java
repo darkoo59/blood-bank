@@ -5,7 +5,9 @@ import bloodcenter.address.AddressService;
 import bloodcenter.available_appointment.AvailableAppointment;
 import bloodcenter.branch_center.dto.RegisterBranchCenterDTO;
 import bloodcenter.branch_center.dto.BranchCenterDTO;
+import bloodcenter.branch_center.dto.SortRequestDTO;
 import bloodcenter.branch_center.dto.WorkingHoursDTO;
+import bloodcenter.feedback.dto.FeedbackDTO;
 import bloodcenter.person.model.BCAdmin;
 import bloodcenter.person.service.BCAdminService;
 import bloodcenter.security.filter.AuthUtility;
@@ -147,5 +149,34 @@ public class BranchCenterService {
             }
         }
         return centersDto;
+    }
+
+    public ArrayList<BranchCenterDTO> sortBranchCenters(SortRequestDTO request) {
+        ArrayList<BranchCenterDTO> list = new ArrayList<>(request.getCentersList());
+        String sortBy = request.getSortBy();
+        if(sortBy.equals("rating")) {
+            boolean ascending = request.isAscending();
+            Collections.sort(list, (o1, o2) -> {
+                double rating1 = getAverageRating(o1);
+                double rating2 = getAverageRating(o2);
+                if (ascending) {
+                    return Double.compare(rating1, rating2);
+                } else {
+                    return Double.compare(rating2, rating1);
+                }
+            });
+        }
+        return list;
+    }
+
+    public float getAverageRating(BranchCenterDTO centerDTO) {
+        float averageRating = 0;
+        if(centerDTO.getFeedback().size() > 0) {
+            for (FeedbackDTO feedback : centerDTO.getFeedback()) {
+                averageRating += feedback.getGrade();
+            }
+            averageRating = averageRating / centerDTO.getFeedback().size();
+        }
+        return averageRating;
     }
 }

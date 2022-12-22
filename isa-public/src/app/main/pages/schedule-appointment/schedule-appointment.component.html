@@ -11,8 +11,19 @@
 
 </div>
 <div *ngIf="isDateSelected == true">
+  <mat-form-field appearance="fill">
+    <mat-label>Sort by</mat-label>
+    <mat-select>
+      <mat-option (click)="sort('rating','asc')" [value]="0">
+        Rating ↑
+      </mat-option>
+      <mat-option (click)="sort('rating','desc')"  [value]="1">
+        Rating ↓
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
   <div class="grid">
-    <mat-card class="card" *ngFor="let center of branchCenters">
+    <mat-card addMaterialElevation class="card" *ngFor="let center of branchCenters">
       <mat-card-title>{{center.name}}</mat-card-title>
       <mat-card-content>
         <p><b>Description: </b>{{center.description}}</p>

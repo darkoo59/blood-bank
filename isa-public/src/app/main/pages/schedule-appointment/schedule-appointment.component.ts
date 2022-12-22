@@ -20,7 +20,7 @@ export class ScheduleAppointmentComponent implements OnInit {
   selectedDate: string;
   minimumSelectedDateTime: string
   isDateSelected: boolean = false;
-  branchCenters!: BranchCenter[];
+  branchCenters: BranchCenter[] = [];
   constructor(private m_ScheduleAppointmentService: ScheduleAppointmentService, private m_Router: Router, private m_SnackBar: MatSnackBar) {
     let date = new Date()
     date.setDate(date.getDate() + 1)
@@ -58,5 +58,15 @@ export class ScheduleAppointmentComponent implements OnInit {
       sum += com.grade;
     }
     return sum / comments.length;
+  }
+
+  sort(sortBy:string, order:string)
+  {
+    let ascending = false
+    if(order == 'asc')
+      ascending = true
+    this.m_ScheduleAppointmentService.getSortedByRatingBranchCenters(this.branchCenters, sortBy, ascending).pipe(take(1)).subscribe(data => {
+      this.branchCenters = data;
+    });
   }
 }

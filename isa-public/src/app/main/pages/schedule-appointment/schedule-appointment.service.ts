@@ -15,4 +15,8 @@ export class ScheduleAppointmentService {
     queryParams = queryParams.append("date",date);
     return this.http.get<BranchCenter[]>(`${environment.apiUrl}/branch-center/available-for-appointment-date`,{params: queryParams});
   }
+
+  getSortedByRatingBranchCenters(centersList: any[], sortBy: string, ascending: boolean) : Observable<BranchCenter[]> {
+    return this.http.post<BranchCenter[]>(`${environment.apiUrl}/branch-center/sorted`,{centersList,sortBy, ascending});
+  }
 }
