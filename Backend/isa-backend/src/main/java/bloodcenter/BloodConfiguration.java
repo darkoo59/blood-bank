@@ -149,7 +149,7 @@ public class BloodConfiguration {
     @Bean
     CommandLineRunner AdminCLR(AdminRepository repository, RoleRepository role_repo) {
         return args -> {
-            Admin a1 = new Admin("Elon", "Musk", "elonmusk@tesla.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0641233153","7234567891011", Sex.MALE,"Default occupation","Default information");
+            Admin a1 = new Admin("Elon", "Musk", "elonmusk@tesla.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0641233153","7234567891011", Sex.MALE,"Default occupation","Default information", true);
             Role role = role_repo.findByName("ROLE_ADMIN");
             a1.getRoles().add(role);
             repository.saveAll(List.of(a1));

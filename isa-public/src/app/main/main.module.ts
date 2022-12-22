@@ -23,6 +23,8 @@ import { CalendarComponent } from './pages/calendar/calendar.component';
 import { DayService, MonthAgendaService, MonthService, RecurrenceEditorModule, ScheduleModule, WeekService, WorkWeekService, YearService } from '@syncfusion/ej2-angular-schedule';
 import { ScheduleAppointmentComponent } from './pages/schedule-appointment/schedule-appointment.component';
 import { ScheduleAppointmentService } from './pages/schedule-appointment/schedule-appointment.service';
+import { SysAdminRegisterComponent } from './pages/sys-admin-register/sys-admin-register.component';
+import { SysAdminPasswordComponent } from './pages/sys-admin-password/sys-admin-password.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { ScheduleAppointmentService } from './pages/schedule-appointment/schedul
     ConfirmedComponent,
     ErrorComponent,
     CalendarComponent,
-    ScheduleAppointmentComponent
+    ScheduleAppointmentComponent,
+    SysAdminRegisterComponent,
+    SysAdminPasswordComponent
   ],
   imports: [
     CommonModule,
