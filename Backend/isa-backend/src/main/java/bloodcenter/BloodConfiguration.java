@@ -164,11 +164,6 @@ public class BloodConfiguration {
             User u3 = new User("Vojin", "Bjelica", "vojin@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0646677732","1264567891221",Sex.MALE,"Default occupation","Default information");
             User u4 = new User("Marko", "Uljarevic", "marko@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","064312221","1324567691011",Sex.MALE,"Default occupation","Default information");
 
-            u1.setEnabled(true);
-            u2.setEnabled(true);
-            u3.setEnabled(true);
-            u4.setEnabled(true);
-
             Role role = role_repo.findByName("ROLE_USER");
             u1.getRoles().add(role);
             u2.getRoles().add(role);

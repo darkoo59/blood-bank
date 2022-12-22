@@ -29,7 +29,6 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -46,10 +45,6 @@ public class UserService {
 
     @Value("${server.port}")
     private int port;
-
-    public Optional<User> getById(Long id) {
-        return userRepository.findById(id);
-    }
 
     public void saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));

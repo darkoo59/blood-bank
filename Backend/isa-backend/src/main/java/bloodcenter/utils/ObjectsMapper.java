@@ -5,6 +5,7 @@ import bloodcenter.address.AddressDTO;
 import bloodcenter.appointment.Appointment;
 import bloodcenter.appointment.dto.AppointmentDTO;
 import bloodcenter.available_appointment.AvailableAppointment;
+import bloodcenter.available_appointment.AvailableAppointmentService;
 import bloodcenter.available_appointment.dto.AvailableAppointmentsDTO;
 import bloodcenter.branch_center.BranchCenter;
 import bloodcenter.branch_center.dto.BranchCenterDTO;
@@ -19,8 +20,8 @@ import bloodcenter.person.model.Admin;
 import bloodcenter.person.model.BCAdmin;
 import bloodcenter.person.model.Person;
 import bloodcenter.person.model.User;
-import bloodcenter.questionnaire.dto.AnswerDTO;
-import bloodcenter.questionnaire.model.Answer;
+import bloodcenter.role.Role;
+import bloodcenter.role.RoleDTO;
 import bloodcenter.subscribed_hospitals.dto.HospitalDTO;
 import bloodcenter.subscribed_hospitals.model.SubscribedHospital;
 import org.modelmapper.ModelMapper;
@@ -131,18 +132,5 @@ public class ObjectsMapper {
         AppointmentDTO dto = modelMapper.map(appointment, AppointmentDTO.class);
         dto.setUser(pdto);
         return dto;
-    }
-
-    public static AnswerDTO convertAnswerToAnswerDTO(Answer answer) {
-        ModelMapper modelMapper = new ModelMapper();
-        PropertyMap<Answer, AnswerDTO> answerMap = new PropertyMap<>() {
-            protected void configure() {
-                map().setChecked(source.isChecked());
-                map().setQuestionId(source.getQuestion().getId());
-            }
-        };
-
-        modelMapper.addMappings(answerMap);
-        return modelMapper.map(answer, AnswerDTO.class);
     }
 }
