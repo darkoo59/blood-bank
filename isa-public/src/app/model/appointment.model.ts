@@ -1,3 +1,4 @@
+import { Donation } from "./donation.model";
 import { User } from "./user.model";
 
 export interface Appointment {
@@ -6,4 +7,5 @@ export interface Appointment {
   end: Date | null;
   started: boolean;
   user: User;
+  donation?: Donation;
 }

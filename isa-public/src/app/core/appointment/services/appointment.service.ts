@@ -6,8 +6,8 @@ import { GenericDataService } from "src/app/services/generic-data.service";
 import { environment } from "src/environments/environment";
 
 export interface CreateDonationDTO {
-  userId: number;
-  bloodtype: number;
+  appointmentId: number;
+  bloodType: number;
   note: string;
   copperSulfate: string;
   hemoglobin: string;
@@ -17,7 +17,7 @@ export interface CreateDonationDTO {
   heart: string;
   tt: number;
   tb: number;
-  bloodammount: number;
+  bloodAmmount: number;
 }
 
 @Injectable()

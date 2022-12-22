@@ -1,6 +1,7 @@
 package bloodcenter.person.model;
 
 import bloodcenter.appointment.Appointment;
+import bloodcenter.donation.Donation;
 import bloodcenter.person.enums.Sex;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,9 @@ public class User extends Person
 {
     @OneToMany(mappedBy = "user")
     private List<Appointment> appointments;
+
+    @OneToMany(mappedBy = "user")
+    private List<Donation> donations;
 
     public User(String firstname, String lastname, String email, String password) {
         super(firstname, lastname, email, password);

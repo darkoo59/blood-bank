@@ -5,10 +5,11 @@ import bloodcenter.address.AddressDTO;
 import bloodcenter.appointment.Appointment;
 import bloodcenter.appointment.dto.AppointmentDTO;
 import bloodcenter.available_appointment.AvailableAppointment;
-import bloodcenter.available_appointment.AvailableAppointmentService;
 import bloodcenter.available_appointment.dto.AvailableAppointmentsDTO;
 import bloodcenter.branch_center.BranchCenter;
 import bloodcenter.branch_center.dto.BranchCenterDTO;
+import bloodcenter.donation.Donation;
+import bloodcenter.donation.dto.DonationSimpleDTO;
 import bloodcenter.feedback.Feedback;
 import bloodcenter.feedback.dto.FeedbackAuthorDTO;
 import bloodcenter.feedback.dto.FeedbackDTO;
@@ -20,8 +21,6 @@ import bloodcenter.person.model.Admin;
 import bloodcenter.person.model.BCAdmin;
 import bloodcenter.person.model.Person;
 import bloodcenter.person.model.User;
-import bloodcenter.role.Role;
-import bloodcenter.role.RoleDTO;
 import bloodcenter.subscribed_hospitals.dto.HospitalDTO;
 import bloodcenter.subscribed_hospitals.model.SubscribedHospital;
 import org.modelmapper.ModelMapper;
@@ -124,6 +123,15 @@ public class ObjectsMapper {
         PersonDTO pdto = convertPersonToDTO(appointment.getUser());
         AppointmentDTO dto = modelMapper.map(appointment, AppointmentDTO.class);
         dto.setUser(pdto);
+
+        if(appointment.getDonation() != null) {
+            DonationSimpleDTO sdto = convertDonationToSimpleDTO(appointment.getDonation());
+            dto.setDonation(sdto);
+        }
         return dto;
+    }
+
+    public static DonationSimpleDTO convertDonationToSimpleDTO(Donation donation){
+        return modelMapper.map(donation, DonationSimpleDTO.class);
     }
 }
