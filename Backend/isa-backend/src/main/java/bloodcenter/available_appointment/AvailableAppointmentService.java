@@ -40,7 +40,7 @@ public class AvailableAppointmentService {
         String adminEmail = AuthUtility.getEmailFromRequest(request);
         BranchCenter branchCenter = bcAdminService.getBranchCenterByAdminEmail(adminEmail);
         AvailableAppointment appointment = ObjectsMapper.convertDTOToAvailableAppointment(appointmentsDTO);
-        appointment.setBranchCenterId(branchCenter.getId());
+        appointment.setBranchCenter(branchCenter);
         repository.save(appointment);
     }
 }

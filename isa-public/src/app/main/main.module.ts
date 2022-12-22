@@ -19,9 +19,10 @@ import { CommentListModule } from '../shared/comment-list/comment-list.module';
 import { SendingNewsComponent } from './pages/sending-news/sending-news.component';
 import { CalendarComponent } from './pages/calendar/calendar.component';
 import { DayService, MonthAgendaService, MonthService, RecurrenceEditorModule, ScheduleModule, WeekService, WorkWeekService, YearService } from '@syncfusion/ej2-angular-schedule';
-import { BloodDonationScheduleService } from './pages/blood-donation-schedule/blood-donation-schedule.service';
 import { ConfirmedComponent } from '../pages/confirmed/confirmed.component';
 import { ErrorComponent } from '../pages/error/error.component';
+import { ScheduleAppointmentComponent } from './pages/schedule-appointment/schedule-appointment.component';
+import { ScheduleAppointmentService } from './pages/schedule-appointment/schedule-appointment.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ErrorComponent } from '../pages/error/error.component';
     SendingNewsComponent,
     ConfirmedComponent,
     ErrorComponent,
-    CalendarComponent
+    CalendarComponent,
+    ScheduleAppointmentComponent
   ],
   imports: [
     CommonModule,
@@ -48,6 +50,6 @@ import { ErrorComponent } from '../pages/error/error.component';
     ScheduleModule,
     RecurrenceEditorModule
   ],
-  providers: [BcAllService, DayService, WeekService, WorkWeekService, MonthService, YearService, MonthAgendaService, BloodDonationScheduleService]
+  providers: [BcAllService, DayService, WeekService, WorkWeekService, MonthService, YearService, MonthAgendaService, ScheduleAppointmentService]
 })
 export class MainModule { }

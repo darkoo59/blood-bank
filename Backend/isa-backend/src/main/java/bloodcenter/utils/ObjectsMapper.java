@@ -21,6 +21,8 @@ import bloodcenter.person.model.Admin;
 import bloodcenter.person.model.BCAdmin;
 import bloodcenter.person.model.Person;
 import bloodcenter.person.model.User;
+import bloodcenter.questionnaire.dto.AnswerDTO;
+import bloodcenter.questionnaire.model.Answer;
 import bloodcenter.subscribed_hospitals.dto.HospitalDTO;
 import bloodcenter.subscribed_hospitals.model.SubscribedHospital;
 import org.modelmapper.ModelMapper;
@@ -141,7 +143,20 @@ public class ObjectsMapper {
         return dto;
     }
 
-    public static DonationSimpleDTO convertDonationToSimpleDTO(Donation donation){
+    public static DonationSimpleDTO convertDonationToSimpleDTO(Donation donation) {
         return modelMapper.map(donation, DonationSimpleDTO.class);
+    }
+
+    public static AnswerDTO convertAnswerToAnswerDTO(Answer answer) {
+        ModelMapper modelMapper = new ModelMapper();
+        PropertyMap<Answer, AnswerDTO> answerMap = new PropertyMap<>() {
+            protected void configure() {
+                map().setChecked(source.isChecked());
+                map().setQuestionId(source.getQuestion().getId());
+            }
+        };
+
+        modelMapper.addMappings(answerMap);
+        return modelMapper.map(answer, AnswerDTO.class);
     }
 }
