@@ -1,15 +1,11 @@
-import { BehaviorSubject, catchError, EMPTY, Observable, switchMap, of, throwError } from "rxjs";
+import { BehaviorSubject, catchError, EMPTY, Observable } from "rxjs";
 
 export abstract class GenericDataService<DataType> {
   protected m_DataSubject: BehaviorSubject<DataType | null> = new BehaviorSubject<DataType | null>(null);
   public m_Data$: Observable<DataType | null> = this.m_DataSubject.asObservable();
 
   protected m_ErrorSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
-  public m_Error$: Observable<string | null> = this.m_ErrorSubject.asObservable().pipe(
-    switchMap(err => {
-      return err ? of(err) : EMPTY
-    })
-  );
+  public m_Error$: Observable<string | null> = this.m_ErrorSubject.asObservable();
 
   set setData(data: DataType | null) {
     this.m_DataSubject.next(data);
@@ -59,7 +55,7 @@ export abstract class GenericDataService<DataType> {
           msg = res.message;
         }
         this.setError = msg;
-        return throwError(() => msg)
+        throw msg;
       })
     );
   }

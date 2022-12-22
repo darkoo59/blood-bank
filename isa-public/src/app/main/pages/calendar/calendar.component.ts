@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActionEventArgs, CellClickEventArgs, DataBindingEventArgs, EventSettingsModel, PopupOpenEventArgs, WorkHoursModel } from '@syncfusion/ej2-angular-schedule';
-import { take } from 'rxjs';
+import { ActionEventArgs, EventSettingsModel, WorkHoursModel } from '@syncfusion/ej2-angular-schedule';
+import { forkJoin, take, tap } from 'rxjs';
 import { AvailableAppointment } from 'src/app/model/available-appointment';
 import { CalendarService } from './calendar.service';
 import { WorkingHoursDTO } from './dto/working-hours-dto';
-import { AvailableAppointmentDto } from './dto/available-appointment-dto';
 import { CreateAvailableAppointmentDTO } from './dto/create-available-appointment-dto';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Appointment } from 'src/app/model/appointment.model';
 
 @Component({
   selector: 'app-calendar',
@@ -16,11 +16,23 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class CalendarComponent implements OnInit {
 
-  constructor(private m_CalendarService: CalendarService, private m_Router: Router, private m_SnackBar: MatSnackBar) { }
+  constructor(private m_CalendarService: CalendarService, 
+              private m_SnackBar: MatSnackBar,
+              private m_Router: Router) { }
 
   workingHours:WorkingHoursDTO = {startTime: '08:00', endTime: '21:00'}
   workingDays:[] = []
   availableAppointments:AvailableAppointment[] = []
+
+  public eventSettings: EventSettingsModel = {}
+  public views: Array<string> = ['Day','WorkWeek','Week','Month', 'Year']
+  public scheduleHours: WorkHoursModel = {}
+
+  private m_AvailableApps$ = this.m_CalendarService.getAvailableAppointments();
+  private m_Apps$ = this.m_CalendarService.getAppointments();
+  m_FetchAllApps$ = forkJoin([this.m_AvailableApps$, this.m_Apps$]).pipe(
+    tap(([available, app]) => this.convertAppointmentDTO(available, app))
+  );
 
   ngOnInit() {
     this.m_CalendarService.getBranchCenterWorkingHours().pipe(take(1)).subscribe(data => {
@@ -29,15 +41,28 @@ export class CalendarComponent implements OnInit {
     this.m_CalendarService.getBranchCenterWorkingDays().pipe(take(1)).subscribe(data => {
       this.setWorkingDays(data)
     });
-    this.m_CalendarService.getAvailableAppointments().pipe(take(1)).subscribe(data => {
-      this.convertAppointmentDTO(data);
-    });
   }
 
-  convertAppointmentDTO(dtos:any) {
-    for(let appointment of dtos){
-      this.availableAppointments.push({Id: appointment.id, StartTime: new Date(appointment.start), EndTime: new Date(appointment.end), Subject: appointment.title} as AvailableAppointment)
+  convertAppointmentDTO(available: any, apps: Appointment[]) {
+    for(let appointment of available){
+      this.availableAppointments.push({
+        Id: appointment.id, 
+        StartTime: new Date(appointment.start), 
+        EndTime: new Date(appointment.end), 
+        Subject: appointment.title,
+        Free: true
+      } as AvailableAppointment)
     }
+    for(let appointment of apps){
+      this.availableAppointments.push({
+        Id: appointment.id,
+        StartTime: appointment.begin,
+        EndTime: appointment.end,
+        Subject: appointment.title,
+        Free: false
+      } as AvailableAppointment)
+    }
+
     this.eventSettings = {
       dataSource: this.availableAppointments,
       allowEditing: false,
@@ -52,10 +77,11 @@ export class CalendarComponent implements OnInit {
     }
   }
 
-  public eventSettings: EventSettingsModel = {}
-  public views: Array<string> = ['Day','WorkWeek','Week','Month', 'Year']
-  public scheduleHours: WorkHoursModel = {}
-
+  appointmentSelected(e: any){
+    const event = e.event;
+    if(!event.Free)
+      this.m_Router.navigate(['/appointment', event.Id]);
+  }
 
   onActionBegin(args: ActionEventArgs): void {
       if(args.requestType == 'eventCreate') {
@@ -88,5 +114,4 @@ export class CalendarComponent implements OnInit {
   getWorkingHoursEnd(){
     return this.workingHours.endTime.substring(0,5)
   }
-
 }

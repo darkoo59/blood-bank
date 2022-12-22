@@ -14,4 +14,5 @@ export interface User {
   sex: string;
   occupation: string;
   information: string;
+  penalties?: number;
 }

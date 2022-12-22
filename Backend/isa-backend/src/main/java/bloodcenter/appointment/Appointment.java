@@ -1,5 +1,6 @@
 package bloodcenter.appointment;
 
+import bloodcenter.donation.Donation;
 import bloodcenter.person.model.User;
 import com.sun.istack.NotNull;
 import lombok.Getter;
@@ -19,13 +20,17 @@ public class Appointment {
             strategy = GenerationType.IDENTITY
     )
     private long id;
-
+    private String title;
     private LocalDateTime begin;
     private LocalDateTime end;
+    private boolean started;
 
     @ManyToOne
     @NotNull
     private User user;
+
+    @OneToOne(mappedBy = "appointment")
+    private Donation donation;
 
     public Appointment(User user){
         this.user = user;
