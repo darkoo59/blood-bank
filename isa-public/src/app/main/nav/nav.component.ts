@@ -33,6 +33,10 @@ export class NavComponent {
     {
       path: 'questionnaire',
       title: 'Questionnaire'
+    },
+    {
+      path: 'schedule-appointment',
+      title: 'Schedule Appointment'
     }
   ];
 

@@ -1,13 +1,11 @@
 package bloodcenter.available_appointment;
 
+import bloodcenter.branch_center.BranchCenter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -23,12 +21,12 @@ public class AvailableAppointment {
     private String title;
     private LocalDateTime start;
     private LocalDateTime end;
-    private long branchCenterId;
+    @ManyToOne
+    private BranchCenter branchCenter;
 
-    public AvailableAppointment(String title,LocalDateTime begin, LocalDateTime end, long branchCenterId){
+    public AvailableAppointment(String title,LocalDateTime begin, LocalDateTime end){
         this.title = title;
         this.start = begin;
         this.end = end;
-        this.branchCenterId = branchCenterId;
     }
 }

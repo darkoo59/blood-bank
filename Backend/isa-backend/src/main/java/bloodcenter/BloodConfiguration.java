@@ -192,16 +192,26 @@ public class BloodConfiguration {
     }
 
     @Bean
-    CommandLineRunner AvailableAppointmentCLR(AvailableAppointmentRepository repository){
+    CommandLineRunner AvailableAppointmentCLR(AvailableAppointmentRepository repository, BranchCenterRepository bc_repo){
         return args -> {
             AvailableAppointment a1 = new AvailableAppointment("Available appointment",LocalDateTime.of(2022, Month.DECEMBER, 21, 18, 00),
-                    LocalDateTime.of(2022, Month.DECEMBER, 21, 19, 00), 1);
+                    LocalDateTime.of(2022, Month.DECEMBER, 21, 19, 00));
             AvailableAppointment a2 = new AvailableAppointment("Available appointment",LocalDateTime.of(2022, Month.DECEMBER, 22, 15, 00),
-                    LocalDateTime.of(2022, Month.DECEMBER, 22, 15, 30), 1);
+                    LocalDateTime.of(2022, Month.DECEMBER, 22, 15, 30));
             AvailableAppointment a3 = new AvailableAppointment("Available appointment",LocalDateTime.of(2022, Month.DECEMBER, 23, 14, 20),
-                    LocalDateTime.of(2022, Month.DECEMBER, 23, 15, 00), 1);
+                    LocalDateTime.of(2022, Month.DECEMBER, 23, 15, 00));
+            AvailableAppointment a4 = new AvailableAppointment("Available appointment",LocalDateTime.of(2022, Month.DECEMBER, 23, 14, 20),
+                    LocalDateTime.of(2022, Month.DECEMBER, 23, 15, 00));
+            AvailableAppointment a5 = new AvailableAppointment("Available appointment",LocalDateTime.of(2022, Month.DECEMBER, 23, 14, 20),
+                    LocalDateTime.of(2022, Month.DECEMBER, 23, 15, 00));
 
-            repository.saveAll(List.of(a1, a2, a3));
+            a1.setBranchCenter(bc_repo.findById(1L).get());
+            a2.setBranchCenter(bc_repo.findById(1L).get());
+            a3.setBranchCenter(bc_repo.findById(1L).get());
+            a4.setBranchCenter(bc_repo.findById(2L).get());
+            a5.setBranchCenter(bc_repo.findById(3L).get());
+
+            repository.saveAll(List.of(a1, a2, a3, a4, a5));
         };
     }
 
@@ -218,6 +228,11 @@ public class BloodConfiguration {
             Feedback f7 = new Feedback("Adipiscing tristique risus nec feugiat in fermentum posuere urna nec.", LocalDateTime.now(), 4);
             Feedback f8 = new Feedback(" Ultrices in iaculis nunc sed. Convallis tellus id interdum velit laoreet id donec ultrices. Egestas sed tempus urna et pharetra pharetra.", LocalDateTime.now(), 2);
 
+            Feedback f9 = new Feedback("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", LocalDateTime.now(), 1);
+            Feedback f10 = new Feedback("Sit amet commodo nulla facilisi nullam. Bibendum arcu vitae elementum curabitur vitae nunc sed velit dignissim. Amet massa vitae tortor condimentum lacinia quis vel eros donec.", LocalDateTime.now(), 5);
+            Feedback f11 = new Feedback("Adipiscing tristique risus nec feugiat in fermentum posuere urna nec.", LocalDateTime.now(), 1);
+            Feedback f12 = new Feedback(" Ultrices in iaculis nunc sed. Convallis tellus id interdum velit laoreet id donec ultrices. Egestas sed tempus urna et pharetra pharetra.", LocalDateTime.now(), 2);
+
             f1.setUser(user_repo.findByEmail("vojin@gmail.com").get());
             f2.setUser(user_repo.findByEmail("rade@gmail.com").get());
             f3.setUser(user_repo.findByEmail("vojin@gmail.com").get());
@@ -227,6 +242,11 @@ public class BloodConfiguration {
             f7.setUser(user_repo.findByEmail("marko@gmail.com").get());
             f8.setUser(user_repo.findByEmail("darko@gmail.com").get());
 
+            f9.setUser(user_repo.findByEmail("marko@gmail.com").get());
+            f10.setUser(user_repo.findByEmail("rade@gmail.com").get());
+            f11.setUser(user_repo.findByEmail("marko@gmail.com").get());
+            f12.setUser(user_repo.findByEmail("darko@gmail.com").get());
+
             f1.setBranchCenter(bc_repo.findById(1L).get());
             f2.setBranchCenter(bc_repo.findById(1L).get());
             f3.setBranchCenter(bc_repo.findById(1L).get());
@@ -235,8 +255,12 @@ public class BloodConfiguration {
             f6.setBranchCenter(bc_repo.findById(1L).get());
             f7.setBranchCenter(bc_repo.findById(1L).get());
             f8.setBranchCenter(bc_repo.findById(1L).get());
+            f9.setBranchCenter(bc_repo.findById(2L).get());
+            f10.setBranchCenter(bc_repo.findById(2L).get());
+            f11.setBranchCenter(bc_repo.findById(2L).get());
+            f12.setBranchCenter(bc_repo.findById(2L).get());
 
-            repository.saveAll(List.of(f1, f2, f3, f4, f5, f6, f7, f8));
+            repository.saveAll(List.of(f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12));
         };
     }
 
