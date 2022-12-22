@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
 
-import static bloodcenter.utils.ObjectsMapper.convertUserListToDTO;
+import static bloodcenter.urgent_order.utils.ObjectsMapper.convertUserListToDTO;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 

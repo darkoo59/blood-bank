@@ -11,6 +11,8 @@ import bloodcenter.api_key.Key;
 import bloodcenter.branch_center.BranchCenter;
 import bloodcenter.branch_center.BranchCenterRepository;
 import bloodcenter.address.Address;
+import bloodcenter.complaint.Complaint;
+import bloodcenter.complaint.ComplaintRepository;
 import bloodcenter.feedback.Feedback;
 import bloodcenter.feedback.FeedbackRepository;
 import bloodcenter.person.enums.Sex;
@@ -310,6 +312,28 @@ public class BloodConfiguration {
             q8.setQuestionnaire(questionnaire);
 
             question_repo.saveAll(List.of(q1, q2, q3, q4, q5, q6, q7, q8));
+        };
+    }
+
+    @Bean
+    CommandLineRunner ComplaintCLR(ComplaintRepository repository, UserRepository user_repo, BranchCenterRepository bc_repo) {
+        return args -> {
+          Complaint c1 = new Complaint("Very bad service.");
+          Complaint c2 = new Complaint("Extremely rude behavior.");
+          Complaint c3 = new Complaint("I waited for 3 hours for no reason.");
+          Complaint c4 = new Complaint("The bathroom had no toilet paper.");
+
+          c1.setUser(user_repo.findByEmail("vojin@gmail.com").get());
+          c2.setUser(user_repo.findByEmail("rade@gmail.com").get());
+          c3.setUser(user_repo.findByEmail("vojin@gmail.com").get());
+          c4.setUser(user_repo.findByEmail("darko@gmail.com").get());
+
+          c1.setBranchCenter(bc_repo.findById(1L).get());
+          c2.setBranchCenter(bc_repo.findById(1L).get());
+          c3.setBranchCenter(bc_repo.findById(2L).get());
+          c4.setBranchCenter(bc_repo.findById(2L).get());
+
+          repository.saveAll(List.of(c1, c2, c3, c4));
         };
     }
 }

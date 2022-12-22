@@ -1,4 +1,4 @@
-package bloodcenter.utils;
+package bloodcenter.urgent_order.utils;
 
 import bloodcenter.address.Address;
 import bloodcenter.address.AddressDTO;

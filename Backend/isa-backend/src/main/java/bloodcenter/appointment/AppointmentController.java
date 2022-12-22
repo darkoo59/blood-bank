@@ -1,7 +1,7 @@
 package bloodcenter.appointment;
 
 import bloodcenter.core.ErrorResponse;
-import bloodcenter.utils.ObjectsMapper;
+import bloodcenter.urgent_order.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

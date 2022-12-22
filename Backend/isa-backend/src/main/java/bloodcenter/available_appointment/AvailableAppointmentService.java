@@ -1,12 +1,11 @@
 package bloodcenter.available_appointment;
 
-import bloodcenter.appointment.AppointmentRepository;
 import bloodcenter.available_appointment.dto.AvailableAppointmentsDTO;
 import bloodcenter.branch_center.BranchCenter;
 import bloodcenter.person.model.BCAdmin;
 import bloodcenter.person.service.BCAdminService;
 import bloodcenter.security.filter.AuthUtility;
-import bloodcenter.utils.ObjectsMapper;
+import bloodcenter.urgent_order.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

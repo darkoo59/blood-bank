@@ -1,28 +1,21 @@
 package bloodcenter.subscribed_hospitals.service;
 
-import bloodcenter.MQConfig;
 import bloodcenter.MQConfigBloodSupply;
 import bloodcenter.MQConfigNotification;
-import bloodcenter.address.AddressService;
 import bloodcenter.blood.Blood;
 import bloodcenter.blood.BloodService;
-import bloodcenter.branch_center.BranchCenter;
-import bloodcenter.branch_center.BranchCenterRepository;
-import bloodcenter.feedback.FeedbackRepository;
 import bloodcenter.subscribed_hospitals.dto.BloodToSendDTO;
 import bloodcenter.subscribed_hospitals.dto.HospitalDTO;
 import bloodcenter.subscribed_hospitals.dto.NoBloodNotificationDTO;
 import bloodcenter.subscribed_hospitals.model.SubscribedHospital;
 import bloodcenter.subscribed_hospitals.repository.SubscribedHospitalRepository;
-import bloodcenter.utils.ObjectsMapper;
+import bloodcenter.urgent_order.utils.ObjectsMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;

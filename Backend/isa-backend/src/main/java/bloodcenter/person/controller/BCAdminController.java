@@ -10,7 +10,7 @@ import bloodcenter.person.service.BCAdminService;
 import bloodcenter.person.dto.AssignAdminToCenterDTO;
 import bloodcenter.person.service.PersonService;
 import bloodcenter.security.filter.AuthUtility;
-import bloodcenter.utils.ObjectsMapper;
+import bloodcenter.urgent_order.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -6,7 +6,7 @@ import bloodcenter.person.dto.PersonDTO;
 import bloodcenter.person.model.BCAdmin;
 import bloodcenter.person.model.Person;
 import bloodcenter.person.repository.PersonRepository;
-import bloodcenter.utils.ObjectsMapper;
+import bloodcenter.urgent_order.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
-import static bloodcenter.utils.ObjectsMapper.*;
+import static bloodcenter.urgent_order.utils.ObjectsMapper.*;
 
 @Service
 public class PersonService implements UserDetailsService {
