@@ -59,9 +59,15 @@ public class BranchCenterController {
     }
 
     @Secured({"ROLE_BCADMIN"})
-    @GetMapping(path="/workingHours")
+    @GetMapping(path="/working-hours")
     public WorkingHoursDTO getWorkingHours(HttpServletRequest request) throws BCAdmin.BCAdminNotFoundException {
         return service.getWorkingHours(request);
+    }
+
+    @Secured({"ROLE_BCADMIN"})
+    @GetMapping(path="/working-days")
+    public List<Integer> getWorkingDays(HttpServletRequest request) throws BCAdmin.BCAdminNotFoundException {
+        return service.getWorkingDays(request);
     }
 
     @GetMapping(path="/allCountries")

@@ -35,4 +35,12 @@ public class AvailableAppointmentService {
         }
         return appointmentsToReturn;
     }
+
+    public void create(HttpServletRequest request,AvailableAppointmentsDTO appointmentsDTO) throws BCAdmin.BCAdminNotFoundException {
+        String adminEmail = AuthUtility.getEmailFromRequest(request);
+        BranchCenter branchCenter = bcAdminService.getBranchCenterByAdminEmail(adminEmail);
+        AvailableAppointment appointment = ObjectsMapper.convertDTOToAvailableAppointment(appointmentsDTO);
+        appointment.setBranchCenterId(branchCenter.getId());
+        repository.save(appointment);
+    }
 }

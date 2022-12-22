@@ -1,4 +1,4 @@
-package exceptions;
+package bloodcenter.exceptions;
 
 public class UserConfirmedException extends Exception {
     public UserConfirmedException() {
