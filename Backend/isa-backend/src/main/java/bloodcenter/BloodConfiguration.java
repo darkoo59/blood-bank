@@ -170,7 +170,7 @@ public class BloodConfiguration {
     CommandLineRunner UserCLR(UserRepository repository, RoleRepository role_repo) {
         return args -> {
             User u1 = new User("Rade", "Stojanovic", "rade@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0641232133","1234567891011", Sex.MALE,"Default occupation","Default information");
-            User u2 = new User("Darko", "Selakovic", "darko@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","064143421","1234567391011",Sex.MALE,"Default occupation","Default information");
+            User u2 = new User("Darko", "Selakovic", "darko.selakovic11@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","064143421","1234567391011",Sex.MALE,"Default occupation","Default information");
             User u3 = new User("Vojin", "Bjelica", "vojin@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0646677732","1264567891221",Sex.MALE,"Default occupation","Default information");
             User u4 = new User("Marko", "Uljarevic", "marko@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","064312221","1324567691011",Sex.MALE,"Default occupation","Default information");
 
@@ -256,16 +256,16 @@ public class BloodConfiguration {
             f1.setUser(user_repo.findByEmail("vojin@gmail.com").get());
             f2.setUser(user_repo.findByEmail("rade@gmail.com").get());
             f3.setUser(user_repo.findByEmail("vojin@gmail.com").get());
-            f4.setUser(user_repo.findByEmail("darko@gmail.com").get());
+            f4.setUser(user_repo.findByEmail("darko.selakovic11@gmail.com").get());
             f5.setUser(user_repo.findByEmail("marko@gmail.com").get());
             f6.setUser(user_repo.findByEmail("rade@gmail.com").get());
             f7.setUser(user_repo.findByEmail("marko@gmail.com").get());
-            f8.setUser(user_repo.findByEmail("darko@gmail.com").get());
+            f8.setUser(user_repo.findByEmail("darko.selakovic11@gmail.com").get());
 
             f9.setUser(user_repo.findByEmail("marko@gmail.com").get());
             f10.setUser(user_repo.findByEmail("rade@gmail.com").get());
             f11.setUser(user_repo.findByEmail("marko@gmail.com").get());
-            f12.setUser(user_repo.findByEmail("darko@gmail.com").get());
+            f12.setUser(user_repo.findByEmail("darko.selakovic11@gmail.com").get());
 
             f1.setBranchCenter(bc_repo.findById(1L).get());
             f2.setBranchCenter(bc_repo.findById(1L).get());
