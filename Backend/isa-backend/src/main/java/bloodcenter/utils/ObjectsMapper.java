@@ -26,6 +26,8 @@ import bloodcenter.subscribed_hospitals.model.SubscribedHospital;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +60,14 @@ public class ObjectsMapper {
 
     public static AvailableAppointmentsDTO convertAvailableAppointmentToDTO(AvailableAppointment appointment) {
         return modelMapper.map(appointment, AvailableAppointmentsDTO.class);}
+
+    public static AvailableAppointment convertDTOToAvailableAppointment(AvailableAppointmentsDTO dto){
+        AvailableAppointment appointment = new AvailableAppointment();
+        appointment.setStart(LocalDateTime.parse(dto.getStart(), DateTimeFormatter.ISO_OFFSET_DATE_TIME));
+        appointment.setEnd(LocalDateTime.parse(dto.getEnd(), DateTimeFormatter.ISO_OFFSET_DATE_TIME));
+        appointment.setTitle(dto.getTitle());
+        return appointment;
+    }
 
     public static PersonDTO convertPersonToDTO(Person person) {
         return modelMapper.map(person,PersonDTO.class);

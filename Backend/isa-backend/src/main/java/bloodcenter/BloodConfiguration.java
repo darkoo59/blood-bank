@@ -29,6 +29,8 @@ import bloodcenter.api_key.KeyRepository;
 import bloodcenter.person.model.User;
 import bloodcenter.person.repository.BCAdminRepository;
 import bloodcenter.person.repository.UserRepository;
+import bloodcenter.working_days.WorkingDay;
+import bloodcenter.working_days.WorkingDaysRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -87,7 +89,17 @@ public class BloodConfiguration {
     }
 
     @Bean
-    CommandLineRunner BranchCenterCLR(BranchCenterRepository repository, AddressRepository address_repo) {
+    CommandLineRunner WorkingDaysCLR(WorkingDaysRepository repository) {
+        return args -> {
+            WorkingDay wd1 = new WorkingDay(true,true,true,true,true,false,false);
+            WorkingDay wd2 = new WorkingDay(true,true,true,true,true,true,true);
+            WorkingDay wd3 = new WorkingDay(true,true,true,true,true,true,false);
+            repository.saveAll(List.of(wd1, wd2, wd3));
+        };
+    }
+
+    @Bean
+    CommandLineRunner BranchCenterCLR(BranchCenterRepository repository, AddressRepository address_repo, WorkingDaysRepository workingDaysRepository) {
         return args -> {
             BranchCenter c1 = new BranchCenter("Happy", "Najbolji novosadski centar", LocalTime.of(8, 0),LocalTime.of(21,0));
             BranchCenter c2 = new BranchCenter("Lab", "Dobrovoljno davanje krvi - Beograd", LocalTime.of(8, 0),LocalTime.of(21,0));
@@ -100,6 +112,13 @@ public class BloodConfiguration {
             c3.setAddress(address_repo.findById(3L).get());
             c4.setAddress(address_repo.findById(4L).get());
             c5.setAddress(address_repo.findById(5L).get());
+
+            c1.setWorkingDays(workingDaysRepository.findById(3L).get());
+            c2.setWorkingDays(workingDaysRepository.findById(3L).get());
+            c3.setWorkingDays(workingDaysRepository.findById(3L).get());
+            c4.setWorkingDays(workingDaysRepository.findById(3L).get());
+            c5.setWorkingDays(workingDaysRepository.findById(3L).get());
+
 
             repository.saveAll(List.of(c1, c2, c3, c4, c5));
         };

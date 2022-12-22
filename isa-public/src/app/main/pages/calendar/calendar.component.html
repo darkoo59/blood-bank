@@ -2,8 +2,10 @@
   <ejs-schedule
    [eventSettings]='eventSettings'
    [views]='views'
-   (popupOpen)='onPopupOpen($event)'
-   (cellClick)='onCellClick($event)'
-   (cellDoubleClick)='onCellDoubleClick($event)'>
+   [workHours]="scheduleHours"
+   [startHour]="scheduleHours.start"
+   [endHour]="scheduleHours.end"
+   [workDays]="workingDays"
+   (actionBegin)="onActionBegin($event)">
   </ejs-schedule>
 </section>

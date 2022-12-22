@@ -3,6 +3,7 @@ package bloodcenter.branch_center;
 import bloodcenter.address.Address;
 import bloodcenter.feedback.Feedback;
 import bloodcenter.person.model.BCAdmin;
+import bloodcenter.working_days.WorkingDay;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.Getter;
@@ -30,6 +31,9 @@ public class BranchCenter {
     @OneToOne
     @NotNull
     private Address address;
+
+    @OneToOne
+    private WorkingDay workingDays;
 
     @OneToMany(mappedBy = "branchCenter")
     @JsonIgnore

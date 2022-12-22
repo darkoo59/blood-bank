@@ -3,14 +3,9 @@ import { Injectable } from '@angular/core';
 import { catchError, EMPTY, Observable } from 'rxjs';
 import { AvailableAppointment } from 'src/app/model/available-appointment';
 import { environment } from 'src/environments/environment';
-import { WorkingHoursDTO } from './working-hours-dto';
-
-interface AvailableAppointmentDTO {
-  id: number;
-  title: String;
-  start: String;
-  end: String;
-}
+import { AvailableAppointmentDto } from './dto/available-appointment-dto';
+import { CreateAvailableAppointmentDTO } from './dto/create-available-appointment-dto';
+import { WorkingHoursDTO } from './dto/working-hours-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +15,19 @@ export class CalendarService {
   constructor(private http: HttpClient) { }
 
   getBranchCenterWorkingHours() : Observable<WorkingHoursDTO> {
-    return this.http.get<WorkingHoursDTO>(`${environment.apiUrl}/branch-center/workingHours`);
+    return this.http.get<WorkingHoursDTO>(`${environment.apiUrl}/branch-center/working-hours`);
   }
 
-  getAvailableAppointments() : Observable<AvailableAppointmentDTO[]> {
-    return this.http.get<AvailableAppointmentDTO[]>(`${environment.apiUrl}/available-appointment`);
+  getBranchCenterWorkingDays() : Observable<[]> {
+    return this.http.get<[]>(`${environment.apiUrl}/branch-center/working-days`);
+  }
+
+  getAvailableAppointments() : Observable<AvailableAppointmentDto[]> {
+    return this.http.get<AvailableAppointmentDto[]>(`${environment.apiUrl}/available-appointment`);
+  }
+
+  createAvailableAppointment(dto: CreateAvailableAppointmentDTO) {
+    return this.http.post(`${environment.apiUrl}/available-appointment`, dto).pipe(catchError(err => { return EMPTY; }));
   }
 
 
