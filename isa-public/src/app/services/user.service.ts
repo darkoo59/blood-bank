@@ -37,15 +37,18 @@ export class UserService extends GenericDataService<User> {
   }
 
   getMaleQuestions() : Observable<any> {
-    return this.m_Http.get(`${environment.apiUrl}/questionnaire/get/male/basic`);
+    return this.m_Http.get(`${environment.apiUrl}/questionnaire/get/male/basic`)
   }
 
   getFemaleQuestions() : Observable<any> {
-    return this.m_Http.get(`${environment.apiUrl}/questionnaire/get/female/basic`);
+    return this.m_Http.get(`${environment.apiUrl}/questionnaire/get/female/basic`)
+  }
+
+  getAnsweredQuestionnaireByUserId(id: number | undefined) : Observable<any> {
+    return this.m_Http.get(`${environment.apiUrl}/questionnaire/get/user/`+id)
   }
 
   submitAnswers(dto: any) : Observable<any> {
-    console.log(dto)
-    return this.m_Http.post(`${environment.apiUrl}/questionnaire/submit`, dto);
+    return this.m_Http.post(`${environment.apiUrl}/questionnaire/submit`, dto)
   }
 }

@@ -14,12 +14,17 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 public class Admin extends Person {
 
-    public Admin(String firstname, String lastname, String email, String password) {
-        super(firstname, lastname, email, password);
-    }
-
-    public Admin(String firstname, String lastname, String email, String password, String phone, String nationalId, Sex sex, String occupation, String information)
+    public Admin(String firstname,
+                 String lastname,
+                 String email,
+                 String password,
+                 String phone,
+                 String nationalId,
+                 Sex sex,
+                 String occupation,
+                 String information)
     {
-        super(firstname,lastname,email,password,phone,nationalId,sex,occupation,information);
+        super(firstname, lastname, email, password, phone, nationalId, sex, occupation,information);
+        enabled = true;
     }
 }

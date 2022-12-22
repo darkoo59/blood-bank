@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { Router } from '@angular/router'
-import { catchError, EMPTY, take } from 'rxjs'
+import { catchError, EMPTY, of, shareReplay, switchMap, take, tap } from 'rxjs'
 import { UserService } from 'src/app/services/user.service'
 
 
@@ -17,27 +17,48 @@ export interface Answer {
   styleUrls: ['./questionnaire.component.scss']
 })
 export class QuestionnaireComponent implements OnInit {
+  displayedColumns: string[] = ['question', 'checked']
+  dataSource = []
 
   constructor(private m_UserService: UserService, private m_SnackBar: MatSnackBar, private m_Router: Router) { }
 
   ngOnInit() {
-    this.m_UserService.m_Data$.pipe(take(1)).subscribe(data => {
-      if (data?.sex === 'MALE') {
-        this.m_UserService.getMaleQuestions()
-        .subscribe(questions => {
-          this.dataSource = questions
-          for (let question of questions) {
-            this.form.addControl(question.id, new UntypedFormControl(false))
-          }
-        })
-      } else {
-        this.m_UserService.getFemaleQuestions()
-        .subscribe(questions => {
-          this.dataSource = questions
-        })
-      }
-    })
+    this.m_UserService.m_Data$.pipe(
+      take(1),
+      switchMap(data => {
+        return this.m_UserService.getAnsweredQuestionnaireByUserId(data?.id).pipe(
+          switchMap(questionnaire => {
+            if (questionnaire !== null) {
+              this.dataSource = questionnaire?.questions || []
+
+              for (let i = 0; i < this.dataSource.length; i++) {
+                this.form.addControl(questionnaire.questions[i].id, new UntypedFormControl(questionnaire.answers[i].checked));
+              }
+              return of(questionnaire)
+            }
+            if (data?.sex === 'MALE') {
+              return this.m_UserService.getMaleQuestions().pipe(tap(questions => {
+                this.dataSource = questions;
+                for (let question of questions) {
+                  this.form.addControl(question.id, new UntypedFormControl(false));
+                }
+              }))
+            } else {
+              return this.m_UserService.getFemaleQuestions().pipe(tap(questions => {
+                this.dataSource = questions;
+                for (let question of questions) {
+                  this.form.addControl(question.id, new UntypedFormControl(false));
+                }
+              }))
+            }
+          }),
+          shareReplay(1),
+          catchError(() => of(null))
+        )
+      })
+    ).subscribe(_ => {})
   }
+  
 
   form: UntypedFormGroup = new UntypedFormGroup({
 
@@ -68,7 +89,4 @@ export class QuestionnaireComponent implements OnInit {
       this.m_Router.navigate(['/home'])
     });
   }
-
-  displayedColumns: string[] = ['question', 'checked']
-  dataSource = []
 }
