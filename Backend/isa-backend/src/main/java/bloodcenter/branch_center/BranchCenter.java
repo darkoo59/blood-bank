@@ -1,6 +1,7 @@
 package bloodcenter.branch_center;
 
 import bloodcenter.address.Address;
+import bloodcenter.available_appointment.AvailableAppointment;
 import bloodcenter.feedback.Feedback;
 import bloodcenter.person.model.BCAdmin;
 import bloodcenter.working_days.WorkingDay;
@@ -42,6 +43,10 @@ public class BranchCenter {
     @OneToMany(mappedBy = "branchCenter")
     @JsonIgnore
     private List<Feedback> feedback;
+
+    @OneToMany(mappedBy = "branchCenter")
+    @JsonIgnore
+    private List<AvailableAppointment> availableAppointments;
 
     public BranchCenter(String name, String description) {
         this.name = name;

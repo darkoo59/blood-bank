@@ -76,6 +76,11 @@ public class BranchCenterController {
     @GetMapping(path="/allCities")
     public @ResponseBody List<String> getAllCities(){ return service.getAllCitiesForFiltering(); }
 
+    @Secured({"ROLE_USER"})
+    @GetMapping(path="/available-for-appointment-date")
+    public @ResponseBody ArrayList<BranchCenterDTO> getAvailableForAppointmentDate
+            (@RequestParam String date){ return service.findAvailableForAppointmentDate(date); }
+
     @ExceptionHandler({ Exception.class })
     public ResponseEntity<Object> handleExceptions(Exception ex){
         ex.printStackTrace();

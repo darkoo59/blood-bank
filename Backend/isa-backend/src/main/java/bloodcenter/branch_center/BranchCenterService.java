@@ -2,6 +2,7 @@ package bloodcenter.branch_center;
 
 import bloodcenter.address.Address;
 import bloodcenter.address.AddressService;
+import bloodcenter.available_appointment.AvailableAppointment;
 import bloodcenter.branch_center.dto.RegisterBranchCenterDTO;
 import bloodcenter.branch_center.dto.BranchCenterDTO;
 import bloodcenter.branch_center.dto.WorkingHoursDTO;
@@ -21,6 +22,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
@@ -128,5 +131,21 @@ public class BranchCenterService {
         BranchCenter center = bcAdminService.getBranchCenterByAdminEmail(adminEmail);
         WorkingDay days = center.getWorkingDays();
         return days.generateIntegerList();
+    }
+
+    public ArrayList<BranchCenterDTO> findAvailableForAppointmentDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
+        ArrayList<BranchCenterDTO> centersDto = new ArrayList<>();
+        for (BranchCenter bc: repository.findAll()) {
+            for(AvailableAppointment availableAppointment : bc.getAvailableAppointments()){
+                if((availableAppointment.getStart().isBefore(dateTime) || availableAppointment.getStart().isEqual(dateTime))
+                        && availableAppointment.getEnd().isAfter(dateTime)) {
+                    centersDto.add(ObjectsMapper.convertBranchCenterToDTO(bc));
+                    break;
+                }
+            }
+        }
+        return centersDto;
     }
 }
