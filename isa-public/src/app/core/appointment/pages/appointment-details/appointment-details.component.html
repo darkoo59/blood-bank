@@ -1,1 +1,73 @@
-appointment details...
+<div *ngLet="{data: m_Data$ | async} as vm">
+  <mat-card class="card" *ngIf="vm.data">
+    <h4>Appointment info</h4>
+    <table>
+      <tr>
+        <td>name:</td>
+        <td>{{vm.data.user.firstname}}&nbsp;{{vm.data.user.lastname}}</td>
+        <td>begin:</td>
+        <td>{{vm.data.begin}}</td>
+      </tr>
+      <tr>
+        <td>email:</td>
+        <td>{{vm.data.user.email}}</td>
+        <td>end:</td>
+        <td>{{vm.data.end}}</td>
+      </tr>
+      <tr>
+        <td>country:</td>
+        <td>{{getAddress(vm.data)?.country}}</td>
+        <td>city:</td>
+        <td>{{getAddress(vm.data)?.city}}</td>
+      </tr>
+      <tr>
+        <td>street:</td>
+        <td>{{getAddress(vm.data)?.street}}</td>
+        <td>street number:</td>
+        <td>{{getAddress(vm.data)?.number}}</td>
+      </tr>
+    </table>
+    <div class="button-group">
+      <button mat-flat-button type="button" color="primary" (click)="donate()" *ngIf="!vm.data.donation">Start Donation</button>
+    </div>
+  </mat-card>
+
+  <mat-card class="card" *ngIf="vm.data && vm.data.donation">
+    <h3 style="color: #0b0;">Donation has been made already</h3>
+    <table *ngLet="vm.data.donation as donation">
+      <tr>
+        <td>blood type:</td>
+        <td>{{donation.bloodType | bloodToString}}</td>
+        <td>copper-sulfate:</td>
+        <td>{{donation.copperSulfate}}</td>
+      </tr>
+      <tr>
+        <td>hemoglobin:</td>
+        <td>{{donation.hemoglobin}}</td>
+        <td>normal:</td>
+        <td>{{donation.normal}}</td>
+      </tr>
+      <tr>
+        <td>low:</td>
+        <td>{{donation.low}}</td>
+        <td>lungs:</td>
+        <td>{{donation.lungs}}</td>
+      </tr>
+      <tr>
+        <td>heart:</td>
+        <td>{{donation.heart}}</td>
+        <td>tt:</td>
+        <td>{{donation.tt}}</td>
+      </tr>
+      <tr>
+        <td>tb:</td>
+        <td>{{donation.tb}}</td>
+        <td>blood amount:</td>
+        <td>{{donation.bloodAmount}}</td>
+      </tr>
+    </table>
+    <p>
+      <i>{{vm.data.donation.note}}</i>
+    </p>
+  </mat-card>
+</div>

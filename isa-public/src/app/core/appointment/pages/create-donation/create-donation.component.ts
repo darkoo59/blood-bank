@@ -15,14 +15,12 @@ export class CreateDonationComponent {
 
   m_Data$: Observable<Appointment | null> = this.m_AppointmentService.m_Data$.pipe(
     tap(d => {
-      console.log(d);
       if(d?.donation != null){
         this.m_SnackBar.open(`Appointment has already been finished.`, 'Close', { duration: 4000 })
         this.m_Router.navigate(['..'], { relativeTo: this.m_Route });
       }
     })
   );
-  m_Loading = true;
 
   m_Form = new UntypedFormGroup({
     'bloodType': new UntypedFormControl(null, Validators.required),
@@ -63,10 +61,13 @@ export class CreateDonationComponent {
         let data: CreateDonationDTO = this.m_Form.getRawValue();
         data.appointmentId = app?.id!;
         return this.m_AppointmentService.createDonation(data).pipe(
-          tap(_ => {
-            this.m_SnackBar.open(`Donation created successfully`, 'Close', { duration: 4000 })
-            this.m_Router.navigate(['..'], { relativeTo: this.m_Route })
-          }),
+          switchMap(_ => this.m_AppointmentService.fetchAppointment(app?.id!).pipe(
+            tap(_ => {
+              this.m_SnackBar.open(`Donation created successfully`, 'Close', { duration: 4000 })
+              this.m_Router.navigate(['..'], { relativeTo: this.m_Route })
+            }),
+            catchError(_ => EMPTY))
+          ),
           catchError(_ => EMPTY),
         );
       })

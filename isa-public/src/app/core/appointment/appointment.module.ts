@@ -8,11 +8,12 @@ import { AppointmentRoutingModule } from "./appointment-routing.module";
 import { AppointmentComponent } from "./appointment.component";
 import { AppointmentDetailsComponent } from "./pages/appointment-details/appointment-details.component";
 import { CreateDonationComponent } from "./pages/create-donation/create-donation.component";
+import { BloodToNumberPipe } from "./pipes/blood-to-number.pipe";
 import { BloodPipe } from "./pipes/blood.pipe";
 import { AppointmentService } from "./services/appointment.service";
 
 @NgModule({
-  providers: [AppointmentService],
+  providers: [AppointmentService, BloodToNumberPipe, BloodPipe],
   declarations: [
     AppointmentComponent,
     AppointmentDetailsComponent,

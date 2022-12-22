@@ -10,5 +10,5 @@ export interface Donation {
   heart: string;
   tt: number;
   tb: number;
-  bloodAmmount: number;
+  bloodAmount: number;
 }
