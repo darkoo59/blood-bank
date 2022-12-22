@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 public class Admin extends Person {
 
+    private boolean passwordChanged;
     public Admin(String firstname,
                  String lastname,
                  String email,
@@ -25,6 +26,25 @@ public class Admin extends Person {
                  String information)
     {
         super(firstname, lastname, email, password, phone, nationalId, sex, occupation,information);
+        passwordChanged = false;
         enabled = true;
     }
+
+    public Admin(String firstname,
+                 String lastname,
+                 String email,
+                 String password,
+                 String phone,
+                 String nationalId,
+                 Sex sex,
+                 String occupation,
+                 String information,
+                 boolean passwordChanged)
+    {
+        super(firstname, lastname, email, password, phone, nationalId, sex, occupation,information);
+        this.passwordChanged = passwordChanged;
+        enabled = true;
+    }
+
+
 }

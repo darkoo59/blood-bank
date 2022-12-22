@@ -11,8 +11,10 @@ import { RoleGuard } from '../auth/guards/role.guard';
 import { QuestionnaireComponent } from './pages/questionnaire/questionnaire.component';
 import { SendingNewsComponent } from './pages/sending-news/sending-news.component';
 import { CalendarComponent } from './pages/calendar/calendar.component';
-import { BloodDonationScheduleComponent } from './pages/blood-donation-schedule/blood-donation-schedule.component';
 import { BcSingleShowComponent } from './pages/bc-single-show/bc-single-show.component';
+import { ScheduleAppointmentComponent } from './pages/schedule-appointment/schedule-appointment.component';
+import { SysAdminRegisterComponent } from './pages/sys-admin-register/sys-admin-register.component';
+import { SysAdminPasswordComponent } from './pages/sys-admin-password/sys-admin-password.component';
 
 const routes: Routes = [
   {
@@ -79,7 +81,7 @@ const routes: Routes = [
         data: { roles: ["ROLE_ADMIN", "ROLE_BCADMIN"] }
       },
       {
-        path: 'appointment',
+        path: 'appointment/:id',
         loadChildren: () => import('../core/appointment/appointment.module').then(m => m.AppointmentModule),
         canActivate: [RoleGuard],
         data: { roles: ["ROLE_BCADMIN"] }
@@ -89,6 +91,24 @@ const routes: Routes = [
         component: CalendarComponent,
         canActivate: [RoleGuard],
         data: { roles: ["ROLE_BCADMIN"] }
+      },
+      {
+        path: 'schedule-appointment',
+        component: ScheduleAppointmentComponent,
+        canActivate: [RoleGuard],
+        data: { roles: ["ROLE_USER"]}
+      },
+      {
+        path: 'sys-admin-register',
+        component: SysAdminRegisterComponent,
+        canActivate: [RoleGuard],
+        data: { roles: ["ROLE_ADMIN"]}
+      },
+      {
+        path: 'sys-admin-password',
+        component: SysAdminPasswordComponent,
+        canActivate: [RoleGuard],
+        data: { roles: ["ROLE_ADMIN"] }
       },
       { path: '', pathMatch: 'full', redirectTo: 'home' },
       { path: '**', component: PageNotFoundComponent }

@@ -2,6 +2,7 @@ package bloodcenter.branch_center;
 
 import bloodcenter.branch_center.dto.RegisterBranchCenterDTO;
 import bloodcenter.branch_center.dto.SingleBranchCenterDTO;
+import bloodcenter.branch_center.dto.SortRequestDTO;
 import bloodcenter.branch_center.dto.WorkingHoursDTO;
 import bloodcenter.person.model.BCAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +82,17 @@ public class BranchCenterController {
 
     @GetMapping(path="/allCities")
     public @ResponseBody List<String> getAllCities(){ return service.getAllCitiesForFiltering(); }
+
+    @Secured({"ROLE_USER"})
+    @GetMapping(path="/available-for-appointment-date")
+    public @ResponseBody ArrayList<BranchCenterDTO> getAvailableForAppointmentDate
+            (@RequestParam String date){ return service.findAvailableForAppointmentDate(date); }
+
+    @Secured({"ROLE_USER"})
+    @PostMapping(path="/sorted")
+    public @ResponseBody ArrayList<BranchCenterDTO> getSorted
+            (@RequestBody SortRequestDTO request){ return service.sortBranchCenters(request); }
+
 
     @ExceptionHandler({ Exception.class })
     public ResponseEntity<Object> handleExceptions(Exception ex){

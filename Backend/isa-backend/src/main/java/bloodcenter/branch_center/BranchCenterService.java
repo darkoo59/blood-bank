@@ -23,6 +23,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static bloodcenter.utils.ObjectsMapper.convertFeedbackToDTO;
@@ -172,5 +174,50 @@ public class BranchCenterService {
         dto.setAvailableAppointments(availableAppointmentsDTOS);
 
         return dto;
+    }
+    
+    public ArrayList<BranchCenterDTO> findAvailableForAppointmentDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
+        ArrayList<BranchCenterDTO> centersDto = new ArrayList<>();
+        for (BranchCenter bc: repository.findAll()) {
+            for(AvailableAppointment availableAppointment : bc.getAvailableAppointments()){
+                if((availableAppointment.getStart().isBefore(dateTime) || availableAppointment.getStart().isEqual(dateTime))
+                        && availableAppointment.getEnd().isAfter(dateTime)) {
+                    centersDto.add(ObjectsMapper.convertBranchCenterToDTO(bc));
+                    break;
+                }
+            }
+        }
+        return centersDto;
+    }
+
+    public ArrayList<BranchCenterDTO> sortBranchCenters(SortRequestDTO request) {
+        ArrayList<BranchCenterDTO> list = new ArrayList<>(request.getCentersList());
+        String sortBy = request.getSortBy();
+        if(sortBy.equals("rating")) {
+            boolean ascending = request.isAscending();
+            Collections.sort(list, (o1, o2) -> {
+                double rating1 = getAverageRating(o1);
+                double rating2 = getAverageRating(o2);
+                if (ascending) {
+                    return Double.compare(rating1, rating2);
+                } else {
+                    return Double.compare(rating2, rating1);
+                }
+            });
+        }
+        return list;
+    }
+
+    public float getAverageRating(BranchCenterDTO centerDTO) {
+        float averageRating = 0;
+        if(centerDTO.getFeedback().size() > 0) {
+            for (FeedbackDTO feedback : centerDTO.getFeedback()) {
+                averageRating += feedback.getGrade();
+            }
+            averageRating = averageRating / centerDTO.getFeedback().size();
+        }
+        return averageRating;
     }
 }

@@ -3,4 +3,5 @@ export interface AvailableAppointment {
   Subject: String;
   StartTime: Date;
   EndTime: Date;
+  Free: boolean;
 }

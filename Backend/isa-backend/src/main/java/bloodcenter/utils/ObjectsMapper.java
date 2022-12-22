@@ -8,13 +8,12 @@ import bloodcenter.available_appointment.AvailableAppointment;
 import bloodcenter.available_appointment.dto.AvailableAppointmentsDTO;
 import bloodcenter.branch_center.BranchCenter;
 import bloodcenter.branch_center.dto.BranchCenterDTO;
+import bloodcenter.donation.Donation;
+import bloodcenter.donation.dto.DonationSimpleDTO;
 import bloodcenter.feedback.Feedback;
 import bloodcenter.feedback.dto.FeedbackAuthorDTO;
 import bloodcenter.feedback.dto.FeedbackDTO;
-import bloodcenter.person.dto.BCAdminDTO;
-import bloodcenter.person.dto.BCAdminShallowDTO;
-import bloodcenter.person.dto.PersonDTO;
-import bloodcenter.person.dto.RegisterDTO;
+import bloodcenter.person.dto.*;
 import bloodcenter.person.model.Admin;
 import bloodcenter.person.model.BCAdmin;
 import bloodcenter.person.model.Person;
@@ -70,6 +69,9 @@ public class ObjectsMapper {
     }
 
     public static PersonDTO convertPersonToDTO(Person person) {
+        PersonDTO dto = modelMapper.map(person, PersonDTO.class);
+        if(person.getAddress() != null)
+            dto.setAddress(convertAddressToDTO(person.getAddress()));
         return modelMapper.map(person,PersonDTO.class);
     }
     public static AddressDTO convertAddressToDTO(Address address){
@@ -130,7 +132,23 @@ public class ObjectsMapper {
         PersonDTO pdto = convertPersonToDTO(appointment.getUser());
         AppointmentDTO dto = modelMapper.map(appointment, AppointmentDTO.class);
         dto.setUser(pdto);
+
+        if(appointment.getDonation() != null) {
+            DonationSimpleDTO sdto = convertDonationToSimpleDTO(appointment.getDonation());
+            dto.setDonation(sdto);
+        }
         return dto;
+    }
+
+    public static DonationSimpleDTO convertDonationToSimpleDTO(Donation donation) {
+        return modelMapper.map(donation, DonationSimpleDTO.class);
+    }
+
+    public static List<AppointmentDTO> convertAppointmentListToDTO(List<Appointment> list){
+        ArrayList<AppointmentDTO> dtos = new ArrayList<>();
+        for(Appointment app: list)
+            dtos.add(convertAppointmentToDTO(app));
+        return dtos;
     }
 
     public static AnswerDTO convertAnswerToAnswerDTO(Answer answer) {
@@ -144,5 +162,9 @@ public class ObjectsMapper {
 
         modelMapper.addMappings(answerMap);
         return modelMapper.map(answer, AnswerDTO.class);
+    }
+
+    public static Admin convertRegisterAdminDTOToAdmin(RegisterAdminDTO registerAdminDTO) {
+        return modelMapper.map(registerAdminDTO, Admin.class);
     }
 }

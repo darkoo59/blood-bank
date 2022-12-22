@@ -33,6 +33,10 @@ export class NavComponent {
     {
       path: 'questionnaire',
       title: 'Questionnaire'
+    },
+    {
+      path: 'schedule-appointment',
+      title: 'Schedule Appointment'
     }
   ];
 
@@ -68,6 +72,10 @@ export class NavComponent {
     {
       path: 'bc-admin-assign',
       title: 'Assign Admin To Branch Center'
+    },
+    {
+      path: 'sys-admin-register',
+      title: 'Register System Admin'
     },
     {
       path: 'all-users',

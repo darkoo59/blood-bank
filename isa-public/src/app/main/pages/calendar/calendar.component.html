@@ -1,11 +1,12 @@
-<section>
+<section *ngLet="m_FetchAllApps$ | async">
   <ejs-schedule
-   [eventSettings]='eventSettings'
-   [views]='views'
-   [workHours]="scheduleHours"
-   [startHour]="scheduleHours.start"
-   [endHour]="scheduleHours.end"
-   [workDays]="workingDays"
-   (actionBegin)="onActionBegin($event)">
+    [eventSettings]='eventSettings'
+    [views]='views'
+    [workHours]="scheduleHours"
+    [startHour]="scheduleHours.start"
+    [endHour]="scheduleHours.end"
+    [workDays]="workingDays"
+    (actionBegin)="onActionBegin($event)"
+    (eventClick)="appointmentSelected($event)">
   </ejs-schedule>
 </section>

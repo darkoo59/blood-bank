@@ -1,0 +1,38 @@
+<section>
+<div *ngIf="isDateSelected == false">
+    <mat-form-field>
+      <input matInput type="datetime-local" placeholder="Select appointment date" [value] = "selectedDate"
+      (input) = "onDateChange($event)" name="dateTimePicker" [min]="minimumSelectedDateTime" required>
+    </mat-form-field>
+
+    <div class="button-group">
+      <button mat-flat-button color="primary" (click)="next()" [disabled]="isNextDisabled()">Next</button>
+    </div>
+
+</div>
+<div *ngIf="isDateSelected == true">
+  <mat-form-field appearance="fill">
+    <mat-label>Sort by</mat-label>
+    <mat-select>
+      <mat-option (click)="sort('rating','asc')" [value]="0">
+        Rating ↑
+      </mat-option>
+      <mat-option (click)="sort('rating','desc')"  [value]="1">
+        Rating ↓
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div class="grid">
+    <mat-card class="card" *ngFor="let center of branchCenters" (click)="centerIsSelected(center.id)">
+      <mat-card-title>{{center.name}}</mat-card-title>
+      <mat-card-content>
+        <p><b>Description: </b>{{center.description}}</p>
+        <p><b>Country: </b>{{center.address.country}}</p>
+        <p><b>City: </b>{{center.address.city}}</p>
+        <p><b>Address: </b>{{center.address.street}} {{center.address.number}}</p>
+        <grade *ngIf="center.feedback && center.feedback.length != 0" class="grade" [i_Grade]="calculateAverage(center.feedback)"></grade>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+</section>
