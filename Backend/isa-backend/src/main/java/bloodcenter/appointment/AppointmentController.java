@@ -20,7 +20,7 @@ public class AppointmentController {
 
     @GetMapping("/{id}")
     @Secured({"ROLE_USER", "ROLE_BCADMIN"})
-    public ResponseEntity<Object> GetStartableAppointmentById(@PathVariable("id") long id) throws Exception {
+    public ResponseEntity<Object> getById(@PathVariable("id") long id) throws Exception {
         return new ResponseEntity<>(
                 ObjectsMapper.convertAppointmentToDTO(service.getById(id)),
                 HttpStatus.OK);
@@ -28,9 +28,22 @@ public class AppointmentController {
 
     @PatchMapping("/start/{id}")
     @Secured({"ROLE_BCADMIN"})
-    public ResponseEntity<Object> StartAppointment(@PathVariable("id") int id){
+    public ResponseEntity<Object> startAppointment(@PathVariable("id") long id){
         service.startAppointment(id);
 
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping()
+    @Secured({"ROLE_USER", "ROLE_BCADMIN"})
+    public ResponseEntity<Object> getAllAppointments(){
+        return new ResponseEntity<>(ObjectsMapper.convertAppointmentListToDTO(service.getAll()), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    @Secured({"ROLE_BCADMIN"})
+    public ResponseEntity<Object> deleteAppointment(@PathVariable("id") long id){
+        service.deleteAppointment(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

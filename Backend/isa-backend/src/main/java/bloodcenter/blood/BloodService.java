@@ -1,6 +1,5 @@
 package bloodcenter.blood;
 
-import bloodcenter.api_key.KeyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,6 +48,13 @@ public class BloodService {
 
     public void saveBlood(List<Blood> bloodToSave){
         bloodRepository.saveAll(bloodToSave);
+    }
+
+    public void addBlood(BloodType bloodType, double amount){
+        Blood blood = bloodRepository.findBloodByType(bloodType).get();
+
+        blood.setQuantity(blood.getQuantity() + (float)amount);
+        bloodRepository.save(blood);
     }
 
     private BloodType convertToEnum(String type){

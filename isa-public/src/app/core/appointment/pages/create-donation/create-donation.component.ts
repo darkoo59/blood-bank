@@ -52,6 +52,19 @@ export class CreateDonationComponent {
     ))
   ) as Subject<any>;
 
+  m_Report$ = new Subject<any>().pipe(
+    switchMap(_ => this.m_Data$.pipe(
+      take(1),
+      switchMap((app: Appointment | null) => this.m_AppointmentService.deleteAppointment(app?.id!).pipe(
+        catchError(_ => EMPTY),
+        tap(_ => {
+          this.m_SnackBar.open(`User reported successfully`, 'Close', { duration: 4000 })
+          this.m_Router.navigate(['/calendar'])
+        })
+      ))
+    ))
+  ) as Subject<any>;
+
   m_CreateDonation$ = new Subject<any>().pipe(
     switchMap(_ => this.m_Data$.pipe(
       take(1),

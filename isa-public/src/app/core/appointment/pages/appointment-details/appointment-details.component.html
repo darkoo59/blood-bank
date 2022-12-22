@@ -6,13 +6,13 @@
         <td>name:</td>
         <td>{{vm.data.user.firstname}}&nbsp;{{vm.data.user.lastname}}</td>
         <td>begin:</td>
-        <td>{{vm.data.begin}}</td>
+        <td>{{vm.data.begin | date:'medium'}}</td>
       </tr>
       <tr>
         <td>email:</td>
         <td>{{vm.data.user.email}}</td>
         <td>end:</td>
-        <td>{{vm.data.end}}</td>
+        <td>{{vm.data.end | date:'medium'}}</td>
       </tr>
       <tr>
         <td>country:</td>
@@ -26,14 +26,18 @@
         <td>street number:</td>
         <td>{{getAddress(vm.data)?.number}}</td>
       </tr>
+      <tr *ngIf="vm.data.user.penalties && vm.data.user.penalties > 0">
+        <td style="color:red;">panalties:</td>
+        <td style="color:red;">{{vm.data.user.penalties}}</td>
+      </tr>
     </table>
     <div class="button-group">
-      <button mat-flat-button type="button" color="primary" (click)="donate()" *ngIf="!vm.data.donation">Start Donation</button>
+      <button mat-flat-button type="button" color="primary" (click)="donate()" *ngIf="!vm.data.donation">Donation</button>
     </div>
   </mat-card>
 
   <mat-card class="card" *ngIf="vm.data && vm.data.donation">
-    <h3 style="color: #0b0;">Donation has been made already</h3>
+    <h3 style="color: #0b0;">Donation has been made</h3>
     <table *ngLet="vm.data.donation as donation">
       <tr>
         <td>blood type:</td>

@@ -41,6 +41,10 @@ export class AppointmentService extends GenericDataService<Appointment> {
     return this.addErrorReader(this.m_Http.patch(`${environment.apiUrl}/appointment/start/${id}`, {}));
   }
 
+  deleteAppointment(id: number): Observable<any> {
+    return this.addErrorReader(this.m_Http.delete(`${environment.apiUrl}/appointment/${id}`));
+  }
+
   createDonation(dto: CreateDonationDTO): Observable<any> {
     return this.addErrorReader(this.m_Http.post(`${environment.apiUrl}/donation`, dto));
   }

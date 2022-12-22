@@ -1,6 +1,7 @@
 <div *ngLet="{
   data: m_Data$ | async,
   start: m_Start$ | async,
+  report: m_Report$ | async,
   createDonation: m_CreateDonation$  | async
 } as vm">
   <mat-card class="card" *ngIf="vm.data">
@@ -10,13 +11,13 @@
         <td>name:</td>
         <td>{{vm.data.user.firstname}}&nbsp;{{vm.data.user.lastname}}</td>
         <td>begin:</td>
-        <td>{{vm.data.begin}}</td>
+        <td>{{vm.data.begin | date:'medium'}}</td>
       </tr>
       <tr>
         <td>email:</td>
         <td>{{vm.data.user.email}}</td>
         <td>end:</td>
-        <td>{{vm.data.end}}</td>
+        <td>{{vm.data.end | date:'medium'}}</td>
       </tr>
       <tr>
         <td>country:</td>
@@ -30,9 +31,13 @@
         <td>street number:</td>
         <td>{{getAddress(vm.data)?.number}}</td>
       </tr>
+      <tr *ngIf="vm.data.user.penalties && vm.data.user.penalties > 0">
+        <td style="color:red;">panalties:</td>
+        <td style="color:red;">{{vm.data.user.penalties}}</td>
+      </tr>
     </table>
     <div class="button-group">
-      <button mat-button type="button" color="accent">Report User</button>
+      <button mat-button type="button" color="accent" (click)="m_Report$.next(0)">Report User</button>
       <button mat-flat-button type="button" color="primary" (click)="m_Start$.next(0)" *ngIf="!vm.data.started">Start Appointment</button>
     </div>
   </mat-card>

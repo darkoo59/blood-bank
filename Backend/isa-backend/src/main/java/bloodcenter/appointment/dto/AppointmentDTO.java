@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class AppointmentDTO {
     private long id;
-
+    private String title;
     private LocalDateTime begin;
     private LocalDateTime end;
     private boolean started;

@@ -147,6 +147,13 @@ public class ObjectsMapper {
         return modelMapper.map(donation, DonationSimpleDTO.class);
     }
 
+    public static List<AppointmentDTO> convertAppointmentListToDTO(List<Appointment> list){
+        ArrayList<AppointmentDTO> dtos = new ArrayList<>();
+        for(Appointment app: list)
+            dtos.add(convertAppointmentToDTO(app));
+        return dtos;
+    }
+
     public static AnswerDTO convertAnswerToAnswerDTO(Answer answer) {
         ModelMapper modelMapper = new ModelMapper();
         PropertyMap<Answer, AnswerDTO> answerMap = new PropertyMap<>() {

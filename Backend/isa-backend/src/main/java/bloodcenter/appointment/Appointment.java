@@ -20,7 +20,7 @@ public class Appointment {
             strategy = GenerationType.IDENTITY
     )
     private long id;
-
+    private String title;
     private LocalDateTime begin;
     private LocalDateTime end;
     private boolean started;

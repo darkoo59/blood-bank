@@ -23,6 +23,12 @@ public class User extends Person
     @OneToMany(mappedBy = "user")
     private List<Donation> donations;
 
+    private int penalties;
+
+    public void addPenalty(){
+        penalties++;
+    }
+
     public User(String firstname, String lastname, String email, String password) {
         super(firstname, lastname, email, password);
     }

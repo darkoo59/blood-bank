@@ -3,6 +3,7 @@ import { User } from "./user.model";
 
 export interface Appointment {
   id: number;
+  title: string;
   begin: Date | null;
   end: Date | null;
   started: boolean;
