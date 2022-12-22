@@ -22,6 +22,7 @@ import { ErrorComponent } from './pages/email-confirmation/error/error.component
 import { CalendarComponent } from './pages/calendar/calendar.component';
 import { DayService, MonthAgendaService, MonthService, RecurrenceEditorModule, ScheduleModule, WeekService, WorkWeekService, YearService } from '@syncfusion/ej2-angular-schedule';
 import { BloodDonationScheduleService } from './pages/blood-donation-schedule/blood-donation-schedule.service';
+import { BcSingleShowComponent } from './pages/bc-single-show/bc-single-show.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { BloodDonationScheduleService } from './pages/blood-donation-schedule/bl
     SendingNewsComponent,
     ConfirmedComponent,
     ErrorComponent,
-    CalendarComponent
+    CalendarComponent,
+    BcSingleShowComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,39 @@
+<div *ngLet="(m_BCData$ | async) as bc_data" class="container">
+  <div *ngIf="bc_data">
+    <mat-card>
+      <div class="flex-block">
+        <div class="left">
+          <h4>{{bc_data.name}}</h4>
+          <table>
+            <tr>
+              <td>Description:</td>
+              <td>{{bc_data.description}}</td>
+            </tr>
+            <tr *ngIf="bc_data.feedback && bc_data.feedback.length != 0">
+              <td>Grade:</td>
+              <td><grade class="grade" [i_Grade]="calculateAverage(bc_data.feedback)"></grade></td>
+            </tr>
+            <tr>
+              <td>Working time:</td>
+              <td>
+                <p *ngFor="let day of bc_data.workingDays | keyvalue">{{day.key}}: {{day.value}}</p>
+              </td>
+              <td>todo...</td>
+            </tr>            
+          </table>
+        </div>
+        <div class="right">
+          <app-map [m_Height]="350" [m_Location]="m_Location!"></app-map>
+        </div>
+      </div>
+    </mat-card>
+  
+    <div class="comment-block" *ngIf="bc_data.feedback && bc_data.feedback.length != 0">
+      <h4>Feedback</h4>
+      <comment-list [i_Comments]="bc_data.feedback"></comment-list>
+    </div>
+  </div>
+  <div *ngIf="!bc_data">
+    An error occurred while trying to display this center. Please try again later or contact our support team for assistance.
+  </div>
+</div>

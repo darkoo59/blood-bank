@@ -43,4 +43,8 @@ public class AvailableAppointmentService {
         appointment.setBranchCenterId(branchCenter.getId());
         repository.save(appointment);
     }
+
+    public List<AvailableAppointment> getByBranchCenterId(Long id) {
+        return repository.getAvailableAppointmentByBranchCenterId(id);
+    }
 }

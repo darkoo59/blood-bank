@@ -7,6 +7,7 @@ import { BranchCenterPage } from 'src/app/model/classes/branch-center-page';
 import { __values } from 'tslib';
 import { BcAllService } from './bc-all.service';
 import { Comment } from 'src/app/model/comment.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-bc-all',
@@ -27,7 +28,7 @@ export class BCAllComponent implements OnInit{
   })
   pageEvent!: PageEvent;
 
-  constructor(private centersService: BcAllService) { }
+  constructor(private centersService: BcAllService, private m_Router: Router) { }
 
   ngOnInit() {
     this.getCenters({page: "0", size:"3"});
@@ -113,5 +114,9 @@ export class BCAllComponent implements OnInit{
     this.selectedCity = ""
     this.selectedCountry = ""
     this.getCenters('')
+  }
+
+  openBC(id: number) {
+    this.m_Router.navigate(['/bc/'+id]);
   }
 }

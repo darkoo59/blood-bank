@@ -12,6 +12,7 @@ import { QuestionnaireComponent } from './pages/questionnaire/questionnaire.comp
 import { SendingNewsComponent } from './pages/sending-news/sending-news.component';
 import { CalendarComponent } from './pages/calendar/calendar.component';
 import { BloodDonationScheduleComponent } from './pages/blood-donation-schedule/blood-donation-schedule.component';
+import { BcSingleShowComponent } from './pages/bc-single-show/bc-single-show.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,12 @@ const routes: Routes = [
       {
         path: 'bc-all',
         component: BCAllComponent
+      },
+      {
+        path: 'bc/:id',
+        component: BcSingleShowComponent,
+        canActivate: [RoleGuard],
+        data: { roles: ["ROLE_USER"] }
       },
       {
         path: 'questionnaire',

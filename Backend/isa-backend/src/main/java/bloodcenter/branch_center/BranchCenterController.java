@@ -1,6 +1,7 @@
 package bloodcenter.branch_center;
 
 import bloodcenter.branch_center.dto.RegisterBranchCenterDTO;
+import bloodcenter.branch_center.dto.SingleBranchCenterDTO;
 import bloodcenter.branch_center.dto.WorkingHoursDTO;
 import bloodcenter.person.model.BCAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +39,12 @@ public class BranchCenterController {
 
     @GetMapping(path="/all")
     public @ResponseBody ArrayList<BranchCenterDTO> getAll(){ return service.findAll(); }
+
+    @Secured({"ROLE_USER"})
+    @GetMapping(path="/view/{id}")
+    public ResponseEntity<SingleBranchCenterDTO> getSingleBC(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(service.getSingleBC(id), HttpStatus.OK);
+    }
 
     @GetMapping(path="/all-centers-pagination")
     public @ResponseBody ResponseEntity<Map<String,Object>> getAllPages(

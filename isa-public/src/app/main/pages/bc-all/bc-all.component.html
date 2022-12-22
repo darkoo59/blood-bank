@@ -36,6 +36,7 @@
         <p><b>City: </b>{{center.address.city}}</p>
         <p><b>Address: </b>{{center.address.street}} {{center.address.number}}</p>
         <grade *ngIf="center.feedback && center.feedback.length != 0" class="grade" [i_Grade]="calculateAverage(center.feedback)"></grade>
+        <button mat-flat-button color="accent" class="view-button" (click)="openBC(center.id)">View</button>
       </mat-card-content>
     </mat-card>
   </div>
