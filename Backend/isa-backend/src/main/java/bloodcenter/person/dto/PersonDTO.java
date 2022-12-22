@@ -28,6 +28,7 @@ public class PersonDTO {
     public Sex sex;
     public String occupation;
     public String information;
+    public int penalties;
 
     public List<RoleDTO> roles;
 }

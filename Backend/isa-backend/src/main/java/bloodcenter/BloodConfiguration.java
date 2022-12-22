@@ -49,8 +49,12 @@ public class BloodConfiguration {
             Blood blood2 = new Blood(BloodType.ANegative, 5.0f);
             Blood blood3 = new Blood(BloodType.ONegative, 50.2f);
             Blood blood4 = new Blood(BloodType.BPositive, 17.3f);
+            Blood blood5 = new Blood(BloodType.ABNegative, 12.5f);
+            Blood blood6 = new Blood(BloodType.APositive, 2.0f);
+            Blood blood7 = new Blood(BloodType.OPositive, 40.2f);
+            Blood blood8 = new Blood(BloodType.BNegative, 52.3f);
 
-            repository.saveAll(List.of(blood1, blood2, blood3, blood4));
+            repository.saveAll(List.of(blood1, blood2, blood3, blood4, blood5, blood6, blood7, blood8));
         };
     }
 
@@ -142,6 +146,11 @@ public class BloodConfiguration {
             a3.getRoles().add(role);
             a4.getRoles().add(role);
 
+            a1.setEnabled(true);
+            a2.setEnabled(true);
+            a3.setEnabled(true);
+            a4.setEnabled(true);
+
             repository.saveAll(List.of(a1, a2, a3, a4));
         };
     }
@@ -149,9 +158,10 @@ public class BloodConfiguration {
     @Bean
     CommandLineRunner AdminCLR(AdminRepository repository, RoleRepository role_repo) {
         return args -> {
-            Admin a1 = new Admin("Elon", "Musk", "elonmusk@tesla.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0641233153","7234567891011", Sex.MALE,"Default occupation","Default information");
+            Admin a1 = new Admin("Elon", "Musk", "elonmusk@tesla.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0641233153","7234567891011", Sex.MALE,"Default occupation","Default information", true);
             Role role = role_repo.findByName("ROLE_ADMIN");
             a1.getRoles().add(role);
+            a1.setEnabled(true);
             repository.saveAll(List.of(a1));
         };
     }
@@ -186,12 +196,18 @@ public class BloodConfiguration {
             Appointment a1 = new Appointment(u);
             Appointment a2 = new Appointment(u);
             Appointment a3 = new Appointment(u);
-            User u2 = user_repo.findByEmail("darko@gmail.com").get();
-            Appointment a4 = new Appointment(LocalDateTime.of(2020, Month.DECEMBER, 21, 19, 00),
-                    LocalDateTime.of(2020, Month.DECEMBER, 21, 19, 30));
-            a4.setUser(u2);
 
-            repository.saveAll(List.of(a1, a2, a3,a4));
+            a1.setBegin(LocalDateTime.of(2022, Month.DECEMBER, 21, 19, 0));
+            a1.setEnd(LocalDateTime.of(2022, Month.DECEMBER, 21, 20, 30));
+            a1.setTitle("Naslov 1");
+            a2.setBegin(LocalDateTime.of(2022, Month.DECEMBER, 22, 12, 30));
+            a2.setEnd(LocalDateTime.of(2022, Month.DECEMBER, 22, 13, 0));
+            a2.setTitle("Naslov 2");
+            a3.setBegin(LocalDateTime.of(2022, Month.DECEMBER, 25, 12, 30));
+            a3.setEnd(LocalDateTime.of(2022, Month.DECEMBER, 25, 13, 0));
+            a3.setTitle("Naslov 3");
+
+            repository.saveAll(List.of(a1, a2, a3));
         };
     }
 

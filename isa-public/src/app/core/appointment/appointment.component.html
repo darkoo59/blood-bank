@@ -1,10 +1,9 @@
-<section *ngLet="{er: m_Error$ | async, fetch: m_FetchData$ | async, data: m_Data$ | async} as vm">
+<section *ngLet="{
+  fetchData: m_FetchData$ | async,
+  er: m_Error$ | async
+} as vm">
   <div *ngIf="!m_Loading">
-    <div>
-      <div class="button-group">
-        <button mat-flat-button color="primary">Start Appointment</button>
-      </div>
-    </div>
+    <router-outlet></router-outlet>
     <div *ngIf="vm.er" class="errors">{{vm.er}}</div>
   </div>
   <div *ngIf="m_Loading">

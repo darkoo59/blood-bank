@@ -2,6 +2,7 @@ package bloodcenter.appointment;
 
 import bloodcenter.appointment.dto.CreateAppointmentDTO;
 import bloodcenter.branch_center.dto.RegisterBranchCenterDTO;
+import bloodcenter.core.ErrorResponse;
 import bloodcenter.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,8 +22,37 @@ public class AppointmentController {
 
     @GetMapping("/{id}")
     @Secured({"ROLE_USER", "ROLE_BCADMIN"})
-    public ResponseEntity<Object> GetById(@PathVariable("id") long id){
-        return new ResponseEntity<>(ObjectsMapper.convertAppointmentToDTO(service.GetById(id)), HttpStatus.OK);
+    public ResponseEntity<Object> getById(@PathVariable("id") long id) throws Exception {
+        return new ResponseEntity<>(
+                ObjectsMapper.convertAppointmentToDTO(service.getById(id)),
+                HttpStatus.OK);
+    }
+
+    @PatchMapping("/start/{id}")
+    @Secured({"ROLE_BCADMIN"})
+    public ResponseEntity<Object> startAppointment(@PathVariable("id") long id){
+        service.startAppointment(id);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping()
+    @Secured({"ROLE_USER", "ROLE_BCADMIN"})
+    public ResponseEntity<Object> getAllAppointments(){
+        return new ResponseEntity<>(ObjectsMapper.convertAppointmentListToDTO(service.getAll()), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    @Secured({"ROLE_BCADMIN"})
+    public ResponseEntity<Object> deleteAppointment(@PathVariable("id") long id){
+        service.deleteAppointment(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ExceptionHandler({ Exception.class })
+    public ResponseEntity<Object> handleExceptions(Exception ex){
+        ex.printStackTrace();
+        return new ResponseEntity<>(new ErrorResponse(ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/is-capable-for-blood-donation/{userId}")

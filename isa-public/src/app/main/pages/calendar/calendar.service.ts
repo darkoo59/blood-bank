@@ -30,5 +30,8 @@ export class CalendarService {
     return this.http.post(`${environment.apiUrl}/available-appointment`, dto).pipe(catchError(err => { return EMPTY; }));
   }
 
+  getAppointments(): Observable<any>{
+    return this.http.get(`${environment.apiUrl}/appointment`);
+  }
 
 }

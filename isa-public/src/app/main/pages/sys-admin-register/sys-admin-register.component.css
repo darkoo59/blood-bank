@@ -1,0 +1,40 @@
+.input-field {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+    margin: auto;
+}
+
+.heading {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.address-input {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.address-input-field {
+    min-width: 235px;
+    margin-top: 15px;
+}
+
+.button-group{
+    display: flex;
+    justify-content: right;
+    margin-top: 20px;
+}
+.textarea { 
+    max-height: 100px;
+    min-height: 35px;
+}
+.scroll::-webkit-scrollbar {
+    display: none;
+}
