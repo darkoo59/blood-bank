@@ -42,6 +42,13 @@ public class PersonController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PatchMapping("admin-password")
+    public ResponseEntity<Object> changeAdminPassword(HttpServletRequest request, @RequestBody String password) throws Exception {
+        String email = authUtility.getEmailFromRequest(request);
+        personService.changeAdminPassword(email, password);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @GetMapping("/current")
     public ResponseEntity<?> getCurrentUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String email = authUtility.getEmailFromRequest(request);

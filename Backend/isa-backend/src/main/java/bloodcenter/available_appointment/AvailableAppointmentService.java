@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,5 +42,21 @@ public class AvailableAppointmentService {
         AvailableAppointment appointment = ObjectsMapper.convertDTOToAvailableAppointment(appointmentsDTO);
         appointment.setBranchCenter(branchCenter);
         repository.save(appointment);
+    }
+
+    public AvailableAppointment getByUserSelectedDateAndBcId(LocalDateTime dateTime, long branchCenterId) {
+        for (AvailableAppointment availableAppointment:repository.findAll()) {
+            if(availableAppointment.getBranchCenter().getId() == branchCenterId){
+                if(availableAppointment.getStart().isBefore(dateTime) && availableAppointment.getEnd().isAfter(dateTime)){
+                    return availableAppointment;
+                }
+            }
+        }
+        return null;
+    }
+
+    public void remove(AvailableAppointment availableAppointment)
+    {
+        repository.delete(availableAppointment);
     }
 }

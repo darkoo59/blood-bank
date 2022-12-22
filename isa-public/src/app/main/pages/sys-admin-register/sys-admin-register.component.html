@@ -1,0 +1,94 @@
+<section>
+  <form class="example-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h1 class="heading">Register a new system administrator</h1>
+    <mat-form-field class="input-field" appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput required formControlName="sa-name">
+      <mat-error *ngIf="form.controls['sa-name'].hasError('required')">
+        Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input-field" appearance="fill">
+      <mat-label>Surname</mat-label>
+      <input matInput required formControlName="sa-surname">
+      <mat-error *ngIf="form.controls['sa-surname'].hasError('required')">
+        Surname is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    
+    <mat-form-field class="input-field" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input type="email" matInput formControlName="sa-email" placeholder="Ex. pat@example.com">
+      <mat-error *ngIf="form.controls['sa-email'].hasError('email') && !form.hasError('required')">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="form.controls['sa-email'].hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <div class="location">
+      <app-map [m_Location]="m_MapInput!" [m_Editable]="true" (locationData)="locationHandler($event)"></app-map>
+    </div>
+
+    <mat-form-field class="input-field" appearance="fill">
+      <mat-label>Phone</mat-label>
+      <input type="text" matInput formControlName="sa-phone">
+      <mat-error *ngIf="form.controls['sa-phone'].hasError('pattern') && !form.hasError('required')">
+        Please enter a valid phone number
+      </mat-error>
+      <mat-error *ngIf="form.controls['sa-phone'].hasError('required')">
+        Phone is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input-field" appearance="fill">
+      <mat-label>National ID</mat-label>
+      <input type="text" matInput formControlName="sa-nat-id">
+      <mat-error *ngIf="form.controls['sa-nat-id'].hasError('pattern') && !form.controls['sa-nat-id'].hasError('required')">
+        National ID can only contain digits 
+      </mat-error>
+      <mat-error *ngIf="(form.controls['sa-nat-id'].hasError('minlength') || form.controls['sa-nat-id'].hasError('maxlength')) && 
+        !form.controls['sa-nat-id'].hasError('required') && !form.controls['sa-nat-id'].hasError('pattern')">
+        National ID must be exactly 13 digits long 
+      </mat-error>
+      <mat-error *ngIf="form.controls['sa-nat-id'].hasError('required')">
+        National ID is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input-field" appearance="fill">
+      <mat-label>Sex</mat-label>
+      <mat-select matInput formControlName="sa-sex">
+        <mat-option value="MALE">Male</mat-option>
+        <mat-option value="FEMALE">Female</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.controls['sa-sex'].hasError('required')">
+        Sex is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input-field" appearance="fill">
+      <mat-label>Occupation</mat-label>
+      <input type="text" matInput formControlName="sa-occupation">
+      <mat-error *ngIf="form.controls['sa-occupation'].hasError('required')">
+        Occupation is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input-field" appearance="fill">
+      <mat-label>Information about the company/college/school</mat-label>
+      <textarea class="textarea scroll" matInput formControlName="sa-info"></textarea>
+      <mat-error *ngIf="form.controls['sa-info'].hasError('required')">
+        Information is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <div class="button-group">
+      <button type="button" mat-button>Cancel</button>
+      <button mat-flat-button color="primary">Submit</button>
+    </div>
+
+  </form>
+</section>

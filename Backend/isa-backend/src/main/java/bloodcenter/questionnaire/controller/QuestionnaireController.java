@@ -7,6 +7,7 @@ import bloodcenter.questionnaire.model.Questionnaire;
 import bloodcenter.questionnaire.service.QuestionnaireService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +32,7 @@ public class QuestionnaireController {
     public ResponseEntity<List<Question>> getFemaleQuestionnaire(@PathVariable String name) {
         return new ResponseEntity<>(questionnaireService.getFemaleQuestions(name), HttpStatus.OK);
     }
-
+    @Secured({"ROLE_USER"})
     @GetMapping("/get/user/{id}")
     public ResponseEntity<AnsweredQuestionnaireDTO> getAnsweredQuestionnaireByUserId(@PathVariable Long id) {
         return new ResponseEntity<>(questionnaireService.getAnsweredQuestionnaireByUserId(id), HttpStatus.OK);

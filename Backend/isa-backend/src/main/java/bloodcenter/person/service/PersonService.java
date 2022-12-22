@@ -138,4 +138,13 @@ public class PersonService implements UserDetailsService {
         person.setPassword(passwordEncoder.encode(dto.getNewPassword()));
         personRepository.save(person);
     }
+
+    public void changeAdminPassword(String email, String password) throws Exception {
+        Person person = this.getPerson(email);
+        if (person == null) throw new Exception("User not found");
+        //person.setPassword(passwordEncoder.encode(password));
+        person.setPassword(password);
+        personRepository.save(person);
+        adminService.passwordChanged(email);
+    }
 }

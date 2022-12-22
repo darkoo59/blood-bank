@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ScheduleAppointmentService } from './schedule-appointment.service';
+import { ScheduleAppointmentService } from './user-appointments.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { BranchCenter } from 'src/app/model/branch-center.model';
@@ -10,11 +10,11 @@ import { UserService } from 'src/app/services/user.service';
 import { UserScheduleAppointmentDTO } from './dto/user-schedule-appointment-dto';
 
 @Component({
-  selector: 'app-scedule-appointment',
+  selector: 'app-user-appointments',
   templateUrl: './schedule-appointment.component.html',
   styleUrls: ['./schedule-appointment.component.scss']
 })
-export class ScheduleAppointmentComponent implements OnInit {
+export class UserAppointmentsComponent implements OnInit {
 
   dateForm: UntypedFormGroup = new UntypedFormGroup({
     'selectedDate': new FormControl(null, Validators.required),
