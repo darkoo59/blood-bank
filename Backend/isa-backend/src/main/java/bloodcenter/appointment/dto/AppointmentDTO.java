@@ -1,5 +1,6 @@
 package bloodcenter.appointment.dto;
 
+import bloodcenter.donation.dto.DonationSimpleDTO;
 import bloodcenter.person.dto.PersonDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,9 +13,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class AppointmentDTO {
     private long id;
-
+    private String title;
     private LocalDateTime begin;
     private LocalDateTime end;
+    private boolean started;
 
     private PersonDTO user;
+    private DonationSimpleDTO donation;
 }

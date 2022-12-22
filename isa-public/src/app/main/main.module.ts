@@ -17,10 +17,10 @@ import { MapModule } from '../shared/map/map.module';
 import { QuestionnaireComponent } from './pages/questionnaire/questionnaire.component';
 import { CommentListModule } from '../shared/comment-list/comment-list.module';
 import { SendingNewsComponent } from './pages/sending-news/sending-news.component';
-import { ConfirmedComponent } from './pages/email-confirmation/confirmed/confirmed.component';
-import { ErrorComponent } from './pages/email-confirmation/error/error.component';
 import { CalendarComponent } from './pages/calendar/calendar.component';
 import { DayService, MonthAgendaService, MonthService, RecurrenceEditorModule, ScheduleModule, WeekService, WorkWeekService, YearService } from '@syncfusion/ej2-angular-schedule';
+import { ConfirmedComponent } from '../pages/confirmed/confirmed.component';
+import { ErrorComponent } from '../pages/error/error.component';
 import { ScheduleAppointmentComponent } from './pages/schedule-appointment/schedule-appointment.component';
 import { ScheduleAppointmentService } from './pages/schedule-appointment/schedule-appointment.service';
 
