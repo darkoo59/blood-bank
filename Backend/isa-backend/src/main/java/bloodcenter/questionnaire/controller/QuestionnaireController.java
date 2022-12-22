@@ -1,5 +1,6 @@
 package bloodcenter.questionnaire.controller;
 
+import bloodcenter.questionnaire.dto.AnsweredQuestionnaireDTO;
 import bloodcenter.questionnaire.dto.QuestionnaireDTO;
 import bloodcenter.questionnaire.model.Question;
 import bloodcenter.questionnaire.model.Questionnaire;
@@ -29,6 +30,11 @@ public class QuestionnaireController {
     @GetMapping("/get/female/{name}")
     public ResponseEntity<List<Question>> getFemaleQuestionnaire(@PathVariable String name) {
         return new ResponseEntity<>(questionnaireService.getFemaleQuestions(name), HttpStatus.OK);
+    }
+
+    @GetMapping("/get/user/{id}")
+    public ResponseEntity<AnsweredQuestionnaireDTO> getAnsweredQuestionnaireByUserId(@PathVariable Long id) {
+        return new ResponseEntity<>(questionnaireService.getAnsweredQuestionnaireByUserId(id), HttpStatus.OK);
     }
 
     @PostMapping("/submit")
