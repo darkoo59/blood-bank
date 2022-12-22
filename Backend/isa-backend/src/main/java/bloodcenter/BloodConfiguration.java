@@ -186,8 +186,12 @@ public class BloodConfiguration {
             Appointment a1 = new Appointment(u);
             Appointment a2 = new Appointment(u);
             Appointment a3 = new Appointment(u);
+            User u2 = user_repo.findByEmail("darko@gmail.com").get();
+            Appointment a4 = new Appointment(LocalDateTime.of(2020, Month.DECEMBER, 21, 19, 00),
+                    LocalDateTime.of(2020, Month.DECEMBER, 21, 19, 30));
+            a4.setUser(u2);
 
-            repository.saveAll(List.of(a1, a2, a3));
+            repository.saveAll(List.of(a1, a2, a3,a4));
         };
     }
 

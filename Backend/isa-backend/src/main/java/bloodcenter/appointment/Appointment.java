@@ -30,4 +30,10 @@ public class Appointment {
     public Appointment(User user){
         this.user = user;
     }
+
+    public Appointment(LocalDateTime begin, LocalDateTime end)
+    {
+        this.begin = begin;
+        this.end = end;
+    }
 }
