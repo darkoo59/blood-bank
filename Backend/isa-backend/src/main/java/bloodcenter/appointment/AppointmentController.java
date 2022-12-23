@@ -49,12 +49,6 @@ public class AppointmentController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @ExceptionHandler({ Exception.class })
-    public ResponseEntity<Object> handleExceptions(Exception ex){
-        ex.printStackTrace();
-        return new ResponseEntity<>(new ErrorResponse(ex.getMessage()), HttpStatus.BAD_REQUEST);
-    }
-
     @GetMapping("/is-capable-for-blood-donation/{userId}")
     @Secured({"ROLE_USER"})
     public ResponseEntity<Object> IsCapableForBloodDonation(@PathVariable("userId") long userId){
@@ -66,5 +60,11 @@ public class AppointmentController {
     public ResponseEntity<Object> createNewAppointment(@RequestBody CreateAppointmentDTO appointmentDTO) {
         service.userCreateAppointment(appointmentDTO);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ExceptionHandler({ Exception.class })
+    public ResponseEntity<Object> handleExceptions(Exception ex){
+        ex.printStackTrace();
+        return new ResponseEntity<>(new ErrorResponse(ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 }

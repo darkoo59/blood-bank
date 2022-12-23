@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { dataReady } from '@syncfusion/ej2-angular-schedule';
 import { LatLng } from 'leaflet';
 import { catchError, of, tap } from 'rxjs';
 import { Comment } from "src/app/model/comment.model";
@@ -61,16 +62,15 @@ export class BcSingleShowComponent implements OnInit {
     appointments.sort((a, b) => {
       const dateA = new Date(a.start);
       const dateB = new Date(b.start);
-  
-      if (dateA < dateB) {
+      if (dateA.getDate() > dateB.getDate()) {
         return -1;
-      } else if (dateA > dateB) {
+      } else if (dateA.getDate() < dateB.getDate()) {
         return 1;
       } else {
         const timeA = this.getTime(a.start);
         const timeB = this.getTime(b.start);
         return timeA.localeCompare(timeB);
       }
-    });
+    })
   }
 }

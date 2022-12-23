@@ -1,4 +1,4 @@
-<div *ngLet="(m_BCData$ | async) as bc_data" class="container">
+<section *ngLet="(m_BCData$ | async) as bc_data" class="container">
   <div *ngIf="bc_data">
     <mat-card>
       <div class="flex-block">
@@ -30,7 +30,7 @@
 
     <div>
       <h4>Available appointments</h4>
-      <button mat-button (click)="sortByDateAndTime(bc_data.availableAppointments)">Sort by date and time</button>
+      <button mat-stroked-button color="accent" (click)="sortByDateAndTime(bc_data.availableAppointments)">Sort by date and time</button>
       <mat-grid-list cols="3" rowHeight="3:2">
         <mat-grid-tile *ngFor="let appointment of bc_data.availableAppointments">
           <mat-card>
@@ -56,4 +56,4 @@
   <div *ngIf="!bc_data">
     An error occurred while trying to display this center. Please try again later or contact our support team for assistance.
   </div>
-</div>
+</section>

@@ -2,10 +2,12 @@ package bloodcenter.available_appointment;
 
 import bloodcenter.appointment.AppointmentService;
 import bloodcenter.available_appointment.dto.AvailableAppointmentsDTO;
+import bloodcenter.core.ErrorResponse;
 import bloodcenter.exceptions.QuestionnaireNotCompleted;
 import bloodcenter.exceptions.UserCannotGiveBloodException;
 import bloodcenter.person.model.BCAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -59,5 +61,11 @@ public class AvailableAppointmentController {
     public ResponseEntity<?> cancelAppointment(HttpServletRequest request, @RequestBody Long id) {
 
         return new ResponseEntity<>(OK);
+    }
+
+    @ExceptionHandler({ Exception.class })
+    public ResponseEntity<Object> handleExceptions(Exception ex){
+        ex.printStackTrace();
+        return new ResponseEntity<>(new ErrorResponse(ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 }
