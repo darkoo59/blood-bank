@@ -8,6 +8,8 @@ import bloodcenter.available_appointment.AvailableAppointment;
 import bloodcenter.available_appointment.dto.AvailableAppointmentsDTO;
 import bloodcenter.branch_center.BranchCenter;
 import bloodcenter.branch_center.dto.BranchCenterDTO;
+import bloodcenter.complaint.Complaint;
+import bloodcenter.complaint.dto.ComplaintDTO;
 import bloodcenter.donation.Donation;
 import bloodcenter.donation.dto.DonationSimpleDTO;
 import bloodcenter.feedback.Feedback;
@@ -166,5 +168,9 @@ public class ObjectsMapper {
 
     public static Admin convertRegisterAdminDTOToAdmin(RegisterAdminDTO registerAdminDTO) {
         return modelMapper.map(registerAdminDTO, Admin.class);
+    }
+
+    public static ComplaintDTO converComplaintToComplaintDTO(Complaint complaint) {
+        return modelMapper.map(complaint, ComplaintDTO.class);
     }
 }

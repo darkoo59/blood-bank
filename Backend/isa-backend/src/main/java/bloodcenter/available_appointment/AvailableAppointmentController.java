@@ -1,6 +1,5 @@
 package bloodcenter.available_appointment;
 
-import bloodcenter.appointment.AppointmentService;
 import bloodcenter.available_appointment.dto.AvailableAppointmentsDTO;
 import bloodcenter.core.ErrorResponse;
 import bloodcenter.exceptions.QuestionnaireNotCompleted;

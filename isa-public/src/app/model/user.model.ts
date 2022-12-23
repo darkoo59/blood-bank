@@ -15,4 +15,5 @@ export interface User {
   occupation: string;
   information: string;
   penalties?: number;
+  passwordChange?: boolean;
 }

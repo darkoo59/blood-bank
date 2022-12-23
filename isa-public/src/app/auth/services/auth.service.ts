@@ -62,7 +62,7 @@ export class AuthService {
     return this.m_Http.post(`${environment.apiUrl}/user/login`, body, options).pipe(
       tap((res: any) => this.setAccessToken = res.accessToken),
       switchMap(_ => {
-        return this.m_UserService.fetchUserData()
+        return this.m_UserService.fetchUserData();
       })
     );
   }

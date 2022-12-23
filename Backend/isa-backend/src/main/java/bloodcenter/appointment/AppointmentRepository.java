@@ -11,4 +11,5 @@ import java.util.List;
 @Repository
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
     List<Appointment> getAppointmentByEndAfterAndUser(LocalDateTime date, User user);
+    List<Appointment> getAllByUser_Id(long id);
 }

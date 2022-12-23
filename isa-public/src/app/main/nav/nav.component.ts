@@ -37,6 +37,10 @@ export class NavComponent {
     {
       path: 'schedule-appointment',
       title: 'Schedule Appointment'
+    },
+    {
+      path: 'user-appointments',
+      title: 'My appointments'
     }
   ];
 
@@ -84,6 +88,10 @@ export class NavComponent {
     {
       path: "send-news",
       title: 'Send news to hospital'
+    },
+    {
+      path: 'complaints',
+      title: 'Complaints'
     }
   ];
 
