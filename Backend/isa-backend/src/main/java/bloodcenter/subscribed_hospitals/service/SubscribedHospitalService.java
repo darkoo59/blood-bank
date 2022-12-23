@@ -9,7 +9,7 @@ import bloodcenter.subscribed_hospitals.dto.HospitalDTO;
 import bloodcenter.subscribed_hospitals.dto.NoBloodNotificationDTO;
 import bloodcenter.subscribed_hospitals.model.SubscribedHospital;
 import bloodcenter.subscribed_hospitals.repository.SubscribedHospitalRepository;
-import bloodcenter.urgent_order.utils.ObjectsMapper;
+import bloodcenter.utils.ObjectsMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;

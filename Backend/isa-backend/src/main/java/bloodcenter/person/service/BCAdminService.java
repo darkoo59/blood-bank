@@ -11,7 +11,7 @@ import bloodcenter.person.model.Person;
 import bloodcenter.person.repository.BCAdminRepository;
 import bloodcenter.role.Role;
 import bloodcenter.role.RoleRepository;
-import bloodcenter.urgent_order.utils.ObjectsMapper;
+import bloodcenter.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

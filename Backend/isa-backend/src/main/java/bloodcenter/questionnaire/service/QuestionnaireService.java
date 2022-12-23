@@ -9,7 +9,7 @@ import bloodcenter.questionnaire.enums.QuestionType;
 import bloodcenter.questionnaire.model.Answer;
 import bloodcenter.questionnaire.model.Question;
 import bloodcenter.questionnaire.repository.QuestionnaireRepository;
-import bloodcenter.urgent_order.utils.ObjectsMapper;
+import bloodcenter.utils.ObjectsMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

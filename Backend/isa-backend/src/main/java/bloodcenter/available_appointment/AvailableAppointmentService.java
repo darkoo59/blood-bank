@@ -5,7 +5,7 @@ import bloodcenter.branch_center.BranchCenter;
 import bloodcenter.person.model.BCAdmin;
 import bloodcenter.person.service.BCAdminService;
 import bloodcenter.security.filter.AuthUtility;
-import bloodcenter.urgent_order.utils.ObjectsMapper;
+import bloodcenter.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

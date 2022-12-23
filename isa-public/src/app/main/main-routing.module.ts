@@ -14,6 +14,7 @@ import { CalendarComponent } from './pages/calendar/calendar.component';
 import { ScheduleAppointmentComponent } from './pages/schedule-appointment/schedule-appointment.component';
 import { SysAdminRegisterComponent } from './pages/sys-admin-register/sys-admin-register.component';
 import { SysAdminPasswordComponent } from './pages/sys-admin-password/sys-admin-password.component';
+import { ComplaintsComponent } from './pages/complaints/complaints.component';
 
 const routes: Routes = [
   {
@@ -100,6 +101,12 @@ const routes: Routes = [
       {
         path: 'sys-admin-password',
         component: SysAdminPasswordComponent,
+        canActivate: [RoleGuard],
+        data: { roles: ["ROLE_ADMIN"] }
+      },
+      {
+        path: 'complaints',
+        component: ComplaintsComponent,
         canActivate: [RoleGuard],
         data: { roles: ["ROLE_ADMIN"] }
       },

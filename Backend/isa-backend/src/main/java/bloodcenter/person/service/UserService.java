@@ -11,7 +11,7 @@ import bloodcenter.role.RoleRepository;
 import bloodcenter.person.dto.RegisterDTO;
 import bloodcenter.person.model.User;
 import bloodcenter.person.repository.UserRepository;
-import bloodcenter.urgent_order.utils.ObjectsMapper;
+import bloodcenter.utils.ObjectsMapper;
 import bloodcenter.exceptions.EmailExistsException;
 import bloodcenter.exceptions.TokenExpiredException;
 import bloodcenter.exceptions.TokenNotFoundException;

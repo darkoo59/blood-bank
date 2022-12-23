@@ -25,6 +25,7 @@ import { ScheduleAppointmentComponent } from './pages/schedule-appointment/sched
 import { ScheduleAppointmentService } from './pages/schedule-appointment/schedule-appointment.service';
 import { SysAdminRegisterComponent } from './pages/sys-admin-register/sys-admin-register.component';
 import { SysAdminPasswordComponent } from './pages/sys-admin-password/sys-admin-password.component';
+import { ComplaintsComponent } from './pages/complaints/complaints.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { SysAdminPasswordComponent } from './pages/sys-admin-password/sys-admin-
     CalendarComponent,
     ScheduleAppointmentComponent,
     SysAdminRegisterComponent,
-    SysAdminPasswordComponent
+    SysAdminPasswordComponent,
+    ComplaintsComponent
   ],
   imports: [
     CommonModule,
