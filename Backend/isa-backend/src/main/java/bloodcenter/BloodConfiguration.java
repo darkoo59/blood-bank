@@ -335,7 +335,7 @@ public class BloodConfiguration {
           c1.setUser(user_repo.findByEmail("vojinb111@gmail.com").get());
           c2.setUser(user_repo.findByEmail("rade@gmail.com").get());
           c3.setUser(user_repo.findByEmail("vojinb111@gmail.com").get());
-          c4.setUser(user_repo.findByEmail("darko@gmail.com").get());
+          c4.setUser(user_repo.findByEmail("darko.selakovic11@gmail.com").get());
 
           c1.setBranchCenter(bc_repo.findById(1L).get());
           c2.setBranchCenter(bc_repo.findById(1L).get());
