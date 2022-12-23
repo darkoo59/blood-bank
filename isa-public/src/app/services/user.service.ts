@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { Observable, tap } from "rxjs";
 import { User } from "src/app/model/user.model";
 import { GenericDataService } from "src/app/services/generic-data.service";
@@ -14,15 +15,25 @@ export interface ChangeUserPasswordDTO {
   providedIn: 'root',
 })
 export class UserService extends GenericDataService<User> {
-  constructor(private m_Http: HttpClient) { super() }
+  constructor(private m_Http: HttpClient, private m_Router: Router) { super() }
 
   fetchUserData(): Observable<any> {
     return this.addErrorReader(this.m_Http.get(`${environment.apiUrl}/person/current`).pipe(
       tap((res: any) => {
         this.clearError();
         this.setData = res;
+        this.checkIfPasswordChanged(res);
       })
     ));
+  }
+
+  checkIfPasswordChanged(userData: any) {
+    for(let role of userData.roles) {
+      if(role.name == 'ROLE_ADMIN' && !userData.passwordChanged){
+        this.m_Router.navigate(['sys-admin-password']);
+        break;
+      }
+    }
   }
 
   changeUserPassword(dto: ChangeUserPasswordDTO): Observable<any> {

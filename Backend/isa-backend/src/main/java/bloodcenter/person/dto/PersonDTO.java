@@ -29,6 +29,7 @@ public class PersonDTO {
     public String occupation;
     public String information;
     public int penalties;
+    public boolean passwordChanged;
 
     public List<RoleDTO> roles;
 }

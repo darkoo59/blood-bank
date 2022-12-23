@@ -1,7 +1,6 @@
 package bloodcenter.appointment;
 
 import bloodcenter.appointment.dto.CreateAppointmentDTO;
-import bloodcenter.branch_center.dto.RegisterBranchCenterDTO;
 import bloodcenter.core.ErrorResponse;
 import bloodcenter.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;

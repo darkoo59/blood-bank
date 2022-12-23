@@ -63,8 +63,8 @@ export class CalendarComponent implements OnInit {
         Id: appointment.id,
         StartTime: appointment.begin,
         EndTime: appointment.end,
-        Subject: appointment.title,
-        Free: false
+        Subject: appointment.title + " - " + appointment.user.firstname + " " + appointment.user.lastname,
+        Free: false,
       } as AvailableAppointment)
     }
 

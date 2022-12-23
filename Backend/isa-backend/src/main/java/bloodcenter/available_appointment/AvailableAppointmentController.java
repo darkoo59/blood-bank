@@ -1,10 +1,7 @@
 package bloodcenter.available_appointment;
 
-import bloodcenter.appointment.AppointmentService;
 import bloodcenter.available_appointment.dto.AvailableAppointmentsDTO;
-import bloodcenter.branch_center.dto.RegisterBranchCenterDTO;
 import bloodcenter.person.model.BCAdmin;
-import bloodcenter.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
