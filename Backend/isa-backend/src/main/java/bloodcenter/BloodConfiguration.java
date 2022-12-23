@@ -193,9 +193,12 @@ public class BloodConfiguration {
     CommandLineRunner AppointmentCLR(AppointmentRepository repository, UserRepository user_repo){
         return args -> {
             User u = user_repo.findByEmail("rade@gmail.com").get();
+            User u2 = user_repo.findByEmail("marko@gmail.com").get();
             Appointment a1 = new Appointment(u);
             Appointment a2 = new Appointment(u);
             Appointment a3 = new Appointment(u);
+            Appointment a4 = new Appointment(u2);
+            Appointment a5 = new Appointment(u2);
 
             a1.setBegin(LocalDateTime.of(2022, Month.DECEMBER, 21, 19, 0));
             a1.setEnd(LocalDateTime.of(2022, Month.DECEMBER, 21, 20, 30));
@@ -206,8 +209,14 @@ public class BloodConfiguration {
             a3.setBegin(LocalDateTime.of(2022, Month.DECEMBER, 25, 12, 30));
             a3.setEnd(LocalDateTime.of(2022, Month.DECEMBER, 25, 13, 0));
             a3.setTitle("Naslov 3");
+            a4.setTitle("Marko 1");
+            a4.setBegin(LocalDateTime.of(2022, Month.DECEMBER, 26, 12, 30));
+            a4.setEnd(LocalDateTime.of(2022, Month.DECEMBER, 26, 15, 0));
+            a5.setTitle("Marko 2");
+            a5.setBegin(LocalDateTime.of(2022, Month.DECEMBER, 26, 16, 0));
+            a5.setEnd(LocalDateTime.of(2022, Month.DECEMBER, 26, 17, 0));
 
-            repository.saveAll(List.of(a1, a2, a3));
+            repository.saveAll(List.of(a1, a2, a3, a4, a5));
         };
     }
 
