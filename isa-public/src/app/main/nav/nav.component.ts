@@ -37,6 +37,10 @@ export class NavComponent {
     {
       path: 'schedule-appointment',
       title: 'Schedule Appointment'
+    },
+    {
+      path: 'user-appointments',
+      title: 'My appointments'
     }
   ];
 

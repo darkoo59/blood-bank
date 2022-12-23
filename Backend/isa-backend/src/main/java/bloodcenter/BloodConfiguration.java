@@ -172,8 +172,8 @@ public class BloodConfiguration {
     CommandLineRunner UserCLR(UserRepository repository, RoleRepository role_repo) {
         return args -> {
             User u1 = new User("Rade", "Stojanovic", "rade@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0641232133","1234567891011", Sex.MALE,"Default occupation","Default information");
-            User u2 = new User("Darko", "Selakovic", "darko@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","064143421","1234567391011",Sex.MALE,"Default occupation","Default information");
             User u3 = new User("Vojin", "Bjelica", "vojinb111@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0646677732","1264567891221",Sex.MALE,"Default occupation","Default information");
+            User u2 = new User("Darko", "Selakovic", "darko.selakovic11@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","064143421","1234567391011",Sex.MALE,"Default occupation","Default information");
             User u4 = new User("Marko", "Uljarevic", "marko@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","064312221","1324567691011",Sex.MALE,"Default occupation","Default information");
 
             u1.setEnabled(true);
@@ -195,9 +195,12 @@ public class BloodConfiguration {
     CommandLineRunner AppointmentCLR(AppointmentRepository repository, UserRepository user_repo){
         return args -> {
             User u = user_repo.findByEmail("rade@gmail.com").get();
+            User u2 = user_repo.findByEmail("marko@gmail.com").get();
             Appointment a1 = new Appointment(u);
             Appointment a2 = new Appointment(u);
             Appointment a3 = new Appointment(u);
+            Appointment a4 = new Appointment(u2);
+            Appointment a5 = new Appointment(u2);
 
             a1.setBegin(LocalDateTime.of(2022, Month.DECEMBER, 21, 19, 0));
             a1.setEnd(LocalDateTime.of(2022, Month.DECEMBER, 21, 20, 30));
@@ -208,8 +211,14 @@ public class BloodConfiguration {
             a3.setBegin(LocalDateTime.of(2022, Month.DECEMBER, 25, 12, 30));
             a3.setEnd(LocalDateTime.of(2022, Month.DECEMBER, 25, 13, 0));
             a3.setTitle("Naslov 3");
+            a4.setTitle("Marko 1");
+            a4.setBegin(LocalDateTime.of(2022, Month.DECEMBER, 26, 12, 30));
+            a4.setEnd(LocalDateTime.of(2022, Month.DECEMBER, 26, 15, 0));
+            a5.setTitle("Marko 2");
+            a5.setBegin(LocalDateTime.of(2022, Month.DECEMBER, 26, 16, 0));
+            a5.setEnd(LocalDateTime.of(2022, Month.DECEMBER, 26, 17, 0));
 
-            repository.saveAll(List.of(a1, a2, a3));
+            repository.saveAll(List.of(a1, a2, a3, a4, a5));
         };
     }
 
@@ -258,16 +267,16 @@ public class BloodConfiguration {
             f1.setUser(user_repo.findByEmail("vojinb111@gmail.com").get());
             f2.setUser(user_repo.findByEmail("rade@gmail.com").get());
             f3.setUser(user_repo.findByEmail("vojinb111@gmail.com").get());
-            f4.setUser(user_repo.findByEmail("darko@gmail.com").get());
+            f4.setUser(user_repo.findByEmail("darko.selakovic11@gmail.com").get());
             f5.setUser(user_repo.findByEmail("marko@gmail.com").get());
             f6.setUser(user_repo.findByEmail("rade@gmail.com").get());
             f7.setUser(user_repo.findByEmail("marko@gmail.com").get());
-            f8.setUser(user_repo.findByEmail("darko@gmail.com").get());
+            f8.setUser(user_repo.findByEmail("darko.selakovic11@gmail.com").get());
 
             f9.setUser(user_repo.findByEmail("marko@gmail.com").get());
             f10.setUser(user_repo.findByEmail("rade@gmail.com").get());
             f11.setUser(user_repo.findByEmail("marko@gmail.com").get());
-            f12.setUser(user_repo.findByEmail("darko@gmail.com").get());
+            f12.setUser(user_repo.findByEmail("darko.selakovic11@gmail.com").get());
 
             f1.setBranchCenter(bc_repo.findById(1L).get());
             f2.setBranchCenter(bc_repo.findById(1L).get());

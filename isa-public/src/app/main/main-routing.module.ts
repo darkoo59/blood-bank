@@ -15,6 +15,8 @@ import { ScheduleAppointmentComponent } from './pages/schedule-appointment/sched
 import { SysAdminRegisterComponent } from './pages/sys-admin-register/sys-admin-register.component';
 import { SysAdminPasswordComponent } from './pages/sys-admin-password/sys-admin-password.component';
 import { ComplaintsComponent } from './pages/complaints/complaints.component';
+import { UserAppointmentsComponent } from './pages/user-appointments/user-appointments.component';
+import { BcSingleShowComponent } from './pages/bc-single-show/bc-single-show.component';
 
 const routes: Routes = [
   {
@@ -44,6 +46,12 @@ const routes: Routes = [
       {
         path: 'bc-all',
         component: BCAllComponent
+      },
+      {
+        path: 'bc/:id',
+        component: BcSingleShowComponent,
+        canActivate: [RoleGuard],
+        data: { roles: ["ROLE_USER"] }
       },
       {
         path: 'questionnaire',
@@ -89,6 +97,12 @@ const routes: Routes = [
       {
         path: 'schedule-appointment',
         component: ScheduleAppointmentComponent,
+        canActivate: [RoleGuard],
+        data: { roles: ["ROLE_USER"]}
+      },
+      {
+        path: 'user-appointments',
+        component: UserAppointmentsComponent,
         canActivate: [RoleGuard],
         data: { roles: ["ROLE_USER"]}
       },

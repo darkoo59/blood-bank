@@ -46,20 +46,4 @@ export class UserService extends GenericDataService<User> {
     information: personToUpdate.information}
     return this.m_Http.patch(`${environment.apiUrl}/person`, body);
   }
-
-  getMaleQuestions() : Observable<any> {
-    return this.m_Http.get(`${environment.apiUrl}/questionnaire/get/male/basic`)
-  }
-
-  getFemaleQuestions() : Observable<any> {
-    return this.m_Http.get(`${environment.apiUrl}/questionnaire/get/female/basic`)
-  }
-
-  getAnsweredQuestionnaireByUserId(id: number | undefined) : Observable<any> {
-    return this.m_Http.get(`${environment.apiUrl}/questionnaire/get/user/`+id)
-  }
-
-  submitAnswers(dto: any) : Observable<any> {
-    return this.m_Http.post(`${environment.apiUrl}/questionnaire/submit`, dto)
-  }
 }

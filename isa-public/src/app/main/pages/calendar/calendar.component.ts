@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActionEventArgs, EventRenderedArgs, EventSettingsModel, WorkHoursModel } from '@syncfusion/ej2-angular-schedule';
-import { forkJoin, take, tap } from 'rxjs';
+import { ActionEventArgs, EventSettingsModel, WorkHoursModel } from '@syncfusion/ej2-angular-schedule';
+import { catchError, forkJoin, take, tap } from 'rxjs';
 import { AvailableAppointment } from 'src/app/model/available-appointment';
 import { CalendarService } from './calendar.service';
 import { WorkingHoursDTO } from './dto/working-hours-dto';
@@ -27,11 +27,16 @@ export class CalendarComponent implements OnInit {
   public eventSettings: EventSettingsModel = {}
   public views: Array<string> = ['Day','WorkWeek','Week','Month', 'Year']
   public scheduleHours: WorkHoursModel = {}
-
+  m_IsBCPresent = true;
   private m_AvailableApps$ = this.m_CalendarService.getAvailableAppointments();
   private m_Apps$ = this.m_CalendarService.getAppointments();
   m_FetchAllApps$ = forkJoin([this.m_AvailableApps$, this.m_Apps$]).pipe(
-    tap(([available, app]) => this.convertAppointmentDTO(available, app))
+    tap(([available, app]) => this.convertAppointmentDTO(available, app)),
+    catchError(err => {
+      console.log(err);
+      this.m_IsBCPresent = false;
+      throw err;
+    })
   );
 
   ngOnInit() {

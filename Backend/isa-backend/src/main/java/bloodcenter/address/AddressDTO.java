@@ -1,8 +1,12 @@
 package bloodcenter.address;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AddressDTO {
     public Long id;
     public double lat;
@@ -11,6 +15,4 @@ public class AddressDTO {
     public String number;
     public String city;
     public String country;
-
-    public AddressDTO () {}
 }

@@ -11,8 +11,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AvailableAppointmentsDTO {
-    private long id;
+    private Long id;
     private String title;
     private String start;
     private String end;
+    private Long branchCenterId;
 }

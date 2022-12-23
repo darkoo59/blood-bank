@@ -1,18 +1,20 @@
 package bloodcenter.branch_center;
 
 import bloodcenter.address.Address;
+import bloodcenter.address.AddressDTO;
 import bloodcenter.address.AddressService;
 import bloodcenter.available_appointment.AvailableAppointment;
-import bloodcenter.branch_center.dto.RegisterBranchCenterDTO;
-import bloodcenter.branch_center.dto.BranchCenterDTO;
-import bloodcenter.branch_center.dto.SortRequestDTO;
-import bloodcenter.branch_center.dto.WorkingHoursDTO;
+import bloodcenter.available_appointment.AvailableAppointmentService;
+import bloodcenter.available_appointment.dto.AvailableAppointmentsDTO;
+import bloodcenter.branch_center.dto.*;
+import bloodcenter.feedback.Feedback;
 import bloodcenter.feedback.dto.FeedbackDTO;
 import bloodcenter.person.model.BCAdmin;
 import bloodcenter.person.service.BCAdminService;
 import bloodcenter.security.filter.AuthUtility;
 import bloodcenter.utils.ObjectsMapper;
 import bloodcenter.working_days.WorkingDay;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
@@ -25,6 +27,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import static bloodcenter.utils.ObjectsMapper.convertFeedbackToDTO;
+
 @Service
 public class BranchCenterService {
     @Autowired
@@ -32,12 +36,14 @@ public class BranchCenterService {
     @Autowired
     private final AddressService service;
     private final BCAdminService bcAdminService;
+    private final AvailableAppointmentService availableAppointmentService;
 
     public BranchCenterService(BranchCenterRepository branchCenterRepository, AddressService service, @Lazy BCAdminService
-                               adminService) {
+            adminService, @Lazy AvailableAppointmentService availableAppointmentService) {
         this.repository = branchCenterRepository;
         this.service = service;
         this.bcAdminService = adminService;
+        this.availableAppointmentService = availableAppointmentService;
     }
 
     public BranchCenter getById(Long id) throws BranchCenter.BCNotFoundException {
@@ -45,8 +51,7 @@ public class BranchCenterService {
         if (center.isEmpty()) {
             throw new BranchCenter.BCNotFoundException("Branch center not found.");
         }
-        BranchCenter ret = center.get();
-        return ret;
+        return center.get();
     }
 
     public void registerBranchCenter(RegisterBranchCenterDTO bcDTO) {
@@ -130,6 +135,47 @@ public class BranchCenterService {
         return days.generateIntegerList();
     }
 
+    public SingleBranchCenterDTO getSingleBC(Long id) {
+        var bc = repository.findById(id).orElse(null);
+        if (bc == null) return null;
+
+        SingleBranchCenterDTO dto = new SingleBranchCenterDTO();
+        dto.setName(bc.getName());
+        dto.setDescription(bc.getDescription());
+        dto.setWorkTime(new WorkingHoursDTO(bc.getStartTime(), bc.getEndTime()));
+        dto.setAddress(new AddressDTO(
+                bc.getAddress().getId(),
+                bc.getAddress().getLat(),
+                bc.getAddress().getLng(),
+                bc.getAddress().getStreet(),
+                bc.getAddress().getNumber(),
+                bc.getAddress().getCity(),
+                bc.getAddress().getCountry()
+        ));
+        dto.setWorkingDays(new WorkingDaysDTO(
+                bc.getWorkingDays().isMonday(),
+                bc.getWorkingDays().isTuesday(),
+                bc.getWorkingDays().isSaturday(),
+                bc.getWorkingDays().isThursday(),
+                bc.getWorkingDays().isFriday(),
+                bc.getWorkingDays().isSaturday(),
+                bc.getWorkingDays().isSunday()
+        ));
+        List<FeedbackDTO> feedback = new ArrayList<>();
+        for (Feedback f: bc.getFeedback()){
+            feedback.add(convertFeedbackToDTO(f));
+        }
+        dto.setFeedback(feedback);
+        var appointments = availableAppointmentService.getByBranchCenterId(bc.getId());
+        List<AvailableAppointmentsDTO> availableAppointmentsDTOS = new ArrayList<>();
+        for (AvailableAppointment app : appointments) {
+            availableAppointmentsDTOS.add(ObjectsMapper.convertAvailableAppointmentToDTO(app));
+        }
+        dto.setAvailableAppointments(availableAppointmentsDTOS);
+
+        return dto;
+    }
+    
     public ArrayList<BranchCenterDTO> findAvailableForAppointmentDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         LocalDateTime dateTime = LocalDateTime.parse(date, formatter);

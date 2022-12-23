@@ -1,0 +1,43 @@
+.button-group {
+    display: flex;
+    margin-bottom: 12px;
+  
+    &>button:not(:first-child) {
+      margin-left: 15px;
+    }
+  }
+  
+  .flex-block {
+    display: flex;
+  
+    .left {
+      flex: 1;
+      padding: 20px;
+  
+      h4 {
+        margin-top: 0px;
+      }
+    }
+  
+    .right {
+      width: 500px;
+    }
+  }
+  
+
+  .container {
+    padding-bottom: 100px;
+  }
+  
+  .comment-block {
+    margin-top: 20px;
+  }
+  
+  table tr td:first-child {
+    font-weight: bold;
+    padding-right: 20px;
+  }
+  
+  .grade {
+    color: var(--secondary);
+  }

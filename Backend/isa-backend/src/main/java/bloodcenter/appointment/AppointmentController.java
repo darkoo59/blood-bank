@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+
 @RestController
 @RequestMapping("api/appointment")
 public class AppointmentController {
@@ -62,8 +64,14 @@ public class AppointmentController {
 
     @PostMapping("/user-schedule")
     @Secured({"ROLE_USER"})
-    public ResponseEntity<Object> createNewAppointment(@RequestBody CreateAppointmentDTO appointmentDTO) {
+    public ResponseEntity<Object> createNewAppointment(@RequestBody CreateAppointmentDTO appointmentDTO) throws MessagingException {
         service.userCreateAppointment(appointmentDTO);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/all-for-user/{userId}")
+    @Secured({"ROLE_USER"})
+    public ResponseEntity<Object> getAllAppointmentsByUserId(@PathVariable("userId") long userId){
+        return new ResponseEntity<>(service.findAllInFutureByUserId(userId), HttpStatus.OK);
     }
 }

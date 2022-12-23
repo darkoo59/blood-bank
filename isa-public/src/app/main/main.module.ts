@@ -19,6 +19,7 @@ import { CommentListModule } from '../shared/comment-list/comment-list.module';
 import { SendingNewsComponent } from './pages/sending-news/sending-news.component';
 import { CalendarComponent } from './pages/calendar/calendar.component';
 import { DayService, MonthAgendaService, MonthService, RecurrenceEditorModule, ScheduleModule, WeekService, WorkWeekService, YearService } from '@syncfusion/ej2-angular-schedule';
+import { BcSingleShowComponent } from './pages/bc-single-show/bc-single-show.component';
 import { ConfirmedComponent } from '../pages/confirmed/confirmed.component';
 import { ErrorComponent } from '../pages/error/error.component';
 import { ScheduleAppointmentComponent } from './pages/schedule-appointment/schedule-appointment.component';
@@ -26,6 +27,7 @@ import { ScheduleAppointmentService } from './pages/schedule-appointment/schedul
 import { SysAdminRegisterComponent } from './pages/sys-admin-register/sys-admin-register.component';
 import { SysAdminPasswordComponent } from './pages/sys-admin-password/sys-admin-password.component';
 import { ComplaintsComponent } from './pages/complaints/complaints.component';
+import { UserAppointmentsComponent } from './pages/user-appointments/user-appointments.component';
 
 @NgModule({
   declarations: [
@@ -39,9 +41,11 @@ import { ComplaintsComponent } from './pages/complaints/complaints.component';
     ConfirmedComponent,
     ErrorComponent,
     CalendarComponent,
+    BcSingleShowComponent,
     ScheduleAppointmentComponent,
     SysAdminRegisterComponent,
     SysAdminPasswordComponent,
+    UserAppointmentsComponent,
     ComplaintsComponent
   ],
   imports: [
