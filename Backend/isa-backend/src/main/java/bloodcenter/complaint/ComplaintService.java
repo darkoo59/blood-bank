@@ -1,22 +1,20 @@
 package bloodcenter.complaint;
 
-import bloodcenter.branch_center.dto.BranchCenterDTO;
 import bloodcenter.complaint.dto.ComplaintDTO;
 import bloodcenter.complaint.dto.ComplaintResponseDTO;
+import bloodcenter.email.service.EmailService;
 import bloodcenter.utils.ObjectsMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ComplaintService {
-    @Autowired
     private final ComplaintRepository complaintRepository;
-
-    public ComplaintService(ComplaintRepository complaintRepository) {this.complaintRepository = complaintRepository; }
+    private final EmailService emailService;
 
     public ArrayList<ComplaintDTO> findAllUnreplied() {
         ArrayList<ComplaintDTO> ret = new ArrayList<ComplaintDTO>();
@@ -28,12 +26,14 @@ public class ComplaintService {
         return ret;
     }
 
-    public boolean respondToComplaint(ComplaintResponseDTO dto) {
+    public boolean respondToComplaint(ComplaintResponseDTO dto) throws MessagingException {
         Complaint complaint = complaintRepository.findById(dto.id).orElse(null);
         if (complaint != null) {
             complaint.setReplied(true);
             complaintRepository.save(complaint);
             System.out.println("Replied to complaint with id: " + dto.id + ". Text is: " + dto.text);
+            emailService.send(complaint.getUser().getEmail(), "Complaint response",
+                    dto.text);
             return true;
         } else {
             return false;

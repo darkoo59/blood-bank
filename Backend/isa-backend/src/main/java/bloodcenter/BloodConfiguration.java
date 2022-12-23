@@ -173,7 +173,7 @@ public class BloodConfiguration {
         return args -> {
             User u1 = new User("Rade", "Stojanovic", "rade@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0641232133","1234567891011", Sex.MALE,"Default occupation","Default information");
             User u2 = new User("Darko", "Selakovic", "darko@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","064143421","1234567391011",Sex.MALE,"Default occupation","Default information");
-            User u3 = new User("Vojin", "Bjelica", "vojin@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0646677732","1264567891221",Sex.MALE,"Default occupation","Default information");
+            User u3 = new User("Vojin", "Bjelica", "vojinb111@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0646677732","1264567891221",Sex.MALE,"Default occupation","Default information");
             User u4 = new User("Marko", "Uljarevic", "marko@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","064312221","1324567691011",Sex.MALE,"Default occupation","Default information");
 
             u1.setEnabled(true);
@@ -255,9 +255,9 @@ public class BloodConfiguration {
             Feedback f11 = new Feedback("Adipiscing tristique risus nec feugiat in fermentum posuere urna nec.", LocalDateTime.now(), 1);
             Feedback f12 = new Feedback(" Ultrices in iaculis nunc sed. Convallis tellus id interdum velit laoreet id donec ultrices. Egestas sed tempus urna et pharetra pharetra.", LocalDateTime.now(), 2);
 
-            f1.setUser(user_repo.findByEmail("vojin@gmail.com").get());
+            f1.setUser(user_repo.findByEmail("vojinb111@gmail.com").get());
             f2.setUser(user_repo.findByEmail("rade@gmail.com").get());
-            f3.setUser(user_repo.findByEmail("vojin@gmail.com").get());
+            f3.setUser(user_repo.findByEmail("vojinb111@gmail.com").get());
             f4.setUser(user_repo.findByEmail("darko@gmail.com").get());
             f5.setUser(user_repo.findByEmail("marko@gmail.com").get());
             f6.setUser(user_repo.findByEmail("rade@gmail.com").get());
@@ -323,9 +323,9 @@ public class BloodConfiguration {
           Complaint c3 = new Complaint("I waited for 3 hours for no reason.");
           Complaint c4 = new Complaint("The bathroom had no toilet paper.");
 
-          c1.setUser(user_repo.findByEmail("vojin@gmail.com").get());
+          c1.setUser(user_repo.findByEmail("vojinb111@gmail.com").get());
           c2.setUser(user_repo.findByEmail("rade@gmail.com").get());
-          c3.setUser(user_repo.findByEmail("vojin@gmail.com").get());
+          c3.setUser(user_repo.findByEmail("vojinb111@gmail.com").get());
           c4.setUser(user_repo.findByEmail("darko@gmail.com").get());
 
           c1.setBranchCenter(bc_repo.findById(1L).get());

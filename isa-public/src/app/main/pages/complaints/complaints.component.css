@@ -42,5 +42,5 @@
 }
 
 .highlight {
-  background: darkred;
+  background: var(--primary);
 }

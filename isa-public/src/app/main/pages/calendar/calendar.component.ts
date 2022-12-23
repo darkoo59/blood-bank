@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActionEventArgs, EventSettingsModel, WorkHoursModel } from '@syncfusion/ej2-angular-schedule';
+import { ActionEventArgs, EventRenderedArgs, EventSettingsModel, WorkHoursModel } from '@syncfusion/ej2-angular-schedule';
 import { forkJoin, take, tap } from 'rxjs';
 import { AvailableAppointment } from 'src/app/model/available-appointment';
 import { CalendarService } from './calendar.service';
@@ -58,8 +58,8 @@ export class CalendarComponent implements OnInit {
         Id: appointment.id,
         StartTime: appointment.begin,
         EndTime: appointment.end,
-        Subject: appointment.title,
-        Free: false
+        Subject: appointment.title + " - " + appointment.user.firstname + " " + appointment.user.lastname,
+        Free: false,
       } as AvailableAppointment)
     }
 
