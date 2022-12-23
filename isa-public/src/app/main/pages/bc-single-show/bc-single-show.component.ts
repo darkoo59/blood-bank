@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { LatLng } from 'leaflet';
-import { tap } from 'rxjs';
-import { BCDashboardService } from 'src/app/core/bc-dashboard/services/bc-dashboard.service';
+import { catchError, of, tap } from 'rxjs';
 import { Comment } from "src/app/model/comment.model";
 import { BcsingleService } from './bc-single-show.service';
 
@@ -14,6 +14,7 @@ import { BcsingleService } from './bc-single-show.service';
 export class BcSingleShowComponent implements OnInit {
   m_Location: LatLng | null = null;
   id: string | null = ''
+  date: string = ''
   
   
 
@@ -24,7 +25,7 @@ export class BcSingleShowComponent implements OnInit {
     }
   }));
 
-  constructor(private m_BcsingleService: BcsingleService, private m_Route: ActivatedRoute) { }
+  constructor(private m_BcsingleService: BcsingleService, private m_Route: ActivatedRoute, private m_SnackBar: MatSnackBar) { }
 
   ngOnInit() {
   }
@@ -35,5 +36,41 @@ export class BcSingleShowComponent implements OnInit {
       sum += com.grade;
     }
     return sum / comments.length;
+  }
+
+  getDate(dateString: string) {
+    const dateArr = dateString.split('T')[0].split('-')
+    return `${dateArr[2]}.${dateArr[1]}.${dateArr[0]}.`
+  }
+
+  getTime(dateString: string) {
+    return dateString.split('T')[1]
+  }
+
+  makeAppointment(id: string) {
+    this.m_BcsingleService.scheduleAppointment(id).pipe(catchError(res => {
+      this.m_SnackBar.open(res.error, 'Close', { duration: 5000 })
+      return of()
+    }))
+    .subscribe(_ => {
+      this.m_SnackBar.open(`Successfully scheduled`, 'Close', { duration: 3000 })
+    });
+  }
+
+  sortByDateAndTime(appointments: any[]) {
+    appointments.sort((a, b) => {
+      const dateA = new Date(a.start);
+      const dateB = new Date(b.start);
+  
+      if (dateA < dateB) {
+        return -1;
+      } else if (dateA > dateB) {
+        return 1;
+      } else {
+        const timeA = this.getTime(a.start);
+        const timeB = this.getTime(b.start);
+        return timeA.localeCompare(timeB);
+      }
+    });
   }
 }

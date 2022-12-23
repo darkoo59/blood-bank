@@ -7,7 +7,8 @@ import { BranchCenter } from 'src/app/model/branch-center.model';
 import { catchError, EMPTY, take } from 'rxjs';
 import { Comment } from 'src/app/model/comment.model';
 import { UserService } from 'src/app/services/user.service';
-import { UserScheduleAppointmentDTO } from './dto/user-schedule-appointment-dto';
+import { UserScheduleAppointmentDTO } from '../schedule-appointment/dto/user-schedule-appointment-dto';
+import { QuestionnaireService } from '../questionnaire/questionnaire.service';
 
 @Component({
   selector: 'app-user-appointments',
@@ -25,7 +26,8 @@ export class UserAppointmentsComponent implements OnInit {
   branchCenters: BranchCenter[] = [];
   isQuestionaireDone: boolean = true;
   m_Errors: string[] = [];
-  constructor(private m_ScheduleAppointmentService: ScheduleAppointmentService, private m_Router: Router, private m_SnackBar: MatSnackBar, private m_UserService: UserService) {
+  constructor(private m_ScheduleAppointmentService: ScheduleAppointmentService, private m_Router: Router, private m_SnackBar: MatSnackBar, 
+    private m_UserService: UserService, private m_QuestionnaireService: QuestionnaireService) {
     let date = new Date()
     date.setDate(date.getDate() + 1)
     this.selectedDate = date.toISOString().slice(0,16)
@@ -77,7 +79,7 @@ export class UserAppointmentsComponent implements OnInit {
   centerIsSelected(centerId:number){
     this.m_UserService.m_Data$.pipe(
       take(1)).subscribe(data => {
-        this.m_UserService.getAnsweredQuestionnaireByUserId(data?.id).pipe(take(1)).subscribe(answers =>{
+        this.m_QuestionnaireService.getAnsweredQuestionnaireByUserId(data?.id).pipe(take(1)).subscribe(answers =>{
           if(answers == null){
             this.m_SnackBar.open(`You need to fill questionire first before procceed with appointment scheduling!`, 'Close', { duration: 7000 })
             this.m_Router.navigate(['/questionnaire'])

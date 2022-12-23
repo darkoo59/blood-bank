@@ -9,7 +9,6 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class BcsingleService extends GenericDataService<BranchCenter>{
-
   constructor(private m_Http: HttpClient) { super() }
 
   fetchBCData(id: string | null): Observable<any> {
@@ -19,5 +18,9 @@ export class BcsingleService extends GenericDataService<BranchCenter>{
         this.setData = res;
       })
     ));
+  }
+
+  scheduleAppointment(id: string) {
+    return this.m_Http.put(`${environment.apiUrl}/available-appointment/schedule`, id)
   }
 }

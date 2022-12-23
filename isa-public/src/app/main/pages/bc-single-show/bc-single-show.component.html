@@ -27,6 +27,26 @@
         </div>
       </div>
     </mat-card>
+
+    <div>
+      <h4>Available appointments</h4>
+      <button mat-button (click)="sortByDateAndTime(bc_data.availableAppointments)">Sort by date and time</button>
+      <mat-grid-list cols="3" rowHeight="3:2">
+        <mat-grid-tile *ngFor="let appointment of bc_data.availableAppointments">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>{{ appointment.title }}</mat-card-title>
+              <mat-card-subtitle>Date: {{ getDate(appointment.start) }}</mat-card-subtitle>
+              <mat-card-subtitle>Time: {{ getTime(appointment.start) }} - {{ getTime(appointment.end) }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-actions>
+              <button mat-button (click)="makeAppointment(appointment.id)">Make an appointment</button>
+            </mat-card-actions>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+    
   
     <div class="comment-block" *ngIf="bc_data.feedback && bc_data.feedback.length != 0">
       <h4>Feedback</h4>

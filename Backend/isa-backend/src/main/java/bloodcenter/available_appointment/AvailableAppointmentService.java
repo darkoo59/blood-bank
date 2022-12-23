@@ -60,6 +60,10 @@ public class AvailableAppointmentService {
         return null;
     }
 
+    public AvailableAppointment getAvailableAppointmentById(Long id) {
+        return repository.findById(id).orElse(null);
+    }
+
     public void remove(AvailableAppointment availableAppointment)
     {
         repository.delete(availableAppointment);
