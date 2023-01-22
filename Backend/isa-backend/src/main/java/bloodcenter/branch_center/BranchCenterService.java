@@ -169,7 +169,8 @@ public class BranchCenterService {
         var appointments = availableAppointmentService.getByBranchCenterId(bc.getId());
         List<AvailableAppointmentsDTO> availableAppointmentsDTOS = new ArrayList<>();
         for (AvailableAppointment app : appointments) {
-            availableAppointmentsDTOS.add(ObjectsMapper.convertAvailableAppointmentToDTO(app));
+            if (app.getStart().isAfter(LocalDateTime.now()))
+                availableAppointmentsDTOS.add(ObjectsMapper.convertAvailableAppointmentToDTO(app));
         }
         dto.setAvailableAppointments(availableAppointmentsDTOS);
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { dataReady } from '@syncfusion/ej2-angular-schedule';
 import { LatLng } from 'leaflet';
 import { catchError, of, tap } from 'rxjs';
@@ -16,8 +16,7 @@ export class BcSingleShowComponent implements OnInit {
   m_Location: LatLng | null = null;
   id: string | null = ''
   date: string = ''
-  
-  
+  ascending: boolean = false
 
   m_BCData$ = this.m_BcsingleService.fetchBCData(this.m_Route.snapshot.paramMap.get('id')).pipe(tap(d => {
     console.log(d);
@@ -26,7 +25,8 @@ export class BcSingleShowComponent implements OnInit {
     }
   }));
 
-  constructor(private m_BcsingleService: BcsingleService, private m_Route: ActivatedRoute, private m_SnackBar: MatSnackBar) { }
+  constructor(private m_BcsingleService: BcsingleService, private m_Route: ActivatedRoute, 
+    private m_SnackBar: MatSnackBar, private m_Router: Router) { }
 
   ngOnInit() {
   }
@@ -51,25 +51,28 @@ export class BcSingleShowComponent implements OnInit {
   makeAppointment(id: string) {
     this.m_BcsingleService.scheduleAppointment(id).pipe(catchError(res => {
       this.m_SnackBar.open(res.error, 'Close', { duration: 5000 })
+      this.m_Router.navigate(['/user-appointments'])
       return of()
     }))
     .subscribe(_ => {
       this.m_SnackBar.open(`Successfully scheduled`, 'Close', { duration: 3000 })
+      this.m_Router.navigate(['/user-appointments'])
     });
   }
 
   sortByDateAndTime(appointments: any[]) {
+    this.ascending = !this.ascending
     appointments.sort((a, b) => {
-      const dateA = new Date(a.start);
-      const dateB = new Date(b.start);
+      const dateA = new Date(a.start)
+      const dateB = new Date(b.start)
       if (dateA.getDate() > dateB.getDate()) {
-        return -1;
+        return this.ascending ? -1 : 1
       } else if (dateA.getDate() < dateB.getDate()) {
-        return 1;
+        return this.ascending ? 1 : -1
       } else {
-        const timeA = this.getTime(a.start);
-        const timeB = this.getTime(b.start);
-        return timeA.localeCompare(timeB);
+        const timeA = this.getTime(a.start)
+        const timeB = this.getTime(b.start)
+        return this.ascending ? timeA.localeCompare(timeB) : timeB.localeCompare(timeA)
       }
     })
   }

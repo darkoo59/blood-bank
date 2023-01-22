@@ -205,20 +205,25 @@ public class AppointmentService {
         availableAppointmentService.remove(availableAppointment);
         repository.save(appointment);
 
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy.");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
         String QRCodeText =
                 "Appointment: " + appointment.getTitle() + "\n" +
-                "Time: " + appointment.getBegin() + " - " + appointment.getEnd() + "\n" +
-                "User: " + appointment.getUser().getFirstname() + appointment.getUser().getLastname();
+                "User: " + appointment.getUser().getFirstname() + " " + appointment.getUser().getLastname() + "\n" +
+                "Time: " + appointment.getBegin().format(dateFormatter) + " " +
+                appointment.getBegin().format(timeFormatter) + " - " +
+                appointment.getEnd().format(timeFormatter) + "\n";
 
         String QRCodeCreatedPath = QRPath + appointment.getUser().getEmail() + ".png";
         QRCodeGenerator.generateQRCodeImage(QRCodeText, 250, 250, QRCodeCreatedPath);
 
-        String qrPath = "../resources/qrcodes/" + appointment.getUser().getEmail() + ".png";
-        emailService.send(appointment.getUser().getEmail(), "Appointment scheduled",
-                buildEmail(appointment.getUser().getFirstname(), qrPath));
+        String qrPath = FileSystems.getDefault().getPath(QRCodeCreatedPath).toString();
+        emailService.sendWithImage(appointment.getUser().getEmail(), "Appointment scheduled",
+                buildAppointmentEmail(appointment.getUser().getFirstname()), qrPath);
     }
 
-    private String buildEmail(String name, String qrCodePath) {
+    private String buildAppointmentEmail(String name) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
                 "\n" +
                 "<span style=\"display:none;font-size:1px;color:#fff;max-height:0\"></span>\n" +
@@ -274,7 +279,7 @@ public class AppointmentService {
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
                 "      <td style=\"font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:1.315789474;max-width:560px\">\n" +
                 "        \n" +
-                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hi " + name + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Your appointment has been scheduled</p><br><img src=\"" + qrCodePath + "\"></img>" +
+                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hi " + name + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Your appointment has been scheduled.</p><br>You can use this QR code to view details of your appointment, including the date and time and any necessary instructions." +
                 "        \n" +
                 "      </td>\n" +
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
