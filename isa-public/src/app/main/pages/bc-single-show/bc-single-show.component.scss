@@ -37,6 +37,12 @@
     font-weight: bold;
     padding-right: 20px;
   }
+
+  table.inner {
+    tr td:first-child {
+      font-weight: normal;
+    }
+  }
   
   .grade {
     color: var(--secondary);

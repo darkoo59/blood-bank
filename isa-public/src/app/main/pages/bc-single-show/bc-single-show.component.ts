@@ -17,9 +17,9 @@ export class BcSingleShowComponent implements OnInit {
   id: string | null = ''
   date: string = ''
   ascending: boolean = false
+  workingDays: [] = []
 
   m_BCData$ = this.m_BcsingleService.fetchBCData(this.m_Route.snapshot.paramMap.get('id')).pipe(tap(d => {
-    console.log(d);
     if (d?.address.lat && d?.address.lng) {
       this.m_Location = new LatLng(d?.address.lat, d?.address.lng)
     }
@@ -75,5 +75,16 @@ export class BcSingleShowComponent implements OnInit {
         return this.ascending ? timeA.localeCompare(timeB) : timeB.localeCompare(timeA)
       }
     })
+  }
+
+  formatWorkingDays(workTime: any, workingDays: any) {
+    let sortedDays = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+    let formattedWorkingDays = sortedDays.map(day => {
+      let startTime = workTime.startTime.startsWith('0') ? workTime.startTime.slice(1) : workTime.startTime;
+      let endTime = workTime.endTime.startsWith('0') ? workTime.endTime.slice(1) : workTime.endTime;
+      let formattedTime = workingDays[day] ? startTime.slice(0, -3) + " - " + endTime.slice(0, -3) : "Closed";
+      return { day: day.charAt(0).toUpperCase() + day.slice(1), time: formattedTime };
+    });
+    return formattedWorkingDays;
   }
 }

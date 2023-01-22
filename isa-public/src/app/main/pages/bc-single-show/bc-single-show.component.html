@@ -3,7 +3,7 @@
     <mat-card>
       <div class="flex-block">
         <div class="left">
-          <h4>{{bc_data.name}}</h4>
+          <h3 style="text-align: center">{{bc_data.name}}</h3>
           <table>
             <tr>
               <td>Description:</td>
@@ -16,9 +16,17 @@
             <tr>
               <td>Working time:</td>
               <td>
-                <p *ngFor="let day of bc_data.workingDays | keyvalue">{{day.key}}: {{day.value}}</p>
+                <table class="inner">
+                  <tr *ngFor="let day of formatWorkingDays(bc_data.workTime, bc_data.workingDays)">
+                    <td>
+                      {{day.day}}:
+                    </td>
+                    <td>
+                      {{day.time}}
+                    </td>
+                  </tr>
+                </table>
               </td>
-              <td>todo...</td>
             </tr>            
           </table>
         </div>
