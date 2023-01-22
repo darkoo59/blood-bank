@@ -229,12 +229,12 @@ public class BloodConfiguration {
                     LocalDateTime.of(2022, Month.DECEMBER, 21, 19, 00));
             AvailableAppointment a2 = new AvailableAppointment("Available appointment",LocalDateTime.of(2022, Month.DECEMBER, 22, 15, 00),
                     LocalDateTime.of(2022, Month.DECEMBER, 22, 15, 30));
-            AvailableAppointment a3 = new AvailableAppointment("Available appointment",LocalDateTime.of(2022, Month.DECEMBER, 23, 14, 20),
-                    LocalDateTime.of(2022, Month.DECEMBER, 23, 15, 00));
-            AvailableAppointment a4 = new AvailableAppointment("Available appointment",LocalDateTime.of(2022, Month.DECEMBER, 23, 14, 20),
-                    LocalDateTime.of(2022, Month.DECEMBER, 23, 15, 00));
-            AvailableAppointment a5 = new AvailableAppointment("Available appointment",LocalDateTime.of(2022, Month.DECEMBER, 23, 14, 20),
-                    LocalDateTime.of(2022, Month.DECEMBER, 23, 15, 00));
+            AvailableAppointment a3 = new AvailableAppointment("Available appointment",LocalDateTime.of(2022, Month.DECEMBER, 24, 14, 20),
+                    LocalDateTime.of(2022, Month.DECEMBER, 24, 15, 00));
+            AvailableAppointment a4 = new AvailableAppointment("Available appointment",LocalDateTime.of(2022, Month.DECEMBER, 24, 14, 20),
+                    LocalDateTime.of(2022, Month.DECEMBER, 24, 15, 00));
+            AvailableAppointment a5 = new AvailableAppointment("Available appointment",LocalDateTime.of(2022, Month.DECEMBER, 24, 14, 20),
+                    LocalDateTime.of(2022, Month.DECEMBER, 24, 15, 00));
 
             a1.setBranchCenter(bc_repo.findById(1L).get());
             a2.setBranchCenter(bc_repo.findById(1L).get());

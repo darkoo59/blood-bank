@@ -47,7 +47,7 @@ export class ScheduleAppointmentComponent implements OnInit,OnDestroy {
     this.selectedDate = event.target.value
   }
 
-  branchCentersSubscription!: Subscription;
+  branchCentersSubscription: Subscription = new Subscription();
 
   next(){
     this.branchCentersSubscription = this.m_ScheduleAppointmentService.getAvailableBranchCenters(this.selectedDate).subscribe(data => {
