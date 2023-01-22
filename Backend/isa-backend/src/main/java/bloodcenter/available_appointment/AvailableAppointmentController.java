@@ -38,7 +38,7 @@ public class AvailableAppointmentController {
 
     @PostMapping
     @Secured({"ROLE_BCADMIN"})
-    public ResponseEntity<Object> createAvailableAppointment(HttpServletRequest request,@RequestBody AvailableAppointmentsDTO appointmentsDTO) throws BCAdmin.BCAdminNotFoundException {
+    public ResponseEntity<Object> createAvailableAppointment(HttpServletRequest request,@RequestBody AvailableAppointmentsDTO appointmentsDTO) throws BCAdmin.BCAdminNotFoundException, InterruptedException {
         availabeAppointmentService.create(request,appointmentsDTO);
         return new ResponseEntity<>(OK);
     }

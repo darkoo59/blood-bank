@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActionEventArgs, EventSettingsModel, WorkHoursModel } from '@syncfusion/ej2-angular-schedule';
+import { ActionEventArgs, EventSettingsModel, ScheduleComponent, WorkHoursModel } from '@syncfusion/ej2-angular-schedule';
 import { catchError, forkJoin, take, tap } from 'rxjs';
 import { AvailableAppointment } from 'src/app/model/available-appointment';
 import { CalendarService } from './calendar.service';
@@ -8,6 +8,7 @@ import { WorkingHoursDTO } from './dto/working-hours-dto';
 import { CreateAvailableAppointmentDTO } from './dto/create-available-appointment-dto';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Appointment } from 'src/app/model/appointment.model';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-calendar',
@@ -18,8 +19,10 @@ export class CalendarComponent implements OnInit {
 
   constructor(private m_CalendarService: CalendarService, 
               private m_SnackBar: MatSnackBar,
-              private m_Router: Router) { }
-
+              private m_Router: Router,
+              private m_LoadingService: LoadingService) { }
+  
+  @ViewChild("scheduler") public m_Scheduler: ScheduleComponent | undefined;
   workingHours:WorkingHoursDTO = {startTime: '08:00', endTime: '21:00'}
   workingDays:[] = []
   availableAppointments:AvailableAppointment[] = []
@@ -89,17 +92,25 @@ export class CalendarComponent implements OnInit {
   }
 
   onActionBegin(args: ActionEventArgs): void {
-      if(args.requestType == 'eventCreate') {
-          const appointmentToCreate: CreateAvailableAppointmentDTO = {
-            title: args.data?.at(0).Subject,
-            start: args.data?.at(0).StartTime,
-            end: args.data?.at(0).EndTime
-          }
-          this.m_CalendarService.createAvailableAppointment(appointmentToCreate).pipe(take(1))
-          .subscribe((_:any) => {
-            this.m_SnackBar.open(`Successfully added available appointment`, 'Close', { duration: 7000 })
-          })
+    if(args.requestType == 'eventCreate' && !(args.data as any).final) {
+      this.m_LoadingService.setLoading = true;
+      args.cancel = true;
+      const appointmentToCreate: CreateAvailableAppointmentDTO = {
+        title: args.data?.at(0).Subject,
+        start: args.data?.at(0).StartTime,
+        end: args.data?.at(0).EndTime
       }
+      this.m_CalendarService.createAvailableAppointment(appointmentToCreate).pipe(take(1))
+      .subscribe((_:any) => {
+        if(args.data) {
+          let data: any = args.data as any;
+          data['final'] = true;
+          this.m_Scheduler?.addEvent(args.data as any);
+          this.m_LoadingService.setLoading = false;
+          this.m_SnackBar.open(`Successfully added available appointment`, 'Close', { duration: 7000 })
+        }
+      })
+    }
   }
 
   setWorkingHours(hours: any){

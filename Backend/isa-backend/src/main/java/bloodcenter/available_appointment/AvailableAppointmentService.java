@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,11 +37,15 @@ public class AvailableAppointmentService {
         return appointmentsToReturn;
     }
 
-    public void create(HttpServletRequest request,AvailableAppointmentsDTO appointmentsDTO) throws BCAdmin.BCAdminNotFoundException {
+    @Transactional
+    public void create(HttpServletRequest request,AvailableAppointmentsDTO appointmentsDTO) throws BCAdmin.BCAdminNotFoundException, InterruptedException {
         String adminEmail = AuthUtility.getEmailFromRequest(request);
         BranchCenter branchCenter = bcAdminService.getBranchCenterByAdminEmail(adminEmail);
         AvailableAppointment appointment = ObjectsMapper.convertDTOToAvailableAppointment(appointmentsDTO);
         appointment.setBranchCenter(branchCenter);
+
+        Thread.sleep(5000);
+
         repository.save(appointment);
     }
 
