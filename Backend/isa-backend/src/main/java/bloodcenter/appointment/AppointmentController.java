@@ -1,7 +1,6 @@
 package bloodcenter.appointment;
 
 import bloodcenter.appointment.dto.CreateAppointmentDTO;
-import bloodcenter.branch_center.dto.RegisterBranchCenterDTO;
 import bloodcenter.core.ErrorResponse;
 import bloodcenter.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,12 +50,6 @@ public class AppointmentController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @ExceptionHandler({ Exception.class })
-    public ResponseEntity<Object> handleExceptions(Exception ex){
-        ex.printStackTrace();
-        return new ResponseEntity<>(new ErrorResponse(ex.getMessage()), HttpStatus.BAD_REQUEST);
-    }
-
     @GetMapping("/is-capable-for-blood-donation/{userId}")
     @Secured({"ROLE_USER"})
     public ResponseEntity<Object> IsCapableForBloodDonation(@PathVariable("userId") long userId){
@@ -70,6 +63,12 @@ public class AppointmentController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @ExceptionHandler({ Exception.class })
+    public ResponseEntity<Object> handleExceptions(Exception ex) {
+        ex.printStackTrace();
+        return new ResponseEntity<>(new ErrorResponse(ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+    
     @GetMapping("/all-for-user/{userId}")
     @Secured({"ROLE_USER"})
     public ResponseEntity<Object> getAllAppointmentsByUserId(@PathVariable("userId") long userId){

@@ -12,14 +12,13 @@ import { take } from 'rxjs';
   styleUrls: ['./user-appointments.component.scss']
 })
 export class UserAppointmentsComponent implements OnInit {
-
   appointments: Appointment[] = [];
-  constructor(private m_Router: Router, private m_SnackBar: MatSnackBar, private m_UserAppointmentService: UserAppointmentsService, private m_UserService: UserService) {
+  constructor(private m_Router: Router, private m_SnackBar: MatSnackBar, 
+    private m_UserAppointmentService: UserAppointmentsService, private m_UserService: UserService) {
   }
 
   ngOnInit() {
-    this.m_UserService.m_Data$.pipe(
-      take(1)).subscribe(data => {
+    this.m_UserService.m_Data$.pipe(take(1)).subscribe(data => {
         this.m_UserAppointmentService.getAllAppointmentsByUserId(data?.id).pipe(take(1)).subscribe(data => {
           this.appointments = data;
         });

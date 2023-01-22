@@ -1,6 +1,5 @@
 package bloodcenter.available_appointment;
 
-import bloodcenter.appointment.AppointmentRepository;
 import bloodcenter.available_appointment.dto.AvailableAppointmentsDTO;
 import bloodcenter.branch_center.BranchCenter;
 import bloodcenter.person.model.BCAdmin;
@@ -58,6 +57,10 @@ public class AvailableAppointmentService {
             }
         }
         return null;
+    }
+
+    public AvailableAppointment getAvailableAppointmentById(Long id) {
+        return repository.findById(id).orElse(null);
     }
 
     public void remove(AvailableAppointment availableAppointment)

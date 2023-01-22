@@ -1,12 +1,17 @@
 <section *ngLet="m_FetchAllApps$ | async">
-  <ejs-schedule
-    [eventSettings]='eventSettings'
-    [views]='views'
-    [workHours]="scheduleHours"
-    [startHour]="scheduleHours.start"
-    [endHour]="scheduleHours.end"
-    [workDays]="workingDays"
-    (actionBegin)="onActionBegin($event)"
-    (eventClick)="appointmentSelected($event)">
-  </ejs-schedule>
+  <div *ngIf="m_IsBCPresent">
+    <ejs-schedule
+      [eventSettings]='eventSettings'
+      [views]='views'
+      [workHours]="scheduleHours"
+      [startHour]="scheduleHours.start"
+      [endHour]="scheduleHours.end"
+      [workDays]="workingDays"
+      (actionBegin)="onActionBegin($event)"
+      (eventClick)="appointmentSelected($event)">
+    </ejs-schedule>
+  </div>
+  <div *ngIf="!m_IsBCPresent">
+    You are not assigned to any blood banks.
+  </div>
 </section>

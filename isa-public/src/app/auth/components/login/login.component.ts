@@ -3,6 +3,7 @@ import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { catchError, EMPTY, of } from "rxjs";
+import { UserService } from "src/app/services/user.service";
 import { AuthService, LoginDTO } from "../../services/auth.service";
 
 @Component({
@@ -14,7 +15,10 @@ export class LoginComponent{
   m_Form: UntypedFormGroup = this.formInstance
   m_Error: string | null = null
   
-  constructor(private m_AuthService : AuthService, private m_SnackBar: MatSnackBar, private m_Router: Router){ }
+  constructor(private m_AuthService : AuthService, 
+              private m_SnackBar: MatSnackBar, 
+              private m_Router: Router,
+              private m_UserService: UserService){ }
 
   onSubmit() {
     this.m_Error = null;
@@ -34,9 +38,10 @@ export class LoginComponent{
         }
         return EMPTY
       }))
-      .subscribe(_ => {
+      .subscribe(userData => {
         this.m_SnackBar.open(`Successfully logged in`, 'Close', { duration: 4000 })
         this.m_Router.navigate(['/home'])
+        this.m_UserService.checkIfPasswordChanged(userData);
       });
   }
 

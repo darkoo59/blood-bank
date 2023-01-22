@@ -88,6 +88,10 @@ export class NavComponent {
     {
       path: "send-news",
       title: 'Send news to hospital'
+    },
+    {
+      path: 'complaints',
+      title: 'Complaints'
     }
   ];
 
