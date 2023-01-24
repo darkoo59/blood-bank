@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,12 +37,22 @@ public class AvailableAppointmentService {
         return appointmentsToReturn;
     }
 
-    public void create(HttpServletRequest request,AvailableAppointmentsDTO appointmentsDTO) throws BCAdmin.BCAdminNotFoundException {
-        String adminEmail = AuthUtility.getEmailFromRequest(request);
-        BranchCenter branchCenter = bcAdminService.getBranchCenterByAdminEmail(adminEmail);
-        AvailableAppointment appointment = ObjectsMapper.convertDTOToAvailableAppointment(appointmentsDTO);
-        appointment.setBranchCenter(branchCenter);
-        repository.save(appointment);
+    @Transactional
+    public void create(HttpServletRequest request,AvailableAppointmentsDTO appointmentsDTO) throws Exception {
+        synchronized (this) {
+            Thread.sleep(5000);
+            String adminEmail = AuthUtility.getEmailFromRequest(request);
+            BranchCenter branchCenter = bcAdminService.getBranchCenterByAdminEmail(adminEmail);
+            AvailableAppointment appointment = ObjectsMapper.convertDTOToAvailableAppointment(appointmentsDTO);
+            appointment.setBranchCenter(branchCenter);
+
+            List<AvailableAppointment> apps = repository.getAvailableAppointmentsBetweenDates(appointment.getStart(), appointment.getEnd());
+
+            if(!apps.isEmpty())
+                throw new Exception("There is already an appointment specified for the chosen time interval.");
+
+            repository.save(appointment);
+        }
     }
 
     public List<AvailableAppointment> getByBranchCenterId(Long id) {
