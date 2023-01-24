@@ -1,0 +1,116 @@
+<div *ngLet="{
+  data: m_Data$ | async,
+  start: m_Start$ | async,
+  report: m_Report$ | async,
+  createDonation: m_CreateDonation$  | async
+} as vm">
+  <mat-card class="card" *ngIf="vm.data">
+    <h4>Appointment info</h4>
+    <table>
+      <tr>
+        <td>name:</td>
+        <td>{{vm.data.user.firstname}}&nbsp;{{vm.data.user.lastname}}</td>
+        <td>begin:</td>
+        <td>{{vm.data.begin | date:'medium'}}</td>
+      </tr>
+      <tr>
+        <td>email:</td>
+        <td>{{vm.data.user.email}}</td>
+        <td>end:</td>
+        <td>{{vm.data.end | date:'medium'}}</td>
+      </tr>
+      <tr>
+        <td>country:</td>
+        <td>{{getAddress(vm.data)?.country}}</td>
+        <td>city:</td>
+        <td>{{getAddress(vm.data)?.city}}</td>
+      </tr>
+      <tr>
+        <td>street:</td>
+        <td>{{getAddress(vm.data)?.street}}</td>
+        <td>street number:</td>
+        <td>{{getAddress(vm.data)?.number}}</td>
+      </tr>
+      <tr *ngIf="vm.data.user.penalties && vm.data.user.penalties > 0">
+        <td style="color:red;">panalties:</td>
+        <td style="color:red;">{{vm.data.user.penalties}}</td>
+      </tr>
+    </table>
+    <div class="button-group">
+      <button mat-button type="button" color="accent" (click)="m_Report$.next(0)">Report User</button>
+      <button mat-flat-button type="button" color="primary" (click)="m_Start$.next(0)" *ngIf="!vm.data.started">Start Appointment</button>
+    </div>
+  </mat-card>
+  <form [formGroup]="m_Form" *ngIf="vm.data && vm.data.started" (ngSubmit)="m_CreateDonation$.next(0)">
+    <mat-card class="card">
+      <h3>Fill in the report</h3>
+      <h4>Registration and reception of the donor</h4>
+      <div class="grid">
+        <mat-form-field class="form-field" appearance="fill">
+          <mat-label>Select blood type</mat-label>
+          <mat-select formControlName="bloodType">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let t of m_Types; let i=index" [value]="i">{{t}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div></div>
+        <mat-form-field class="form-field double" appearance="fill">
+          <mat-label>Doctor's note</mat-label>
+          <textarea matInput formControlName="note"></textarea>
+        </mat-form-field>
+      </div>
+      <h4>Determination of hemoglobin/hematocrit</h4>
+      <div class="grid">
+        <mat-form-field class="form-field" appearance="fill">
+          <mat-label>Copper-sulfate</mat-label>
+          <input matInput formControlName="copperSulfate">
+        </mat-form-field>
+        <mat-form-field class="form-field" appearance="fill">
+          <mat-label>Normal level</mat-label>
+          <input matInput formControlName="normal" type="number">
+        </mat-form-field>
+        <mat-form-field class="form-field" appearance="fill">
+          <mat-label>Hemoglobin value</mat-label>
+          <input matInput formControlName="hemoglobin">
+        </mat-form-field>
+        <mat-form-field class="form-field" appearance="fill">
+          <mat-label>Low level</mat-label>
+          <input matInput formControlName="low" type="number">
+        </mat-form-field>
+      </div>
+      <h4>Health examination</h4>
+      <div class="grid">
+        <div class="grid mini">
+          <mat-form-field class="form-field" appearance="fill">
+            <mat-label>Lungs</mat-label>
+            <input matInput formControlName="lungs">
+          </mat-form-field>
+          <mat-form-field class="form-field" appearance="fill">
+            <mat-label>Heart</mat-label>
+            <input matInput formControlName="heart">
+          </mat-form-field>
+        </div>
+        <div class="grid mini">
+          <mat-form-field class="form-field" appearance="fill">
+            <mat-label>TT</mat-label>
+            <input matInput formControlName="tt" type="number">
+          </mat-form-field>
+          <mat-form-field class="form-field" appearance="fill">
+            <mat-label>TB</mat-label>
+            <input matInput formControlName="tb" type="number">
+          </mat-form-field>
+        </div>
+      </div>
+      <h4>Blood</h4>
+      <div class="grid">
+        <mat-form-field class="form-field" appearance="fill">
+          <mat-label>Blood ammount(liters)</mat-label>
+          <input type="number" matInput formControlName="bloodAmount">
+        </mat-form-field>
+        <div class="button-group">
+          <button mat-flat-button color="primary">Submit</button>
+        </div>
+      </div>
+    </mat-card>
+  </form>
+</div>

@@ -1,0 +1,35 @@
+<div *ngLet="{error: m_Error$ | async, submit: m_Submit$ | async} as vm">
+  <h3 class="heading">Change password</h3>
+  <form [formGroup]="m_PasswordForm" (ngSubmit)="m_Submit$.next(0)">
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Old password</mat-label>
+      <input type="password" matInput formControlName="oldPassword">
+      <mat-error *ngIf="m_PasswordForm.controls['oldPassword'].hasError('required')">
+        Old password is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>New password</mat-label>
+      <input type="password" matInput formControlName="newPassword">
+      <mat-error *ngIf="m_PasswordForm.controls['newPassword'].hasError('required')">
+        New password is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Confirm password</mat-label>
+      <input type="password" matInput formControlName="confirmPassword">
+      <mat-error *ngIf="m_PasswordForm.controls['confirmPassword'].hasError('required')">
+        Confirming password is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="!m_PasswordForm.controls['confirmPassword'].hasError('required') && m_PasswordForm.hasError('mismatch')">
+        Confirm and new password <b>do not match</b>
+      </mat-error>
+    </mat-form-field>
+
+    <div *ngIf="vm.error" class="errors">error: {{vm.error}}</div>
+
+    <div class="button-group">
+      <button mat-flat-button color="primary">Submit</button>
+    </div>
+  </form>
+</div>

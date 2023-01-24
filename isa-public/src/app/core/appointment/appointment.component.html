@@ -1,0 +1,12 @@
+<section *ngLet="{
+  fetchData: m_FetchData$ | async,
+  er: m_Error$ | async
+} as vm">
+  <div *ngIf="!m_Loading">
+    <router-outlet></router-outlet>
+    <div *ngIf="vm.er" class="errors">{{vm.er}}</div>
+  </div>
+  <div *ngIf="m_Loading">
+    <page-loader></page-loader>
+  </div>
+</section>

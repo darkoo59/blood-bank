@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface KeyRepository extends JpaRepository<Key, Long> {
-
+    Key findByEmail(String email);
 }

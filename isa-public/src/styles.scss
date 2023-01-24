@@ -1,7 +1,8 @@
 @use "style/colors" as vars;
+@import '../node_modules/@syncfusion/ej2-material-theme/styles/material.css';
 
-html, body { 
-  height: 100%; 
+html, body {
+  height: 100%;
 }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
@@ -9,4 +10,13 @@ section{
   padding:30px;
   margin:auto;
   max-width: 1000px;
+}
+
+.errors{
+  color:var(--error);
+  font-style: italic;
+}
+
+.leaflet-bottom.leaflet-right .leaflet-control-attribution.leaflet-control{
+  display: none;
 }

@@ -1,0 +1,109 @@
+<form class="example-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+<mat-card class="card">
+  <mat-card-title class="card-title">
+    <div class="container">
+      <div class="profile-photo"></div>
+      <div class="text">
+        <h3>{{userData.firstname}} {{userData.lastname}}</h3>
+      </div>
+      <div class="update-profile">
+        <button mat-flat-button color="primary">Update</button>
+      </div>
+    </div>
+  </mat-card-title>
+</mat-card>
+<mat-card>
+  <mat-card-title>
+    <h3 class="heading">Change User Information Here</h3>
+  </mat-card-title>
+  <mat-card-content>
+    <div>
+      <div class="name-input">
+        <mat-form-field class="name-input-field" appearance="fill">
+          <mat-label>Firstname</mat-label>
+          <input matInput required formControlName="firstname" [ngModel]="userData.firstname">
+          <mat-error *ngIf="form.controls['firstname'].hasError('required')">
+            Firstname is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="name-input-field" appearance="fill">
+          <mat-label>Lastname</mat-label>
+          <input matInput required formControlName="lastname" [ngModel]="userData.lastname">
+          <mat-error *ngIf="form.controls['lastname'].hasError('required')">
+            Lastname is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="name-input">
+        <mat-form-field class="name-input-field" appearance="fill">
+          <mat-label>Email (Can't change)</mat-label>
+          <input matInput formControlName="email" readonly [ngModel]="userData.email">
+        </mat-form-field>
+
+        <mat-form-field class="name-input-field" appearance="fill">
+          <mat-label>Phone number</mat-label>
+          <input matInput required formControlName="phoneNumber" [ngModel]="userData.phone">
+          <mat-error *ngIf="form.controls['phoneNumber'].hasError('required')">
+            Phone number is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="form.controls['phoneNumber'].hasError('pattern')">
+            Phone number in wrong <strong>format</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="name-input">
+        <mat-form-field class="name-input-field" appearance="fill">
+          <mat-label>Occupation</mat-label>
+          <input matInput required formControlName="occupation" [ngModel]="userData.occupation">
+          <mat-error *ngIf="form.controls['occupation'].hasError('required')">
+            Occupation is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="name-input-field" *ngLet="{name: 'Sex'} as vm" appearance="fill">
+          <mat-label>{{vm.name}}</mat-label>
+          <mat-select matInput formControlName="sex" [ngModel]="userData.sex">
+            <mat-option value="MALE">Male</mat-option>
+            <mat-option value="FEMALE">Female</mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.controls['sex'].hasError('required')">
+            {{vm.name}} is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="name-input">
+        <mat-form-field class="name-input-field" appearance="fill">
+          <mat-label>NationalId</mat-label>
+          <input matInput required formControlName="nationalId" [ngModel]="userData.nationalId">
+          <mat-error *ngIf="form.controls['nationalId'].hasError('required')">
+            NationalId is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="form.controls['nationalId'].hasError('pattern')">
+            NationalId can only be made of <strong>numbers</strong>
+          </mat-error>
+          <mat-error *ngIf="form.controls['nationalId'].hasError('minlength')">
+            NationalId can only contain <strong>13 numbers</strong>
+          </mat-error>
+          <mat-error *ngIf="form.controls['nationalId'].hasError('maxlength')">
+            NationalId can only contain <strong>13 numbers</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="name-input-field"  appearance="fill">
+          <mat-label>Information about the company/college/school</mat-label>
+          <textarea class="textarea scroll" matInput formControlName="information" [ngModel]="userData.information"></textarea>
+          <mat-error *ngIf="form.controls['information'].hasError('required')">
+            Information is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="location">
+          <app-map [m_Location]="mapInput!" [m_Editable]="true" (locationData)="locationHandler($event)"></app-map>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+</form>

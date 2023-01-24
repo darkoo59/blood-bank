@@ -1,0 +1,62 @@
+<section>
+  <form class="example-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h1 class="heading">Register a new branch center administrator</h1>
+
+    <mat-form-field class="input-field" appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput required formControlName="bca-name">
+      <mat-error *ngIf="form.controls['bca-name'].hasError('required')">
+        Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input-field" appearance="fill">
+      <mat-label>Surname</mat-label>
+      <input matInput required formControlName="bca-surname">
+      <mat-error *ngIf="form.controls['bca-surname'].hasError('required')">
+        Surname is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input-field" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input type="email" matInput formControlName="bca-email" placeholder="Ex. pat@example.com">
+      <mat-error *ngIf="form.controls['bca-email'].hasError('email') && !form.hasError('required')">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="form.controls['bca-email'].hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input-field" appearance="fill">
+      <mat-label>Password</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" required formControlName="bca-password">
+      <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="form.controls['bca-password'].hasError('required')">
+        Password is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input-field" appearance="fill">
+      <mat-label>Confirm password</mat-label>
+      <input matInput [type]="hide2 ? 'password' : 'text'" required formControlName="bca-repeat">
+      <button type="button" mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2">
+        <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="form.controls['bca-repeat'].hasError('required')">
+        Password confirmation is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="!form.controls['bca-repeat'].hasError('required') && form.hasError('mismatch')">
+        Password and confirm password <strong>do not match</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <div class="button-group">
+      <button type="button" mat-button>Cancel</button>
+      <button mat-flat-button color="primary">Submit</button>
+    </div>
+  </form>
+</section>

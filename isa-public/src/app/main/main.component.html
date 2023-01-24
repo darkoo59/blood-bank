@@ -1,4 +1,4 @@
-<div class="main-container" *ngLet="(m_DarkTheme$ | async) as darkTheme">
+<div class="main-container" *ngLet="{darkTheme: m_DarkTheme$ | async, userLogged: m_UserLogged$ | async, logout: m_Logout$ | async} as vm">
   <mat-toolbar color="primary" class="header">
     <div class="left">
       <button class="btn-menu" mat-button (click)="snav.toggle()">
@@ -7,12 +7,12 @@
       <h1 class="app-title">Blood Bank</h1>
     </div>
     <div class="right button-group">
-      <button mat-icon-button (click)="toggleTheme(!darkTheme)">
-        <mat-icon *ngIf="darkTheme">dark_mode</mat-icon>
-        <mat-icon *ngIf="!darkTheme">light_mode</mat-icon>
+      <button mat-icon-button (click)="toggleTheme(!vm.darkTheme)">
+        <mat-icon *ngIf="vm.darkTheme">dark_mode</mat-icon>
+        <mat-icon *ngIf="!vm.darkTheme">light_mode</mat-icon>
       </button>
-      <button mat-flat-button color="accent" [routerLink]="['/auth']">Login</button>
-      <!-- <button mat-stroked-button>Log Out</button> -->
+      <button *ngIf="!vm.userLogged" mat-flat-button color="accent" [routerLink]="['/auth']">Login</button>
+      <button *ngIf="vm.userLogged" mat-flat-button (click)="m_Logout$.next(0)">Log Out</button>
     </div>
   </mat-toolbar>
 
@@ -21,7 +21,9 @@
       <app-nav></app-nav>
     </mat-sidenav>
     <mat-sidenav-content>
-      <router-outlet></router-outlet>
+      <main>
+        <router-outlet></router-outlet>
+      </main>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

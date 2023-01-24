@@ -1,11 +1,13 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { MaterialModule } from "src/app/core/material.module";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { NgLetModule } from "ng-let";
+import { MaterialModule } from "src/app/shared/material.module";
 import { AuthRoutingModule } from "./auth-routing.module";
 
 import { AuthComponent } from "./auth.component";
-import { LoginComponent } from "./login/login.component";
-import { RegisterComponent } from "./register/register.component";
+import { LoginComponent } from "./components/login/login.component";
+import { RegisterComponent } from "./components/register/register.component";
 
 @NgModule({
   declarations: [
@@ -16,7 +18,11 @@ import { RegisterComponent } from "./register/register.component";
   imports: [
     CommonModule, 
     AuthRoutingModule,
-    MaterialModule
+    MaterialModule,
+    NgLetModule,
+    ReactiveFormsModule,
+    CommonModule,
+    FormsModule
   ]
 })
 export class AuthModule {}

@@ -1,0 +1,17 @@
+<section>
+  <div *ngIf="appointments.length == 0">
+    <div class="icon-div">
+      <mat-icon class="icon">speaker_notes_off</mat-icon>
+    </div>
+    <h1 class="no-available-text">There is no available appointments</h1>
+  </div>
+  <div>
+    <mat-card class="card" *ngFor="let appointment of appointments">
+      <mat-card-title>{{appointment.title}}</mat-card-title>
+      <mat-card-content>
+        <p><b>Begin: </b>{{appointment.begin}}</p>
+        <p><b>End: </b>{{appointment.end}}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>

@@ -1,0 +1,29 @@
+<section>
+  <form class="example-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h1 class="heading">Register a new branch center</h1>
+
+    <div>
+      <mat-form-field class="input-field" appearance="fill">
+        <mat-label>Branch center name</mat-label>
+        <input matInput required formControlName="bc-name">
+        <mat-error *ngIf="form.controls['bc-name'].hasError('required')">
+          Name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <div class="location">
+        <app-map [m_Location]="m_MapInput!" [m_Editable]="true" (locationData)="locationHandler($event)"></app-map>
+      </div>
+
+      <mat-form-field class="input-field" appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea class="description-area" matInput placeholder="Ex. It makes me feel..." formControlName="bc-description"></textarea>
+      </mat-form-field>
+
+      <div class="button-group">
+        <button type="button" mat-button>Cancel</button>
+        <button mat-flat-button color="primary">Submit</button>
+      </div>
+    </div>
+  </form>
+</section>

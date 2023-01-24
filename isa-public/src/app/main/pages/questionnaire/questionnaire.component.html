@@ -1,0 +1,23 @@
+<section>
+  <form *ngIf="this.dataSource.length > 0" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z2">
+      <ng-container matColumnDef="question">
+        <td mat-cell *matCellDef="let element"> {{element.text}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="checked">
+        <td mat-cell *matCellDef="let element">
+          <mat-checkbox [formControlName]="element.id">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+    
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <div class="button-block">
+      <button mat-raised-button color="primary">
+        Submit
+      </button>
+    </div>
+  </form>
+</section>

@@ -1,16 +1,15 @@
 package bloodcenter.api_key;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.dao.DuplicateKeyException;
 
 import javax.persistence.*;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table
+@Setter
+@Getter
 public class Key {
     @Id
     @GeneratedValue(
@@ -24,5 +23,13 @@ public class Key {
     public Key(String email, String key) {
         this.email = email;
         this.key = key;
+    }
+
+    public static class ApiKeyAlreadyExistsException extends Exception {
+        public ApiKeyAlreadyExistsException(String msg) { super(msg); }
+    }
+
+    public static class InvalidKeyException extends  Exception {
+        public InvalidKeyException(String msg) { super(msg); }
     }
 }

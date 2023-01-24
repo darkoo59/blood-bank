@@ -1,0 +1,72 @@
+.profile-photo{
+  width: 90px;
+  height: 90px;
+}
+
+.card{
+  margin-bottom: 12px;
+}
+.container {
+  margin-left: auto;
+  display: flex;
+}
+
+.text {
+  margin-top: 3px;
+  margin-left: 60px;
+  font-size: 25px;
+  padding-left: 25px;
+}
+
+.update-profile{
+  margin-top: 33px;
+  margin-left: auto;
+  font-size: 25px;
+  padding-left: 25px;
+}
+
+.btn-update{
+  min-width: 100px;
+  font-size: 20px;
+}
+
+.card-info{
+  margin-left: 2%;
+}
+
+.heading{
+  margin-left: 2%;
+  margin-bottom: 25px;
+}
+
+.name-input {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.information-input {
+  display: flex;
+  justify-content: around;
+  flex-wrap: wrap;
+}
+
+.information-input-field {
+  width: 100%;
+  margin-top: 15px;
+}
+
+.name-input-field {
+  min-width: 470px;
+  margin-top: 15px;
+}
+
+.input-field {
+    min-width: 235px;
+    margin-top: 15px;
+}
+
+.location {
+  margin-top: 15px;
+  margin-bottom: 20px;
+}

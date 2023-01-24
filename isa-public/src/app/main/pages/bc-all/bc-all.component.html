@@ -1,0 +1,44 @@
+<section *ngIf="centersPageInfo">
+  <form class="example-form" [formGroup]="form">
+    <mat-form-field class="input-field" appearance="fill">
+      <mat-label>Search</mat-label>
+      <input matInput formControlName="search-input" >
+    </mat-form-field>
+    <mat-form-field class="section" appearance="fill">
+    <mat-label>Select country</mat-label>
+      <mat-select [(value)]="selectedCountry" >
+        <mat-option>None</mat-option>
+        <mat-option *ngFor="let country of allCountries" [value]="country">
+          {{country}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="section" appearance="fill">
+      <mat-label>Select city</mat-label>
+        <mat-select [(value)]="selectedCity" >
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let city of allCities" [value]="city">
+            {{city}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    <div class="buttons">
+      <button mat-flat-button color="accent" class="button" (click)= "searchCenters()">Search</button>
+      <button mat-flat-button color="primary" type="reset" class="button" (click)= "resetForm()">Reset</button>
+    </div>
+  </form>
+  <div class="grid">
+    <mat-card class="card" *ngFor="let center of centersPageInfo.branchCenters">
+      <mat-card-title>{{center.name}}</mat-card-title>
+      <mat-card-content>
+        <p><b>Description: </b>{{center.description}}</p>
+        <p><b>Country: </b>{{center.address.country}}</p>
+        <p><b>City: </b>{{center.address.city}}</p>
+        <p><b>Address: </b>{{center.address.street}} {{center.address.number}}</p>
+        <grade *ngIf="center.feedback && center.feedback.length != 0" class="grade" [i_Grade]="calculateAverage(center.feedback)"></grade>
+        <button mat-flat-button color="accent" class="view-button" (click)="openBC(center.id)">View</button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <mat-paginator class="paginator" [pageSize]="3" [pageSizeOptions]="[1,3,5,10]" [length]="centersPageInfo.totalItems" (page) = "nextPage($event)"></mat-paginator>
+</section>

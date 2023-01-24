@@ -1,0 +1,46 @@
+.demo-table {
+    width: 100%;
+}
+
+.mat-row .mat-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+  }
+  
+  .mat-row:hover .mat-cell {
+    border-color: currentColor;
+  }
+
+  .input-field {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.example-form {
+  min-width: 150px;
+  width: 100%; 
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.textarea { 
+  max-height: 300px;
+  min-height: 120px;
+}
+.scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.button-group{
+  display: flex;
+  justify-content: right;
+  margin-top: 5px;
+}
+
+.highlight {
+  background: var(--primary);
+}

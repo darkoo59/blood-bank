@@ -1,16 +1,24 @@
 package bloodcenter.branch_center;
 
-import bloodcenter.core.Address;
-import bloodcenter.user.model.BCAdmin;
+import bloodcenter.address.Address;
+import bloodcenter.available_appointment.AvailableAppointment;
+import bloodcenter.feedback.Feedback;
+import bloodcenter.person.model.BCAdmin;
+import bloodcenter.working_days.WorkingDay;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.NotNull;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
-@Table
 @NoArgsConstructor
+@Setter
+@Getter
 public class BranchCenter {
     @Id
     @GeneratedValue(
@@ -19,18 +27,45 @@ public class BranchCenter {
     private Long id;
     private String name;
     private String description;
+    private LocalTime startTime;
+    private LocalTime endTime;
+    @OneToOne
+    @NotNull
+    private Address address;
 
     @OneToOne
-    private Address address;
+    private WorkingDay workingDays;
 
     @OneToMany(mappedBy = "branchCenter")
     @JsonIgnore
     private List<BCAdmin> admins;
 
+    @OneToMany(mappedBy = "branchCenter")
+    @JsonIgnore
+    private List<Feedback> feedback;
+
+    @OneToMany(mappedBy = "branchCenter")
+    @JsonIgnore
+    private List<AvailableAppointment> availableAppointments;
+
     public BranchCenter(String name, String description) {
         this.name = name;
         this.description = description;
     }
+
+    public BranchCenter(String name, String description, LocalTime start, LocalTime end) {
+        this.name = name;
+        this.description = description;
+        this.startTime = start;
+        this.endTime = end;
+    }
+
+    public BranchCenter(String name, String description, Address address) {
+        this.name = name;
+        this.description = description;
+        this.address = address;
+    }
+
 
     public static class BCNotFoundException extends Exception{
         public BCNotFoundException(String message){
@@ -38,39 +73,4 @@ public class BranchCenter {
         }
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public List<BCAdmin> getAdmins() {
-        return admins;
-    }
-
-    public void setAdmins(List<BCAdmin> admins) {
-        this.admins = admins;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
 }
