@@ -27,7 +27,7 @@ export class CalendarService {
   }
 
   createAvailableAppointment(dto: CreateAvailableAppointmentDTO) {
-    return this.http.post(`${environment.apiUrl}/available-appointment`, dto).pipe(catchError(err => { return EMPTY; }));
+    return this.http.post(`${environment.apiUrl}/available-appointment`, dto);
   }
 
   getAppointments(): Observable<any>{

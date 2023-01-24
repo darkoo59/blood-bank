@@ -1,6 +1,7 @@
 <section *ngLet="m_FetchAllApps$ | async">
   <div *ngIf="m_IsBCPresent">
     <ejs-schedule
+      #scheduler
       [eventSettings]='eventSettings'
       [views]='views'
       [workHours]="scheduleHours"
