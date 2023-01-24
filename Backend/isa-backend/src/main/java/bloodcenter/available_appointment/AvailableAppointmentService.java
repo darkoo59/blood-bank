@@ -38,15 +38,21 @@ public class AvailableAppointmentService {
     }
 
     @Transactional
-    public void create(HttpServletRequest request,AvailableAppointmentsDTO appointmentsDTO) throws BCAdmin.BCAdminNotFoundException, InterruptedException {
-        String adminEmail = AuthUtility.getEmailFromRequest(request);
-        BranchCenter branchCenter = bcAdminService.getBranchCenterByAdminEmail(adminEmail);
-        AvailableAppointment appointment = ObjectsMapper.convertDTOToAvailableAppointment(appointmentsDTO);
-        appointment.setBranchCenter(branchCenter);
+    public void create(HttpServletRequest request,AvailableAppointmentsDTO appointmentsDTO) throws Exception {
+        synchronized (this) {
+            Thread.sleep(5000);
+            String adminEmail = AuthUtility.getEmailFromRequest(request);
+            BranchCenter branchCenter = bcAdminService.getBranchCenterByAdminEmail(adminEmail);
+            AvailableAppointment appointment = ObjectsMapper.convertDTOToAvailableAppointment(appointmentsDTO);
+            appointment.setBranchCenter(branchCenter);
 
-        Thread.sleep(5000);
+            List<AvailableAppointment> apps = repository.getAvailableAppointmentsBetweenDates(appointment.getStart(), appointment.getEnd());
 
-        repository.save(appointment);
+            if(!apps.isEmpty())
+                throw new Exception("There is already an appointment specified for the chosen time interval.");
+
+            repository.save(appointment);
+        }
     }
 
     public List<AvailableAppointment> getByBranchCenterId(Long id) {

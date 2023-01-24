@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionEventArgs, EventSettingsModel, ScheduleComponent, WorkHoursModel } from '@syncfusion/ej2-angular-schedule';
-import { catchError, forkJoin, take, tap } from 'rxjs';
+import { catchError, EMPTY, forkJoin, take, tap } from 'rxjs';
 import { AvailableAppointment } from 'src/app/model/available-appointment';
 import { CalendarService } from './calendar.service';
 import { WorkingHoursDTO } from './dto/working-hours-dto';
@@ -100,7 +100,23 @@ export class CalendarComponent implements OnInit {
         start: args.data?.at(0).StartTime,
         end: args.data?.at(0).EndTime
       }
-      this.m_CalendarService.createAvailableAppointment(appointmentToCreate).pipe(take(1))
+      this.m_CalendarService.createAvailableAppointment(appointmentToCreate).pipe(
+        take(1),
+        catchError(res => {
+          console.log(res);
+          let msg = "";
+          if (res.error && res.error.message) {
+            msg = res.error.message;
+          }else if(res.message){
+            msg = res.message;
+          }else{
+            msg = "Unknown error has occurred."
+          }
+          this.m_SnackBar.open(msg, 'Close', { duration: 5000 })
+          this.m_LoadingService.setLoading = false;
+          return EMPTY;
+        })
+      )
       .subscribe((_:any) => {
         if(args.data) {
           let data: any = args.data as any;
