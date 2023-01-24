@@ -6,6 +6,7 @@ import bloodcenter.core.ErrorResponse;
 import bloodcenter.exceptions.QuestionnaireNotCompleted;
 import bloodcenter.exceptions.UserCannotGiveBloodException;
 import bloodcenter.person.model.BCAdmin;
+import bloodcenter.security.filter.AuthUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,20 +48,14 @@ public class AvailableAppointmentController {
     @Secured({"ROLE_USER"})
     public ResponseEntity<?> scheduleAppointment(HttpServletRequest request, @RequestBody Long id) {
         try {
-            appointmentService.scheduleAppointment(request, id);
+            String userEmail = AuthUtility.getEmailFromRequest(request);
+            appointmentService.scheduleAppointment(userEmail, id);
             return new ResponseEntity<>(OK);
         } catch (UserCannotGiveBloodException | QuestionnaireNotCompleted e) {
             return new ResponseEntity<>(e.getMessage(), BAD_REQUEST);
         } catch (Exception e) {
             return new ResponseEntity<>("Unknown error occurred", BAD_REQUEST);
         }
-    }
-
-    @PutMapping("/cancel")
-    @Secured({"ROLE_USER"})
-    public ResponseEntity<?> cancelAppointment(HttpServletRequest request, @RequestBody Long id) {
-
-        return new ResponseEntity<>(OK);
     }
 
     @ExceptionHandler({ Exception.class })

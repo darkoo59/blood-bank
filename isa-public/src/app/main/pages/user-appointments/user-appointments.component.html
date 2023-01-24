@@ -7,10 +7,21 @@
   </div>
   <div>
     <mat-card class="card" *ngFor="let appointment of appointments">
-      <mat-card-title>{{appointment.title}}</mat-card-title>
+      <div class="card-title-container">
+        <mat-card-title> {{appointment.title}} </mat-card-title>
+        <div matTooltip="Cancellations must be made at least 24 hours before start time" [matTooltipDisabled]="isCancelButtonActivated(appointment.begin)">
+        <button class="view-button" 
+                mat-flat-button 
+                color="accent" 
+                class="view-button" 
+                [disabled]="!isCancelButtonActivated(appointment.begin)"
+                (click)="cancel(appointment.id)">
+          Cancel
+        </button>
+        </div>
+      </div>
       <mat-card-content>
-        <p><b>Begin: </b>{{appointment.begin}}</p>
-        <p><b>End: </b>{{appointment.end}}</p>
+        <p><b>Time: </b> {{ formatDate(appointment.begin) }} {{ formatTime(appointment.begin) }} - {{ formatTime(appointment.end) }} </p>
       </mat-card-content>
     </mat-card>
   </div>

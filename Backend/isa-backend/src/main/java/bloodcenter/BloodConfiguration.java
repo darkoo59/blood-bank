@@ -202,21 +202,21 @@ public class BloodConfiguration {
             Appointment a4 = new Appointment(u2);
             Appointment a5 = new Appointment(u2);
 
-            a1.setBegin(LocalDateTime.of(2022, Month.DECEMBER, 21, 19, 0));
-            a1.setEnd(LocalDateTime.of(2022, Month.DECEMBER, 21, 20, 30));
+            a1.setBegin(LocalDateTime.of(2023, Month.DECEMBER, 21, 19, 0));
+            a1.setEnd(LocalDateTime.of(2023, Month.DECEMBER, 21, 20, 30));
             a1.setTitle("Naslov 1");
-            a2.setBegin(LocalDateTime.of(2022, Month.DECEMBER, 22, 12, 30));
-            a2.setEnd(LocalDateTime.of(2022, Month.DECEMBER, 22, 13, 0));
+            a2.setBegin(LocalDateTime.of(2023, Month.DECEMBER, 22, 12, 30));
+            a2.setEnd(LocalDateTime.of(2023, Month.DECEMBER, 22, 13, 0));
             a2.setTitle("Naslov 2");
-            a3.setBegin(LocalDateTime.of(2022, Month.DECEMBER, 25, 12, 30));
-            a3.setEnd(LocalDateTime.of(2022, Month.DECEMBER, 25, 13, 0));
+            a3.setBegin(LocalDateTime.of(2023, Month.DECEMBER, 25, 12, 30));
+            a3.setEnd(LocalDateTime.of(2023, Month.DECEMBER, 25, 13, 0));
             a3.setTitle("Naslov 3");
             a4.setTitle("Marko 1");
-            a4.setBegin(LocalDateTime.of(2022, Month.DECEMBER, 26, 12, 30));
-            a4.setEnd(LocalDateTime.of(2022, Month.DECEMBER, 26, 15, 0));
+            a4.setBegin(LocalDateTime.of(2023, Month.DECEMBER, 26, 12, 30));
+            a4.setEnd(LocalDateTime.of(2023, Month.DECEMBER, 26, 15, 0));
             a5.setTitle("Marko 2");
-            a5.setBegin(LocalDateTime.of(2022, Month.DECEMBER, 26, 16, 0));
-            a5.setEnd(LocalDateTime.of(2022, Month.DECEMBER, 26, 17, 0));
+            a5.setBegin(LocalDateTime.of(2023, Month.DECEMBER, 26, 16, 0));
+            a5.setEnd(LocalDateTime.of(2023, Month.DECEMBER, 26, 17, 0));
 
             repository.saveAll(List.of(a1, a2, a3, a4, a5));
         };
@@ -225,16 +225,16 @@ public class BloodConfiguration {
     @Bean
     CommandLineRunner AvailableAppointmentCLR(AvailableAppointmentRepository repository, BranchCenterRepository bc_repo){
         return args -> {
-            AvailableAppointment a1 = new AvailableAppointment("Available appointment",LocalDateTime.of(2022, Month.DECEMBER, 21, 18, 00),
-                    LocalDateTime.of(2022, Month.DECEMBER, 21, 19, 00));
-            AvailableAppointment a2 = new AvailableAppointment("Available appointment",LocalDateTime.of(2022, Month.DECEMBER, 22, 15, 00),
-                    LocalDateTime.of(2022, Month.DECEMBER, 22, 15, 30));
-            AvailableAppointment a3 = new AvailableAppointment("Available appointment",LocalDateTime.of(2022, Month.DECEMBER, 24, 14, 20),
-                    LocalDateTime.of(2022, Month.DECEMBER, 24, 15, 00));
-            AvailableAppointment a4 = new AvailableAppointment("Available appointment",LocalDateTime.of(2022, Month.DECEMBER, 24, 14, 20),
-                    LocalDateTime.of(2022, Month.DECEMBER, 24, 15, 00));
-            AvailableAppointment a5 = new AvailableAppointment("Available appointment",LocalDateTime.of(2022, Month.DECEMBER, 24, 14, 20),
-                    LocalDateTime.of(2022, Month.DECEMBER, 24, 15, 00));
+            AvailableAppointment a1 = new AvailableAppointment("Available appointment",LocalDateTime.of(2023, Month.DECEMBER, 21, 18, 00),
+                    LocalDateTime.of(2023, Month.DECEMBER, 21, 19, 00));
+            AvailableAppointment a2 = new AvailableAppointment("Available appointment",LocalDateTime.of(2023, Month.DECEMBER, 22, 15, 00),
+                    LocalDateTime.of(2023, Month.DECEMBER, 22, 15, 30));
+            AvailableAppointment a3 = new AvailableAppointment("Available appointment",LocalDateTime.of(2023, Month.DECEMBER, 24, 14, 20),
+                    LocalDateTime.of(2023, Month.DECEMBER, 24, 15, 00));
+            AvailableAppointment a4 = new AvailableAppointment("Available appointment",LocalDateTime.of(2023, Month.DECEMBER, 24, 14, 20),
+                    LocalDateTime.of(2023, Month.DECEMBER, 24, 15, 00));
+            AvailableAppointment a5 = new AvailableAppointment("Available appointment",LocalDateTime.of(2023, Month.DECEMBER, 24, 14, 20),
+                    LocalDateTime.of(2023, Month.DECEMBER, 24, 15, 00));
 
             a1.setBranchCenter(bc_repo.findById(1L).get());
             a2.setBranchCenter(bc_repo.findById(1L).get());

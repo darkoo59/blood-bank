@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
-    List<Appointment> getAppointmentByEndAfterAndUser(LocalDateTime date, User user);
+    List<Appointment> getAppointmentByEndAfterAndUserAndStarted(LocalDateTime date, User user, Boolean hasStarted);
     List<Appointment> getAllByUser_Id(long id);
 }

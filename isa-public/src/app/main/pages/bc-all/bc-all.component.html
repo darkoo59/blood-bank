@@ -29,14 +29,16 @@
   </form>
   <div class="grid">
     <mat-card class="card" *ngFor="let center of centersPageInfo.branchCenters">
-      <mat-card-title>{{center.name}}</mat-card-title>
+      <div class="card-title-container">
+        <mat-card-title> {{center.name}} </mat-card-title>
+        <button class="view-button" mat-flat-button color="accent" class="view-button" (click)="openBC(center.id)">View</button>
+      </div>
       <mat-card-content>
         <p><b>Description: </b>{{center.description}}</p>
         <p><b>Country: </b>{{center.address.country}}</p>
         <p><b>City: </b>{{center.address.city}}</p>
         <p><b>Address: </b>{{center.address.street}} {{center.address.number}}</p>
         <grade *ngIf="center.feedback && center.feedback.length != 0" class="grade" [i_Grade]="calculateAverage(center.feedback)"></grade>
-        <button mat-flat-button color="accent" class="view-button" (click)="openBC(center.id)">View</button>
       </mat-card-content>
     </mat-card>
   </div>

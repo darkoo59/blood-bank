@@ -5,22 +5,20 @@ import bloodcenter.appointment.dto.CreateAppointmentDTO;
 import bloodcenter.available_appointment.AvailableAppointment;
 import bloodcenter.available_appointment.AvailableAppointmentService;
 import bloodcenter.email.service.EmailService;
+import bloodcenter.exceptions.AppointmentDoesNotExistException;
+import bloodcenter.exceptions.CancellationTooLateException;
 import bloodcenter.exceptions.QuestionnaireNotCompleted;
 import bloodcenter.exceptions.UserCannotGiveBloodException;
 import bloodcenter.person.model.User;
 import bloodcenter.person.service.UserService;
 import bloodcenter.questionnaire.service.QuestionnaireService;
-import bloodcenter.security.filter.AuthUtility;
 import bloodcenter.utils.QRCodeGenerator;
 import com.google.zxing.WriterException;
-import bloodcenter.email.EmailSender;
-import bloodcenter.email.service.EmailService;
 import bloodcenter.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.time.LocalDateTime;
@@ -76,10 +74,10 @@ public class AppointmentService {
         repository.deleteById(id);
 
     }
-    public boolean HaveYouGiveBloodLastSixMonths(Long userId){
+    public boolean hasDonatedBloodInLastSixMonths(Long userId){
         User user = userService.getById(userId).orElse(null);
         LocalDateTime beforeSixMonths = LocalDateTime.now().minusMonths(6);
-        List<Appointment>appointments = repository.getAppointmentByEndAfterAndUser(beforeSixMonths, user);
+        List<Appointment>appointments = repository.getAppointmentByEndAfterAndUserAndStarted(beforeSixMonths, user, true);
 
         return appointments.size() != 0;
     }
@@ -97,6 +95,15 @@ public class AppointmentService {
         repository.save(appointment);
         availableAppointmentService.remove(selectedAvailableAppointment);
         emailService.send(user.getEmail(),"Appointment informations",buildEmail(appointment));
+    }
+
+    public void cancelAppointment(Long appointmentId) throws AppointmentDoesNotExistException, CancellationTooLateException {
+        var appointment = repository.findById(appointmentId);
+        if (appointment.isEmpty()) throw new AppointmentDoesNotExistException();
+        if (appointment.get().getBegin().isBefore(LocalDateTime.now().plusHours(24))) {
+            throw new CancellationTooLateException();
+        }
+        repository.delete(appointment.get());
     }
 
     public List<AppointmentDTO> findAllInFutureByUserId(long userId) {
@@ -183,11 +190,10 @@ public class AppointmentService {
     }
 
 
-    public void scheduleAppointment(HttpServletRequest request, Long id)
+    public void scheduleAppointment(String userEmail, Long id)
             throws UserCannotGiveBloodException, QuestionnaireNotCompleted, IOException, WriterException, MessagingException {
-        String userEmail = AuthUtility.getEmailFromRequest(request);
         var user = userService.getUser(userEmail);
-        if (HaveYouGiveBloodLastSixMonths(user.getId())) {
+        if (hasDonatedBloodInLastSixMonths(user.getId())) {
             throw new UserCannotGiveBloodException();
         }
         if (questionnaireService.getAnsweredQuestionnaireByUserId(user.getId()) == null) {

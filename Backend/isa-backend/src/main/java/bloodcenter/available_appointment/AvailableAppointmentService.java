@@ -47,6 +47,10 @@ public class AvailableAppointmentService {
     public List<AvailableAppointment> getByBranchCenterId(Long id) {
         return repository.getAvailableAppointmentByBranchCenterId(id);
     }
+
+    public void add(AvailableAppointment app) {
+        repository.findAll().add(app);
+    }
     
     public AvailableAppointment getByUserSelectedDateAndBcId(LocalDateTime dateTime, long branchCenterId) {
         for (AvailableAppointment availableAppointment:repository.findAll()) {
