@@ -38,10 +38,9 @@ public class AvailableAppointmentService {
     }
 
     @Transactional
-    public void create(HttpServletRequest request,AvailableAppointmentsDTO appointmentsDTO) throws Exception {
+    public void create(String adminEmail, AvailableAppointmentsDTO appointmentsDTO) throws Exception {
         synchronized (this) {
-            Thread.sleep(5000);
-            String adminEmail = AuthUtility.getEmailFromRequest(request);
+//            Thread.sleep(5000);
             BranchCenter branchCenter = bcAdminService.getBranchCenterByAdminEmail(adminEmail);
             AvailableAppointment appointment = ObjectsMapper.convertDTOToAvailableAppointment(appointmentsDTO);
             appointment.setBranchCenter(branchCenter);

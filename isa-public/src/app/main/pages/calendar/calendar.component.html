@@ -8,6 +8,9 @@
       [startHour]="scheduleHours.start"
       [endHour]="scheduleHours.end"
       [workDays]="workingDays"
+      [timeFormat]="'HH:mm'"
+      timezone="Europe/Belgrade"
+      [eventSettings]="eventSettings"
       (actionBegin)="onActionBegin($event)"
       (eventClick)="appointmentSelected($event)">
     </ejs-schedule>

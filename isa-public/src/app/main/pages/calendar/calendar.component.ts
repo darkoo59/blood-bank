@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActionEventArgs, EventSettingsModel, ScheduleComponent, WorkHoursModel } from '@syncfusion/ej2-angular-schedule';
+import { ActionEventArgs, EventSettingsModel, ScheduleComponent, timezoneData, WorkHoursModel } from '@syncfusion/ej2-angular-schedule';
 import { catchError, EMPTY, forkJoin, take, tap } from 'rxjs';
 import { AvailableAppointment } from 'src/app/model/available-appointment';
 import { CalendarService } from './calendar.service';
@@ -9,6 +9,7 @@ import { CreateAvailableAppointmentDTO } from './dto/create-available-appointmen
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Appointment } from 'src/app/model/appointment.model';
 import { LoadingService } from 'src/app/services/loading.service';
+import { extend } from 'leaflet';
 
 @Component({
   selector: 'app-calendar',
@@ -27,7 +28,9 @@ export class CalendarComponent implements OnInit {
   workingDays:[] = []
   availableAppointments:AvailableAppointment[] = []
 
-  public eventSettings: EventSettingsModel = {}
+  public eventSettings: EventSettingsModel = {
+    dataSource: <Object[]>extend([], timezoneData, null, true)
+  };
   public views: Array<string> = ['Day','WorkWeek','Week','Month', 'Year']
   public scheduleHours: WorkHoursModel = {}
   m_IsBCPresent = true;
@@ -97,8 +100,8 @@ export class CalendarComponent implements OnInit {
       args.cancel = true;
       const appointmentToCreate: CreateAvailableAppointmentDTO = {
         title: args.data?.at(0).Subject,
-        start: args.data?.at(0).StartTime,
-        end: args.data?.at(0).EndTime
+        start: new Date(args.data?.at(0).StartTime.getTime() + (60 * 60 * 1000)).toUTCString(),
+        end: new Date(args.data?.at(0).EndTime.getTime() + (60 * 60 * 1000)).toUTCString()
       }
       this.m_CalendarService.createAvailableAppointment(appointmentToCreate).pipe(
         take(1),

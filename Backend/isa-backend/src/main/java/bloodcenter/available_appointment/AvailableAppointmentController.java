@@ -43,7 +43,8 @@ public class AvailableAppointmentController {
     @PostMapping
     @Secured({"ROLE_BCADMIN"})
     public ResponseEntity<Object> createAvailableAppointment(HttpServletRequest request,@RequestBody AvailableAppointmentsDTO appointmentsDTO) throws Exception {
-        availabeAppointmentService.create(request,appointmentsDTO);
+        String adminEmail = AuthUtility.getEmailFromRequest(request);
+        availabeAppointmentService.create(adminEmail, appointmentsDTO);
         return new ResponseEntity<>(OK);
     }
 

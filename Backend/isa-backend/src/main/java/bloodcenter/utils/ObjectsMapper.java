@@ -64,8 +64,8 @@ public class ObjectsMapper {
 
     public static AvailableAppointment convertDTOToAvailableAppointment(AvailableAppointmentsDTO dto){
         AvailableAppointment appointment = new AvailableAppointment();
-        appointment.setStart(LocalDateTime.parse(dto.getStart(), DateTimeFormatter.ISO_OFFSET_DATE_TIME));
-        appointment.setEnd(LocalDateTime.parse(dto.getEnd(), DateTimeFormatter.ISO_OFFSET_DATE_TIME));
+        appointment.setStart(LocalDateTime.parse(dto.getStart(), DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss z")));
+        appointment.setEnd(LocalDateTime.parse(dto.getEnd(), DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss z")));
         appointment.setTitle(dto.getTitle());
         return appointment;
     }
