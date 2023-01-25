@@ -5,10 +5,7 @@ import bloodcenter.appointment.dto.CreateAppointmentDTO;
 import bloodcenter.available_appointment.AvailableAppointment;
 import bloodcenter.available_appointment.AvailableAppointmentService;
 import bloodcenter.email.service.EmailService;
-import bloodcenter.exceptions.AppointmentDoesNotExistException;
-import bloodcenter.exceptions.CancellationTooLateException;
-import bloodcenter.exceptions.QuestionnaireNotCompleted;
-import bloodcenter.exceptions.UserCannotGiveBloodException;
+import bloodcenter.exceptions.*;
 import bloodcenter.person.model.User;
 import bloodcenter.person.service.UserService;
 import bloodcenter.questionnaire.service.QuestionnaireService;
@@ -19,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.time.LocalDateTime;
@@ -190,8 +188,10 @@ public class AppointmentService {
     }
 
 
+    @Transactional
     public void scheduleAppointment(String userEmail, Long id)
-            throws UserCannotGiveBloodException, QuestionnaireNotCompleted, IOException, WriterException, MessagingException {
+            throws UserCannotGiveBloodException, QuestionnaireNotCompleted, IOException,
+            WriterException, MessagingException, AppointmentNotAvailableAnymore {
         var user = userService.getUser(userEmail);
         if (hasDonatedBloodInLastSixMonths(user.getId())) {
             throw new UserCannotGiveBloodException();
@@ -201,6 +201,7 @@ public class AppointmentService {
         }
 
         var availableAppointment = availableAppointmentService.getAvailableAppointmentById(id);
+        if (availableAppointment == null) throw new AppointmentNotAvailableAnymore();
         var appointment = new Appointment();
         appointment.setTitle(availableAppointment.getTitle());
         appointment.setBegin(availableAppointment.getStart());
