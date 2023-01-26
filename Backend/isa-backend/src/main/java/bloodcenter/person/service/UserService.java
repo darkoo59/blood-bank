@@ -18,6 +18,8 @@ import bloodcenter.exceptions.TokenNotFoundException;
 import bloodcenter.exceptions.UserConfirmedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.retry.RetryContext;
 import org.springframework.retry.policy.SimpleRetryPolicy;
 import org.springframework.retry.support.RetryTemplate;
@@ -67,7 +69,10 @@ public class UserService {
                 userRepository.findByEmail(email).get() : null;
     }
 
+    @Cacheable(value = "Users")
     public List<User> getAll() { return this.userRepository.findAll(); }
+    @CacheEvict(value = "Users", allEntries = true)
+    public List<User> refreshAll() { return this.userRepository.findAll(); }
 
     public void registerUser(RegisterDTO registerDTO) throws EmailExistsException, MessagingException {
         User user = ObjectsMapper.convertRegisterDTOToUser(registerDTO);

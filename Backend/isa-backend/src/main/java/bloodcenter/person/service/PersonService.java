@@ -8,6 +8,7 @@ import bloodcenter.person.model.Person;
 import bloodcenter.person.repository.PersonRepository;
 import bloodcenter.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -32,7 +33,8 @@ public class PersonService implements UserDetailsService {
 
     @Autowired
     public PersonService(PersonRepository personRepository, UserService userService,
-                         BCAdminService bcAdminService, AdminService adminService, PasswordEncoder passwordEncoder, AddressService addressService) {
+                         BCAdminService bcAdminService, AdminService adminService,
+                         PasswordEncoder passwordEncoder, AddressService addressService) {
         this.personRepository = personRepository;
         this.userService = userService;
         this.bcAdminService = bcAdminService;
@@ -137,6 +139,7 @@ public class PersonService implements UserDetailsService {
 
         person.setPassword(passwordEncoder.encode(dto.getNewPassword()));
         personRepository.save(person);
+        userService.refreshAll();
     }
 
     public void changeAdminPassword(String email, String password) throws Exception {
