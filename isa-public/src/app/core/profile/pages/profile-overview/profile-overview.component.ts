@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit} from "@angular/core";
 import { FormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import { LatLng } from "leaflet";
-import { catchError, EMPTY, of, Subject, switchMap, tap } from "rxjs";
+import { catchError, EMPTY, of, Subject, switchMap, take, tap } from "rxjs";
 import { User } from "src/app/model/user.model";
 import { UserService } from "src/app/services/user.service";
 import { MatSnackBar } from '@angular/material/snack-bar'
@@ -20,6 +20,8 @@ export class ProfileOverviewComponent implements OnDestroy,OnInit {
   errors: string[] = [];
   addressData!: any;
   m_Error$ = this.userService.m_Error$;
+  userRank!: string;
+  userPoints!: number;
 
   form: UntypedFormGroup = new UntypedFormGroup({
     'firstname': new FormControl(null, Validators.required),
@@ -114,5 +116,16 @@ export class ProfileOverviewComponent implements OnDestroy,OnInit {
       location.reload()
     })
   }
+
+  isUserPatient(): boolean{
+    if(this.userData.roles != undefined){
+      for(let role of this.userData.roles){
+        if(role.name == 'ROLE_USER')
+          return true;
+      }
+  }
+    return false;
+  }
+
 
 }

@@ -2,6 +2,7 @@ package bloodcenter.available_appointment;
 
 import bloodcenter.available_appointment.dto.AvailableAppointmentsDTO;
 import bloodcenter.branch_center.BranchCenter;
+import bloodcenter.complaint.Complaint;
 import bloodcenter.person.model.BCAdmin;
 import bloodcenter.person.service.BCAdminService;
 import bloodcenter.security.filter.AuthUtility;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.cache.annotation.Cacheable;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
@@ -28,6 +30,7 @@ public class AvailableAppointmentService {
         this.bcAdminService = bcAdminService;
     }
 
+    @Cacheable(value = "AvailableAppointments")
     public List<AvailableAppointmentsDTO> getAll(HttpServletRequest request) throws BCAdmin.BCAdminNotFoundException {
         String adminEmail = AuthUtility.getEmailFromRequest(request);
         BranchCenter branchCenter = bcAdminService.getBranchCenterByAdminEmail(adminEmail);
@@ -76,6 +79,10 @@ public class AvailableAppointmentService {
         return null;
     }
 
+    @Transactional
+    public void save(AvailableAppointment appointment) {
+        repository.save(appointment);
+    }
     public AvailableAppointment getAvailableAppointmentById(Long id) {
         return repository.findById(id).orElse(null);
     }
@@ -83,5 +90,9 @@ public class AvailableAppointmentService {
     public void remove(AvailableAppointment availableAppointment)
     {
         repository.delete(availableAppointment);
+    }
+
+    public AvailableAppointment findById(long l) {
+        return repository.findById(l).get();
     }
 }

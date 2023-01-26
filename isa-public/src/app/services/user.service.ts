@@ -46,4 +46,12 @@ export class UserService extends GenericDataService<User> {
     information: personToUpdate.information}
     return this.m_Http.patch(`${environment.apiUrl}/person`, body);
   }
+
+  getUserRank(id:number) : Observable<string> {
+    return this.m_Http.get<string>(`${environment.apiUrl}/user/getRank/${id}`)
+  }
+
+  getUserPoints(id:number) : Observable<string> {
+    return this.m_Http.get<string>(`${environment.apiUrl}/user/getPoints/${id}`)
+  }
 }
