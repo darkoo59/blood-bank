@@ -57,8 +57,8 @@ public class UserController {
 
     @GetMapping("/search")
     @Secured({"ROLE_ADMIN", "ROLE_BCADMIN"})
-    public ResponseEntity<List<User>> searchUsers(@RequestParam String searchInput) {
-        return new ResponseEntity<>(userService.searchUsers(searchInput), OK);
+    public ResponseEntity<List<PersonDTO>> searchUsers(@RequestParam String searchInput) {
+        return new ResponseEntity<>(convertUserListToDTO(userService.searchUsers(searchInput)), OK);
     }
 
     @PostMapping("/register")

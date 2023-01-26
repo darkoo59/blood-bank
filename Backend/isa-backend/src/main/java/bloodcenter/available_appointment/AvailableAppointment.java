@@ -23,8 +23,17 @@ public class AvailableAppointment {
     private LocalDateTime end;
     @ManyToOne
     private BranchCenter branchCenter;
+    @Version
+    private long version;
 
     public AvailableAppointment(String title,LocalDateTime begin, LocalDateTime end){
+        this.title = title;
+        this.start = begin;
+        this.end = end;
+    }
+
+    public AvailableAppointment(long id,String title,LocalDateTime begin, LocalDateTime end){
+        this.id = id;
         this.title = title;
         this.start = begin;
         this.end = end;

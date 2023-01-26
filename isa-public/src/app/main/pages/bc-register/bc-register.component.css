@@ -35,3 +35,7 @@
 .description-area {
     max-height: 400px;
 }
+
+.example-checkbox {
+    margin: 12px 0;
+  }

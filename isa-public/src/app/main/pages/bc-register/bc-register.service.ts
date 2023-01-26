@@ -1,3 +1,4 @@
+import { Time } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, EMPTY, Observable } from 'rxjs';
@@ -8,6 +9,15 @@ export interface BCRegisterDTO {
   name: string
   description: string
   address: Address
+  monday: boolean
+  tuesday: boolean
+  wednesday: boolean
+  thursday: boolean
+  friday: boolean
+  saturday: boolean
+  sunday: boolean
+  startTime: Time
+  endTime: Time
 }
 
 

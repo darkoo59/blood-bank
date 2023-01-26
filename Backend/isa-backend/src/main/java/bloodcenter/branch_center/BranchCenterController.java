@@ -53,9 +53,10 @@ public class BranchCenterController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size,
             @RequestParam(value="country", required = false) String country,
-            @RequestParam(value="city", required = false) String city
+            @RequestParam(value="city", required = false) String city,
+            @RequestParam(value="order", required = false) String order
     ) {
-        return new ResponseEntity<>(service.findAllPagesFiltered(name,page,size,country,city), HttpStatus.OK);
+        return new ResponseEntity<>(service.findAllPagesFiltered(name,page,size,country,city,order), HttpStatus.OK);
     }
 
     @Secured({"ROLE_BCADMIN"})
