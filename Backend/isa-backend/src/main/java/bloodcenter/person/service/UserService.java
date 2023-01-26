@@ -68,12 +68,8 @@ public class UserService {
         return userRepository.findByEmail(email).isPresent() ?
                 userRepository.findByEmail(email).get() : null;
     }
-
     @Cacheable(value = "Users")
     public List<User> getAll() { return this.userRepository.findAll(); }
-    @CacheEvict(value = "Users", allEntries = true)
-    public List<User> refreshAll() { return this.userRepository.findAll(); }
-
     public void registerUser(RegisterDTO registerDTO) throws EmailExistsException, MessagingException {
         User user = ObjectsMapper.convertRegisterDTOToUser(registerDTO);
         boolean emailExists = userRepository.findByEmail(user.getEmail()).isPresent();

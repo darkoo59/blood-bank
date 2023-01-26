@@ -131,6 +131,7 @@ public class PersonService implements UserDetailsService {
 //        }
     }
 
+    @CacheEvict(value = "Users", allEntries = true)
     public void changePassword(String email, ChangePasswordDTO dto) throws Exception {
         Person person = this.getPerson(email);
         if (person == null) throw new Exception("User not found");
@@ -139,7 +140,6 @@ public class PersonService implements UserDetailsService {
 
         person.setPassword(passwordEncoder.encode(dto.getNewPassword()));
         personRepository.save(person);
-        userService.refreshAll();
     }
 
     public void changeAdminPassword(String email, String password) throws Exception {
