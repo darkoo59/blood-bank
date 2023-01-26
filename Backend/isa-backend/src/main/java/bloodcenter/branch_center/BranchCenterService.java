@@ -15,6 +15,7 @@ import bloodcenter.security.filter.AuthUtility;
 import bloodcenter.utils.ObjectsMapper;
 import bloodcenter.working_days.WorkingDay;
 
+import bloodcenter.working_days.WorkingDayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
@@ -38,12 +39,16 @@ public class BranchCenterService {
     private final BCAdminService bcAdminService;
     private final AvailableAppointmentService availableAppointmentService;
 
+    @Autowired
+    private final WorkingDayService workingDayService;
+
     public BranchCenterService(BranchCenterRepository branchCenterRepository, AddressService service, @Lazy BCAdminService
-            adminService, @Lazy AvailableAppointmentService availableAppointmentService) {
+            adminService, @Lazy AvailableAppointmentService availableAppointmentService, WorkingDayService workingDayService) {
         this.repository = branchCenterRepository;
         this.service = service;
         this.bcAdminService = adminService;
         this.availableAppointmentService = availableAppointmentService;
+        this.workingDayService = workingDayService;
     }
 
     public BranchCenter getById(Long id) throws BranchCenter.BCNotFoundException {
@@ -58,7 +63,12 @@ public class BranchCenterService {
         Address address = new Address(bcDTO.address.lat, bcDTO.address.lng, bcDTO.address.street,
                 bcDTO.address.number, bcDTO.address.city, bcDTO.address.country);
         service.saveAdress(address);
-        BranchCenter bc = new BranchCenter(bcDTO.name, bcDTO.description, address);
+
+        WorkingDay workingDay = new WorkingDay(bcDTO.monday, bcDTO.tuesday, bcDTO.wednesday,
+                bcDTO.thursday, bcDTO.friday, bcDTO.saturday, bcDTO.sunday);
+        workingDayService.saveWorkingDay(workingDay);
+
+        BranchCenter bc = new BranchCenter(bcDTO.name, bcDTO.description, address, bcDTO.getStartTime(), bcDTO.getEndTime(), workingDay);
         repository.save(bc);
     }
 
