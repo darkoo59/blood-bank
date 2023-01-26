@@ -2,9 +2,7 @@ package bloodcenter.available_appointment;
 
 import bloodcenter.available_appointment.dto.AvailableAppointmentsDTO;
 import bloodcenter.branch_center.BranchCenter;
-import bloodcenter.complaint.Complaint;
 import bloodcenter.person.model.BCAdmin;
-import bloodcenter.person.model.User;
 import bloodcenter.person.service.BCAdminService;
 import bloodcenter.person.service.UserService;
 import bloodcenter.security.filter.AuthUtility;
@@ -17,11 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.cache.annotation.Cacheable;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.transaction.Transactional;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
