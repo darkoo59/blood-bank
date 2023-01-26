@@ -13,11 +13,11 @@ public interface AddressRepository extends JpaRepository<Address, Long> {
     nativeQuery = true)
     Address getAddressByLatLng(double lat, double lng);
 
-    @Query(value="SELECT country FROM address",
+    @Query(value="SELECT DISTINCT country FROM address",
     nativeQuery = true)
     List<String> getAllCountries();
 
-    @Query(value="SELECT city FROM address",
+    @Query(value="SELECT DISTINCT city FROM address",
             nativeQuery = true)
     List<String> getAllCities();
 }
