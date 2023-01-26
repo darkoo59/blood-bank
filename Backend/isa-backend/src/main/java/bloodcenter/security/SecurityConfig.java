@@ -71,7 +71,8 @@ public class SecurityConfig {
                 "/api/subscribed-hospital/subscribe",
                 "/api/subscribed-hospital/unsubscribe",
                 "/api/news/publish",
-                "/api/blood-request"
+                "/api/blood-request",
+                "/api/map-sim/**"
         ).permitAll();
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
