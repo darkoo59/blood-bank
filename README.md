@@ -23,5 +23,7 @@
   Frontend: Angular 14
   Backend: Java Spring Boot, Maven
   Alati,biblioteke i slično: RabbitMQ, GRPC protokol, Mail servis, Syncfusion calendar, Material for Angular,...
-
+  
+### Skripte za bazu podataka
+  Podaci se u bazu ubacuju iz aplikacije, nema posebnih skripti za ubacivanje podataka
   
