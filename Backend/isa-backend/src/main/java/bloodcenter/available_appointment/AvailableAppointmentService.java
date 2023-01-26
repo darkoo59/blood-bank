@@ -2,6 +2,7 @@ package bloodcenter.available_appointment;
 
 import bloodcenter.available_appointment.dto.AvailableAppointmentsDTO;
 import bloodcenter.branch_center.BranchCenter;
+import bloodcenter.complaint.Complaint;
 import bloodcenter.person.model.BCAdmin;
 import bloodcenter.person.service.BCAdminService;
 import bloodcenter.security.filter.AuthUtility;
@@ -76,6 +77,10 @@ public class AvailableAppointmentService {
         return null;
     }
 
+    @Transactional
+    public void save(AvailableAppointment appointment) {
+        repository.save(appointment);
+    }
     public AvailableAppointment getAvailableAppointmentById(Long id) {
         return repository.findById(id).orElse(null);
     }
@@ -83,5 +88,9 @@ public class AvailableAppointmentService {
     public void remove(AvailableAppointment availableAppointment)
     {
         repository.delete(availableAppointment);
+    }
+
+    public AvailableAppointment findById(long l) {
+        return repository.findById(l).get();
     }
 }

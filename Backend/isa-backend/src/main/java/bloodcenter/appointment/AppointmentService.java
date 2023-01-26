@@ -298,4 +298,8 @@ public class AppointmentService {
                 "\n" +
                 "</div></div>";
     }
+
+    public void save(Appointment appointment) {
+        repository.save(appointment);
+    }
 }
