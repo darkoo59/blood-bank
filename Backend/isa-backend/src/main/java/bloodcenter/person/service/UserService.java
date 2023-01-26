@@ -110,6 +110,11 @@ public class UserService {
         }
     }
 
+    public String getRankById(long id)
+    {
+        return userRepository.findById(id).get().getRank().name();
+    }
+
     private String buildEmail(String name, String link) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
                 "\n" +
@@ -220,5 +225,9 @@ public class UserService {
         userToUpdate.setPhone(personToUpdate.getPhone());
         userToUpdate.setSex(personToUpdate.getSex());
         userRepository.save(userToUpdate);
+    }
+
+    public int getPointsById(long id) {
+        return userRepository.findById(id).get().getPoints();
     }
 }

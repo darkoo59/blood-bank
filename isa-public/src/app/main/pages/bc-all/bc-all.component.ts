@@ -22,6 +22,7 @@ export class BCAllComponent implements OnInit{
   allCities!: String[];
   selectedCountry!: string;
   selectedCity!: string;
+  selectedOrder: string = '-1';
   centersPageInfo!: BranchCenterPage;
   form: UntypedFormGroup = new UntypedFormGroup({
     'search-input': new FormControl(null)
@@ -67,11 +68,11 @@ export class BCAllComponent implements OnInit{
     let request
     if(this.pageEvent != null)
       request = { name: this.form.get('search-input')?.value ,country: this.selectedCountry,
-      city: this.selectedCity, size: this.pageEvent.pageSize.toString(),
+      city: this.selectedCity, order: this.selectedOrder, size: this.pageEvent.pageSize.toString(),
             page: this.pageEvent.pageIndex.toString()}
     else
       request = { name: this.form.get('search-input')?.value,country: this.selectedCountry,
-      city: this.selectedCity }
+      city: this.selectedCity, order: this.selectedOrder }
     this.getCenters(request)
   }
 

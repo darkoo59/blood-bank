@@ -116,4 +116,16 @@ public class UserController {
         response.addCookie(jwtCookie);
         AuthUtility.setResponseMessage(response, "Success", "Cookie removed");
     }
+
+    @GetMapping("/getRank/{id}")
+    @Secured({"ROLE_USER"})
+    public String getRank(@PathVariable("id") long id) throws Exception {
+         return userService.getRankById(id);
+    }
+
+    @GetMapping("/getPoints/{id}")
+    @Secured({"ROLE_USER"})
+    public int getPoints(@PathVariable("id") long id) throws Exception {
+        return userService.getPointsById(id);
+    }
 }

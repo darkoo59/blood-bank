@@ -17,6 +17,7 @@ import bloodcenter.feedback.Feedback;
 import bloodcenter.feedback.FeedbackRepository;
 import bloodcenter.person.enums.Sex;
 import bloodcenter.person.model.Admin;
+import bloodcenter.person.model.UserRank;
 import bloodcenter.person.repository.AdminRepository;
 import bloodcenter.questionnaire.enums.QuestionType;
 import bloodcenter.questionnaire.model.Question;
@@ -173,10 +174,10 @@ public class BloodConfiguration {
     @Bean
     CommandLineRunner UserCLR(UserRepository repository, RoleRepository role_repo) {
         return args -> {
-            User u1 = new User("Rade", "Stojanovic", "rade@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0641232133","1234567891011", Sex.MALE,"Default occupation","Default information");
-            User u3 = new User("Vojin", "Bjelica", "vojinb111@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0646677732","1264567891221",Sex.MALE,"Default occupation","Default information");
-            User u2 = new User("Darko", "Selakovic", "darko.selakovic11@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","064143421","1234567391011",Sex.MALE,"Default occupation","Default information");
-            User u4 = new User("Marko", "Uljarevic", "marko@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","064312221","1324567691011",Sex.MALE,"Default occupation","Default information");
+            User u1 = new User("Rade", "Stojanovic", "rade@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0641232133","1234567891011", Sex.MALE,"Default occupation","Default information", UserRank.Regular, 500);
+            User u3 = new User("Vojin", "Bjelica", "vojinb111@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0646677732","1264567891221",Sex.MALE,"Default occupation","Default information",UserRank.Silver, 1500);
+            User u2 = new User("Darko", "Selakovic", "darko.selakovic11@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","064143421","1234567391011",Sex.MALE,"Default occupation","Default information",UserRank.Gold, 2500);
+            User u4 = new User("Marko", "Uljarevic", "marko@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","064312221","1324567691011",Sex.MALE,"Default occupation","Default information",UserRank.Regular,0);
 
             u1.setEnabled(true);
             u2.setEnabled(true);

@@ -71,7 +71,7 @@ public class BranchCenterService {
         return centersToReturn;
     }
 
-    public Map<String, Object> findAllPagesFiltered(String name, int page, int size,String country, String city) {
+    public Map<String, Object> findAllPagesFiltered(String name, int page, int size,String country, String city, String order) {
         List<BranchCenterDTO> centers = new ArrayList<>();
         Pageable paging = PageRequest.of(page, size);
 
@@ -81,9 +81,35 @@ public class BranchCenterService {
             pageCenter = repository.findAll(paging);
         else
             pageCenter = repository.findSearched(name,country,city, paging);
-
         for (BranchCenter center:pageCenter.getContent()) {
             centers.add(ObjectsMapper.convertBranchCenterToDTO(center));
+        }
+
+        if(!order.equals("-1"))
+        {
+            if(order.equals("0"))
+            {
+                centers.sort(Comparator.comparing(a -> a.getName()));
+                Collections.reverse(centers);
+            }else if(order.equals("1"))
+            {
+                centers.sort(Comparator.comparing(a -> a.getName()));
+            }else if(order.equals("2"))
+            {
+                centers.sort(Comparator.comparing(a -> a.getAddress().getCountry()));
+                Collections.reverse(centers);
+            }else if(order.equals("3"))
+            {
+                centers.sort(Comparator.comparing(a -> a.getAddress().getCountry()));
+            }else if(order.equals("4"))
+            {
+                centers.sort(Comparator.comparing(a -> a.getAddress().getCity()));
+                Collections.reverse(centers);
+            }else if(order.equals("5"))
+            {
+                centers.sort(Comparator.comparing(a -> a.getAddress().getCity()));
+            }
+
         }
 
         Map<String, Object> response = new HashMap<>();

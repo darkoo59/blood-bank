@@ -22,6 +22,19 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+
+      <mat-form-field class="section" appearance="fill">
+        <mat-label>Order by</mat-label>
+          <mat-select [(value)]="selectedOrder">
+            <mat-option value="-1">None</mat-option>
+            <mat-option value='0'>Name ↑</mat-option>
+            <mat-option value='1'>Name ↓</mat-option>
+            <mat-option value="2">Country ↑</mat-option>
+            <mat-option value="3">Country ↓</mat-option>
+            <mat-option value="4">City ↑</mat-option>
+            <mat-option value="5">City ↓</mat-option>
+          </mat-select>
+        </mat-form-field>
     <div class="buttons">
       <button mat-flat-button color="accent" class="button" (click)= "searchCenters()">Search</button>
       <button mat-flat-button color="primary" type="reset" class="button" (click)= "resetForm()">Reset</button>
