@@ -36,6 +36,7 @@ import bloodcenter.working_days.WorkingDaysRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -43,6 +44,7 @@ import java.time.Month;
 import java.util.List;
 
 @Configuration
+@EnableScheduling
 public class BloodConfiguration {
     @Bean
     CommandLineRunner BloodCLR(BloodRepository repository) {
