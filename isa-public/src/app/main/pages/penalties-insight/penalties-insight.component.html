@@ -1,0 +1,6 @@
+<mat-card class="card">
+  <mat-card-content>
+    <p class="status-text" [ngClass]="{'disabled': penalties >= 3}">You have {{ penalties }} penalties.</p>
+    <p *ngIf="hasPenalties()">Penalties will be reset on {{ getFirstDayOfNextMonth() }} </p>
+  </mat-card-content>
+</mat-card>

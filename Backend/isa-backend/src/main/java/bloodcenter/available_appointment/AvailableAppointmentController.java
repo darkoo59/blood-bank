@@ -3,10 +3,15 @@ package bloodcenter.available_appointment;
 import bloodcenter.appointment.AppointmentService;
 import bloodcenter.available_appointment.dto.AvailableAppointmentsDTO;
 import bloodcenter.core.ErrorResponse;
+import bloodcenter.exceptions.AppointmentNotAvailableAnymore;
 import bloodcenter.exceptions.QuestionnaireNotCompleted;
 import bloodcenter.exceptions.UserCannotGiveBloodException;
+import bloodcenter.exceptions.UserPenaltiesException;
 import bloodcenter.person.model.BCAdmin;
+import bloodcenter.security.filter.AuthUtility;
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -39,7 +44,8 @@ public class AvailableAppointmentController {
     @PostMapping
     @Secured({"ROLE_BCADMIN"})
     public ResponseEntity<Object> createAvailableAppointment(HttpServletRequest request,@RequestBody AvailableAppointmentsDTO appointmentsDTO) throws Exception {
-        availabeAppointmentService.create(request,appointmentsDTO);
+        String adminEmail = AuthUtility.getEmailFromRequest(request);
+        availabeAppointmentService.create(adminEmail, appointmentsDTO);
         return new ResponseEntity<>(OK);
     }
 
@@ -47,20 +53,17 @@ public class AvailableAppointmentController {
     @Secured({"ROLE_USER"})
     public ResponseEntity<?> scheduleAppointment(HttpServletRequest request, @RequestBody Long id) {
         try {
-            appointmentService.scheduleAppointment(request, id);
+            String userEmail = AuthUtility.getEmailFromRequest(request);
+            appointmentService.scheduleAppointment(userEmail, id);
             return new ResponseEntity<>(OK);
-        } catch (UserCannotGiveBloodException | QuestionnaireNotCompleted e) {
+        } catch (HibernateException | OptimisticLockingFailureException e) {
+            return new ResponseEntity<>("The appointment has become unavailable in the meantime", BAD_REQUEST);
+        } catch (UserCannotGiveBloodException | AppointmentNotAvailableAnymore | QuestionnaireNotCompleted |
+                 UserPenaltiesException e) {
             return new ResponseEntity<>(e.getMessage(), BAD_REQUEST);
         } catch (Exception e) {
             return new ResponseEntity<>("Unknown error occurred", BAD_REQUEST);
         }
-    }
-
-    @PutMapping("/cancel")
-    @Secured({"ROLE_USER"})
-    public ResponseEntity<?> cancelAppointment(HttpServletRequest request, @RequestBody Long id) {
-
-        return new ResponseEntity<>(OK);
     }
 
     @ExceptionHandler({ Exception.class })

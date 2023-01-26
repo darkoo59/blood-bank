@@ -5,6 +5,7 @@ import { dataReady } from '@syncfusion/ej2-angular-schedule';
 import { LatLng } from 'leaflet';
 import { catchError, of, tap } from 'rxjs';
 import { Comment } from "src/app/model/comment.model";
+import { LoadingService } from 'src/app/services/loading.service';
 import { BcsingleService } from './bc-single-show.service';
 
 @Component({
@@ -26,7 +27,7 @@ export class BcSingleShowComponent implements OnInit {
   }));
 
   constructor(private m_BcsingleService: BcsingleService, private m_Route: ActivatedRoute, 
-    private m_SnackBar: MatSnackBar, private m_Router: Router) { }
+    private m_SnackBar: MatSnackBar, private m_Router: Router, private m_LoadingService: LoadingService) { }
 
   ngOnInit() {
   }
@@ -49,13 +50,15 @@ export class BcSingleShowComponent implements OnInit {
   }
 
   makeAppointment(id: string) {
+    this.m_LoadingService.setLoading = true
     this.m_BcsingleService.scheduleAppointment(id).pipe(catchError(res => {
       this.m_SnackBar.open(res.error, 'Close', { duration: 5000 })
-      this.m_Router.navigate(['/user-appointments'])
+      this.m_LoadingService.setLoading = false
       return of()
     }))
     .subscribe(_ => {
       this.m_SnackBar.open(`Successfully scheduled`, 'Close', { duration: 3000 })
+      this.m_LoadingService.setLoading = false
       this.m_Router.navigate(['/user-appointments'])
     });
   }

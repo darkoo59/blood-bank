@@ -17,6 +17,7 @@ import bloodcenter.feedback.Feedback;
 import bloodcenter.feedback.FeedbackRepository;
 import bloodcenter.person.enums.Sex;
 import bloodcenter.person.model.Admin;
+import bloodcenter.person.model.UserRank;
 import bloodcenter.person.repository.AdminRepository;
 import bloodcenter.questionnaire.enums.QuestionType;
 import bloodcenter.questionnaire.model.Question;
@@ -36,6 +37,7 @@ import bloodcenter.working_days.WorkingDaysRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -43,6 +45,7 @@ import java.time.Month;
 import java.util.List;
 
 @Configuration
+@EnableScheduling
 public class BloodConfiguration {
     @Bean
     CommandLineRunner BloodCLR(BloodRepository repository) {
@@ -171,10 +174,10 @@ public class BloodConfiguration {
     @Bean
     CommandLineRunner UserCLR(UserRepository repository, RoleRepository role_repo) {
         return args -> {
-            User u1 = new User("Rade", "Stojanovic", "rade@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0641232133","1234567891011", Sex.MALE,"Default occupation","Default information");
-            User u3 = new User("Vojin", "Bjelica", "vojinb111@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0646677732","1264567891221",Sex.MALE,"Default occupation","Default information");
-            User u2 = new User("Darko", "Selakovic", "darko.selakovic11@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","064143421","1234567391011",Sex.MALE,"Default occupation","Default information");
-            User u4 = new User("Marko", "Uljarevic", "marko@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","064312221","1324567691011",Sex.MALE,"Default occupation","Default information");
+            User u1 = new User("Rade", "Stojanovic", "rade@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0641232133","1234567891011", Sex.MALE,"Default occupation","Default information", UserRank.Regular, 500);
+            User u3 = new User("Vojin", "Bjelica", "vojinb111@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0646677732","1264567891221",Sex.MALE,"Default occupation","Default information",UserRank.Silver, 1500);
+            User u2 = new User("Darko", "Selakovic", "darko.selakovic11@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","064143421","1234567391011",Sex.MALE,"Default occupation","Default information",UserRank.Gold, 2500);
+            User u4 = new User("Marko", "Uljarevic", "marko@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","064312221","1324567691011",Sex.MALE,"Default occupation","Default information",UserRank.Regular,0);
 
             u1.setEnabled(true);
             u2.setEnabled(true);
@@ -202,21 +205,21 @@ public class BloodConfiguration {
             Appointment a4 = new Appointment(u2);
             Appointment a5 = new Appointment(u2);
 
-            a1.setBegin(LocalDateTime.of(2022, Month.DECEMBER, 21, 19, 0));
-            a1.setEnd(LocalDateTime.of(2022, Month.DECEMBER, 21, 20, 30));
+            a1.setBegin(LocalDateTime.of(2023, Month.JANUARY, 21, 19, 0));
+            a1.setEnd(LocalDateTime.of(2023, Month.JANUARY, 21, 20, 30));
             a1.setTitle("Naslov 1");
-            a2.setBegin(LocalDateTime.of(2022, Month.DECEMBER, 22, 12, 30));
-            a2.setEnd(LocalDateTime.of(2022, Month.DECEMBER, 22, 13, 0));
+            a2.setBegin(LocalDateTime.of(2023, Month.JANUARY, 22, 12, 30));
+            a2.setEnd(LocalDateTime.of(2023, Month.JANUARY, 22, 13, 0));
             a2.setTitle("Naslov 2");
-            a3.setBegin(LocalDateTime.of(2022, Month.DECEMBER, 25, 12, 30));
-            a3.setEnd(LocalDateTime.of(2022, Month.DECEMBER, 25, 13, 0));
+            a3.setBegin(LocalDateTime.of(2023, Month.JANUARY, 25, 12, 30));
+            a3.setEnd(LocalDateTime.of(2023, Month.JANUARY, 25, 13, 0));
             a3.setTitle("Naslov 3");
             a4.setTitle("Marko 1");
-            a4.setBegin(LocalDateTime.of(2022, Month.DECEMBER, 26, 12, 30));
-            a4.setEnd(LocalDateTime.of(2022, Month.DECEMBER, 26, 15, 0));
+            a4.setBegin(LocalDateTime.of(2023, Month.JANUARY, 26, 12, 30));
+            a4.setEnd(LocalDateTime.of(2023, Month.JANUARY, 26, 15, 0));
             a5.setTitle("Marko 2");
-            a5.setBegin(LocalDateTime.of(2022, Month.DECEMBER, 26, 16, 0));
-            a5.setEnd(LocalDateTime.of(2022, Month.DECEMBER, 26, 17, 0));
+            a5.setBegin(LocalDateTime.of(2023, Month.JANUARY, 26, 16, 0));
+            a5.setEnd(LocalDateTime.of(2023, Month.JANUARY, 26, 17, 0));
 
             repository.saveAll(List.of(a1, a2, a3, a4, a5));
         };
@@ -225,16 +228,16 @@ public class BloodConfiguration {
     @Bean
     CommandLineRunner AvailableAppointmentCLR(AvailableAppointmentRepository repository, BranchCenterRepository bc_repo){
         return args -> {
-            AvailableAppointment a1 = new AvailableAppointment("Available appointment",LocalDateTime.of(2022, Month.DECEMBER, 21, 18, 00),
-                    LocalDateTime.of(2022, Month.DECEMBER, 21, 19, 00));
-            AvailableAppointment a2 = new AvailableAppointment("Available appointment",LocalDateTime.of(2022, Month.DECEMBER, 22, 15, 00),
-                    LocalDateTime.of(2022, Month.DECEMBER, 22, 15, 30));
-            AvailableAppointment a3 = new AvailableAppointment("Available appointment",LocalDateTime.of(2022, Month.DECEMBER, 24, 14, 20),
-                    LocalDateTime.of(2022, Month.DECEMBER, 24, 15, 00));
-            AvailableAppointment a4 = new AvailableAppointment("Available appointment",LocalDateTime.of(2022, Month.DECEMBER, 24, 14, 20),
-                    LocalDateTime.of(2022, Month.DECEMBER, 24, 15, 00));
-            AvailableAppointment a5 = new AvailableAppointment("Available appointment",LocalDateTime.of(2022, Month.DECEMBER, 24, 14, 20),
-                    LocalDateTime.of(2022, Month.DECEMBER, 24, 15, 00));
+            AvailableAppointment a1 = new AvailableAppointment("Available appointment",LocalDateTime.of(2023, Month.DECEMBER, 21, 18, 00),
+                    LocalDateTime.of(2023, Month.DECEMBER, 21, 19, 00));
+            AvailableAppointment a2 = new AvailableAppointment("Available appointment",LocalDateTime.of(2023, Month.DECEMBER, 22, 15, 00),
+                    LocalDateTime.of(2023, Month.DECEMBER, 22, 15, 30));
+            AvailableAppointment a3 = new AvailableAppointment("Available appointment",LocalDateTime.of(2023, Month.DECEMBER, 24, 14, 20),
+                    LocalDateTime.of(2023, Month.DECEMBER, 24, 15, 00));
+            AvailableAppointment a4 = new AvailableAppointment("Available appointment",LocalDateTime.of(2023, Month.DECEMBER, 24, 14, 20),
+                    LocalDateTime.of(2023, Month.DECEMBER, 24, 15, 00));
+            AvailableAppointment a5 = new AvailableAppointment("Available appointment",LocalDateTime.of(2023, Month.DECEMBER, 24, 14, 20),
+                    LocalDateTime.of(2023, Month.DECEMBER, 24, 15, 00));
 
             a1.setBranchCenter(bc_repo.findById(1L).get());
             a2.setBranchCenter(bc_repo.findById(1L).get());

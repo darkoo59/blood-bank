@@ -14,4 +14,12 @@ export class UserAppointmentsService {
   getAllAppointmentsByUserId(userId:number|undefined) : Observable<Appointment[]> {
     return this.http.get<Appointment[]>(`${environment.apiUrl}/appointment/all-for-user/${userId}`);
   }
+
+  getAllPastAppointmentsByUserId(userId:number|undefined) : Observable<Appointment[]> {
+    return this.http.get<Appointment[]>(`${environment.apiUrl}/appointment/history/${userId}`);
+  }
+
+  cancelAppointment(id: number) {
+    return this.http.patch(`${environment.apiUrl}/appointment/cancel/${id}`, {})
+  }
 }

@@ -36,6 +36,10 @@ export class UserService extends GenericDataService<User> {
     }
   }
 
+  getUserPenalties(userId: number | undefined): Observable<any>{
+    return this.addErrorHandler(this.m_Http.get(`${environment.apiUrl}/user/penalties/${userId}`, {}));
+  }
+
   changeUserPassword(dto: ChangeUserPasswordDTO): Observable<any> {
     return this.addErrorHandler(this.m_Http.patch(`${environment.apiUrl}/person/password`, dto));
   }
@@ -45,5 +49,13 @@ export class UserService extends GenericDataService<User> {
     phone: personToUpdate.phone, nationalId: personToUpdate.nationalId, sex: personToUpdate.sex, occupation: personToUpdate.occupation,
     information: personToUpdate.information}
     return this.m_Http.patch(`${environment.apiUrl}/person`, body);
+  }
+
+  getUserRank(id:number) : Observable<string> {
+    return this.m_Http.get<string>(`${environment.apiUrl}/user/getRank/${id}`)
+  }
+
+  getUserPoints(id:number) : Observable<string> {
+    return this.m_Http.get<string>(`${environment.apiUrl}/user/getPoints/${id}`)
   }
 }

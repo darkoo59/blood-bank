@@ -33,6 +33,8 @@ public findAllByPages(request: any) : Observable<BranchCenterPage>{
   if(request.city != null && request.city != undefined && request.city != ''){
     params = params.set('city',request.city);
   }
+  if(request.order != '-1')
+    params = params.set('order',request.order);
   return this.http.get<BranchCenterPage>(this.branchCentersUrl+'/all-centers-pagination', {params: params});
 }
 

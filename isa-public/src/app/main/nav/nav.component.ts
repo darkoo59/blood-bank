@@ -31,6 +31,26 @@ export class NavComponent {
 
   m_UserRoutes: NavRoute[] = [
     {
+      path: 'visit/history',
+      title: 'Visit History'
+    },
+    {
+      path: 'user-appointments',
+      title: 'My Appointments'
+    },
+    {
+      path: 'qr-codes',
+      title: 'My QR Codes'
+    },
+    {
+      path: 'penalties',
+      title: 'Penalties Insight'
+    },
+    {
+      path: 'complaints/create',
+      title: 'Make Complaint'
+    },
+    {
       path: 'questionnaire',
       title: 'Questionnaire'
     },
@@ -38,10 +58,6 @@ export class NavComponent {
       path: 'schedule-appointment',
       title: 'Schedule Appointment'
     },
-    {
-      path: 'user-appointments',
-      title: 'My appointments'
-    }
   ];
 
   m_BCAdminRoutes: NavRoute[] = [
@@ -60,6 +76,10 @@ export class NavComponent {
     {
       path: "calendar",
       title: 'Calendar'
+    },
+    {
+      path: "map-sim",
+      title: 'Blood delivery simulator'
     }
   ];
 

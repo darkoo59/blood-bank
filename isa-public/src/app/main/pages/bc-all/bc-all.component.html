@@ -22,6 +22,19 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+
+      <mat-form-field class="section" appearance="fill">
+        <mat-label>Order by</mat-label>
+          <mat-select [(value)]="selectedOrder">
+            <mat-option value="-1">None</mat-option>
+            <mat-option value='0'>Name ↑</mat-option>
+            <mat-option value='1'>Name ↓</mat-option>
+            <mat-option value="2">Country ↑</mat-option>
+            <mat-option value="3">Country ↓</mat-option>
+            <mat-option value="4">City ↑</mat-option>
+            <mat-option value="5">City ↓</mat-option>
+          </mat-select>
+        </mat-form-field>
     <div class="buttons">
       <button mat-flat-button color="accent" class="button" (click)= "searchCenters()">Search</button>
       <button mat-flat-button color="primary" type="reset" class="button" (click)= "resetForm()">Reset</button>
@@ -29,14 +42,16 @@
   </form>
   <div class="grid">
     <mat-card class="card" *ngFor="let center of centersPageInfo.branchCenters">
-      <mat-card-title>{{center.name}}</mat-card-title>
+      <div class="card-title-container">
+        <mat-card-title> {{center.name}} </mat-card-title>
+        <button class="view-button" mat-flat-button color="accent" class="view-button" (click)="openBC(center.id)">View</button>
+      </div>
       <mat-card-content>
         <p><b>Description: </b>{{center.description}}</p>
         <p><b>Country: </b>{{center.address.country}}</p>
         <p><b>City: </b>{{center.address.city}}</p>
         <p><b>Address: </b>{{center.address.street}} {{center.address.number}}</p>
         <grade *ngIf="center.feedback && center.feedback.length != 0" class="grade" [i_Grade]="calculateAverage(center.feedback)"></grade>
-        <button mat-flat-button color="accent" class="view-button" (click)="openBC(center.id)">View</button>
       </mat-card-content>
     </mat-card>
   </div>

@@ -4,6 +4,7 @@ import { Router } from "@angular/router"
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { catchError, of } from "rxjs"
 import { AuthService, RegisterDTO } from "../../services/auth.service"
+import { LoadingService } from "src/app/services/loading.service"
 
 @Component({
   selector: 'app-register',
@@ -38,7 +39,10 @@ export class RegisterComponent{
   m_Errors: string[] = [];
   m_State: boolean = false;
 
-  constructor(private m_AuthService : AuthService, private m_SnackBar: MatSnackBar, private m_Router: Router){ }
+  constructor(private m_AuthService : AuthService, 
+              private m_SnackBar: MatSnackBar, 
+              private m_Router: Router,
+              private m_LoadingService: LoadingService){ }
 
   onSubmit() {
     this.m_Errors.length = 0
@@ -72,22 +76,25 @@ export class RegisterComponent{
       information: data.information
     }
 
+    this.m_LoadingService.setLoading = true
     this.m_AuthService.register(dto)
       .pipe(catchError(res => {
-        console.log(res)
         const errors = res.error.errors
 
         if (!errors) {
           this.m_Errors.push(res.error)
+          this.m_LoadingService.setLoading = false
           return of()
         }
 
         for (let e in errors) {
           this.m_Errors.push(errors[e])
         }
+        this.m_LoadingService.setLoading = false
         return of()
       }))
       .subscribe(_ => {
+        this.m_LoadingService.setLoading = false
         this.m_SnackBar.open(`Successfully registered`, 'Close', { duration: 4000 })
         this.m_Router.navigate(['/home'])
       });

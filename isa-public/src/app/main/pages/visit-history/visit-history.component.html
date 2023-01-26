@@ -1,0 +1,18 @@
+<section>
+  <div>
+    <mat-card class="card" *ngFor="let appointment of appointments">
+      <div class="card-title-container">
+        <mat-card-title> {{appointment.title}} </mat-card-title>
+      </div>
+      <mat-card-content>
+        <p><b>Time: </b> {{ formatDate(appointment.begin) }} {{ formatTime(appointment.begin) }} - {{ formatTime(appointment.end) }} </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div *ngIf="appointments.length == 0">
+    <div class="icon-div">
+      <mat-icon class="icon">speaker_notes_off</mat-icon>
+    </div>
+    <h1 class="no-available-text">You have not visited any branch center yet</h1>
+  </div>
+</section>

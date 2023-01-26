@@ -59,6 +59,8 @@ public class SecurityConfig {
                 "/api/user/register",
                 "/api/user/registration/confirm",
                 "/api/user/logout",
+                "/api/user/getRank/**",
+                "/api/user/getPoints/**",
                 "/api/branch-center/all-centers-pagination",
                 "/api/branch-center/all",
                 "/api/branch-center/allCountries",
@@ -71,7 +73,11 @@ public class SecurityConfig {
                 "/api/subscribed-hospital/subscribe",
                 "/api/subscribed-hospital/unsubscribe",
                 "/api/news/publish",
-                "/api/blood-request"
+                "/api/blood-request",
+                "/actuator/prometheus",
+                "/actuator/**",
+                "/actuator/health",
+                "/api/map-sim/**"
         ).permitAll();
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);

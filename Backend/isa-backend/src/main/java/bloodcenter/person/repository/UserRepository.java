@@ -17,6 +17,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value="SELECT u FROM user_ u WHERE LOWER(CONCAT(u.firstname, ' ', u.lastname)) LIKE %?1% OR LOWER(CONCAT(u.lastname, ' ', u.firstname)) LIKE %?1%")
     List<User> searchUsers(String searchInput);
 
+    @Query("SELECT u.penalties FROM user_ u WHERE u.id = :userId")
+    int findPenaltiesByUserId(Long userId);
+
     @Transactional
     @Modifying
     @Query("UPDATE user_ u " + "SET u.enabled = TRUE WHERE u.email = ?1")

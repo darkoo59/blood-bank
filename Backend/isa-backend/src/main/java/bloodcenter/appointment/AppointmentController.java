@@ -2,14 +2,23 @@ package bloodcenter.appointment;
 
 import bloodcenter.appointment.dto.CreateAppointmentDTO;
 import bloodcenter.core.ErrorResponse;
+import bloodcenter.exceptions.AppointmentDoesNotExistException;
+import bloodcenter.exceptions.CancellationTooLateException;
 import bloodcenter.utils.ObjectsMapper;
+import com.google.zxing.WriterException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/appointment")
@@ -37,6 +46,12 @@ public class AppointmentController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/qr-codes/{id}")
+    @Secured({"ROLE_USER"})
+    public ResponseEntity<List<byte[]>> getQrCodeImageByUserId(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(service.getQrCodeByUserId(id), HttpStatus.OK);
+    }
+
     @GetMapping()
     @Secured({"ROLE_USER", "ROLE_BCADMIN"})
     public ResponseEntity<Object> getAllAppointments(){
@@ -53,13 +68,32 @@ public class AppointmentController {
     @GetMapping("/is-capable-for-blood-donation/{userId}")
     @Secured({"ROLE_USER"})
     public ResponseEntity<Object> IsCapableForBloodDonation(@PathVariable("userId") long userId){
-        return new ResponseEntity<>(service.HaveYouGiveBloodLastSixMonths(userId), HttpStatus.OK);
+        return new ResponseEntity<>(service.hasDonatedBloodInLastSixMonths(userId), HttpStatus.OK);
     }
 
     @PostMapping("/user-schedule")
     @Secured({"ROLE_USER"})
-    public ResponseEntity<Object> createNewAppointment(@RequestBody CreateAppointmentDTO appointmentDTO) throws MessagingException {
+    public ResponseEntity<Object> createNewAppointment(@RequestBody CreateAppointmentDTO appointmentDTO) throws MessagingException, IOException, WriterException {
         service.userCreateAppointment(appointmentDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    
+    @GetMapping("/all-for-user/{userId}")
+    @Secured({"ROLE_USER"})
+    public ResponseEntity<Object> getAllAppointmentsByUserId(@PathVariable("userId") long userId){
+        return new ResponseEntity<>(service.findAllInFutureByUserId(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/history/{userId}")
+    @Secured({"ROLE_USER"})
+    public ResponseEntity<Object> getAllPastAppointmentsByUserId(@PathVariable("userId") long userId){
+        return new ResponseEntity<>(service.findAllPastAppointmentsByUserId(userId), HttpStatus.OK);
+    }
+
+    @PatchMapping("/cancel/{appointmentId}")
+    @Secured({"ROLE_USER"})
+    public ResponseEntity<?> cancelAppointment(@PathVariable("appointmentId") long id) throws AppointmentDoesNotExistException, CancellationTooLateException {
+        service.cancelAppointment(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -67,11 +101,5 @@ public class AppointmentController {
     public ResponseEntity<Object> handleExceptions(Exception ex) {
         ex.printStackTrace();
         return new ResponseEntity<>(new ErrorResponse(ex.getMessage()), HttpStatus.BAD_REQUEST);
-    }
-    
-    @GetMapping("/all-for-user/{userId}")
-    @Secured({"ROLE_USER"})
-    public ResponseEntity<Object> getAllAppointmentsByUserId(@PathVariable("userId") long userId){
-        return new ResponseEntity<>(service.findAllInFutureByUserId(userId), HttpStatus.OK);
     }
 }

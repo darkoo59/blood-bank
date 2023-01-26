@@ -15,7 +15,16 @@
 }
 
 .no-available-text{
-  font-size: 280%;
+  font-size: 200%;
   margin-top: 25%;
-  margin-left: 15%;
+  margin-left: 25%;
+}
+
+.card-title-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.view-button {
+  margin-left: auto;
 }

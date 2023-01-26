@@ -5,24 +5,23 @@ import bloodcenter.appointment.dto.CreateAppointmentDTO;
 import bloodcenter.available_appointment.AvailableAppointment;
 import bloodcenter.available_appointment.AvailableAppointmentService;
 import bloodcenter.email.service.EmailService;
-import bloodcenter.exceptions.QuestionnaireNotCompleted;
-import bloodcenter.exceptions.UserCannotGiveBloodException;
+import bloodcenter.exceptions.*;
 import bloodcenter.person.model.User;
 import bloodcenter.person.service.UserService;
 import bloodcenter.questionnaire.service.QuestionnaireService;
-import bloodcenter.security.filter.AuthUtility;
 import bloodcenter.utils.QRCodeGenerator;
 import com.google.zxing.WriterException;
-import bloodcenter.email.EmailSender;
-import bloodcenter.email.service.EmailService;
 import bloodcenter.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
+import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -76,15 +75,15 @@ public class AppointmentService {
         repository.deleteById(id);
 
     }
-    public boolean HaveYouGiveBloodLastSixMonths(Long userId){
+    public boolean hasDonatedBloodInLastSixMonths(Long userId){
         User user = userService.getById(userId).orElse(null);
         LocalDateTime beforeSixMonths = LocalDateTime.now().minusMonths(6);
-        List<Appointment>appointments = repository.getAppointmentByEndAfterAndUser(beforeSixMonths, user);
+        List<Appointment>appointments = repository.getAppointmentByEndAfterAndUserAndStarted(beforeSixMonths, user, true);
 
         return appointments.size() != 0;
     }
 
-    public void userCreateAppointment(CreateAppointmentDTO appointmentDTO) throws MessagingException {
+    public void userCreateAppointment(CreateAppointmentDTO appointmentDTO) throws MessagingException, IOException, WriterException {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         LocalDateTime dateTime = LocalDateTime.parse(appointmentDTO.getSelectedDate(), formatter);
         AvailableAppointment selectedAvailableAppointment = availableAppointmentService.getByUserSelectedDateAndBcId(dateTime,
@@ -93,10 +92,37 @@ public class AppointmentService {
         appointment.setBegin(selectedAvailableAppointment.getStart());
         appointment.setEnd(selectedAvailableAppointment.getEnd());
         User user = userService.getById(appointmentDTO.getUserId()).get();
+        appointment.setTitle("Appointment for " + user.getFirstname() + " " + user.getLastname());
         appointment.setUser(user);
         repository.save(appointment);
         availableAppointmentService.remove(selectedAvailableAppointment);
-        emailService.send(user.getEmail(),"Appointment informations",buildEmail(appointment));
+
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy.");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        String QRCodeText =
+                        "User: " + appointment.getUser().getFirstname() + " " + appointment.getUser().getLastname() + "\n" +
+                        "Time: " + appointment.getBegin().format(dateFormatter) + " " +
+                        appointment.getBegin().format(timeFormatter) + " - " +
+                        appointment.getEnd().format(timeFormatter) + "\n";
+
+        String QRCodeCreatedPath = QRPath + appointment.getUser().getFirstname().toLowerCase() +
+                appointment.getUser().getLastname().toLowerCase()+ "_" +
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern("ddMMyyyy_HHmm")) + ".png";
+        QRCodeGenerator.generateQRCodeImage(QRCodeText, 250, 250, QRCodeCreatedPath);
+
+        String qrPath = FileSystems.getDefault().getPath(QRCodeCreatedPath).toString();
+        emailService.sendWithImage(appointment.getUser().getEmail(), "Appointment scheduled",
+                buildAppointmentEmail(appointment.getUser().getFirstname()), qrPath);
+    }
+
+    public void cancelAppointment(Long appointmentId) throws AppointmentDoesNotExistException, CancellationTooLateException {
+        var appointment = repository.findById(appointmentId);
+        if (appointment.isEmpty()) throw new AppointmentDoesNotExistException();
+        if (appointment.get().getBegin().isBefore(LocalDateTime.now().plusHours(24))) {
+            throw new CancellationTooLateException();
+        }
+        repository.delete(appointment.get());
     }
 
     public List<AppointmentDTO> findAllInFutureByUserId(long userId) {
@@ -108,6 +134,15 @@ public class AppointmentService {
                 appointmentsToReturn.add(ObjectsMapper.convertAppointmentToDTO(appointment));
         }
         return appointmentsToReturn;
+    }
+
+    public List<AppointmentDTO> findAllPastAppointmentsByUserId(long userId) {
+        List<Appointment> appointments = repository.getAllByUser_IdAndEndBefore(userId, LocalDateTime.now());
+        List<AppointmentDTO> appointmentsDTO = new ArrayList<>();
+        for (Appointment appointment : appointments) {
+            appointmentsDTO.add(ObjectsMapper.convertAppointmentToDTO(appointment));
+        }
+        return appointmentsDTO;
     }
 
     private String buildEmail(Appointment appointment) {
@@ -183,11 +218,16 @@ public class AppointmentService {
     }
 
 
-    public void scheduleAppointment(HttpServletRequest request, Long id)
-            throws UserCannotGiveBloodException, QuestionnaireNotCompleted, IOException, WriterException, MessagingException {
-        String userEmail = AuthUtility.getEmailFromRequest(request);
+    @CacheEvict(value="AvailableAppointments", allEntries = true)
+    @Transactional
+    public void scheduleAppointment(String userEmail, Long id)
+            throws UserCannotGiveBloodException, QuestionnaireNotCompleted, IOException,
+            WriterException, MessagingException, AppointmentNotAvailableAnymore, UserPenaltiesException {
         var user = userService.getUser(userEmail);
-        if (HaveYouGiveBloodLastSixMonths(user.getId())) {
+        if (user.getPenalties() >= 3) {
+            throw new UserPenaltiesException();
+        }
+        if (hasDonatedBloodInLastSixMonths(user.getId())) {
             throw new UserCannotGiveBloodException();
         }
         if (questionnaireService.getAnsweredQuestionnaireByUserId(user.getId()) == null) {
@@ -195,6 +235,7 @@ public class AppointmentService {
         }
 
         var availableAppointment = availableAppointmentService.getAvailableAppointmentById(id);
+        if (availableAppointment == null) throw new AppointmentNotAvailableAnymore();
         var appointment = new Appointment();
         appointment.setTitle(availableAppointment.getTitle());
         appointment.setBegin(availableAppointment.getStart());
@@ -215,12 +256,39 @@ public class AppointmentService {
                 appointment.getBegin().format(timeFormatter) + " - " +
                 appointment.getEnd().format(timeFormatter) + "\n";
 
-        String QRCodeCreatedPath = QRPath + appointment.getUser().getEmail() + ".png";
+        String QRCodeCreatedPath = QRPath + appointment.getUser().getFirstname().toLowerCase() +
+                appointment.getUser().getLastname().toLowerCase()+ "_" +
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern("ddMMyyyy_HHmm")) + ".png";
         QRCodeGenerator.generateQRCodeImage(QRCodeText, 250, 250, QRCodeCreatedPath);
 
         String qrPath = FileSystems.getDefault().getPath(QRCodeCreatedPath).toString();
         emailService.sendWithImage(appointment.getUser().getEmail(), "Appointment scheduled",
                 buildAppointmentEmail(appointment.getUser().getFirstname()), qrPath);
+    }
+
+    public List<byte[]> getQrCodeByUserId(Long userId) {
+        if (userService.getById(userId).isEmpty()) {
+            return null;
+        }
+        User user = userService.getById(userId).get();
+        String searchString = user.getFirstname().toLowerCase() + user.getLastname().toLowerCase();
+        List<byte[]> images = new ArrayList<>();
+        try {
+            File folder = new File("src/main/resources/qrcodes");
+            File[] listOfFiles = folder.listFiles();
+            if (listOfFiles == null) {
+                return null;
+            }
+            for (File file : listOfFiles) {
+                if (file.isFile() && file.getName().toLowerCase().contains(searchString)) {
+                    byte[] imageBytes = Files.readAllBytes(file.toPath());
+                    images.add(imageBytes);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return images;
     }
 
     private String buildAppointmentEmail(String name) {
@@ -290,5 +358,9 @@ public class AppointmentService {
                 "  </tbody></table><div class=\"yj6qo\"></div><div class=\"adL\">\n" +
                 "\n" +
                 "</div></div>";
+    }
+
+    public void save(Appointment appointment) {
+        repository.save(appointment);
     }
 }

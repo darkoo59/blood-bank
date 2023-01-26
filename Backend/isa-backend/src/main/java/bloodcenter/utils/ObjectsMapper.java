@@ -16,6 +16,7 @@ import bloodcenter.feedback.Feedback;
 import bloodcenter.feedback.dto.FeedbackAuthorDTO;
 import bloodcenter.feedback.dto.FeedbackDTO;
 import bloodcenter.person.dto.*;
+import bloodcenter.person.enums.Sex;
 import bloodcenter.person.model.Admin;
 import bloodcenter.person.model.BCAdmin;
 import bloodcenter.person.model.Person;
@@ -64,8 +65,8 @@ public class ObjectsMapper {
 
     public static AvailableAppointment convertDTOToAvailableAppointment(AvailableAppointmentsDTO dto){
         AvailableAppointment appointment = new AvailableAppointment();
-        appointment.setStart(LocalDateTime.parse(dto.getStart(), DateTimeFormatter.ISO_OFFSET_DATE_TIME));
-        appointment.setEnd(LocalDateTime.parse(dto.getEnd(), DateTimeFormatter.ISO_OFFSET_DATE_TIME));
+        appointment.setStart(LocalDateTime.parse(dto.getStart(), DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss z")));
+        appointment.setEnd(LocalDateTime.parse(dto.getEnd(), DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss z")));
         appointment.setTitle(dto.getTitle());
         return appointment;
     }
@@ -98,11 +99,30 @@ public class ObjectsMapper {
     }
 
     public static User convertRegisterDTOToUser(RegisterDTO registerDTO) {
-        modelMapper.addMappings(new PropertyMap<RegisterDTO, User>() {
+//        modelMapper.addMappings(new PropertyMap<RegisterDTO, User>() {
+//            protected void configure() {
+//                skip(destination.getId());
+//            }
+//
+//        });
+//        return modelMapper.map(registerDTO, User.class);
+        ModelMapper modelMapper = new ModelMapper();
+        PropertyMap<RegisterDTO, User> answerMap = new PropertyMap<>() {
             protected void configure() {
                 skip(destination.getId());
+                map().setFirstname(source.getFirstname());
+                map().setLastname(source.getLastname());
+                map().setEmail(source.getEmail());
+                map().setPassword(source.getPassword());
+                map().setPhone(source.getPhone());
+                map().setNationalId(source.getNationalId());
+                map().setSex(source.getSex());
+                map().setOccupation(source.getOccupation());
+                map().setInformation(source.getInformation());
             }
-        });
+        };
+
+        modelMapper.addMappings(answerMap);
         return modelMapper.map(registerDTO, User.class);
     }
 
