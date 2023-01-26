@@ -35,8 +35,8 @@ public class ComplaintService {
             complaint.setReplied(true);
             complaintRepository.save(complaint);
             System.out.println("Replied to complaint with id: " + dto.id + ". Text is: " + dto.text);
-            //emailService.send(complaint.getUser().getEmail(), "Complaint response",
-             //        dto.text);
+            emailService.send(complaint.getUser().getEmail(), "Complaint response",
+                     dto.text);
             return true;
         } else {
             return false;
