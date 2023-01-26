@@ -10,7 +10,7 @@
 <hr>
 
 #### Grpc protocol
-  Da bi maven prepoznao fajlove za Grpc potrebno je otici u File->Project Structure->Modules
+  Da bi maven prepoznao fajlove za gRPC potrebno je otici u File->Project Structure->Modules, odabrati isa-backend module, pa zatim otvoriti target folder, selektovati foder generated-sources i nakon desnog klika na njega oznaciti ga kao Sources.  
   
 #### RabbitMQ
   ...
