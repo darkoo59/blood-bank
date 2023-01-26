@@ -20,12 +20,23 @@ export class BCRegisterComponent implements OnInit {
 
   form: UntypedFormGroup = new UntypedFormGroup({
     'bc-name': new FormControl(null, Validators.required),
-    'bc-description': new FormControl(null)
+    'bc-description': new FormControl(null),
+    'bc-monday': new FormControl(null),
+    'bc-tuesday': new FormControl(null),
+    'bc-wednesday': new FormControl(null),
+    'bc-thursday': new FormControl(null),
+    'bc-friday': new FormControl(null),
+    'bc-saturday': new FormControl(null),
+    'bc-sunday': new FormControl(null),
+    'bc-start': new FormControl(null, Validators.required),
+    'bc-end': new FormControl(null, Validators.required)
   })
 
   m_Errors: string[] = [];
   m_Address: Address | null = null;
   m_MapInput: LatLng | null = new LatLng(45.2549038, 19.8382191);
+
+
 
   onSubmit() : void {
 
@@ -36,7 +47,16 @@ export class BCRegisterComponent implements OnInit {
     const dto: BCRegisterDTO = {
       name: this.form.get('bc-name')?.value,
       description: this.form.get('bc-description')?.value,
-      address: this.m_Address
+      address: this.m_Address,
+      monday: this.form.get('bc-monday')?.value,
+      tuesday: this.form.get('bc-tuesday')?.value,
+      wednesday: this.form.get('bc-wednesday')?.value,
+      thursday: this.form.get('bc-thursday')?.value,
+      friday: this.form.get('bc-friday')?.value,
+      saturday: this.form.get('bc-saturday')?.value,
+      sunday: this.form.get('bc-sunday')?.value,
+      startTime: this.form.get('bc-start')?.value,
+      endTime: this.form.get('bc-end')?.value
     }
 
     console.log(dto);

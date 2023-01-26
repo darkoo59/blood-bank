@@ -20,6 +20,27 @@
         <textarea class="description-area" matInput placeholder="Ex. It makes me feel..." formControlName="bc-description"></textarea>
       </mat-form-field>
 
+      <div class="example-checkbox" >
+        <h4>Work days:</h4>
+        <p><mat-checkbox formControlName="bc-monday">Monday</mat-checkbox></p>
+        <p><mat-checkbox formControlName="bc-tuesday">Tuesday</mat-checkbox></p>
+        <p><mat-checkbox formControlName="bc-wednesday">Wendesday</mat-checkbox></p>
+        <p><mat-checkbox formControlName="bc-thursday">Thursday</mat-checkbox></p>
+        <p><mat-checkbox formControlName="bc-friday">Friday</mat-checkbox></p>
+        <p><mat-checkbox formControlName="bc-saturday">Saturday</mat-checkbox></p>
+        <p><mat-checkbox formControlName="bc-sunday">Sunday</mat-checkbox></p>
+      </div>
+
+      <mat-form-field class="input-field" appearance="fill">
+        <mat-label>Work hours start</mat-label>
+        <input type="time" matInput formControlName="bc-start">
+      </mat-form-field>
+
+      <mat-form-field class="input-field" appearance="fill">
+        <mat-label>Work hours end</mat-label>
+        <input type="time" matInput formControlName="bc-end">
+      </mat-form-field>
+
       <div class="button-group">
         <button type="button" mat-button>Cancel</button>
         <button mat-flat-button color="primary">Submit</button>

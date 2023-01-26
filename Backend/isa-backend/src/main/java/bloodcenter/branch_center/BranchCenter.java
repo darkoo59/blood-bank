@@ -60,6 +60,15 @@ public class BranchCenter {
         this.endTime = end;
     }
 
+    public BranchCenter(String name, String description, Address address, LocalTime start, LocalTime end, WorkingDay workingDays) {
+        this.name = name;
+        this.description = description;
+        this.address = address;
+        this.startTime = start;
+        this.endTime = end;
+        this.workingDays = workingDays;
+    }
+
     public BranchCenter(String name, String description, Address address) {
         this.name = name;
         this.description = description;

@@ -8,11 +8,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 
 @Entity
 @NoArgsConstructor
 @Getter
 @Setter
+@Transactional
 public class Complaint {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +33,16 @@ public class Complaint {
 
     private boolean replied;
 
+    @Version
+    private long Version;
+
     public Complaint(String text) {
+        this.text = text;
+        this.replied = false;
+    }
+
+    public Complaint(Long id, String text) {
+        this.id = id;
         this.text = text;
         this.replied = false;
     }
