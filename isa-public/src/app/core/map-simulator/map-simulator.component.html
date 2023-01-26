@@ -1,0 +1,22 @@
+<section *ngLet="{
+    current: m_Current$ | async,
+    source: m_Source$ | async,
+    destination: m_Destination$ | async
+  } as vm">
+  <div *ngIf="!m_Loading">
+    <h3>Blood delivery simulator</h3>
+    <mat-divider></mat-divider>
+
+    <div  class="map"
+          leaflet 
+          [leafletOptions]="m_Options"
+          [(leafletCenter)]="m_Center"
+          [ngStyle]="{'height': m_Height + 'px'}">
+      <div *ngIf="m_Marker" [leafletLayer]="m_Marker"></div>
+      <div *ngIf="m_Source" [leafletLayer]="m_Source"></div>
+      <div *ngIf="m_Destination" [leafletLayer]="m_Destination"></div>
+    </div>
+  </div>
+
+  <page-loader *ngIf="m_Loading"></page-loader>
+</section>

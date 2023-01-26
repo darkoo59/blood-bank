@@ -60,6 +60,10 @@ export class NavComponent {
     {
       path: "calendar",
       title: 'Calendar'
+    },
+    {
+      path: "map-sim",
+      title: 'Blood delivery simulator'
     }
   ];
 
