@@ -3,8 +3,8 @@
 ### Public app:
 <hr>
   `cd isa-public` <br>
-  Run 'npm install' for installing dependencies <br>
-  Run `ng serve` for a dev server. <br>
+  `npm install` for installing dependencies <br>
+  `ng serve` for a dev server. <br>
   Navigate to `http://localhost:4200/`. 
 
 ### Backend server
