@@ -8,9 +8,11 @@ import bloodcenter.security.filter.AuthUtility;
 import bloodcenter.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,21 +39,22 @@ public class AvailableAppointmentService {
         return appointmentsToReturn;
     }
 
-    @Transactional
+    public List<AvailableAppointment> getAllUnauthorized(){
+        return repository.findAll();
+    }
+
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void create(String adminEmail, AvailableAppointmentsDTO appointmentsDTO) throws Exception {
-        synchronized (this) {
-//            Thread.sleep(5000);
-            BranchCenter branchCenter = bcAdminService.getBranchCenterByAdminEmail(adminEmail);
-            AvailableAppointment appointment = ObjectsMapper.convertDTOToAvailableAppointment(appointmentsDTO);
-            appointment.setBranchCenter(branchCenter);
 
-            List<AvailableAppointment> apps = repository.getAvailableAppointmentsBetweenDates(appointment.getStart(), appointment.getEnd());
+        BranchCenter branchCenter = bcAdminService.getBranchCenterByAdminEmail(adminEmail);
+        AvailableAppointment appointment = ObjectsMapper.convertDTOToAvailableAppointment(appointmentsDTO);
+        appointment.setBranchCenter(branchCenter);
 
-            if(!apps.isEmpty())
-                throw new Exception("There is already an appointment specified for the chosen time interval.");
+        List<AvailableAppointment> apps = repository.getAvailableAppointmentsBetweenDates(appointment.getStart(), appointment.getEnd());
 
-            repository.save(appointment);
-        }
+        if(!apps.isEmpty())
+            throw new Exception("There is already an appointment specified for the chosen time interval.");
+        repository.save(appointment);
     }
 
     public List<AvailableAppointment> getByBranchCenterId(Long id) {
