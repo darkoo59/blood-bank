@@ -4,7 +4,7 @@
 <hr>
   `cd isa-public` <br>
   `npm install` for installing dependencies <br>
-  `ng serve` for a dev server. <br>
+  `ng serve` for a dev server. <br>Cancel changes
   Navigate to `http://localhost:4200/`. 
 
 ### Backend server
@@ -25,5 +25,5 @@
   Alati,biblioteke i slično: RabbitMQ, GRPC protokol, Mail servis, Syncfusion calendar, Material for Angular,...
   
 ### Skripte za bazu podataka
-  Podaci se u bazu ubacuju iz aplikacije, nema posebnih skripti za ubacivanje podataka
+  Kada se pokrene aplikacija, podaci se automatski ubacuju u bazu. Nema posebnih skripti za ubacivanje podataka.
   
