@@ -2,7 +2,8 @@
 
 ### Public app:
 <hr>
-  `cd public-app` <br>
+  `cd isa-public` <br>
+  Run 'npm install' for installing dependencies <br>
   Run `ng serve` for a dev server. <br>
   Navigate to `http://localhost:4200/`. 
 
