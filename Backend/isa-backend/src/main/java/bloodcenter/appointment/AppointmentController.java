@@ -5,6 +5,7 @@ import bloodcenter.core.ErrorResponse;
 import bloodcenter.exceptions.AppointmentDoesNotExistException;
 import bloodcenter.exceptions.CancellationTooLateException;
 import bloodcenter.utils.ObjectsMapper;
+import com.google.zxing.WriterException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("api/appointment")
@@ -60,7 +62,7 @@ public class AppointmentController {
 
     @PostMapping("/user-schedule")
     @Secured({"ROLE_USER"})
-    public ResponseEntity<Object> createNewAppointment(@RequestBody CreateAppointmentDTO appointmentDTO) throws MessagingException {
+    public ResponseEntity<Object> createNewAppointment(@RequestBody CreateAppointmentDTO appointmentDTO) throws MessagingException, IOException, WriterException {
         service.userCreateAppointment(appointmentDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
