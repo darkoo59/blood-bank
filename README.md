@@ -13,5 +13,12 @@
   Da bi maven prepoznao fajlove za Grpc potrebno je otici u File->Project Structure->Modules
   
 #### RabbitMQ
+  ...
   
+#### application.properties
+  ...
+
+### Alati
+  
+
   
