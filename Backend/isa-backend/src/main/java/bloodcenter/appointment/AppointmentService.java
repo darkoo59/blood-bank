@@ -83,7 +83,7 @@ public class AppointmentService {
         return appointments.size() != 0;
     }
 
-    public void userCreateAppointment(CreateAppointmentDTO appointmentDTO) throws MessagingException {
+    public void userCreateAppointment(CreateAppointmentDTO appointmentDTO) throws MessagingException, IOException, WriterException {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         LocalDateTime dateTime = LocalDateTime.parse(appointmentDTO.getSelectedDate(), formatter);
         AvailableAppointment selectedAvailableAppointment = availableAppointmentService.getByUserSelectedDateAndBcId(dateTime,
@@ -92,10 +92,28 @@ public class AppointmentService {
         appointment.setBegin(selectedAvailableAppointment.getStart());
         appointment.setEnd(selectedAvailableAppointment.getEnd());
         User user = userService.getById(appointmentDTO.getUserId()).get();
+        appointment.setTitle("Appointment for " + user.getFirstname() + " " + user.getLastname());
         appointment.setUser(user);
         repository.save(appointment);
         availableAppointmentService.remove(selectedAvailableAppointment);
-        emailService.send(user.getEmail(),"Appointment informations",buildEmail(appointment));
+
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy.");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        String QRCodeText =
+                        "User: " + appointment.getUser().getFirstname() + " " + appointment.getUser().getLastname() + "\n" +
+                        "Time: " + appointment.getBegin().format(dateFormatter) + " " +
+                        appointment.getBegin().format(timeFormatter) + " - " +
+                        appointment.getEnd().format(timeFormatter) + "\n";
+
+        String QRCodeCreatedPath = QRPath + appointment.getUser().getFirstname().toLowerCase() +
+                appointment.getUser().getLastname().toLowerCase()+ "_" +
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern("ddMMyyyy_HHmm")) + ".png";
+        QRCodeGenerator.generateQRCodeImage(QRCodeText, 250, 250, QRCodeCreatedPath);
+
+        String qrPath = FileSystems.getDefault().getPath(QRCodeCreatedPath).toString();
+        emailService.sendWithImage(appointment.getUser().getEmail(), "Appointment scheduled",
+                buildAppointmentEmail(appointment.getUser().getFirstname()), qrPath);
     }
 
     public void cancelAppointment(Long appointmentId) throws AppointmentDoesNotExistException, CancellationTooLateException {
