@@ -4,7 +4,7 @@
 <hr>
   `cd isa-public` <br>
   `npm install` for installing dependencies <br>
-  `ng serve` for a dev server. <br>
+  `ng serve` for a dev server. <br>Cancel changes
   Navigate to `http://localhost:4200/`. 
 
 ### Backend server
@@ -23,5 +23,7 @@
   Frontend: Angular 14
   Backend: Java Spring Boot, Maven
   Alati,biblioteke i slično: RabbitMQ, GRPC protokol, Mail servis, Syncfusion calendar, Material for Angular,...
-
+  
+### Skripte za bazu podataka
+  Kada se pokrene aplikacija, podaci se automatski ubacuju u bazu. Nema posebnih skripti za ubacivanje podataka.
   
