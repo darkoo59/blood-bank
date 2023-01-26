@@ -12,7 +12,6 @@ export class Interceptor implements HttpInterceptor {
         if(req.url.indexOf(environment.apiUrl) == -1){
             return next.handle(req);
         }
-
         return this.m_AuthService.m_AccessToken$.pipe(
             take(1),
             switchMap((t: string | null) => {

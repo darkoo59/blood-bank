@@ -3,6 +3,7 @@ package bloodcenter.blood;
 import bloodcenter.api_key.Key;
 import bloodcenter.api_key.KeyService;
 import bloodcenter.core.ErrorResponse;
+import bloodcenter.location_simulator.LocationSimulatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +16,12 @@ import java.util.List;
 public class BloodController {
     private final BloodService bloodService;
     private final KeyService keyService;
+    private final LocationSimulatorService simulatorService;
     @Autowired
-    public BloodController(BloodService bloodService, KeyService keyService){
+    public BloodController(BloodService bloodService, KeyService keyService, LocationSimulatorService simulatorService){
         this.bloodService = bloodService;
         this.keyService = keyService;
+        this.simulatorService = simulatorService;
     }
 
     @GetMapping
@@ -45,6 +48,11 @@ public class BloodController {
 
     @PatchMapping("/tender/confirm")
     public ResponseEntity<Boolean> confirmTender(){
+        double A_lng = 19.849729;
+        double A_lat = 45.245186;
+        double B_lng = 19.824388;
+        double B_lat = 45.259405;
+        simulatorService.initiateLocationService(A_lng, A_lat, B_lng, B_lat);
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
 

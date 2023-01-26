@@ -73,8 +73,9 @@ public class SecurityConfig {
                 "/api/news/publish",
                 "/api/blood-request",
                 "/actuator/prometheus",
-                "/actuator/*",
-                "/actuator/health"
+                "/actuator/**",
+                "/actuator/health",
+                "/api/map-sim/**"
         ).permitAll();
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);

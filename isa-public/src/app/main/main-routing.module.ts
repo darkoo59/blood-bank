@@ -89,6 +89,12 @@ const routes: Routes = [
         data: { roles: ["ROLE_BCADMIN"] }
       },
       {
+        path: 'map-sim',
+        loadChildren: () => import('../core/map-simulator/map-simulator.module').then(m => m.MapSimulatorModule),
+        canActivate: [RoleGuard],
+        data: { roles: ["ROLE_BCADMIN"] }
+      },
+      {
         path: 'calendar',
         component: CalendarComponent,
         canActivate: [RoleGuard],
