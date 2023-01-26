@@ -1,19 +1,13 @@
 <section>
-  <div *ngIf="appointments.length == 0">
-    <div class="icon-div">
-      <mat-icon class="icon">speaker_notes_off</mat-icon>
-    </div>
-    <h1 class="no-available-text">There is no upcoming appointments</h1>
-  </div>
   <div>
     <mat-card class="card" *ngFor="let appointment of appointments">
       <div class="card-title-container">
         <mat-card-title> {{appointment.title}} </mat-card-title>
         <div matTooltip="Cancellations must be made at least 24 hours before start time" [matTooltipDisabled]="isCancelButtonActivated(appointment.begin)">
-        <button class="view-button" 
-                mat-flat-button 
-                color="accent" 
-                class="view-button" 
+        <button class="view-button"
+                mat-flat-button
+                color="accent"
+                class="view-button"
                 [disabled]="!isCancelButtonActivated(appointment.begin)"
                 (click)="cancel(appointment.id)">
           Cancel
@@ -24,5 +18,11 @@
         <p><b>Time: </b> {{ formatDate(appointment.begin) }} {{ formatTime(appointment.begin) }} - {{ formatTime(appointment.end) }} </p>
       </mat-card-content>
     </mat-card>
+  </div>
+  <div *ngIf="appointments.length == 0">
+    <div class="icon-div">
+      <mat-icon class="icon">speaker_notes_off</mat-icon>
+    </div>
+    <h1 class="no-available-text">There is no available appointments</h1>
   </div>
 </section>
