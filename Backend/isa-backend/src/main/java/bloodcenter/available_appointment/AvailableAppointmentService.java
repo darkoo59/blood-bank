@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.cache.annotation.Cacheable;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
@@ -29,6 +30,7 @@ public class AvailableAppointmentService {
         this.bcAdminService = bcAdminService;
     }
 
+    @Cacheable(value = "AvailableAppointments")
     public List<AvailableAppointmentsDTO> getAll(HttpServletRequest request) throws BCAdmin.BCAdminNotFoundException {
         String adminEmail = AuthUtility.getEmailFromRequest(request);
         BranchCenter branchCenter = bcAdminService.getBranchCenterByAdminEmail(adminEmail);

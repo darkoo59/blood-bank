@@ -57,17 +57,17 @@ public class MultipleAppointmentScheduleTest {
         AvailableAppointment availableAppointment = new AvailableAppointment(1l,"Slobodan test", LocalDateTime.of(2023, Month.FEBRUARY, 21, 15, 0),LocalDateTime.of(2023, Month.FEBRUARY, 21, 16, 0));
         availableAppointmentService.save(availableAppointment);
         User u1 = new User("Test", "Test", "test@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0641232133","1234567491011", Sex.MALE,"Default occupation","Default information", UserRank.Regular, 500);
+        User u2 = new User("Test2", "Test2", "test2@gmail.com", "$2a$10$2WkfD1m/Ff5ZsB7JClTLfemMsAWzzaGPXoYFKlMY725YHcApCG8Je","0611242133","1134467491011", Sex.MALE,"Default occupation","Default information", UserRank.Regular, 500);
         userService.saveUser(u1);
+        userService.saveUser(u2);
         Question question = new Question("Test question?", QuestionType.FOR_EVERYONE);
+        Question question2 = new Question("Test question2?", QuestionType.FOR_EVERYONE);
         questionService.save(question);
+        questionService.save(question2);
         Answer answer = new Answer(question, u1, true);
+        Answer answer2 = new Answer(question2, u2, true);
         answerService.save(answer);
-        Appointment appointment = new Appointment(u1);
-        appointment.setBegin(LocalDateTime.of(2023, Month.FEBRUARY, 21, 15, 0));
-        appointment.setEnd(LocalDateTime.of(2023, Month.FEBRUARY, 21, 16, 00));
-        appointment.setTitle("Test 1");
-        appointment.setId(1l);
-        appointmentService.save(appointment);
+        answerService.save(answer2);
     }
 
     @Test(expected = ObjectOptimisticLockingFailureException.class)
@@ -103,7 +103,7 @@ public class MultipleAppointmentScheduleTest {
                 System.out.println("Startovan thread 2");
                 AvailableAppointment appointmentToRespond = availableAppointmentService.findById(1l);
                 try {
-                    appointmentService.scheduleAppointment("test@gmail.com", 1l);
+                    appointmentService.scheduleAppointment("test2@gmail.com", 1l);
                 } catch (UserCannotGiveBloodException e) {
                     throw new RuntimeException(e);
                 } catch (QuestionnaireNotCompleted e) {

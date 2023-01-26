@@ -13,6 +13,7 @@ import bloodcenter.utils.QRCodeGenerator;
 import com.google.zxing.WriterException;
 import bloodcenter.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -188,6 +189,7 @@ public class AppointmentService {
     }
 
 
+    @CacheEvict(value="AvailableAppointments", allEntries = true)
     @Transactional
     public void scheduleAppointment(String userEmail, Long id)
             throws UserCannotGiveBloodException, QuestionnaireNotCompleted, IOException,
