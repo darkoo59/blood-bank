@@ -70,8 +70,14 @@ public class UserService {
     }
     @Cacheable(value = "Users")
     public List<User> getAll() { return this.userRepository.findAll(); }
+
+    public Integer findPenaltiesByUserId(Long id) {
+        return userRepository.findPenaltiesByUserId(id);
+    }
+
     public void registerUser(RegisterDTO registerDTO) throws EmailExistsException, MessagingException {
         User user = ObjectsMapper.convertRegisterDTOToUser(registerDTO);
+        System.out.println(user.getAddress().getCity());
         boolean emailExists = userRepository.findByEmail(user.getEmail()).isPresent();
         if (emailExists) {
             throw new EmailExistsException();

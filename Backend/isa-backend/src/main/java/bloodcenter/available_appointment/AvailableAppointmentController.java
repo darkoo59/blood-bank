@@ -6,6 +6,7 @@ import bloodcenter.core.ErrorResponse;
 import bloodcenter.exceptions.AppointmentNotAvailableAnymore;
 import bloodcenter.exceptions.QuestionnaireNotCompleted;
 import bloodcenter.exceptions.UserCannotGiveBloodException;
+import bloodcenter.exceptions.UserPenaltiesException;
 import bloodcenter.person.model.BCAdmin;
 import bloodcenter.security.filter.AuthUtility;
 import org.hibernate.HibernateException;
@@ -57,7 +58,8 @@ public class AvailableAppointmentController {
             return new ResponseEntity<>(OK);
         } catch (HibernateException | OptimisticLockingFailureException e) {
             return new ResponseEntity<>("The appointment has become unavailable in the meantime", BAD_REQUEST);
-        } catch (UserCannotGiveBloodException | AppointmentNotAvailableAnymore | QuestionnaireNotCompleted e) {
+        } catch (UserCannotGiveBloodException | AppointmentNotAvailableAnymore | QuestionnaireNotCompleted |
+                 UserPenaltiesException e) {
             return new ResponseEntity<>(e.getMessage(), BAD_REQUEST);
         } catch (Exception e) {
             return new ResponseEntity<>("Unknown error occurred", BAD_REQUEST);

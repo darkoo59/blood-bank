@@ -18,8 +18,10 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.transaction.Transactional;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
+import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -134,6 +136,15 @@ public class AppointmentService {
         return appointmentsToReturn;
     }
 
+    public List<AppointmentDTO> findAllPastAppointmentsByUserId(long userId) {
+        List<Appointment> appointments = repository.getAllByUser_IdAndEndBefore(userId, LocalDateTime.now());
+        List<AppointmentDTO> appointmentsDTO = new ArrayList<>();
+        for (Appointment appointment : appointments) {
+            appointmentsDTO.add(ObjectsMapper.convertAppointmentToDTO(appointment));
+        }
+        return appointmentsDTO;
+    }
+
     private String buildEmail(Appointment appointment) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
                 "\n" +
@@ -211,8 +222,11 @@ public class AppointmentService {
     @Transactional
     public void scheduleAppointment(String userEmail, Long id)
             throws UserCannotGiveBloodException, QuestionnaireNotCompleted, IOException,
-            WriterException, MessagingException, AppointmentNotAvailableAnymore {
+            WriterException, MessagingException, AppointmentNotAvailableAnymore, UserPenaltiesException {
         var user = userService.getUser(userEmail);
+        if (user.getPenalties() >= 3) {
+            throw new UserPenaltiesException();
+        }
         if (hasDonatedBloodInLastSixMonths(user.getId())) {
             throw new UserCannotGiveBloodException();
         }
@@ -242,12 +256,39 @@ public class AppointmentService {
                 appointment.getBegin().format(timeFormatter) + " - " +
                 appointment.getEnd().format(timeFormatter) + "\n";
 
-        String QRCodeCreatedPath = QRPath + appointment.getUser().getEmail() + ".png";
+        String QRCodeCreatedPath = QRPath + appointment.getUser().getFirstname().toLowerCase() +
+                appointment.getUser().getLastname().toLowerCase()+ "_" +
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern("ddMMyyyy_HHmm")) + ".png";
         QRCodeGenerator.generateQRCodeImage(QRCodeText, 250, 250, QRCodeCreatedPath);
 
         String qrPath = FileSystems.getDefault().getPath(QRCodeCreatedPath).toString();
         emailService.sendWithImage(appointment.getUser().getEmail(), "Appointment scheduled",
                 buildAppointmentEmail(appointment.getUser().getFirstname()), qrPath);
+    }
+
+    public List<byte[]> getQrCodeByUserId(Long userId) {
+        if (userService.getById(userId).isEmpty()) {
+            return null;
+        }
+        User user = userService.getById(userId).get();
+        String searchString = user.getFirstname().toLowerCase() + user.getLastname().toLowerCase();
+        List<byte[]> images = new ArrayList<>();
+        try {
+            File folder = new File("src/main/resources/qrcodes");
+            File[] listOfFiles = folder.listFiles();
+            if (listOfFiles == null) {
+                return null;
+            }
+            for (File file : listOfFiles) {
+                if (file.isFile() && file.getName().toLowerCase().contains(searchString)) {
+                    byte[] imageBytes = Files.readAllBytes(file.toPath());
+                    images.add(imageBytes);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return images;
     }
 
     private String buildAppointmentEmail(String name) {

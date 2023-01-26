@@ -9,6 +9,7 @@ import bloodcenter.complaint.ComplaintService;
 import bloodcenter.exceptions.AppointmentNotAvailableAnymore;
 import bloodcenter.exceptions.QuestionnaireNotCompleted;
 import bloodcenter.exceptions.UserCannotGiveBloodException;
+import bloodcenter.exceptions.UserPenaltiesException;
 import bloodcenter.person.enums.Sex;
 import bloodcenter.person.model.User;
 import bloodcenter.person.model.UserRank;
@@ -82,17 +83,8 @@ public class MultipleAppointmentScheduleTest {
                 try { Thread.sleep(3000); } catch (InterruptedException e) {}
                 try {
                     appointmentService.scheduleAppointment("test@gmail.com", 1l);
-                } catch (UserCannotGiveBloodException e) {
-                    throw new RuntimeException(e);
-                } catch (QuestionnaireNotCompleted e) {
-                    throw new RuntimeException(e);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                } catch (WriterException e) {
-                    throw new RuntimeException(e);
-                } catch (MessagingException e) {
-                    throw new RuntimeException(e);
-                } catch (AppointmentNotAvailableAnymore e) {
+                } catch (QuestionnaireNotCompleted | IOException | WriterException | MessagingException |
+                         AppointmentNotAvailableAnymore | UserCannotGiveBloodException | UserPenaltiesException e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -104,17 +96,8 @@ public class MultipleAppointmentScheduleTest {
                 AvailableAppointment appointmentToRespond = availableAppointmentService.findById(1l);
                 try {
                     appointmentService.scheduleAppointment("test2@gmail.com", 1l);
-                } catch (UserCannotGiveBloodException e) {
-                    throw new RuntimeException(e);
-                } catch (QuestionnaireNotCompleted e) {
-                    throw new RuntimeException(e);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                } catch (WriterException e) {
-                    throw new RuntimeException(e);
-                } catch (MessagingException e) {
-                    throw new RuntimeException(e);
-                } catch (AppointmentNotAvailableAnymore e) {
+                } catch (QuestionnaireNotCompleted | IOException | WriterException | MessagingException |
+                         AppointmentNotAvailableAnymore | UserCannotGiveBloodException | UserPenaltiesException e) {
                     throw new RuntimeException(e);
                 }
             }

@@ -2,9 +2,9 @@ package bloodcenter.available_appointment;
 
 import bloodcenter.available_appointment.dto.AvailableAppointmentsDTO;
 import bloodcenter.branch_center.BranchCenter;
-import bloodcenter.complaint.Complaint;
 import bloodcenter.person.model.BCAdmin;
 import bloodcenter.person.service.BCAdminService;
+import bloodcenter.person.service.UserService;
 import bloodcenter.security.filter.AuthUtility;
 import bloodcenter.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +23,10 @@ import java.util.List;
 public class AvailableAppointmentService {
     private final AvailableAppointmentRepository repository;
     private final BCAdminService bcAdminService;
+
     @Autowired
     public AvailableAppointmentService(AvailableAppointmentRepository repository, BCAdminService
-                                       bcAdminService){
+                                       bcAdminService, UserService userService){
         this.repository = repository;
         this.bcAdminService = bcAdminService;
     }
