@@ -50,6 +50,11 @@ public class UserController {
         return new ResponseEntity<>(convertUserListToDTO(userService.getAll()), OK);
     }
 
+    @GetMapping("/penalties/{id}")
+    public ResponseEntity<?> getUserPenalties(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(userService.findPenaltiesByUserId(id), OK);
+    }
+
     @GetMapping("/search")
     @Secured({"ROLE_ADMIN", "ROLE_BCADMIN"})
     public ResponseEntity<List<User>> searchUsers(@RequestParam String searchInput) {

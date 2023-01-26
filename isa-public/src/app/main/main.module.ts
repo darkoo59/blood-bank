@@ -28,6 +28,10 @@ import { SysAdminRegisterComponent } from './pages/sys-admin-register/sys-admin-
 import { SysAdminPasswordComponent } from './pages/sys-admin-password/sys-admin-password.component';
 import { ComplaintsComponent } from './pages/complaints/complaints.component';
 import { UserAppointmentsComponent } from './pages/user-appointments/user-appointments.component';
+import { VisitHistoryComponent } from './pages/visit-history/visit-history.component';
+import { QrCodesComponent } from './pages/qr-codes/qr-codes.component';
+import { PenaltiesInsightComponent } from './pages/penalties-insight/penalties-insight.component';
+import { MakeComplaintComponent } from './pages/make-complaint/make-complaint.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +50,11 @@ import { UserAppointmentsComponent } from './pages/user-appointments/user-appoin
     SysAdminRegisterComponent,
     SysAdminPasswordComponent,
     UserAppointmentsComponent,
-    ComplaintsComponent
+    ComplaintsComponent,
+    VisitHistoryComponent,
+    QrCodesComponent,
+    PenaltiesInsightComponent,
+    MakeComplaintComponent
   ],
   imports: [
     CommonModule,

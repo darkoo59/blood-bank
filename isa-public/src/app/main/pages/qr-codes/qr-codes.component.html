@@ -1,0 +1,15 @@
+<section>
+  <div>
+    <mat-card class="card" *ngFor="let qrCode of qrCodes">
+      <mat-card-content>
+        <img [src]="qrCode">
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div *ngIf="qrCodes.length == 0">
+    <div class="icon-div">
+      <mat-icon class="icon">speaker_notes_off</mat-icon>
+    </div>
+    <h1 class="no-available-text">You never scheduled an appointment</h1>
+  </div>
+</section>

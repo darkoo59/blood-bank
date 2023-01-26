@@ -12,4 +12,5 @@ import java.util.List;
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
     List<Appointment> getAppointmentByEndAfterAndUserAndStarted(LocalDateTime date, User user, Boolean hasStarted);
     List<Appointment> getAllByUser_Id(long id);
+    List<Appointment> getAllByUser_IdAndEndBefore(Long id, LocalDateTime date);
 }

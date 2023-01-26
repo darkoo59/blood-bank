@@ -17,6 +17,10 @@ import { SysAdminPasswordComponent } from './pages/sys-admin-password/sys-admin-
 import { ComplaintsComponent } from './pages/complaints/complaints.component';
 import { UserAppointmentsComponent } from './pages/user-appointments/user-appointments.component';
 import { BcSingleShowComponent } from './pages/bc-single-show/bc-single-show.component';
+import { VisitHistoryComponent } from './pages/visit-history/visit-history.component';
+import { QrCodesComponent } from './pages/qr-codes/qr-codes.component';
+import { PenaltiesInsightComponent } from './pages/penalties-insight/penalties-insight.component';
+import { MakeComplaintComponent } from './pages/make-complaint/make-complaint.component';
 
 const routes: Routes = [
   {
@@ -56,6 +60,30 @@ const routes: Routes = [
       {
         path: 'questionnaire',
         component: QuestionnaireComponent,
+        canActivate: [RoleGuard],
+        data: { roles: ["ROLE_USER"] }
+      },
+      {
+        path: 'visit/history',
+        component: VisitHistoryComponent,
+        canActivate: [RoleGuard],
+        data: { roles: ["ROLE_USER"] }
+      },
+      {
+        path: 'qr-codes',
+        component: QrCodesComponent,
+        canActivate: [RoleGuard],
+        data: { roles: ["ROLE_USER"] }
+      },
+      {
+        path: 'penalties',
+        component: PenaltiesInsightComponent,
+        canActivate: [RoleGuard],
+        data: { roles: ["ROLE_USER"] }
+      },
+      {
+        path: 'complaints/create',
+        component: MakeComplaintComponent,
         canActivate: [RoleGuard],
         data: { roles: ["ROLE_USER"] }
       },

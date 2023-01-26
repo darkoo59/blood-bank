@@ -3,7 +3,9 @@ package bloodcenter.available_appointment;
 import bloodcenter.available_appointment.dto.AvailableAppointmentsDTO;
 import bloodcenter.branch_center.BranchCenter;
 import bloodcenter.person.model.BCAdmin;
+import bloodcenter.person.model.User;
 import bloodcenter.person.service.BCAdminService;
+import bloodcenter.person.service.UserService;
 import bloodcenter.security.filter.AuthUtility;
 import bloodcenter.utils.ObjectsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,10 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +25,10 @@ import java.util.List;
 public class AvailableAppointmentService {
     private final AvailableAppointmentRepository repository;
     private final BCAdminService bcAdminService;
+
     @Autowired
     public AvailableAppointmentService(AvailableAppointmentRepository repository, BCAdminService
-                                       bcAdminService){
+                                       bcAdminService, UserService userService){
         this.repository = repository;
         this.bcAdminService = bcAdminService;
     }
