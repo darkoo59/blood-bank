@@ -12,7 +12,7 @@ import java.io.IOException;
 public class CoordinatesMessageConverter implements MessageConverter {
     @Override
     public Message toMessage(Object object, MessageProperties messageProperties) throws MessageConversionException {
-        Coordinates coordinates = (Coordinates) object;
+        LocationMessage coordinates = (LocationMessage) object;
         messageProperties.setContentType(MessageProperties.CONTENT_TYPE_JSON);
         messageProperties.setContentEncoding("UTF-8");
         try {
@@ -25,7 +25,7 @@ public class CoordinatesMessageConverter implements MessageConverter {
     @Override
     public Object fromMessage(Message message) throws MessageConversionException {
         try {
-            return new ObjectMapper().readValue(message.getBody(), Coordinates.class);
+            return new ObjectMapper().readValue(message.getBody(), LocationMessage.class);
         } catch (IOException e) {
             throw new MessageConversionException("Failed to convert message to Coordinates.", e);
         }

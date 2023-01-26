@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import simulator.Coordinates;
 import simulator.CoordinatesMessageConverter;
+import simulator.LocationMessage;
 import simulator.exceptions.ServiceCurrentlyUnavailable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -28,13 +30,17 @@ public class LocationSimulationService {
     private String routingKey;
 
     public void activateService(Coordinates A, Coordinates B) throws ServiceCurrentlyUnavailable {
-        List<Coordinates> coordinates = openRouteService.getRoute(A, B);
+        List<Coordinates> currentList = openRouteService.getRoute(A, B);
+        List<LocationMessage> coordinates = new ArrayList<>();
+        for (var coord : currentList) {
+            coordinates.add(new LocationMessage(coord, A, B));
+        }
 
         rabbitTemplate.setMessageConverter(new CoordinatesMessageConverter());
 
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
         executorService.scheduleAtFixedRate(() -> {
-            Coordinates currentCoordinates = coordinates.remove(0);
+            LocationMessage currentCoordinates = coordinates.remove(0);
             rabbitTemplate.convertAndSend(exchange, routingKey, currentCoordinates);
         }, 0, frequency, TimeUnit.SECONDS);
     }
