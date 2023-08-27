@@ -3,19 +3,19 @@
 
 <h2>📷 Project Screenshots:</h2>
 
-<img src="https://github.com/darkoo59/ISA-Project/blob/dev/Backend/isa-backend/src/main/resources/screenshots/login.png" width="1050" height="450/">
+<img src="https://github.com/darkoo59/blood-bank/blob/dev/Backend/isa-backend/src/main/resources/screenshots/login.png" width="1050" height="450/">
 
-<img src="https://github.com/darkoo59/ISA-Project/blob/dev/Backend/isa-backend/src/main/resources/screenshots/registration.png" alt="project-screenshot" width="1050" height="450/">
+<img src="https://github.com/darkoo59/blood-bank/blob/dev/Backend/isa-backend/src/main/resources/screenshots/registration.png" alt="project-screenshot" width="1050" height="450/">
 
-<img src="https://github.com/darkoo59/ISA-Project/blob/dev/Backend/isa-backend/src/main/resources/screenshots/home.png" alt="project-screenshot" width="1050" height="450/">
+<img src="https://github.com/darkoo59/blood-bank/blob/dev/Backend/isa-backend/src/main/resources/screenshots/home.png" alt="project-screenshot" width="1050" height="450/">
 
-<img src="https://github.com/darkoo59/ISA-Project/blob/dev/Backend/isa-backend/src/main/resources/screenshots/centers.png" width="1050" height="450/">
+<img src="https://github.com/darkoo59/blood-bank/blob/dev/Backend/isa-backend/src/main/resources/screenshots/centers.png" width="1050" height="450/">
 
-<img src="https://github.com/darkoo59/ISA-Project/blob/dev/Backend/isa-backend/src/main/resources/screenshots/profile.png" width="1050" height="450/">
+<img src="https://github.com/darkoo59/blood-bank/blob/dev/Backend/isa-backend/src/main/resources/screenshots/profile.png" width="1050" height="450/">
 
-<img src="https://github.com/darkoo59/ISA-Project/blob/dev/Backend/isa-backend/src/main/resources/screenshots/calendar.png" width="1050" height="450/">
+<img src="https://github.com/darkoo59/blood-bank/blob/dev/Backend/isa-backend/src/main/resources/screenshots/calendar.png" width="1050" height="450/">
 
-<img src="https://github.com/darkoo59/ISA-Project/blob/dev/Backend/isa-backend/src/main/resources/screenshots/white-theme.png" width="1050" height="450/">
+<img src="https://github.com/darkoo59/blood-bank/blob/dev/Backend/isa-backend/src/main/resources/screenshots/white-theme.png" width="1050" height="450/">
 
   
   
@@ -37,7 +37,7 @@ Here're some of the project's best features:
 <p>1. Cloning a repository</p>
 
 ```
-git clone https://github.com/darkoo59/ISA-Project.git
+git clone https://github.com/darkoo59/blood-bank.git
 ```
 
 <p>2. Starting backend application</p>
